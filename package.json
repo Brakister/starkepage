@@ -1,0 +1,23 @@
+{
+  "name": "starkepage",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prerender": "vite build --ssr src/entry-server.jsx --outDir dist-server && node scripts/prerender.mjs",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "build:static": "npm run build && npm run prerender"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.8"
+  }
+}
