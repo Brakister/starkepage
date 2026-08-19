@@ -39,13 +39,14 @@ O fluxo completo de publicação é `npm run build:static && npm run sitemap`. O
 
 ## SEO implementado
 
-- **Title e meta description únicos** por página (arquivo `src/data/seo.js`)
+- **Título e meta description únicos** por página (arquivo `src/data/seo.js`)
 - **URLs amigáveis** em kebab-case, 1 H1 por página, headings hierarquizados
 - **Canonical**, Open Graph e Twitter Card em todas as páginas
 - **BreadcrumbList** visível e marcado com JSON-LD
-- **Schema.org**: Organization, LocalBusiness (endereço SP), WebSite, Service, BlogPosting, FAQPage
+- **Schema.org**: Organization, LocalBusiness (Rua Américo Brasiliense, 2414 – São Paulo/SP), WebSite, Service, BlogPosting, FAQPage
 - **robots.txt** e **sitemap.xml**
 - Lazy-loading de imagens, CSS/JS minimizados, design mobile-first
+- Identidade visual da marca: preto + dourado (extraída do starkeparts.com)
 
 ## Integrações (placeholders)
 
@@ -53,12 +54,12 @@ Em `index.html` há blocos prontos para:
 - **Google Analytics 4** — trocar `G-XXXXXXXXXX` pelo ID real
 - **Meta Pixel** — trocar `000000000000000` pelo ID real do Pixel
 
-Dados de contato em `src/data/site.js` (telefone, WhatsApp, e-mail e endereço) estão como placeholders para preenchimento.
+Dados de contato em `src/data/site.js` (telefone, WhatsApp, e-mail e endereço).
 
 ## Personalização
 
-- **Dados de contato**: `src/data/site.js`
-- **Marcas**: `src/data/marcas.js`
+- **Dados de contato**: `src/data/site.js` (endereço real: Rua Américo Brasiliense, 2414 – Chácara Santo Antônio – São Paulo/SP · (11) 4102-1202 · WhatsApp (11) 99963-1185)
+- **Marcas de autopeças**: `src/data/marcas.js` (Brembo, Bilstein, Mahle, NGK, Textar, KYB...)
 - **Linhas de produtos**: `src/data/produtos.js`
 - **Blog**: `src/data/blog.js`
 - **FAQ**: `src/data/faq.js`

@@ -37,25 +37,25 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div>
-            <span className="kicker" style={{ color: '#f0556f' }}>Peças Automotivas Premium</span>
-            <h1>Peças Automotivas Premium para Veículos Importados</h1>
+            <span className="kicker" style={{ color: '#ffd93b' }}>Stärke Premium Parts · São Paulo</span>
+            <h1>Peças premium para carros <em>importados</em> e superesportivos</h1>
             <p className="lead">
-              Distribuímos peças automotivas importadas originais e de reposição premium para
-              Porsche, BMW, Audi, Mercedes-Benz, Land Rover e caminhões importados. Com garantia,
-              procedência e atendimento especializado.
+              Importamos e distribuímos peças de alta performance para Porsche, BMW,
+              Mercedes-Benz, Audi, Land Rover e demais marcas premium. Procedência comprovada,
+              garantia e atendimento especializado para oficinas e concessionárias em todo o Brasil.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-red" href="/produtos/">Ver produtos</a>
+              <a className="btn btn-gold" href="/produtos/">Ver produtos</a>
               <a className="btn btn-whatsapp" href={whatsappLink()}>Solicite Orçamento</a>
             </div>
             <div className="hero-stats">
               <div className="stat">
-                <b>+15</b>
-                <span>anos no mercado</span>
+                <b>2016</b>
+                <span>no mercado premium</span>
               </div>
               <div className="stat">
-                <b>7</b>
-                <span>marcas premium atendidas</span>
+                <b>20+</b>
+                <span>marcas de autopeças parceiras</span>
               </div>
               <div className="stat">
                 <b>100%</b>
@@ -78,11 +78,11 @@ export default function Home() {
       <section className="section" aria-labelledby="produtos-titulo">
         <div className="container">
           <div className="section-head">
-            <span className="kicker">Nossas linhas</span>
+            <span className="kicker">Linhas de produtos</span>
             <h2 id="produtos-titulo">Peças importadas para todas as aplicações</h2>
             <p>
-              Atendemos caminhões, veículos de passeio premium e máquinas industriais com
-              componentes de alta durabilidade.
+              De componentes de motor e freios a suspensão, filtros e elétrica — sempre com
+              procedência e padrão de fábrica.
             </p>
           </div>
           <div className="grid grid-3">
@@ -104,22 +104,22 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <span className="kicker">Quem somos</span>
-            <h2 id="sobre-resumo">Distribuidora líder em peças importadas premium</h2>
+            <h2 id="sobre-resumo">Especialistas em peças para carros importados</h2>
             <p>
-              A Stärke Premium Parts importa peças originais BMW com garantia e atende oficinas,
-              revendas e frotas em todo o Brasil. Nossa equipe técnica valida cada componente para
-              garantir compatibilidade e desempenho.
+              Desde 2016, a Stärke Premium Parts importa e distribui peças de alta qualidade para
+              as principais marcas premium, atendendo oficinas, revendedores e concessionárias em
+              todo o Brasil.
             </p>
           </div>
           <div className="grid grid-2">
             <p className="muted" style={{ margin: 0 }}>
-              Localizados em São Paulo, combinamos rede internacional de fornecedores com
-              atendimento consultivo. Da linha leve à pesada, cuidamos do processo de importação de
-              ponta a ponta: cotação, nacionalização, impostos e entrega.
+              Localizados em São Paulo, trabalhamos diretamente com os melhores fabricantes
+              internacionais de autopeças. Nossa equipe técnica valida compatibilidade por chassi
+              antes de cada envio, garantindo a peça certa na primeira entrega.
             </p>
             <p className="muted" style={{ margin: 0 }}>
-              Nosso compromisso é simples: a peça certa, com procedência comprovada, no prazo
-              combinado. Conheça nossa história e fale com um especialista.
+              Do motor à suspensão, do freio à elétrica: oferecemos soluções em manutenção e
+              importação para quem exige o melhor desempenho do seu veículo.
             </p>
           </div>
           <div style={{ marginTop: '1.5rem' }}>
@@ -131,9 +131,9 @@ export default function Home() {
       <section className="section" aria-labelledby="marcas-titulo">
         <div className="container">
           <div className="section-head">
-            <span className="kicker">Marcas atendidas</span>
-            <h2 id="marcas-titulo">Peças originais e compatíveis</h2>
-            <p>Encontre peças para as principais marcas de veículos importados do mercado.</p>
+            <span className="kicker">Marcas parceiras</span>
+            <h2 id="marcas-titulo">Trabalhamos com os melhores fabricantes</h2>
+            <p>Brembo, Bilstein, Mahle, NGK, Textar, KYB e outras marcas de referência mundial.</p>
           </div>
           <div className="brands-strip">
             {marcas.map((m) => (

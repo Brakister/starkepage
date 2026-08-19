@@ -31,7 +31,7 @@ export default function Marca() {
                 compatibilidade exata com o seu modelo.
               </p>
               <div style={{ display: 'flex', gap: '0.9rem', flexWrap: 'wrap', marginTop: '1.2rem' }}>
-                <a className="btn btn-red" href={whatsappLink()}>Solicite Orçamento</a>
+                <a className="btn btn-gold" href={whatsappLink()}>Solicite Orçamento</a>
                 <Link className="btn btn-outline" to="/contato/">Falar com especialista</Link>
               </div>
             </div>

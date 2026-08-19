@@ -38,8 +38,8 @@ const localBusinessSchema = {
     postalCode: site.address.zip,
     addressCountry: 'BR',
   },
-  geo: { '@type': 'GeoCoordinates', latitude: -23.6043, longitude: -46.6992 },
-  openingHours: 'Mo-Fr 08:00-18:00',
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.latitude, longitude: site.geo.longitude },
+  openingHours: 'Mo-Fr 08:00-18:00, Sa 09:00-13:00',
   priceRange: '$$$',
 }
 
@@ -179,10 +179,10 @@ export const seoRoutes = [
     ],
   }),
   build('/marcas/', {
-    title: 'Marcas Atendidas | Porsche, BMW, Audi, Mercedes e Mais – Stärke',
+    title: 'Marcas de Autopeças | Brembo, Bilstein, Mahle, NGK – Stärke',
     description:
-      'Peças originais e compatíveis para Porsche, BMW, Audi, Mercedes-Benz, Land Rover, Volvo e Mitsubishi. Encontre a peça certa para a sua marca.',
-    keywords: ['marcas de carros importados', 'peças Porsche Brasil', 'peças BMW'],
+      'Distribuímos peças das melhores marcas de autopeças do mundo: Brembo, Bilstein, Mahle, NGK, Textar, KYB e mais. Procedência e garantia para carros importados.',
+    keywords: ['marcas de autopeças', 'peças Brembo', 'peças Bilstein', 'peças NGK'],
     breadcrumb: [
       { name: 'Início', path: '/' },
       { name: 'Marcas', path: '/marcas/' },

@@ -3,6 +3,13 @@ import { navLinks, site, whatsappLink } from '../data/site'
 import { marcas } from '../data/marcas'
 
 function IconSocial({ type }) {
+  if (type === 'youtube') {
+    return (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+        <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z" />
+      </svg>
+    )
+  }
   if (type === 'instagram') {
     return (
       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
@@ -25,18 +32,21 @@ export default function Footer() {
           <div>
             <h4>Stärke Premium Parts</h4>
             <p>
-              Distribuidora de peças automotivas importadas premium. Procedência, garantia e
-              atendimento especializado para veículos de luxo em todo o Brasil.
+              Distribuidora de peças automotivas premium para carros importados e superesportivos.
+              Procedência, garantia e atendimento especializado em todo o Brasil.
             </p>
-            <div style={{ display: 'flex', gap: '0.8rem', marginTop: '1rem' }}>
+            <div className="social-row">
               <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <IconSocial type="instagram" />
+              </a>
+              <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <IconSocial type="facebook" />
               </a>
               <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <IconSocial type="linkedin" />
               </a>
-              <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <IconSocial type="facebook" />
+              <a href={site.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <IconSocial type="youtube" />
               </a>
             </div>
           </div>
@@ -51,9 +61,9 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4>Marcas</h4>
+            <h4>Marcas parceiras</h4>
             <ul>
-              {marcas.slice(0, 5).map((m) => (
+              {marcas.slice(0, 6).map((m) => (
                 <li key={m.slug}>
                   <Link to={`/marcas/${m.slug}/`}>Peças {m.name}</Link>
                 </li>
@@ -79,8 +89,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {site.legalName}. Todos os direitos reservados.</span>
-          <span>Peças automotivas importadas premium – São Paulo/SP</span>
+          <span>© {new Date().getFullYear()} {site.legalName} · CNPJ {site.cnpj}.</span>
+          <span>Todos os direitos reservados · São Paulo/SP</span>
         </div>
       </div>
     </footer>

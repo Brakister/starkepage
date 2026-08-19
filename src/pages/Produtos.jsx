@@ -30,7 +30,7 @@ export default function Produtos() {
                       ))}
                     </ul>
                     <div style={{ marginTop: '1.2rem' }}>
-                      <Link className="btn btn-red" to={`/produtos/${l.slug}/`}>
+                      <Link className="btn btn-gold" to={`/produtos/${l.slug}/`}>
                         Ver {l.nome} →
                       </Link>
                     </div>

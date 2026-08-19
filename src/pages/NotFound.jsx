@@ -7,7 +7,7 @@ export default function NotFound() {
         <h1>Página não encontrada</h1>
         <p className="muted">O conteúdo que você procura pode ter sido movido ou removido.</p>
         <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.9rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link className="btn btn-red" to="/">Voltar ao início</Link>
+          <Link className="btn btn-gold" to="/">Voltar ao início</Link>
           <Link className="btn btn-outline" to="/produtos/">Ver produtos</Link>
         </div>
       </div>

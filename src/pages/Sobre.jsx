@@ -15,7 +15,7 @@ export default function Sobre() {
       <PageHero
         kicker="Quem somos"
         title="Sobre a Stärke Premium Parts"
-        lead="Distribuidora de peças automotivas importadas premium com mais de 15 anos de experiência no segmento de veículos de luxo."
+        lead="Desde 2016 em São Paulo, distribuímos peças premium para carros importados e superesportivos, com importação direta e atendimento especializado."
       />
 
       <section className="section">
@@ -23,18 +23,17 @@ export default function Sobre() {
           <div className="grid grid-2" style={{ alignItems: 'center' }}>
             <div>
               <span className="kicker">Nossa história</span>
-              <h2>Especialistas em peças automotivas importadas</h2>
+              <h2>Especialistas em peças para carros importados</h2>
               <p>
-                A Stärke Premium Parts nasceu da percepção de que oficinas e proprietários de
-                veículos importados sofriam com falta de procedência, prazos longos e peças
-                incompatíveis. Criamos uma distribuidora que une rede internacional de fornecedores,
-                conferência técnica e atendimento de verdade.
+                A Stärke Premium Parts nasceu em 2016 em São Paulo com uma missão clara: oferecer ao
+                mercado brasileiro peças de alta qualidade para veículos premium e superesportivos.
+                Trabalhamos diretamente com os melhores fabricantes de autopeças do mundo, os mesmos
+                que equipam as montadoras mais conceituadas do planeta.
               </p>
               <p>
-                Hoje, importamos peças originais BMW com garantia e atendemos Porsche, Audi,
-                Mercedes-Benz, Land Rover, Volvo e Mitsubishi, além de caminhões importados e
-                aplicações industriais. Nossa sede em São Paulo concentra estoque, logística e uma
-                equipe técnica dedicada.
+                Com uma equipe focada em soluções de manutenção e importação, atendemos oficinas,
+                revendedores e concessionárias que exigem procedência e agilidade. De Porsche a BMW,
+                Mercedes-Benz, Audi e Land Rover, cuidamos de todo o processo de importação.
               </p>
             </div>
             <LazyImage

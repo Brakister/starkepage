@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="Veículos importados premium">
-  <rect width="640" height="480" fill="#242a35"/>
-  <circle cx="544" cy="72" r="168" fill="#c8102e" opacity="0.16"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="Carros importados premium">
+  <rect width="640" height="480" fill="#181818"/>
+  <circle cx="544" cy="72" r="168" fill="#f0b90b" opacity="0.16"/>
   <circle cx="64" cy="432" r="144" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(0,-18)"><path d="M90 210 h460 l-20 60 h-420 z" fill="#ffffff" opacity="0.14"/><path d="M120 210 q120-70 200-60 q100 10 200 60 z" fill="#ffffff" opacity="0.1"/><circle cx="190" cy="265" r="34" fill="#16181d"/><circle cx="190" cy="265" r="14" fill="#aeb3bd"/><circle cx="450" cy="265" r="34" fill="#16181d"/><circle cx="450" cy="265" r="14" fill="#aeb3bd"/></g>
-  <text x="50%" y="374.40000000000003" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#ffffff" opacity="0.92">Veículos importados premium</text>
+  <text x="50%" y="374.40000000000003" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#ffffff" opacity="0.92">Carros importados premium</text>
   <text x="50%" y="422.4" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21.599999999999998" fill="#aeb3bd">Imagem ilustrativa – substituir por foto real</text>
 </svg>

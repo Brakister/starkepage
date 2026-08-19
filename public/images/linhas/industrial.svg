@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Linha Industrial – máquinas">
-  <rect width="640" height="360" fill="#1a1f26"/>
-  <circle cx="544" cy="54" r="125.99999999999999" fill="#c8102e" opacity="0.16"/>
+  <rect width="640" height="360" fill="#0f0f0f"/>
+  <circle cx="544" cy="54" r="125.99999999999999" fill="#f0b90b" opacity="0.16"/>
   <circle cx="64" cy="324" r="108" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(0,-18)"><circle cx="240" cy="200" r="46" fill="#ffffff" opacity="0.14"/><circle cx="240" cy="200" r="18" fill="#16181d"/><circle cx="330" cy="240" r="38" fill="#ffffff" opacity="0.1"/><circle cx="330" cy="240" r="15" fill="#16181d"/></g>
   <text x="50%" y="280.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" opacity="0.92">Linha Industrial – máquinas</text>

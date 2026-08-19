@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="Equipe Stärke Premium Parts">
-  <rect width="640" height="480" fill="#1f232b"/>
-  <circle cx="544" cy="72" r="168" fill="#c8102e" opacity="0.16"/>
+  <rect width="640" height="480" fill="#111111"/>
+  <circle cx="544" cy="72" r="168" fill="#f0b90b" opacity="0.16"/>
   <circle cx="64" cy="432" r="144" fill="#ffffff" opacity="0.05"/>
   <g transform="translate(0,-18)"><circle cx="240" cy="200" r="46" fill="#ffffff" opacity="0.14"/><circle cx="240" cy="200" r="18" fill="#16181d"/><circle cx="330" cy="240" r="38" fill="#ffffff" opacity="0.1"/><circle cx="330" cy="240" r="15" fill="#16181d"/></g>
   <text x="50%" y="374.40000000000003" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#ffffff" opacity="0.92">Equipe Stärke Premium Parts</text>

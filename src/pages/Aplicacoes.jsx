@@ -2,39 +2,44 @@ import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import CtaSection from '../components/CtaSection'
 import LazyImage from '../components/LazyImage'
+import { vehicleBrands } from '../data/site'
 
 const aplicacoes = [
   {
-    nome: 'Carros importados',
-    slug: 'linha-leve',
-    icone: '🚗',
+    nome: 'Motor e performance',
+    icone: '⚙️',
     texto:
-      'Peças para veículos de passeio premium: Porsche, BMW, Audi, Mercedes-Benz, Land Rover e Volvo. Freios, suspensão, filtros e componentes de motor.',
-    imagem: '/images/linhas/car.svg',
+      'Componentes de motor, juntas, vedações e peças de alta performance para carros importados e superesportivos.',
   },
   {
-    nome: 'Caminhões importados',
-    slug: 'linha-pesada',
-    icone: '🚚',
+    nome: 'Freios e segurança',
+    icone: '🛑',
     texto:
-      'Peças para caminhões e frotas pesadas: Mercedes-Benz, Volvo, Scania e Mitsubishi Fuso. Componentes de alta durabilidade para operação intensa.',
-    imagem: '/images/linhas/truck.svg',
+      'Discos, pastilhas e pinças Brembo, Textar e TRW — desempenho e segurança no nível exigido pelo seu veículo.',
   },
   {
-    nome: 'Off-road e máquinas',
-    slug: 'industrial',
-    icone: '🏗️',
+    nome: 'Suspensão',
+    icone: '🔩',
     texto:
-      'Peças industriais para equipamentos off-road, geradores, máquinas de construção e aplicações severas, com foco em reduzir paradas de produção.',
-    imagem: '/images/linhas/industrial.svg',
+      'Amortecedores Bilstein, KYB, kit batente e coxim para conforto e estabilidade com padrão de fábrica.',
   },
   {
-    nome: 'Frotas e oficinas',
-    slug: 'industrial',
-    icone: '🏭',
+    nome: 'Filtros e lubrificantes',
+    icone: '🫗',
     texto:
-      'Fornecimento contínuo para oficinas, revendedores e frotas com planejamento de estoque, condições especiais e kits de manutenção preventiva.',
-    imagem: '/images/aplicacoes-frota.svg',
+      'Filtros Mahle, Hengst e UFI, além de óleos e fluidos recomendados para motores importados.',
+  },
+  {
+    nome: 'Elétrica e ignição',
+    icone: '🔋',
+    texto:
+      'Velas NGK, bobinas, sensores e componentes elétricos com a especificação exata do fabricante.',
+  },
+  {
+    nome: 'Importação sob demanda',
+    icone: '🌎',
+    texto:
+      'Peças raras ou difíceis de encontrar? Localizamos no mercado internacional e cuidamos de todo o processo.',
   },
 ]
 
@@ -43,21 +48,22 @@ export default function Aplicacoes() {
     <>
       <PageHero
         kicker="Aplicações"
-        title="Aplicações de peças automotivas importadas"
-        lead="Conheça os segmentos atendidos pela Stärke: carros importados, caminhões, máquinas industriais e operações de frotas."
+        title="Peças premium para carros importados"
+        lead="Conheça as áreas de aplicação das peças que distribuímos e as marcas de veículos que atendemos."
       />
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-2">
+          <div className="section-head">
+            <span className="kicker">Áreas de aplicação</span>
+            <h2 style={{ marginTop: 0 }}>Do motor à elétrica</h2>
+          </div>
+          <div className="grid grid-3">
             {aplicacoes.map((a) => (
-              <article className="card" key={a.nome} style={{ padding: 0, overflow: 'hidden' }}>
-                <LazyImage src={a.imagem} alt={a.nome} width="640" height="360" />
-                <div style={{ padding: '1.4rem' }}>
-                  <h3>{a.nome}</h3>
-                  <p>{a.texto}</p>
-                  <Link className="link-more" to={`/produtos/${a.slug}/`}>Ver produtos →</Link>
-                </div>
+              <article className="card feature" key={a.nome}>
+                <div className="ico" aria-hidden="true">{a.icone}</div>
+                <h3>{a.nome}</h3>
+                <p>{a.texto}</p>
               </article>
             ))}
           </div>
@@ -67,29 +73,54 @@ export default function Aplicacoes() {
       <section className="section section-alt">
         <div className="container">
           <div className="section-head">
-            <span className="kicker">Cobertura</span>
-            <h2>Atendimento em todo o Brasil</h2>
+            <span className="kicker">Marcas de veículos atendidas</span>
+            <h2>Carros importados e superesportivos</h2>
             <p>
-              Com sede em São Paulo, enviamos peças para todos os estados, com logística planejada
-              e opções de entrega expressa para urgências.
+              Atendemos as principais marcas premium do mercado brasileiro com peças de procedência
+              comprovada.
             </p>
           </div>
-          <ul className="grid grid-3" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {['Sudeste', 'Sul', 'Centro-Oeste', 'Nordeste', 'Norte', 'Exportação'].map((r) => (
-              <li key={r}>
-                <div className="card feature">
-                  <h3>{r}</h3>
-                  <p>Entrega programada e suporte local via canais digitais.</p>
-                </div>
+          <ul className="tag-list">
+            {vehicleBrands.map((b) => (
+              <li key={b}>
+                <span className="pill" style={{ padding: '0.55rem 1.1rem', fontSize: '0.9rem' }}>{b}</span>
               </li>
             ))}
           </ul>
+          <div style={{ marginTop: '2rem' }}>
+            <Link className="btn btn-outline" to="/contato/">Solicitar orçamento →</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="grid grid-2" style={{ alignItems: 'center' }}>
+            <LazyImage
+              src="/images/servicos.svg"
+              alt="Peças premium importadas para carros de luxo"
+              width="640"
+              height="420"
+            />
+            <div>
+              <span className="kicker">Cobertura nacional</span>
+              <h2 style={{ marginTop: 0 }}>Atendimento em todo o Brasil</h2>
+              <p>
+                Com matriz em São Paulo e canais em Santos, Campinas e Sorocaba, enviamos peças para
+                todos os estados com logística planejada e opção de entrega expressa.
+              </p>
+              <p>
+                Oficinas, revendedores e concessionárias contam com condições especiais e
+                previsibilidade de estoque.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       <CtaSection
         title="Sua aplicação exige uma peça específica?"
-        text="Envie os detalhes do veículo ou máquina e nossa equipe valida a melhor solução."
+        text="Envie o chassi ou o código da peça e nossa equipe valida a melhor solução."
       />
     </>
   )

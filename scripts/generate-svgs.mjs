@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const out = join(root, 'public', 'images')
 
-function svg({ width = 640, height = 360, bg = '#1f232b', accent = '#c8102e', label = '', icon }) {
+function svg({ width = 640, height = 360, bg = '#111111', accent = '#f0b90b', label = '', icon }) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
   <rect width="${width}" height="${height}" fill="${bg}"/>
   <circle cx="${width * 0.85}" cy="${height * 0.15}" r="${Math.min(width, height) * 0.35}" fill="${accent}" opacity="0.16"/>
@@ -32,43 +32,61 @@ const icons = {
 
 // Core images
 write('logo.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="Logo Stärke Premium Parts">
-  <rect width="80" height="80" rx="18" fill="#16181d"/>
+  <rect width="80" height="80" rx="18" fill="#0d0d0d"/>
   <path d="M24 22 h32 v10 h-12 v26 h-8 V32 H24 Z" fill="#ffffff"/>
-  <rect x="24" y="48" width="32" height="8" rx="2" fill="#c8102e"/>
+  <rect x="24" y="48" width="32" height="8" rx="2" fill="#f0b90b"/>
 </svg>`)
 
 write('favicon.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#c8102e"/>
-  <path d="M20 16 h24 v8 h-9 v20 h-6 V24 h-9 Z" fill="#ffffff"/>
+  <rect width="64" height="64" rx="14" fill="#f0b90b"/>
+  <path d="M20 16 h24 v8 h-9 v20 h-6 V24 h-9 Z" fill="#0d0d0d"/>
 </svg>`)
 
-write('og-default.svg', svg({ width: 1200, height: 630, bg: '#16181d', accent: '#c8102e', label: 'Stärke Premium Parts', icon: icons.car }))
+write('og-default.svg', svg({ width: 1200, height: 630, bg: '#111111', accent: '#f0b90b', label: 'Stärke Premium Parts', icon: icons.car }))
 
-write('banner-hero.svg', svg({ width: 640, height: 480, bg: '#242a35', accent: '#c8102e', label: 'Veículos importados premium', icon: icons.car }))
-write('sobre.svg', svg({ width: 640, height: 480, bg: '#1f232b', accent: '#c8102e', label: 'Equipe Stärke Premium Parts', icon: icons.gears }))
-write('servicos.svg', svg({ width: 640, height: 420, bg: '#1f232b', accent: '#c8102e', label: 'Importação e consultoria técnica', icon: icons.engine }))
-write('aplicacoes-frota.svg', svg({ width: 640, height: 360, bg: '#1f232b', accent: '#c8102e', label: 'Frotas e oficinas', icon: icons.truck }))
+write('banner-hero.svg', svg({ width: 640, height: 480, bg: '#181818', accent: '#f0b90b', label: 'Carros importados premium', icon: icons.car }))
+write('sobre.svg', svg({ width: 640, height: 480, bg: '#111111', accent: '#f0b90b', label: 'Equipe Stärke Premium Parts', icon: icons.gears }))
+write('servicos.svg', svg({ width: 640, height: 420, bg: '#111111', accent: '#f0b90b', label: 'Importação e consultoria técnica', icon: icons.engine }))
+write('aplicacoes-frota.svg', svg({ width: 640, height: 360, bg: '#111111', accent: '#f0b90b', label: 'Frotas e oficinas', icon: icons.truck }))
 
 // Linhas
-write('linhas/truck.svg', svg({ width: 640, height: 360, bg: '#1c212a', accent: '#c8102e', label: 'Linha Pesada – caminhões importados', icon: icons.truck }))
-write('linhas/car.svg', svg({ width: 640, height: 360, bg: '#1f232b', accent: '#c8102e', label: 'Linha Leve – carros importados', icon: icons.car }))
-write('linhas/industrial.svg', svg({ width: 640, height: 360, bg: '#1a1f26', accent: '#c8102e', label: 'Linha Industrial – máquinas', icon: icons.gears }))
+write('linhas/car.svg', svg({ width: 640, height: 360, bg: '#141414', accent: '#f0b90b', label: 'Linha Leve – carros importados', icon: icons.car }))
+write('linhas/truck.svg', svg({ width: 640, height: 360, bg: '#111111', accent: '#f0b90b', label: 'Linha Pesada – caminhões importados', icon: icons.truck }))
+write('linhas/industrial.svg', svg({ width: 640, height: 360, bg: '#0f0f0f', accent: '#f0b90b', label: 'Linha Industrial – máquinas', icon: icons.gears }))
 
-// Marcas (wordmark-style placeholders)
+// Marcas de autopeças (wordmark-style placeholders)
 const brandColors = {
-  porsche: '#b12b28',
-  bmw: '#1c69d4',
-  'mercedes-benz': '#3f3f3f',
-  audi: '#171717',
-  'land-rover': '#3e6b3a',
-  volvo: '#003057',
-  mitsubishi: '#c4000e',
+  bilstein: '#eab308',
+  brembo: '#c8102e',
+  mahle: '#0b3b6f',
+  ngk: '#e2231a',
+  textar: '#144f8f',
+  kayaba: '#2e3a8c',
+  febi: '#b61d22',
+  hengst: '#0072ce',
+  trw: '#333333',
+  'victor-reinz': '#003b71',
+  ufi: '#00a3e0',
+}
+const brandNames = {
+  bilstein: 'BILSTEIN',
+  brembo: 'BREMBO',
+  mahle: 'MAHLE',
+  ngk: 'NGK',
+  textar: 'TEXTAR',
+  kayaba: 'KYB',
+  febi: 'FEBI',
+  hengst: 'HENGST',
+  trw: 'TRW',
+  'victor-reinz': 'VICTOR REINZ',
+  ufi: 'UFI',
 }
 for (const [slug, color] of Object.entries(brandColors)) {
-  const name = slug === 'mercedes-benz' ? 'Mercedes-Benz' : slug.charAt(0).toUpperCase() + slug.slice(1)
+  const name = brandNames[slug]
+  const fontSize = name.length > 10 ? 12 : name.length > 7 ? 14 : 16
   write(`marcas/${slug}.svg`, `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="46" viewBox="0 0 120 46" role="img" aria-label="Peças ${name}">
   <rect width="120" height="46" rx="8" fill="${color}"/>
-  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">${name}</text>
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI, Arial, sans-serif" font-size="${fontSize}" font-weight="700" fill="#ffffff">${name}</text>
 </svg>`)
 }
 
@@ -86,7 +104,7 @@ const blogMeta = [
   ['porsche-caso.svg', 'Caso de sucesso: Porsche 911', 'car'],
 ]
 for (const [file, label, icon] of blogMeta) {
-  write(`blog/${file}`, svg({ width: 640, height: 360, bg: '#1f232b', accent: '#c8102e', label, icon: icons[icon] }))
+  write(`blog/${file}`, svg({ width: 640, height: 360, bg: '#141414', accent: '#f0b90b', label, icon: icons[icon] }))
 }
 
 console.log('SVG placeholders generated in public/images/')

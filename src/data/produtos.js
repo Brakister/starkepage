@@ -1,5 +1,21 @@
 export const linhas = [
   {
+    slug: 'linha-leve',
+    nome: 'Linha Leve',
+    titulo: 'Peças para Carros Importados',
+    categoria: 'Veículos premium e superesportivos',
+    descricao:
+      'Peças para carros importados de marcas premium como Porsche, BMW, Audi, Mercedes-Benz e Land Rover. Componentes originais e de reposição de alta qualidade para manter o desempenho e o valor do seu veículo.',
+    imagem: '/images/linhas/car.svg',
+    itens: [
+      { nome: 'Sistema de freios', detalhe: 'Discos, pastilhas e pinças para desempenho e segurança.' },
+      { nome: 'Suspensão', detalhe: 'Amortecedores, buchas e componentes de suspensão esportiva.' },
+      { nome: 'Filtros e velas', detalhe: 'Filtros de óleo, ar e cabine e velas de ignição originais.' },
+      { nome: 'Elétrica e sensores', detalhe: 'Sensores, módulos e componentes do sistema elétrico.' },
+      { nome: 'Motor e vedação', detalhe: 'Juntas, retentores e componentes internos de motor.' },
+    ],
+  },
+  {
     slug: 'linha-pesada',
     nome: 'Linha Pesada',
     titulo: 'Peças para Caminhões Importados',
@@ -13,22 +29,6 @@ export const linhas = [
       { nome: 'Suspensão e direção', detalhe: 'Amortecedores, molas, buchas e caixas de direção reforçadas.' },
       { nome: 'Filtros pesados', detalhe: 'Filtros de óleo, ar, combustível e separadores de água.' },
       { nome: 'Transmissão', detalhe: 'Embreagens, caixas de câmbio e componentes de transmissão.' },
-    ],
-  },
-  {
-    slug: 'linha-leve',
-    nome: 'Linha Leve',
-    titulo: 'Peças para Carros Importados',
-    categoria: 'Veículos de passeio premium',
-    descricao:
-      'Peças para carros importados de marcas premium como Porsche, BMW, Audi, Mercedes-Benz e Land Rover. Componentes originais e de reposição de alta qualidade para manter o desempenho e o valor do seu veículo.',
-    imagem: '/images/linhas/car.svg',
-    itens: [
-      { nome: 'Sistema de freios', detalhe: 'Discos, pastilhas e pinças para desempenho e segurança.' },
-      { nome: 'Suspensão', detalhe: 'Amortecedores, buchas e componentes de suspensão esportiva.' },
-      { nome: 'Filtros e velas', detalhe: 'Filtros de óleo, ar e cabine e velas de ignição originais.' },
-      { nome: 'Elétrica e sensores', detalhe: 'Sensores, módulos e componentes do sistema elétrico.' },
-      { nome: 'Motor e vedação', detalhe: 'Juntas, retentores e componentes internos de motor.' },
     ],
   },
   {

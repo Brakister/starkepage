@@ -78,7 +78,7 @@ export default function Contato() {
                   </div>
                 </div>
                 <div style={{ marginTop: '1.2rem' }}>
-                  <button className="btn btn-red" type="submit">Enviar solicitação</button>
+                  <button className="btn btn-gold" type="submit">Enviar solicitação</button>
                 </div>
               </form>
             )}

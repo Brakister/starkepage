@@ -29,7 +29,7 @@ export default function Post() {
     <>
       <article className="page-hero" style={{ padding: '3.2rem 0 2.5rem' }}>
         <div className="container">
-          <span className="kicker" style={{ color: '#f0556f' }}>{post.categoria}</span>
+          <span className="kicker" style={{ color: '#ffd93b' }}>{post.categoria}</span>
           <h1>{post.titulo}</h1>
           <div className="post-meta" style={{ color: '#aeb3bd' }}>
             <span>Publicado em {post.data}</span>

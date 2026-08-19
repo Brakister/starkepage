@@ -32,10 +32,15 @@ export default function Header() {
     <header className="header">
       <div className="topbar">
         <div className="container">
-          <span>Peças automotivas importadas premium com garantia</span>
-          <a href={whatsappLink()}>
-            <IconWhatsapp /> {site.whatsappDisplay}
-          </a>
+          <span>Peças premium para carros importados e superesportivos</span>
+          <span style={{ display: 'inline-flex', gap: '1.2rem', alignItems: 'center' }}>
+            <a href={`tel:${site.phone.replace(/\D/g, '')}`}>
+              <IconPhone /> {site.phone}
+            </a>
+            <a href={whatsappLink()}>
+              <IconWhatsapp /> {site.whatsappDisplay}
+            </a>
+          </span>
         </div>
       </div>
       <div className="container">
