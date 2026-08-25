@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Frotas e oficinas">
-  <rect width="640" height="360" fill="#111111"/>
-  <circle cx="544" cy="54" r="125.99999999999999" fill="#f0b90b" opacity="0.16"/>
-  <circle cx="64" cy="324" r="108" fill="#ffffff" opacity="0.05"/>
-  <g transform="translate(0,-18)"><rect x="80" y="180" width="340" height="70" rx="10" fill="#ffffff" opacity="0.14"/><path d="M420 190 h90 q40 0 50 40 l10 20 h-60 v40 h-90 z" fill="#ffffff" opacity="0.12"/><circle cx="200" cy="265" r="32" fill="#16181d"/><circle cx="200" cy="265" r="13" fill="#aeb3bd"/><circle cx="500" cy="265" r="32" fill="#16181d"/><circle cx="500" cy="265" r="13" fill="#aeb3bd"/></g>
-  <text x="50%" y="280.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff" opacity="0.92">Frotas e oficinas</text>
-  <text x="50%" y="316.8" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16.2" fill="#aeb3bd">Imagem ilustrativa – substituir por foto real</text>
-</svg>
