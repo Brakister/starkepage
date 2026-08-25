@@ -16,7 +16,6 @@ Versão completa construída sobre a estética da primeira proposta do projeto: 
 - Posicionamento de marca
 - Especialização em veículos premium/importados
 - Marcas e parceiros globais
-- Marca própria FORSCHEN
 - 11 linhas de produtos
 - Diferenciais
 - Logística

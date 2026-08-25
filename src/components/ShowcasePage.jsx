@@ -6,6 +6,13 @@ import {
   Sparkles, Truck, Warehouse, Wrench, X, Zap, Target, Globe, Award
 } from "lucide-react";
 
+const brandNames = [
+  "febi", "SWAG", "Blue Friction", "TRW", "Lemförder", "SACHS",
+  "Brembo", "Textar", "MAHLE", "Bosch", "Hengst", "HELLA",
+  "Continental", "HEPU", "GEBA", "BGA", "ÜRO Parts", "Delphi",
+  "Pierburg", "Sidem", "FORSCHEN"
+];
+
 const WA = "5511999999999";
 const IG = "https://instagram.com/starkepremiumparts";
 const waLink = `https://wa.me/${WA}?text=${encodeURIComponent("Olá! Gostaria de falar com um especialista da Stärke Parts.")}`;
@@ -224,6 +231,7 @@ export default function ShowcasePage() {
             <div className="hero-visual-wrap" data-reveal>
               <div className="hero-visual-float">
                 <div className="hf-card hf-main">
+                  <img src="/Logo.webp" alt="Stärke Parts" className="hf-logo" />
                   <div className="hf-kicker">STÄRKE PARTS</div>
                   <div className="hf-title">PREMIUM<br/>AUTOMOTIVE<br/>PARTS</div>
                   <div className="hf-line" />
@@ -328,19 +336,12 @@ export default function ShowcasePage() {
               <div><div className="section-label">MARCAS & PARCEIROS</div><h2>Referências globais em um portfólio premium.</h2></div>
               <p>Relações com fabricantes reconhecidos mundialmente para cobertura e qualidade técnica.</p>
             </div>
-            <div className="partner-grid" data-reveal>
-              {partnerGroups.map((g, i) => (
-                <article className={`partner-card ${i === 0 ? "partner-featured" : ""}`} key={g.label}>
-                  <div className="partner-head"><span>0{i + 1}</span><small>{g.label}</small></div>
-                  <div className="partner-brands">{g.brands.map((b) => <strong key={b}>{b}</strong>)}</div>
-                  <p>{g.note}</p>
-                </article>
+          </div>
+          <div className="marquee" data-reveal>
+            <div className="marquee-track">
+              {[...brandNames, ...brandNames].map((name, i) => (
+                <span className="marquee-item" key={i}>{name}</span>
               ))}
-            </div>
-            <div className="own-brand-card" data-reveal>
-              <div><span>MARCA PRÓPRIA</span><h3>FORSCHEN</h3></div>
-              <p>Estratégia própria para ampliar soluções no aftermarket premium.</p>
-              <div className="own-brand-mark">F</div>
             </div>
           </div>
         </section>

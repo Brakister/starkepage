@@ -90,7 +90,7 @@ img { max-width: 100%; display: block; }
 /* ─── SECTIONS ─── */
 .section { padding: 116px 0; }
 .section-light { background: var(--off-white); }
-.section-muted { background: var(--muted); }
+.section-muted { background: var(--muted); width: 100%; }
 .section-dark { background: var(--black); color: white; }
 .section-label { color: var(--red); font-size: 11px; font-weight: 900; letter-spacing: 0.14em; margin-bottom: 16px; }
 .section h2, .cta-section h2 { font-family: "Montserrat", sans-serif; margin: 0; letter-spacing: -0.05em; }
@@ -122,7 +122,8 @@ img { max-width: 100%; display: block; }
 
 /* hero visual */
 .hero-visual-wrap { display: grid; place-items: center; }
-.hero-visual-float { position: relative; width: 100%; min-height: 480px; display: grid; place-items: center; }
+.hero-visual-float { position: relative; width: 100%; min-height: 480px; display: grid; place-items: center; animation: float 5s ease-in-out infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
 .hf-main {
   width: 78%; aspect-ratio: 0.78; padding: 38px;
   background: linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01)), #0c0c0c;
@@ -132,6 +133,7 @@ img { max-width: 100%; display: block; }
 .hf-main::before { content: ""; position: absolute; width: 220px; height: 220px; border: 50px solid var(--yellow); border-radius: 50%; right: -110px; bottom: 60px; opacity: 0.85; }
 .hf-main::after { content: ""; position: absolute; width: 70px; height: 180%; background: var(--red); right: 22%; top: -40%; transform: rotate(25deg); opacity: 0.8; }
 .hf-kicker { position: relative; z-index: 2; color: var(--yellow); font-size: 11px; font-weight: 800; letter-spacing: 0.18em; }
+.hf-logo { position: relative; z-index: 2; width: 64px; height: 64px; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0 0 12px rgba(252,204,44,0.3)); }
 .hf-title { position: relative; z-index: 2; margin-top: 36px; font: 900 clamp(28px, 3vw, 44px)/0.94 "Montserrat", sans-serif; letter-spacing: -0.05em; }
 .hf-line { position: relative; z-index: 2; width: 44px; height: 5px; background: var(--yellow); margin-top: 28px; }
 .hf-bottom { position: absolute; z-index: 2; left: 38px; right: 38px; bottom: 34px; display: flex; gap: 8px; color: rgba(255,255,255,0.6); font-size: 8px; letter-spacing: 0.08em; }
@@ -142,9 +144,10 @@ img { max-width: 100%; display: block; }
 .mini-dot { width: 12px; height: 12px; background: var(--red); border-radius: 50%; box-shadow: 0 0 0 6px rgba(228,36,52,0.12); }
 .hf-mini small { display: block; font-size: 8px; color: #777; letter-spacing: 0.08em; }
 .hf-mini strong { display: block; margin-top: 3px; font: 900 13px/1 "Montserrat", sans-serif; }
-.hf-ring { position: absolute; border: 1px solid rgba(255,255,255,0.08); border-radius: 50%; }
+.hf-ring { position: absolute; border: 1px solid rgba(255,255,255,0.08); border-radius: 50%; animation: ring-spin 20s linear infinite; }
 .hf-r1 { width: 420px; height: 420px; }
-.hf-r2 { width: 510px; height: 510px; }
+.hf-r2 { width: 510px; height: 510px; animation-direction: reverse; animation-duration: 28s; }
+@keyframes ring-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 .stats-grid { position: relative; z-index: 2; margin-top: 58px; display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,0.1); }
 .stat { min-height: 138px; padding: 30px 28px; border-right: 1px solid rgba(255,255,255,0.1); }
@@ -219,27 +222,12 @@ img { max-width: 100%; display: block; }
 .vehicle-chip strong { text-align: right; font: 800 14px/1.1 "Montserrat", sans-serif; }
 
 /* ─── PARTNERS ─── */
-.partner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.partner-card { min-height: 260px; padding: 26px; border-radius: 20px; border: 1px solid var(--border); background: white; transition: transform 200ms, box-shadow 200ms; }
-.partner-card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(0,0,0,0.05); }
-.partner-featured { background: var(--yellow); border-color: transparent; }
-.partner-head { display: flex; align-items: center; justify-content: space-between; }
-.partner-head span { color: var(--red); font: 900 24px/1 "Montserrat", sans-serif; }
-.partner-featured .partner-head span { color: var(--black); opacity: 0.35; }
-.partner-head small { font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
-.partner-featured .partner-head small { color: rgba(4,4,4,0.6); }
-.partner-brands { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 8px 16px; }
-.partner-brands strong { font: 800 17px/1 "Montserrat", sans-serif; }
-.partner-card p { margin: 20px 0 0; color: var(--text-soft); font-size: 12px; line-height: 1.65; }
-.partner-featured p { color: rgba(4,4,4,0.6); }
-.own-brand-card {
-  margin-top: 14px; display: grid; grid-template-columns: 0.55fr 1fr 100px; align-items: center;
-  gap: 32px; padding: 28px; background: var(--black); color: white; border-radius: 22px; overflow: hidden;
-}
-.own-brand-card span { color: var(--yellow); font-size: 8px; font-weight: 900; letter-spacing: 0.13em; }
-.own-brand-card h3 { margin: 7px 0 0; font: 900 28px/1 "Montserrat", sans-serif; }
-.own-brand-card p { margin: 0; color: rgba(255,255,255,0.48); font-size: 13px; line-height: 1.7; }
-.own-brand-mark { width: 84px; height: 84px; border-radius: 20px; display: grid; place-items: center; background: var(--yellow); color: var(--black); font: 900 40px/1 "Montserrat", sans-serif; transform: rotate(6deg); }
+.marquee { overflow: hidden; padding: 28px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+.marquee-item { flex: 0 0 auto; padding: 0 36px; font: 800 22px/1 "Montserrat", sans-serif; color: var(--text-soft); white-space: nowrap; letter-spacing: 0.04em; opacity: 0.5; transition: opacity 0.25s, color 0.25s; cursor: default; }
+.marquee-item:hover { opacity: 1; color: var(--yellow); }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation-play-state: paused; } .hero-visual-float { animation: none; } .hf-ring { animation: none; } }
 
 /* ─── PRODUCT LINES ─── */
 .lines-section { position: relative; overflow: hidden; }
@@ -452,7 +440,6 @@ img { max-width: 100%; display: block; }
   .desktop-nav { display: none; }
   .menu-toggle { display: grid; }
   .hero-layout { grid-template-columns: 1fr 0.8fr; gap: 36px; }
-  .partner-grid { grid-template-columns: 1fr 1fr; }
   .vehicle-grid { grid-template-columns: repeat(3,1fr); }
   .products-grid { grid-template-columns: repeat(2,1fr); }
   .advantages-grid, .locations-grid, .audience-grid { grid-template-columns: repeat(2,1fr); }
@@ -480,9 +467,7 @@ img { max-width: 100%; display: block; }
   .section h2, .logistics-copy h2, .cta-copy h2 { font-size: clamp(32px, 10vw, 46px); }
   .timeline-grid, .products-grid, .advantages-grid, .locations-grid, .audience-grid { grid-template-columns: 1fr; }
   .vehicle-grid { grid-template-columns: repeat(2,1fr); }
-  .partner-grid { grid-template-columns: 1fr; }
-  .own-brand-card { grid-template-columns: 1fr; }
-  .own-brand-mark { display: none; }
+  .section-head { flex-direction: column; gap: 16px; align-items: flex-start; }
   .rm-track { gap: 14px; padding: 20px 14px 14px; }
   .rm-card { flex-basis: calc(100vw - 56px); min-width: calc(100vw - 56px); max-width: calc(100vw - 56px); padding: 24px 20px 32px; }
   .rm-progress { display: none; }
