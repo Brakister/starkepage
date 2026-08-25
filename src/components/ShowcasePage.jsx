@@ -184,7 +184,7 @@ export default function ShowcasePage() {
       <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
         <div className="container header-inner">
           <a href="#topo" className="brand" aria-label="Stärke Parts">
-            <span className="brand-symbol">S</span>
+            <img src="/Logo.webp" alt="" className="brand-logo" />
             <span className="brand-name">STÄRKE <b>PARTS</b></span>
           </a>
           <nav className="desktop-nav">
@@ -203,7 +203,7 @@ export default function ShowcasePage() {
 
       <div className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
         <button className="mobile-close" onClick={() => setMenuOpen(false)}><X size={26} /></button>
-        <a href="#topo" className="brand"><span className="brand-symbol">S</span><span className="brand-name">STÄRKE <b>PARTS</b></span></a>
+            <a href="#topo" className="brand"><img src="/Logo.webp" alt="" className="brand-logo" /><span className="brand-name">STÄRKE <b>PARTS</b></span></a>
         <nav>{nav.map(([l, h]) => <a key={h} href={h} onClick={() => setMenuOpen(false)}>{l}</a>)}</nav>
         <a className="btn btn-primary" href={waLink} target="_blank" rel="noreferrer">Falar com especialista <ArrowRight size={17} /></a>
       </div>
@@ -462,7 +462,7 @@ export default function ShowcasePage() {
               </div>
             </div>
             <div className="cta-visual">
-              <div className="cta-badge"><Building2 size={28} /><span>STÄRKE</span><strong>PARTS</strong></div>
+              <div className="cta-badge"><img src="/Logo.webp" alt="" className="cta-badge-logo" /><span>STÄRKE</span><strong>PARTS</strong></div>
             </div>
           </div>
         </section>
@@ -471,7 +471,7 @@ export default function ShowcasePage() {
       <footer className="site-footer">
         <div className="container footer-grid">
           <div className="footer-brand">
-            <a href="#topo" className="brand"><span className="brand-symbol">S</span><span className="brand-name">STÄRKE <b>PARTS</b></span></a>
+        <a href="#topo" className="brand"><img src="/Logo.webp" alt="" className="brand-logo" /><span className="brand-name">STÄRKE <b>PARTS</b></span></a>
             <p>Distribuição de autopeças premium, atendimento especializado e confiança em cada detalhe.</p>
           </div>
           <div><h4>Navegação</h4>{nav.map(([l, h]) => <a key={h} href={h}>{l}</a>)}</div>
