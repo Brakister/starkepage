@@ -1194,3 +1194,58 @@
   .product-card h4, .supplier-card h4 { font-size: 27px; }
   .closing-statement h2 { font-size: 45px; }
 }
+
+/* Image-led corporate landing page */
+.landing { background: #050505; color: #fff; }
+.landing-hero { position: relative; min-height: 100svh; overflow: hidden; background: #050505; }
+.landing-hero__photo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.76)), linear-gradient(90deg, rgba(0,0,0,.72), transparent 65%), url("/autoparts-hero.webp") center 48% / cover; transform: scale(1.02); animation: hero-arrive 1.8s cubic-bezier(.2,.8,.2,1) forwards; }
+.landing-hero__content { position: absolute; z-index: 1; top: 51%; left: 50%; width: min(1100px, calc(100% - 48px)); text-align: center; transform: translate(-50%, -46%); }
+.landing-hero h1 { margin: 26px 0 25px; font-size: clamp(68px, 9.5vw, 145px); font-weight: 780; letter-spacing: -.08em; line-height: .86; }
+.landing-hero h1 em { color: var(--yellow); font-style: normal; }
+.landing-hero__content > p { max-width: 620px; margin: 0 auto 31px; color: rgba(255,255,255,.76); font-size: 16px; line-height: 1.7; }
+.landing-hero__index { position: absolute; z-index: 1; right: max(6vw,28px); bottom: 28px; left: max(6vw,28px); display: flex; justify-content: space-between; color: rgba(255,255,255,.6); font-size: 9px; letter-spacing: .18em; }
+.landing-intro { display: grid; grid-template-columns: minmax(140px, .42fr) 1.58fr; gap: 50px; padding: 140px max(8vw,34px); background: var(--paper); color: var(--ink); }
+.landing-intro h2, .landing-section-title h2, .landing-cta h2 { margin: 0; font-size: clamp(52px, 7vw, 104px); font-weight: 750; letter-spacing: -.075em; line-height: .93; }
+.landing-intro h2 em { color: var(--red); font-style: normal; }
+.landing-intro p { max-width: 670px; margin: 38px 0 23px; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.landing-specialties { padding: 130px max(6vw,28px) 145px; background: #080808; }
+.landing-section-title { display: grid; grid-template-columns: .42fr 1.58fr; gap: 50px; align-items: start; margin: 0 auto 68px; max-width: 1500px; }
+.landing-section-title h2 em, .landing-cta h2 em { color: var(--yellow); font-style: normal; }
+.landing-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2px; max-width: 1500px; margin: 0 auto; }
+.landing-card { position: relative; min-height: 590px; overflow: hidden; color: #fff; }
+.landing-card img { position: absolute; width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.2,.8,.2,1); }
+.landing-card__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.92)); transition: background .35s ease; }
+.landing-card > span { position: absolute; top: 27px; left: 29px; font-size: 10px; letter-spacing: .15em; }
+.landing-card > div:last-child { position: absolute; right: 30px; bottom: 32px; left: 30px; }
+.landing-card h3 { margin: 0 0 13px; font-size: clamp(28px,3vw,43px); letter-spacing: -.045em; }
+.landing-card p { max-width: 390px; color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.7; }
+.landing-card b { display: inline-block; margin-top: 16px; color: var(--yellow); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.landing-card:hover img { transform: scale(1.055); }
+.landing-card:hover .landing-card__shade { background: linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.78)); }
+.landing-proof { display: grid; grid-template-columns: repeat(4,1fr); background: var(--yellow); color: var(--black); }
+.landing-proof > div { display: flex; min-height: 190px; align-items: center; gap: 17px; padding: 30px 3vw; border-right: 1px solid rgba(0,0,0,.18); }
+.landing-proof strong { font-size: clamp(44px,5vw,75px); letter-spacing: -.07em; }
+.landing-proof span { font-size: 10px; font-weight: 720; letter-spacing: .08em; line-height: 1.45; text-transform: uppercase; }
+.landing-cta { position: relative; min-height: 760px; display: flex; align-items: center; overflow: hidden; padding: 100px max(8vw,34px); }
+.landing-cta__photo { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.93), rgba(0,0,0,.56) 58%, rgba(0,0,0,.22)), url("/autoparts-suspension.webp") center / cover; }
+.landing-cta > div:last-child { position: relative; max-width: 1040px; }
+.landing-cta h2 { margin: 25px 0; }
+.landing-cta p { max-width: 590px; margin-bottom: 30px; color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.8; }
+
+@media (max-width: 900px) {
+  .landing-card-grid { grid-template-columns: 1fr; }
+  .landing-card { min-height: 470px; }
+  .landing-proof { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 760px) {
+  .landing-hero h1 { font-size: clamp(62px,18vw,92px); }
+  .landing-hero__content > p { font-size: 14px; }
+  .landing-intro, .landing-section-title { grid-template-columns: 1fr; gap: 27px; }
+  .landing-intro { padding: 92px 24px; }
+  .landing-specialties { padding: 88px 18px; }
+  .landing-intro h2, .landing-section-title h2, .landing-cta h2 { font-size: 52px; }
+  .landing-card { min-height: 430px; }
+  .landing-proof > div { min-height: 145px; padding: 22px; }
+  .landing-cta { min-height: 650px; padding: 80px 24px; }
+}

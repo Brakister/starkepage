@@ -299,7 +299,39 @@ function ServicePanel() {
   </>;
 }
 
-export function StarkePage({ initialSection = "institucional" }: { initialSection?: TabId }) {
+function HomeLanding({ scrolled }: { scrolled: boolean }) {
+  const specialties = [
+    { href: "/produtos", image: "/autoparts-brakes.webp", number: "01", title: "Portfólio premium", text: "Freios, suspensão, motor, filtragem e sistemas técnicos para aplicações exigentes." },
+    { href: "/montadoras", image: "/autoparts-editorial.webp", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
+    { href: "/fabricantes", image: "/autoparts-filters.webp", number: "03", title: "Fabricantes globais", text: "Marcas reconhecidas e procedência para escolhas mais seguras em cada reparação." },
+  ];
+
+  return <main id="topo" className="landing">
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}>
+      <a className="wordmark" href="/" aria-label="Stärke Parts, início"><span>STÄRKE</span><b>PARTS</b></a>
+      <nav className="desktop-nav" aria-label="Navegação principal"><a href="/empresa">A empresa</a><a href="/montadoras">Montadoras</a><a href="/produtos">Produtos</a><a href="/fabricantes">Fabricantes</a><a href="/unidades">Unidades</a></nav>
+      <a className="header-cta" href="/atendimento">Falar com especialista <span>↗</span></a>
+    </header>
+
+    <section className="landing-hero" aria-labelledby="landing-title">
+      <div className="landing-hero__photo" aria-hidden="true" />
+      <div className="landing-hero__content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="landing-title">Engenharia exige<br /><em>a peça certa.</em></h1><p>Distribuição especializada, fabricantes globais e conhecimento técnico para veículos que não aceitam concessões.</p><a className="button button--yellow" href="/produtos">Conheça nossas soluções <span>→</span></a></div>
+      <div className="landing-hero__index"><span>STÄRKE PARTS</span><span>DESDE 2016</span></div>
+    </section>
+
+    <section className="landing-intro"><Eyebrow>QUEM SOMOS</Eyebrow><div><h2>Especialistas no universo<br />automotivo <em>premium.</em></h2><p>A Stärke Parts conecta oficinas, centros automotivos, lojistas e proprietários a componentes selecionados para automóveis importados e de alta performance.</p><a className="text-link" href="/empresa">Conheça nossa história <span>↗</span></a></div></section>
+
+    <section className="landing-specialties"><div className="landing-section-title"><Eyebrow light>NOSSAS ESPECIALIDADES</Eyebrow><h2>Soluções construídas<br />sobre <em>confiança.</em></h2></div><div className="landing-card-grid">{specialties.map(item => <a className="landing-card" href={item.href} key={item.number}><img src={item.image} alt="" /><div className="landing-card__shade" /><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.text}</p><b>Explorar →</b></div></a>)}</div></section>
+
+    <section className="landing-proof"><div><strong>10</strong><span>anos de<br />especialização</span></div><div><strong>04</strong><span>operações<br />em São Paulo</span></div><div><strong>30+</strong><span>fabricantes<br />selecionados</span></div><div><strong>BR</strong><span>expedição para<br />todo o país</span></div></section>
+
+    <section className="landing-cta"><div className="landing-cta__photo" aria-hidden="true" /><div><Eyebrow light>ATENDIMENTO ESPECIALIZADO</Eyebrow><h2>Da aplicação à entrega,<br /><em>precisão em cada etapa.</em></h2><p>Conte com uma equipe preparada para identificar o componente e orientar a melhor solução para o seu veículo ou negócio.</p><a className="button button--yellow" href="/atendimento">Fale com a Stärke Parts <span>↗</span></a></div></section>
+
+    <footer className="footer"><a className="wordmark" href="/"><span>STÄRKE</span><b>PARTS</b></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
+  </main>;
+}
+
+export function StarkePage({ initialSection = "institucional", isHome = false }: { initialSection?: TabId; isHome?: boolean }) {
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -331,6 +363,8 @@ export function StarkePage({ initialSection = "institucional" }: { initialSectio
 
   const onContact = () => changeTab("atendimento");
 
+  if (isHome) return <HomeLanding scrolled={scrolled} />;
+
   return <main id="topo">
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><span>STÄRKE</span><b>PARTS</b></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
@@ -342,5 +376,5 @@ export function StarkePage({ initialSection = "institucional" }: { initialSectio
 }
 
 export default function Home() {
-  return <StarkePage />;
+  return <StarkePage isHome />;
 }
