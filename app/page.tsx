@@ -79,6 +79,15 @@ const history = [
   { year: "2026", title: "Uma presença consolidada no segmento premium", text: "Com matriz, centro de distribuição, filiais, fabricantes reconhecidos e atendimento nacional, a Stärke reforça seu posicionamento entre as referências brasileiras em autopeças premium e continua expandindo sua relação de confiança com o mercado." },
 ];
 
+const companyRoadmap = [
+  { year: "2016", stage: "FUNDAÇÃO", title: "Nasce a Stärke Parts", text: "A empresa inicia sua trajetória com foco definido em veículos importados, premium e de alta performance, combinando conhecimento técnico, procedência e atendimento próximo." },
+  { year: "2018", stage: "ESPECIALIZAÇÃO", title: "Conhecimento que ganha escala", text: "A operação aprofunda sua atuação técnica e fortalece o relacionamento com oficinas, centros automotivos, lojistas e profissionais especializados." },
+  { year: "2021", stage: "PORTFÓLIO", title: "Conexões com referências globais", text: "A seleção de fabricantes internacionais amplia as soluções em freios, suspensão, motor, filtragem, arrefecimento e sistemas eletrônicos." },
+  { year: "2024", stage: "ESTRUTURA", title: "Novo centro de distribuição", text: "A inauguração do centro de distribuição em Sorocaba amplia a capacidade operacional, a disponibilidade de produtos e a conexão com o interior paulista." },
+  { year: "2025", stage: "EXPANSÃO", title: "Mais perto de novos mercados", text: "As operações de Campinas e Santos aproximam a Stärke de duas regiões estratégicas e fortalecem sua cobertura comercial no estado de São Paulo." },
+  { year: "2026", stage: "CONSOLIDAÇÃO", title: "Uma referência no segmento premium", text: "Com quatro operações, atendimento nacional e um portfólio reconhecido, a Stärke consolida uma década de evolução e prepara seu próximo ciclo de crescimento." },
+];
+
 const companyChapters = [
   { number: "01", eyebrow: "NOSSA ORIGEM", title: "Uma necessidade do mercado transformada em especialidade.", paragraphs: ["A Stärke Parts nasceu em 2016 com uma proposta objetiva: oferecer ao mercado brasileiro uma distribuição mais preparada para as exigências de veículos importados, premium e superesportivos.", "Desde o início, entendemos que esse segmento pede mais do que um código de peça. Ele exige leitura técnica, atenção à compatibilidade, fabricantes confiáveis e uma equipe capaz de orientar cada atendimento com responsabilidade."] },
   { number: "02", eyebrow: "NOSSA ESSÊNCIA", title: "Conhecimento técnico que acompanha cada escolha.", paragraphs: ["A identificação correta de um componente depende da análise de detalhes como montadora, modelo, ano, motorização, versão e, quando necessário, chassi completo.", "Essa atenção orienta a nossa maneira de trabalhar e ajuda oficinas, centros automotivos, lojistas e proprietários a realizar consultas mais seguras, conscientes e compatíveis com a aplicação do veículo."] },
@@ -241,7 +250,7 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
     <aside className="brand-promise"><span>O QUE NOS MOVE TODOS OS DIAS</span><h4>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h4><p>Um compromisso que orienta o nosso portfólio, o relacionamento com fabricantes, a atenção à aplicação correta e a experiência de cada cliente.</p></aside>
 
     <div className="subsection-heading"><Eyebrow>NOSSA TRAJETÓRIA</Eyebrow><h4>Uma história de evolução,<br />proximidade e <em>especialização.</em></h4></div>
-    <div className="timeline">{history.map(item => <article className="timeline-item" key={item.year}><span>{item.year}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
+    <div className="company-roadmap" aria-label="Roadmap de evolução da Stärke Parts entre 2016 e 2026">{companyRoadmap.map((item, index) => <article className="roadmap-item" key={item.year}><div className="roadmap-marker"><span>{String(index + 1).padStart(2, "0")}</span></div><div className="roadmap-year"><strong>{item.year}</strong><span>{item.stage}</span></div><div className="roadmap-copy"><h5>{item.title}</h5><p>{item.text}</p></div></article>)}</div>
 
     <div className="subsection-heading operations-heading"><Eyebrow>OS BASTIDORES DA NOSSA OPERAÇÃO</Eyebrow><h4>Uma estrutura conectada<br />por um mesmo <em>propósito.</em></h4><p>Por trás de cada atendimento, diferentes áreas trabalham de forma integrada para aproximar o mercado premium das soluções de que ele precisa.</p></div>
     <div className="operations-grid">{companyOperations.map((item, index) => <article className="operation-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>

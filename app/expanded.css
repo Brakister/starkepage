@@ -1185,6 +1185,51 @@
   .closing-statement h2 { font-size: 56px; }
 }
 
+/* Institutional refinement and company roadmap */
+.panel-heading { max-width: 1240px; margin-bottom: 76px; }
+.panel-heading h3 { max-width: 1080px; font-size: clamp(48px, 5.4vw, 78px); line-height: .99; letter-spacing: -.065em; text-wrap: balance; }
+.panel-heading > p:last-child { max-width: 690px; font-size: 15px; line-height: 1.8; }
+.panel-heading--institutional { margin-bottom: 92px; }
+.panel-heading--institutional h3 { max-width: 1160px; font-size: clamp(50px, 5.7vw, 82px); }
+.institutional-history-lead { max-width: 900px; font-size: clamp(18px, 1.65vw, 22px); line-height: 1.65; letter-spacing: -.018em; }
+.institutional-history-summary { column-gap: 52px; }
+.institutional-history-summary > p { font-size: 13.5px; line-height: 1.9; }
+.subsection-heading h4 { max-width: 960px; font-size: clamp(39px, 4.7vw, 66px); line-height: 1.02; letter-spacing: -.055em; text-wrap: balance; }
+.subsection-description { max-width: 680px; font-size: 14px; line-height: 1.8; }
+.company-story-heading h4, .operations-heading h4 { font-size: clamp(40px, 4.8vw, 66px); }
+.chapter-copy h5 { font-size: clamp(25px, 2.7vw, 38px); line-height: 1.1; letter-spacing: -.035em; }
+.chapter-copy p { max-width: 760px; line-height: 1.85; }
+
+.company-roadmap { position: relative; margin: 62px 0 130px; }
+.company-roadmap::before { position: absolute; top: 0; bottom: 0; left: 26px; width: 1px; background: linear-gradient(var(--red), rgba(4,4,4,.14)); content: ""; }
+.roadmap-item { position: relative; display: grid; grid-template-columns: 54px 190px minmax(0,1fr); gap: 28px; min-height: 190px; padding: 0 0 50px; }
+.roadmap-marker { position: relative; z-index: 1; display: flex; width: 54px; height: 54px; align-items: center; justify-content: center; border: 1px solid rgba(4,4,4,.16); border-radius: 50%; background: var(--paper); transition: background .25s ease, color .25s ease, transform .25s ease; }
+.roadmap-marker span { font-size: 9px; font-weight: 800; letter-spacing: .12em; }
+.roadmap-item:hover .roadmap-marker { background: var(--red); color: #fff; transform: scale(1.06); }
+.roadmap-year { display: flex; flex-direction: column; padding-top: 1px; }
+.roadmap-year strong { font-size: clamp(39px, 4vw, 58px); font-weight: 780; letter-spacing: -.065em; line-height: .95; }
+.roadmap-year span { margin-top: 12px; color: var(--red); font-size: 9px; font-weight: 800; letter-spacing: .16em; }
+.roadmap-copy { max-width: 760px; padding: 3px 0 44px; border-bottom: 1px solid var(--line); }
+.roadmap-copy h5 { margin: 0 0 14px; font-size: clamp(24px, 2.4vw, 34px); font-weight: 720; letter-spacing: -.035em; line-height: 1.12; }
+.roadmap-copy p { max-width: 680px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.8; }
+.roadmap-item:last-child { min-height: 140px; padding-bottom: 0; }
+.roadmap-item:last-child .roadmap-marker { border-color: var(--red); background: var(--red); color: #fff; }
+
+@media (max-width: 760px) {
+  .panel-heading, .panel-heading--institutional { margin-bottom: 62px; }
+  .panel-heading h3, .panel-heading--institutional h3 { font-size: clamp(40px, 12vw, 54px); line-height: 1; }
+  .subsection-heading h4, .company-story-heading h4, .operations-heading h4 { font-size: clamp(37px, 10vw, 49px); }
+  .roadmap-item { grid-template-columns: 44px minmax(0,1fr); gap: 18px; min-height: 0; padding-bottom: 48px; }
+  .company-roadmap::before { left: 21px; }
+  .roadmap-marker { width: 44px; height: 44px; }
+  .roadmap-year { padding-top: 0; }
+  .roadmap-year strong { font-size: 36px; }
+  .roadmap-year span { margin-top: 8px; }
+  .roadmap-copy { grid-column: 2; padding: 0 0 34px; }
+  .roadmap-copy h5 { font-size: 25px; }
+  .roadmap-copy p { font-size: 13px; }
+}
+
 @media (max-width: 460px) {
   .panel-heading h3 { font-size: 45px; }
   .institutional-history-signature { padding: 30px 24px; }
