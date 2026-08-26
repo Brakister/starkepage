@@ -87,6 +87,27 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
 @keyframes hero-arrive { to { transform: scale(1); } }
 @keyframes ticker { to { transform: translateX(-50%); } }
 @keyframes panel-in { from { opacity: .5; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes splash-fade-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes splash-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes splash-line-grow { from { width: 0; } to { width: 48px; } }
+
+.main--hidden { visibility: hidden; }
+
+.splash { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: var(--black); color: #fff; pointer-events: all; }
+.splash--enter { opacity: 0; }
+.splash--visible { opacity: 1; transition: opacity .6s ease; }
+.splash--exit { opacity: 0; pointer-events: none; transition: opacity .7s ease; }
+
+.splash-inner { display: flex; flex-direction: column; align-items: center; gap: 20px; animation: splash-fade-in .8s cubic-bezier(.2, .8, .2, 1) both; }
+.splash--exit .splash-inner { animation: splash-fade-out .6s ease both; }
+
+.splash-logo { display: flex; align-items: baseline; gap: 10px; font-size: 42px; font-weight: 850; letter-spacing: .08em; }
+.splash-logo b { color: var(--yellow); }
+
+.splash-divider { width: 48px; height: 2px; background: var(--red); animation: splash-line-grow .6s .3s cubic-bezier(.2, .8, .2, 1) both; }
+
+.splash-tagline { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255, 255, 255, .85); }
+.splash-sub { margin: 0; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .4); }
 
 @media (max-width: 1020px) {
   .desktop-nav { gap: 15px; }
