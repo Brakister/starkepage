@@ -356,7 +356,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
   </main>;
 }
 
-export function StarkePage({ initialSection = "institucional", isHome = false }: { initialSection?: TabId; isHome?: boolean }) {
+export function StarkePage({ initialSection = "institucional" }: { initialSection?: TabId }) {
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
@@ -390,15 +390,9 @@ export function StarkePage({ initialSection = "institucional", isHome = false }:
 
   const onContact = () => changeTab("atendimento");
 
-<<<<<<< HEAD
-  if (isHome) return <HomeLanding scrolled={scrolled} />;
-
-  return <main id="topo">
-=======
   return <>
     {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "" : "main--hidden"}>
->>>>>>> 49acb673caa7ab130cbd82f4dea24aa360d28aa1
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><span>STÄRKE</span><b>PARTS</b></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((item, index) => <span key={`${item.name}-${index}`}>{item.name.toUpperCase()}<b>✳</b></span>)}</div></section>
@@ -410,5 +404,5 @@ export function StarkePage({ initialSection = "institucional", isHome = false }:
 }
 
 export default function Home() {
-  return <StarkePage isHome />;
+  return <StarkePage />;
 }
