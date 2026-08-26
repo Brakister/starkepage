@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, useCallback, type KeyboardEvent } from "react";
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 
@@ -159,6 +159,31 @@ const serviceSteps = [
   { number: "04", title: "Organizamos a entrega", text: "O atendimento segue com a unidade mais adequada, considerando disponibilidade, localização e a modalidade logística aplicável." },
 ];
 
+function SplashScreen({ onComplete }: { onComplete: () => void }) {
+  const [phase, setPhase] = useState<"enter" | "visible" | "exit">("enter");
+
+  useEffect(() => {
+    const showTimer = setTimeout(() => setPhase("visible"), 50);
+    const exitTimer = setTimeout(() => setPhase("exit"), 2200);
+    const doneTimer = setTimeout(onComplete, 3000);
+    return () => { clearTimeout(showTimer); clearTimeout(exitTimer); clearTimeout(doneTimer); };
+  }, [onComplete]);
+
+  return (
+    <div className={`splash splash--${phase}`} aria-hidden="true">
+      <div className="splash-inner">
+        <div className="splash-logo">
+          <span>STÄRKE</span>
+          <b>PARTS</b>
+        </div>
+        <div className="splash-divider" />
+        <p className="splash-tagline">Bem-vindo à Stärke</p>
+        <p className="splash-sub">Premium Automotive Parts</p>
+      </div>
+    </div>
+  );
+}
+
 function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return <p className={`eyebrow ${light ? "" : "eyebrow--dark"}`}><span />{children}</p>;
 }
@@ -302,7 +327,9 @@ function ServicePanel() {
 export function StarkePage({ initialSection = "institucional" }: { initialSection?: TabId }) {
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
+  const [splashDone, setSplashDone] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const handleSplashComplete = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
     const listener = () => setScrolled(window.scrollY > 28);
@@ -331,14 +358,17 @@ export function StarkePage({ initialSection = "institucional" }: { initialSectio
 
   const onContact = () => changeTab("atendimento");
 
-  return <main id="topo">
+  return <>
+    {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+    <main id="topo" className={splashDone ? "" : "main--hidden"}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><span>STÄRKE</span><b>PARTS</b></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((item, index) => <span key={`${item.name}-${index}`}>{item.name.toUpperCase()}<b>✳</b></span>)}</div></section>
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" role="tablist" aria-label="Áreas da Stärke Parts">{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
     <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
     <footer className="footer"><a className="wordmark" href="#topo"><span>STÄRKE</span><b>PARTS</b></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
-  </main>;
+  </main>
+  </>;
 }
 
 export default function Home() {
