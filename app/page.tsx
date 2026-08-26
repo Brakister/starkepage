@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback, type KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 
@@ -70,7 +73,7 @@ const locations = [
   { code: "SP·04", city: "Santos", type: "FILIAL", area: "Baixada Santista", description: "Operação voltada ao relacionamento com clientes do litoral paulista e à ampliação da cobertura comercial da marca.", capabilities: ["Atendimento regional", "Cobertura no litoral", "Agilidade comercial"] },
 ];
 
-const history = [
+const companyHistory = [
   { year: "2016", title: "Uma empresa nasce com foco definido", text: "A Stärke Parts inicia sua trajetória a partir de uma leitura clara do mercado: veículos importados, premium e de alta performance exigem uma distribuição especializada, capaz de combinar conhecimento técnico, procedência e atendimento próximo." },
   { year: "ORIGEM", title: "Especialização desde os primeiros passos", text: "Nos primeiros anos, a operação consolida uma forma própria de atender: compreender a aplicação correta, selecionar fabricantes reconhecidos e construir relações de confiança com oficinas, centros automotivos, lojistas e proprietários." },
   { year: "EVOLUÇÃO", title: "Um portfólio construído com critério", text: "A experiência comercial e técnica amplia o relacionamento com importantes fabricantes do aftermarket internacional, fortalecendo linhas como freios, suspensão, motor, filtragem, arrefecimento e sistemas eletrônicos." },
@@ -342,26 +345,26 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
   return <main id="topo" className="landing">
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}>
-      <a className="wordmark" href="/" aria-label="Stärke Parts, início"><span>STÄRKE</span><b>PARTS</b></a>
-      <nav className="desktop-nav" aria-label="Navegação principal"><a href="/empresa">A empresa</a><a href="/montadoras">Montadoras</a><a href="/produtos">Produtos</a><a href="/fabricantes">Fabricantes</a><a href="/unidades">Unidades</a></nav>
-      <a className="header-cta" href="/atendimento">Falar com especialista <span>↗</span></a>
+      <Link className="wordmark" href="/" aria-label="Stärke Parts, início"><span>STÄRKE</span><b>PARTS</b></Link>
+      <nav className="desktop-nav" aria-label="Navegação principal"><Link href="/empresa">A empresa</Link><Link href="/montadoras">Montadoras</Link><Link href="/produtos">Produtos</Link><Link href="/fabricantes">Fabricantes</Link><Link href="/unidades">Unidades</Link></nav>
+      <Link className="header-cta" href="/atendimento">Falar com especialista <span>↗</span></Link>
     </header>
 
     <section className="landing-hero" aria-labelledby="landing-title">
       <div className="landing-hero__photo" aria-hidden="true" />
-      <div className="landing-hero__content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="landing-title">Engenharia exige<br /><em>a peça certa.</em></h1><p>Distribuição especializada, fabricantes globais e conhecimento técnico para veículos que não aceitam concessões.</p><a className="button button--yellow" href="/produtos">Conheça nossas soluções <span>→</span></a></div>
+      <div className="landing-hero__content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="landing-title">Engenharia exige<br /><em>a peça certa.</em></h1><p>Distribuição especializada, fabricantes globais e conhecimento técnico para veículos que não aceitam concessões.</p><Link className="button button--yellow" href="/produtos">Conheça nossas soluções <span>→</span></Link></div>
       <div className="landing-hero__index"><span>STÄRKE PARTS</span><span>DESDE 2016</span></div>
     </section>
 
-    <section className="landing-intro"><Eyebrow>QUEM SOMOS</Eyebrow><div><h2>Especialistas no universo<br />automotivo <em>premium.</em></h2><p>A Stärke Parts conecta oficinas, centros automotivos, lojistas e proprietários a componentes selecionados para automóveis importados e de alta performance.</p><a className="text-link" href="/empresa">Conheça nossa história <span>↗</span></a></div></section>
+    <section className="landing-intro"><Eyebrow>QUEM SOMOS</Eyebrow><div><h2>Especialistas no universo<br />automotivo <em>premium.</em></h2><p>A Stärke Parts conecta oficinas, centros automotivos, lojistas e proprietários a componentes selecionados para automóveis importados e de alta performance.</p><Link className="text-link" href="/empresa">Conheça nossa história <span>↗</span></Link></div></section>
 
-    <section className="landing-specialties"><div className="landing-section-title"><Eyebrow light>NOSSAS ESPECIALIDADES</Eyebrow><h2>Soluções construídas<br />sobre <em>confiança.</em></h2></div><div className="landing-card-grid">{specialties.map(item => <a className="landing-card" href={item.href} key={item.number}><img src={item.image} alt="" /><div className="landing-card__shade" /><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.text}</p><b>Explorar →</b></div></a>)}</div></section>
+    <section className="landing-specialties"><div className="landing-section-title"><Eyebrow light>NOSSAS ESPECIALIDADES</Eyebrow><h2>Soluções construídas<br />sobre <em>confiança.</em></h2></div><div className="landing-card-grid">{specialties.map(item => <Link className="landing-card" href={item.href} key={item.number}><img src={item.image} alt="" /><div className="landing-card__shade" /><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.text}</p><b>Explorar →</b></div></Link>)}</div></section>
 
     <section className="landing-proof"><div><strong>10</strong><span>anos de<br />especialização</span></div><div><strong>04</strong><span>operações<br />em São Paulo</span></div><div><strong>30+</strong><span>fabricantes<br />selecionados</span></div><div><strong>BR</strong><span>expedição para<br />todo o país</span></div></section>
 
-    <section className="landing-cta"><div className="landing-cta__photo" aria-hidden="true" /><div><Eyebrow light>ATENDIMENTO ESPECIALIZADO</Eyebrow><h2>Da aplicação à entrega,<br /><em>precisão em cada etapa.</em></h2><p>Conte com uma equipe preparada para identificar o componente e orientar a melhor solução para o seu veículo ou negócio.</p><a className="button button--yellow" href="/atendimento">Fale com a Stärke Parts <span>↗</span></a></div></section>
+    <section className="landing-cta"><div className="landing-cta__photo" aria-hidden="true" /><div><Eyebrow light>ATENDIMENTO ESPECIALIZADO</Eyebrow><h2>Da aplicação à entrega,<br /><em>precisão em cada etapa.</em></h2><p>Conte com uma equipe preparada para identificar o componente e orientar a melhor solução para o seu veículo ou negócio.</p><Link className="button button--yellow" href="/atendimento">Fale com a Stärke Parts <span>↗</span></Link></div></section>
 
-    <footer className="footer"><a className="wordmark" href="/"><span>STÄRKE</span><b>PARTS</b></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
+    <footer className="footer"><Link className="wordmark" href="/"><span>STÄRKE</span><b>PARTS</b></Link><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
   </main>;
 }
 
@@ -369,7 +372,11 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
   const [splashDone, setSplashDone] = useState(!showSplash);
+  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tabListRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("starke-welcome-seen", "true");
     setSplashDone(true);
@@ -385,12 +392,29 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
     return () => window.removeEventListener("scroll", listener);
   }, [showSplash]);
 
-  function changeTab(id: TabId, shouldScroll = true) {
-    if (window.location.pathname !== routes[id]) {
-      window.location.href = routes[id];
-      return;
+  useEffect(() => {
+    const idx = tabs.findIndex(t => t.id === active);
+    const el = tabRefs.current[idx];
+    if (el && tabListRef.current) {
+      const listRect = tabListRef.current.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      setIndicatorStyle({ left: elRect.left - listRect.left + tabListRef.current.scrollLeft, width: elRect.width });
     }
-    if (shouldScroll) document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [active]);
+
+  function changeTab(id: TabId, shouldScroll = true) {
+    if (active !== id) {
+      const path = routes[id];
+      if (window.location.pathname !== path) {
+        router.push(path, { scroll: false });
+      }
+      setActive(id);
+    }
+    if (shouldScroll) {
+      requestAnimationFrame(() => {
+        document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
   }
 
   function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -409,7 +433,7 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><span>STÄRKE</span><b>PARTS</b></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((item, index) => <span key={`${item.name}-${index}`}>{item.name.toUpperCase()}<b>✳</b></span>)}</div></section>
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" role="tablist" aria-label="Áreas da Stärke Parts">{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label="Áreas da Stärke Parts"><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
     <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
     <footer className="footer"><a className="wordmark" href="#topo"><span>STÄRKE</span><b>PARTS</b></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
   </main>

@@ -17,7 +17,7 @@ Guia passo a passo para alterar qualquer elemento do site. Cada seção explica 
 9. [Alterar Navegação e Links](#9-alterar-navegação-e-links)
 10. [Design Responsivo](#10-design-responsivo)
 11. [Referência Rápida: Onde Editar Cada Coisa](#11-referência-rápida)
-12. [Editando o Site no Figma — Guia Passo a Passo](#12-editando-o-site-no-figma--guia-passo-a-passo)
+12. [Criando o Design no Figma e Transformando em Código (Grátis)](#12-criando-o-design-no-figma-e-transformando-em-código-grátis)
 
 ---
 
@@ -903,266 +903,297 @@ npm run db:generate
 
 ---
 
-## 12. Editando o Site no Figma — Guia Passo a Passo
+## 12. Criando o Design no Figma e Transformando em Código (Grátis)
 
-### Pré-requisito
+### Visão Geral
 
-1. Crie uma conta gratuita no [figma.com](https://figma.com)
-2. Instale o app desktop (mais rápido que o navegador)
+```
+Figma (design visual) → Figroot (gera código grátis) → Seu projeto Next.js
+```
+
+Você desenha o site no Figma, e o **Figroot** (plugin gratuito, sem cadastro) transforma seu design em componentes React/Next.js prontos.
+
+### Ferramentas Gratuitas Disponíveis
+
+| Ferramenta | Preço | Frameworks | Cadastro |
+|---|---|---|---|
+| **Figroot** | Grátis pra sempre | React, Tailwind, HTML/CSS | Não precisa |
+| **PixToCode** | 5 grátis, depois $20/mês | React, Vue, Angular, HTML | Chave grátis (sem cartão) |
+| **Builder.io** | Gratuito | React, Vue, Next.js, Tailwind | Conta Figma |
+| **FigmaForge** | 200 pontos grátis | Next.js, React, TypeScript | Sem cartão |
+
+**Recomendação: Figroot** — é o mais simples, gratuito pra sempre, sem cadastro.
 
 ---
 
-### PASSO 1: Importar o Site para o Figma
+### PASSO 1: Preparar o Figma
 
-1. **Rode o site:**
-   ```bash
-   npm run dev
-   ```
-   Anote a porta (ex: `http://localhost:5173`)
+1. Crie uma conta gratuita em [figma.com](https://figma.com)
+2. Instale o app desktop (mais rápido)
+3. Crie um arquivo novo → nomeie "Starke Parts — Redesign"
 
-2. **Abra o Figma** → crie um arquivo novo → nomeie "Starke Parts Edição"
+### PASSO 2: Criar os Frames (Telas) no Figma
 
-3. **Instale o plugin "HTML to Figma":**
-   - No Figma, aperte `/` (barra) → digite "html to figma" → Enter
-   - Clique em **"Run"** (ou instale primeiro se pedir)
-   - Uma janela flutuante aparece
+Cada página do site vira um **Frame** no Figma:
 
-4. **Cole a URL** do site (`http://localhost:5173`) no campo do plugin
+1. Aperte `F` (ferramenta Frame)
+2. No painel direito, escolha **"Desktop"** (1440px de largura)
+3. Arraste para criar o frame
+4. Renomee (duplo-clique no nome na camada lateral)
 
-5. **Importe seção por seção** (IMPORTANTE — senão fica bagunçado):
-   - Abra o site no navegador e faça scroll até a **Hero** ( topo)
-   - Volte no Figma → clique **"Capture"** no plugin
-   - Volte no navegador → scroll até a **Ticker** (faixa amarela)
-   - Volte no Figma → **"Capture"** de novo
-   - Repita para cada seção
+**Frames para criar:**
 
-**Seções para capturar (em ordem):**
-
-| # | Seção | O que capturar |
+| Frame | Largura | O que colocar dentro |
 |---|---|---|
-| 1 | Header | Barra de navegação no topo |
-| 2 | Hero | Área principal com título grande |
-| 3 | Ticker | Faixa amarela com nomes das montadoras |
-| 4 | Tabs + Conteúdo | Abas (A Stärke, Montadoras, etc.) + painel aberto |
-| 5 | Closing | Seção final preta com CTA |
-| 6 | Footer | Rodapé |
+| `Home — Desktop` | 1440px | Hero + Ticker + Tabs + Closing + Footer |
+| `Empresa — Desktop` | 1440px | Seção institucional completa |
+| `Montadoras — Desktop` | 1440px | Explorer de marcas |
+| `Produtos — Desktop` | 1440px | Grid de produtos |
+| `Fabricantes — Desktop` | 1440px | Grid de fabricantes |
+| `Unidades — Desktop` | 1440px | Locations + operação |
+| `Logística — Desktop` | 1440px | Coverage + processo |
+| `Atendimento — Desktop` | 1440px | FAQ + contato |
 
-> Se quiser capturar as **sub-páginas** (produtos, fabricantes, etc.), abra cada rota no navegador e capture separadamente.
+> Comece só com o **Home — Desktop**. Depois faça as outras páginas.
 
----
+### PASSO 3: Desenhar os Componentes
 
-### PASSO 2: Organizar no Figma
+Para cada frame, crie os elementos visuais:
 
-Depois de importar, você vai ter vários frames no Figma. Organize assim:
+#### Header
+- Fundo preto com gradiente
+- Logo "STÄRKE PARTS" à esquerda
+- Links de navegação no centro
+- Botão "Falar com especialista" à direita (amarelo)
 
-1. **Renomeie cada frame** clicando duas vezes no nome na camada lateral esquerda
-2. **Agrupe por página** — crie um frame "Desktop" e coloque tudo dentro
-3. **Crie uma página "Tokens"** para guardar cores, fontes e espaçamentos de referência
+#### Hero
+- Fundo escuro com imagem de fundo
+- Eyebrow: "PREMIUM AUTOMOTIVE PARTS · BRASIL" (amarelo)
+- Título grande: "A excelência começa na peça certa."
+- Subtítulo em cinza
+- Dois botões: "Explorar o portfólio" (amarelo) + "Conheça a Stärke" (transparente)
 
----
+#### Ticker
+- Faixa amarela com texto rolando (simule com uma faixa estática)
 
-### PASSO 3: Editar Componentes no Figma
+#### Tabs + Conteúdo
+- Barra de abas com 7 itens
+- Conteúdo do painel ativo (cards, grids, etc.)
 
-Agora que está tudo no Figma, você pode editar livremente:
+#### Closing
+- Fundo preto
+- Título grande com destaque amarelo
+- Botão amarelo
 
-#### Como Trocar Cores
+#### Footer
+- Fundo preto
+- Logo + texto + link Instagram
 
-1. Clique no elemento (botão, fundo, card, etc.)
-2. No painel direito → seção **"Fill"** (preenchimento)
-3. Clique na cor → escolha uma nova
-4. Anote o código hex (ex: `#3B82F6`) para usar no código
+### PASSO 4: Usar Auto Layout
 
-#### Como Trocar Fontes
+Para o Figroot gerar código limpo, use **Auto Layout**:
 
-1. Clique no texto
-2. No painel direito → seção **"Text"**
-3. Mude a **fonte**, **tamanho**, **peso** (bold/regular), **letter-spacing**
-4. Anote os valores para usar no código
+1. Selecione um grupo de elementos
+2. Aperte `Shift + A`
+3. No painel direito, ajuste:
+   - **Direção:** horizontal ou vertical
+   - **Gap:** espaço entre os itens
+   - **Padding:** espaço interno
 
-#### Como Trocar Espaçamentos
+**Exemplo — Card de produto:**
+1. Crie um retângulo (fundo do card)
+2. Adicione texto (número, título, descrição)
+3. Adicione uma lista de itens
+4. Selecione tudo → `Shift + A` → direção vertical, gap 12px, padding 31px
 
-1. Clique no elemento
-2. No painel direito → seção **"Auto Layout"** ou **"Layout"**
-3. Ajuste **padding** (espaço interno) e **gap** (espaço entre itens)
+### PASSO 5: Nomear as Camadas
 
-#### Como Trocar Largura/Altura
+O Figroot usa os **nomes das camadas** pra gerar nomes de componentes:
 
-1. Clique no elemento
-2. No painel direito → ajuste **W** (largura) e **H** (altura)
+| Camada no Figma | Componente gerado |
+|---|---|
+| `Header` | `Header.tsx` |
+| `Hero` | `Hero.tsx` |
+| `Ticker` | `Ticker.tsx` |
+| `TabBar` | `TabBar.tsx` |
+| `ProductCard` | `ProductCard.tsx` |
+| `SupplierCard` | `SupplierCard.tsx` |
+| `Footer` | `Footer.tsx` |
 
-#### Como Trocar Bordas
+**Regras:**
+- Use **PascalCase** (primeira letra maiúscula)
+- Seja descritivo: `BrandExplorer` não `box1`
+- Agrupe: `Hero/Title`, `Hero/CTA`, `Hero/Image`
 
-1. Clique no elemento
-2. No painel direito → seção **"Stroke"**
-3. Mude cor, espessura e `border-radius`
+### PASSO 6: Criar Estilos de Cores e Fontes
 
----
+No Figma, crie **Styles** pra manter consistência:
 
-### PASSO 4: Pegar os Valores do Figma e Aplicar no Código
+**Cores:**
 
-Depois de editar no Figma, você precisa transferir os valores para o código. Tem 3 formas:
-
-#### Forma A: Dev Mode (Mais Rápida)
-
-1. No Figma, ative o **Dev Mode** → ícone de chave inglesa (canto superior direito)
-2. Clique no elemento que você editou
-3. O painel mostra o **CSS exato**:
-
-```
-background: #3B82F6;
-font-size: 72px;
-font-weight: 700;
-padding: 24px 32px;
-border-radius: 8px;
-```
-
-4. **Copie** e cole no arquivo correto do projeto
-
-#### Forma B: Plugin "Locofy Lightning"
-
-1. Instale "Locofy Lightning" no Figma
-2. Selecione o frame editado
-3. Botão direito → **Locofy > Export code**
-4. Escolha **HTML/CSS** ou **React**
-5. Copie o código gerado
-
-#### Forma C: Manual (Mais Controle)
-
-1. No Figma, selecione o elemento
-2. Anote os valores do painel direito:
-   - Cor: `#3B82F6`
-   - Font-size: `72px`
-   - Font-weight: `700`
-   - Padding: `24px 32px`
-3. Abra o arquivo CSS correspondente no VS Code
-4. Altere manualmente
-
----
-
-### PASSO 5: Mapeamento Completo — Qual Componente Editar no Figma → Qual Arquivo no Código
-
-Use esta tabela para saber onde colar cada mudança:
-
-| Componente no Figma | Classe CSS no Código | Arquivo |
+| Nome | Cor | Uso |
 |---|---|---|
-| **Header/Nav** | `.masthead`, `.wordmark`, `.desktop-nav`, `.header-cta` | `globals.css` |
-| **Hero** | `.hero`, `.hero-photo`, `.hero-content`, `.hero h1` | `globals.css` |
-| **Ticker (faixa amarela)** | `.ticker`, `.ticker-track` | `globals.css` |
-| **Abas** | `.tab-list`, `.tab`, `.tab--active` | `globals.css` |
-| **Título da seção** | `.section-intro h2`, `.panel-heading h3` | `globals.css` + `expanded.css` |
-| **Cards de produto** | `.product-card`, `.product-card-top` | `expanded.css` |
-| **Cards de fabricante** | `.supplier-card`, `.supplier-card--featured` | `expanded.css` |
-| **Cards de localização** | `.location-card` | `expanded.css` |
-| **Cards de logística** | `.logistics-card`, `.logistics-card--highlight` | `expanded.css` |
-| **Cards de marca (explorer)** | `.brand-explorer`, `.brand-feature` | `expanded.css` |
-| **FAQ** | `.faq-item` | `expanded.css` |
-| **Botão amarelo** | `.button--yellow` | `globals.css` |
-| **Texto link** | `.text-link` | `globals.css` |
-| **Footer** | `.footer` | `globals.css` |
-| **Splash screen** | `.splash`, `.splash-logo` | `globals.css` |
-| **Seção preta (CTA)** | `.closing-statement` | `expanded.css` |
-| **Grid de métricas** | `.metric-grid` | `expanded.css` |
-| **Landing page** | `.landing-hero`, `.landing-intro`, `.landing-specialties`, etc. | `expanded.css` (final) |
+| `Brand/Yellow` | `#fccc2c` | Botões, destaques |
+| `Brand/Red` | `#e42434` | Indicadores, accents |
+| `Neutral/Black` | `#040404` | Fundos escuros |
+| `Neutral/Paper` | `#f7f6f2` | Fundo claro |
+| `Neutral/Ink` | `#11110f` | Texto principal |
+| `Neutral/Muted` | `#777770` | Texto secundário |
+| `Surface/White` | `#ffffff` | Cards |
+
+**Fontes:**
+
+| Nome | Tamanho | Peso |
+|---|---|---|
+| `Heading/Hero` | 120px | Bold (740) |
+| `Heading/Section` | 88px | Bold (740) |
+| `Heading/Panel` | 90px | Bold (740) |
+| `Heading/Card` | 61px | SemiBold (730) |
+| `Body/Default` | 14px | Regular (620) |
+| `Label/Eyebrow` | 10px | ExtraBold (780) |
 
 ---
 
-### PASSO 6: Exemplo Prático Completo
+### PASSO 7: Instalar o Plugin Figroot (Grátis)
 
-**Cenário: Quero mudar o hero para fundo azul escuro com título branco maior**
+1. Abra seu arquivo no Figma
+2. Vá em **Resources** (ícone de cubo, canto superior direito)
+3. Busque **"Figroot"**
+4. Clique **"Run"**
+5. **Não precisa de cadastro nem cartão**
 
-**No Figma:**
-1. Selecione o frame do Hero
-2. Mude o fundo de `#0a0a09` para `#0F172A`
-3. Selecione o título → mude `font-size` de `124px` para `140px`
-4. Anote os valores
+### PASSO 8: Gerar o Código
 
-**No código:**
+1. **Selecione o frame** que você quer converter (clique no nome do frame na camada lateral)
+2. No plugin Figroot, clique **"Generate"** (ou "Convert")
+3. Escolha:
+   - **Framework:** React
+   - **Styling:** Tailwind CSS
+4. O plugin gera o código instantaneamente
 
-`globals.css`, linha 46:
-```css
-/* ANTES */
-.hero { background: #0a0a09; }
+### PASSO 9: Copiar o Código
 
-/* DEPOIS */
-.hero { background: #0F172A; }
+O Figroot mostra o código gerado. Para cada componente:
+
+1. Clique no componente no plugin
+2. **Copie** o código JSX/TSX
+3. **Copie** o CSS/Tailwind
+4. Salve cada um num arquivo separado
+
+**Estrutura que você vai montar:**
+```
+seu-projeto/
+├── app/
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── Hero.tsx
+│   │   ├── Ticker.tsx
+│   │   ├── ProductCard.tsx
+│   │   ├── SupplierCard.tsx
+│   │   ├── Footer.tsx
+│   │   └── ...
+│   ├── page.tsx        ← Importa os componentes
+│   └── globals.css     ← Estilos gerados
 ```
 
-`globals.css`, linha 53:
-```css
-/* ANTES */
-.hero h1 { font-size: clamp(65px, 8.6vw, 124px); }
+### PASSO 10: Integrar no Seu Projeto
 
-/* DEPOIS */
-.hero h1 { font-size: clamp(65px, 8.6vw, 140px); }
-```
+1. **Crie a pasta** `app/components/` no seu projeto
+2. **Cole** cada componente gerado num arquivo `.tsx`
+3. **Importe** os componentes no `page.tsx`:
 
----
+```tsx
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Ticker from "./components/Ticker";
+// ... etc
 
-### PASSO 7: Editar Cores Globais (Afeta Tudo de Uma Vez)
-
-Se você mudar as **variáveis CSS**, todos os elementos que usam aquela cor atualizam automaticamente:
-
-**No Figma:** Descubra qual cor você quer usar (ex: `#6366F1` para roxo)
-
-**No código** (`globals.css`, linhas 4-12):
-```css
-:root {
-  --yellow: #6366F1;   /* Muda TODOS os botões e destaques */
-  --red: #EF4444;      /* Muda TODOS os indicadores e accents */
-  --paper: #F8FAFC;    /* Muda TODOS os fundos claros */
-  --ink: #1E293B;      /* Muda TODO o texto principal */
-  --muted: #94A3B8;    /* Muda TODO o texto secundário */
-  --surface: #FFFFFF;  /* Muda TODOS os cards brancos */
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <Hero />
+      <Ticker />
+      {/* ... */}
+    </>
+  );
 }
 ```
 
+4. **Copie** os estilos gerados pro `globals.css`
+5. **Rode** `npm run dev` pra testar
+
+### PASSO 11: Reintegrar os Dados
+
+O Figroot não vai ter seus dados (nomes das marcas, produtos, etc.). Copie do `page.tsx` atual:
+
+1. Abra o `page.tsx` atual
+2. Copie os arrays de dados:
+   - `vehicleBrands` (linhas 29-41)
+   - `productLines` (linhas 43-54)
+   - `supplierGroups` (linhas 56-64)
+   - `locations` (linhas 66-71)
+   - `commonQuestions` (linhas 155-162)
+3. Cole no novo código
+4. Ajuste pra usar os dados via props ou hardcoded
+
 ---
 
-### Resumo Visual do Workflow
+### Fluxo Completo Resumido
 
 ```
-┌─────────────────────────────────────────────┐
-│  1. npm run dev (roda o site)               │
-└──────────────────┬──────────────────────────┘
-                   ▼
-┌─────────────────────────────────────────────┐
-│  2. Abrir Figma → Plugin "HTML to Figma"   │
-│     → Colar URL → Capture por seção        │
-└──────────────────┬──────────────────────────┘
-                   ▼
-┌─────────────────────────────────────────────┐
-│  3. Editar visualmente no Figma:           │
-│     - Cores (Fill)                         │
-│     - Fontes (Text)                        │
-│     - Espaçamentos (Auto Layout)           │
-│     - Bordas (Stroke)                      │
-│     - Tamanhos (W/H)                       │
-└──────────────────┬──────────────────────────┘
-                   ▼
-┌─────────────────────────────────────────────┐
-│  4. Ativar Dev Mode (chave inglesa)        │
-│     → Clicar no elemento                   │
-│     → Copiar o CSS mostrado                │
-└──────────────────┬──────────────────────────┘
-                   ▼
-┌─────────────────────────────────────────────┐
-│  5. Colar no arquivo correto:              │
-│     - globals.css (cores, header, hero)    │
-│     - expanded.css (cards, seções, grids)  │
-│     - page.tsx (textos, dados)             │
-└──────────────────┬──────────────────────────┘
-                   ▼
-┌─────────────────────────────────────────────┐
-│  6. Salvar → site atualiza automaticamente │
-└─────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│  1. Criar frames no Figma (Desktop 1440px)           │
+│     - Home, Empresa, Montadoras, Produtos, etc.      │
+└──────────────────────┬───────────────────────────────┘
+                       ▼
+┌──────────────────────────────────────────────────────┐
+│  2. Desenhar componentes com Auto Layout             │
+│     - Header, Hero, Cards, Footer, etc.              │
+│     - Nomear camadas em PascalCase                   │
+│     - Criar estilos de cor e texto                   │
+└──────────────────────┬───────────────────────────────┘
+                       ▼
+┌──────────────────────────────────────────────────────┐
+│  3. Plugin Figroot (grátis, sem cadastro)            │
+│     - Selecionar frame → "Generate"                  │
+│     - Escolher React + Tailwind                      │
+│     - Copiar código gerado                           │
+└──────────────────────┬───────────────────────────────┘
+                       ▼
+┌──────────────────────────────────────────────────────┐
+│  4. Criar pasta app/components/                      │
+│     - Colar cada componente num arquivo .tsx         │
+│     - Importar no page.tsx                           │
+│     - Colar estilos no globals.css                   │
+└──────────────────────┬───────────────────────────────┘
+                       ▼
+┌──────────────────────────────────────────────────────┐
+│  5. Copiar dados do page.tsx atual                   │
+│     - vehicleBrands, productLines, etc.              │
+│     - Ajustar props e uso                            │
+└──────────────────────┬───────────────────────────────┘
+                       ▼
+┌──────────────────────────────────────────────────────┐
+│  6. npm run dev → testar no navegador                │
+└──────────────────────────────────────────────────────┘
 ```
 
-### Dicas Finais
+---
 
-- **Capture seção por seção** — senão o Figma fica confuso com tudo junto
-- **Renomeie os frames** no Figma pra facilitar achar cada coisa
-- **Use a página "Tokens"** no Figma pra guardar as cores/fontes oficiais
-- **Salve frequentemente** no Figma (Ctrl+S)
-- **Teste no navegador** depois de cada mudança no código
-- **Imagens** precisam ser trocadas manualmente na pasta `public/`
-- **Textos** (conteúdo das frases) são editados no `page.tsx`, não no CSS
+### Dicas Importantes
+
+- **Nomeie bem as camadas** no Figma — o Figroot usa os nomes pra gerar componentes
+- **Use Auto Layout** em tudo — sem isso, o código fica com `position: absolute`
+- **Comece pelo Home** — depois faça as outras páginas
+- **Não precisa ser perfeito** — ajuste no código depois
+- **Imagens** precisam ser colocadas manualmente na pasta `public/`
+- **Animações** (ticker, splash) não são geradas — adicione no código depois
+- **Teste sempre** no navegador depois de importar
+- **Salve frequentemente** no Figma
+
+### Links Úteis
+
+- Figroot (grátis): https://figroot.vercel.app
+- Plugin Figma: busque "Figroot" no Resources
+- Figma: https://figma.com

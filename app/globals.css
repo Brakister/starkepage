@@ -69,13 +69,16 @@ a { color: inherit; text-decoration: none; }
 .experience { padding: 118px max(8vw, 34px) 140px; scroll-margin-top: 60px; }
 .section-intro h2 { margin: 20px 0 50px; font-size: clamp(46px, 6.1vw, 88px); line-height: .99; }
 .section-intro h2 em { color: var(--red); }
-.tab-list { display: flex; overflow-x: auto; border-bottom: 1px solid var(--border); scrollbar-width: none; }
+.tab-list { position: relative; display: flex; overflow-x: auto; border-bottom: 1px solid var(--border); scrollbar-width: none; }
 .tab-list::-webkit-scrollbar { display: none; }
-.tab { position: relative; display: flex; min-width: 125px; flex: 1; align-items: center; justify-content: center; gap: 8px; padding: 21px 7px; border: 0; background: transparent; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.tab-indicator { position: absolute; bottom: -1px; left: 0; height: 2px; background: var(--red); z-index: 2; }
+.tab-droplet { position: absolute; bottom: -6px; width: 10px; height: 10px; background: var(--red); border-radius: 50%; transform: translateX(-50%); z-index: 3; pointer-events: none; }
+.tab-droplet::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; background: var(--red); opacity: .18; animation: droplet-ring 1.2s cubic-bezier(.4, 0, .2, 1) infinite; }
+.tab { position: relative; display: flex; min-width: 125px; flex: 1; align-items: center; justify-content: center; gap: 8px; padding: 21px 7px; border: 0; background: transparent; color: var(--muted); font-size: 12px; white-space: nowrap; z-index: 1; cursor: pointer; }
 .tab > span { color: #aaa; font-size: 9px; }
 .tab--active { color: var(--ink); font-weight: 750; }
-.tab--active:after { position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: var(--red); content: ""; }
-.tab-panel { min-height: 380px; padding: 68px 2px 18px; animation: panel-in .4s ease; }
+.tab--active > span { color: var(--ink); }
+.tab-panel { min-height: 380px; padding: 68px 2px 18px; }
 .panel-heading h3 { max-width: 1000px; margin: 20px 0; font-size: clamp(45px, 6.7vw, 90px); line-height: 1.01; }
 .text-link { padding: 12px 0 6px; border-bottom: 1px solid var(--ink); font-size: 12px; font-weight: 700; }
 .text-link > span { padding-left: 10px; }
@@ -86,7 +89,7 @@ a { color: inherit; text-decoration: none; }
 button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
 @keyframes hero-arrive { to { transform: scale(1); } }
 @keyframes ticker { to { transform: translateX(-50%); } }
-@keyframes panel-in { from { opacity: .5; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes droplet-ring { 0% { transform: scale(1); opacity: .18; } 100% { transform: scale(2.2); opacity: 0; } }
 @keyframes splash-fade-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
 @keyframes splash-fade-out { from { opacity: 1; } to { opacity: 0; } }
 @keyframes splash-line-grow { from { width: 0; } to { width: 48px; } }
