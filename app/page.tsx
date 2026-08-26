@@ -30,17 +30,17 @@ const routes: Record<TabId, string> = {
 };
 
 const vehicleBrands = [
-  { name: "Porsche", territory: "STUTTGART · ALEMANHA", focus: "Precisão esportiva", text: "Componentes para as linhas 911, Cayenne, Macan, Panamera, Boxster e Cayman, respeitando a configuração e as exigências técnicas de cada veículo.", image: "/autoparts-brakes.webp" },
-  { name: "BMW", territory: "MUNIQUE · ALEMANHA", focus: "Performance e dinâmica", text: "Soluções para sedãs, SUVs e modelos esportivos das famílias Série 1, Série 3, Série 5, Série 7, X e aplicações selecionadas da linha M.", image: "/autoparts-filters.webp" },
-  { name: "Mercedes-Benz", territory: "STUTTGART · ALEMANHA", focus: "Conforto e engenharia", text: "Atendimento a aplicações das classes A, C, E e S, além de GLA, GLC, GLE e outros veículos da marca, sempre com validação técnica da peça.", image: "/autoparts-suspension.webp" },
-  { name: "Audi", territory: "INGOLSTADT · ALEMANHA", focus: "Tecnologia e controle", text: "Peças para famílias A3, A4, A5, A6, Q3, Q5, Q7 e aplicações esportivas S e RS, conforme disponibilidade e identificação correta do veículo.", image: "/autoparts-brakes.webp" },
-  { name: "Land Rover", territory: "COVENTRY · REINO UNIDO", focus: "Capacidade e sofisticação", text: "Componentes para Range Rover, Evoque, Discovery e Defender, com atenção especial aos sistemas de suspensão, arrefecimento e motorização.", image: "/autoparts-filters.webp" },
-  { name: "Volvo", territory: "GOTEMBURGO · SUÉCIA", focus: "Segurança e consistência", text: "Soluções selecionadas para as famílias XC, S e V, considerando tecnologia embarcada, procedência e especificação de cada conjunto.", image: "/autoparts-suspension.webp" },
-  { name: "Jaguar", territory: "COVENTRY · REINO UNIDO", focus: "Performance britânica", text: "Aplicações para sedãs, SUVs e esportivos Jaguar, com suporte especializado para a identificação de versões, motores e sistemas.", image: "/autoparts-brakes.webp" },
-  { name: "MINI", territory: "OXFORD · REINO UNIDO", focus: "Personalidade e agilidade", text: "Componentes para Cooper, Countryman, Clubman, Cabrio e John Cooper Works, de acordo com a geração e a motorização do veículo.", image: "/autoparts-filters.webp" },
-  { name: "Ferrari", territory: "MARANELLO · ITÁLIA", focus: "Alto desempenho", text: "Consulta especializada para aplicações selecionadas de veículos superesportivos, considerando os requisitos técnicos de cada projeto.", image: "/autoparts-suspension.webp" },
-  { name: "Lamborghini", territory: "SANT’AGATA · ITÁLIA", focus: "Engenharia superesportiva", text: "Atendimento sob consulta para aplicações de alta performance e componentes compatíveis com as especificações da montadora.", image: "/autoparts-brakes.webp" },
-  { name: "VW Premium", territory: "WOLFSBURG · ALEMANHA", focus: "Aplicações selecionadas", text: "Componentes destinados a aplicações selecionadas da Volkswagen premium, sempre conforme veículo, motorização e chassi.", image: "/autoparts-filters.webp" },
+  { name: "Porsche", territory: "STUTTGART · ALEMANHA", focus: "Precisão esportiva", about: "Símbolo da engenharia esportiva alemã, a Porsche combina desempenho, precisão construtiva e evolução tecnológica em automóveis reconhecidos mundialmente.", text: "Componentes para as linhas 911, Cayenne, Macan, Panamera, Boxster e Cayman, respeitando a configuração e as exigências técnicas de cada veículo.", image: "/vehicles/porsche-hero.png" },
+  { name: "BMW", territory: "MUNIQUE · ALEMANHA", focus: "Performance e dinâmica", about: "A BMW construiu sua identidade em torno do prazer de dirigir, unindo comportamento dinâmico, tecnologia e acabamento premium em diferentes segmentos.", text: "Soluções para sedãs, SUVs e modelos esportivos das famílias Série 1, Série 3, Série 5, Série 7, X e aplicações selecionadas da linha M.", image: "/vehicles/bmw-hero.png" },
+  { name: "Mercedes-Benz", territory: "STUTTGART · ALEMANHA", focus: "Conforto e engenharia", about: "Referência histórica no automóvel premium, a Mercedes-Benz reúne conforto, segurança, inovação e engenharia em uma ampla família de veículos.", text: "Atendimento a aplicações das classes A, C, E e S, além de GLA, GLC, GLE e outros veículos da marca, sempre com validação técnica da peça.", image: "/vehicles/mercedes-hero.png" },
+  { name: "Audi", territory: "INGOLSTADT · ALEMANHA", focus: "Tecnologia e controle", about: "Design progressivo, tecnologia e precisão definem a Audi, com projetos que equilibram sofisticação, conectividade e desempenho.", text: "Peças para famílias A3, A4, A5, A6, Q3, Q5, Q7 e aplicações esportivas S e RS, conforme disponibilidade e identificação correta do veículo.", image: "/vehicles/audi-hero.png" },
+  { name: "Land Rover", territory: "COVENTRY · REINO UNIDO", focus: "Capacidade e sofisticação", about: "A Land Rover combina tradição britânica, capacidade fora de estrada e luxo, criando SUVs preparados para diferentes terrenos e experiências.", text: "Componentes para Range Rover, Evoque, Discovery e Defender, com atenção especial aos sistemas de suspensão, arrefecimento e motorização.", image: "/vehicles/land-rover-hero.png" },
+  { name: "Volvo", territory: "GOTEMBURGO · SUÉCIA", focus: "Segurança e consistência", about: "Reconhecida por sua cultura de segurança, a Volvo aplica design escandinavo, conforto e tecnologia a veículos orientados ao uso cotidiano.", text: "Soluções selecionadas para as famílias XC, S e V, considerando tecnologia embarcada, procedência e especificação de cada conjunto.", image: "/vehicles/volvo-hero.png" },
+  { name: "Jaguar", territory: "COVENTRY · REINO UNIDO", focus: "Performance britânica", about: "A Jaguar expressa elegância e desempenho britânicos por meio de sedãs, esportivos e SUVs marcados por design e personalidade.", text: "Aplicações para sedãs, SUVs e esportivos Jaguar, com suporte especializado para a identificação de versões, motores e sistemas.", image: "/vehicles/jaguar-hero.png" },
+  { name: "MINI", territory: "OXFORD · REINO UNIDO", focus: "Personalidade e agilidade", about: "Com design inconfundível e condução ágil, a MINI traduz herança britânica em automóveis compactos de forte personalidade.", text: "Componentes para Cooper, Countryman, Clubman, Cabrio e John Cooper Works, de acordo com a geração e a motorização do veículo.", image: "/vehicles/mini-hero.png" },
+  { name: "Ferrari", territory: "MARANELLO · ITÁLIA", focus: "Alto desempenho", about: "A Ferrari representa a tradição italiana em competição, exclusividade e alta performance, com projetos guiados por engenharia e emoção.", text: "Consulta especializada para aplicações selecionadas de veículos superesportivos, considerando os requisitos técnicos de cada projeto.", image: "/vehicles/ferrari-hero.png" },
+  { name: "Lamborghini", territory: "SANT’AGATA · ITÁLIA", focus: "Engenharia superesportiva", about: "Design expressivo e desempenho extremo definem a Lamborghini, fabricante italiana reconhecida por seus superesportivos de caráter singular.", text: "Atendimento sob consulta para aplicações de alta performance e componentes compatíveis com as especificações da montadora.", image: "/vehicles/lamborghini-hero.png" },
+  { name: "VW Premium", territory: "WOLFSBURG · ALEMANHA", focus: "Aplicações selecionadas", about: "A Volkswagen reúne engenharia alemã, tecnologia e ampla experiência industrial em modelos selecionados de posicionamento superior.", text: "Componentes destinados a aplicações selecionadas da Volkswagen premium, sempre conforme veículo, motorização e chassi.", image: "/vehicles/volkswagen-hero.png" },
 ];
 
 const productLines = [
@@ -204,8 +204,64 @@ function PanelHeading({ kicker, title, text }: { kicker: string; title: string; 
   return <div className="panel-heading"><Eyebrow>{kicker}</Eyebrow><h3>{title}</h3><p>{text}</p></div>;
 }
 
+function CompanyRoadmap() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const move = useCallback((direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>(".roadmap-item");
+    const distance = (card?.offsetWidth ?? 340) + 14;
+    if (direction === -1 && track.scrollLeft < distance / 2) {
+      track.scrollLeft = track.scrollWidth / 2;
+    }
+    track.scrollBy({ left: direction * distance, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      const track = trackRef.current;
+      if (!track) return;
+      move(1);
+    }, 3600);
+    return () => window.clearInterval(timer);
+  }, [move]);
+
+  return <div className="roadmap-shell">
+    <div className="company-roadmap" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }} aria-label="Roadmap de evolução da Stärke Parts entre 2016 e 2026">{[...companyRoadmap, ...companyRoadmap].map((item, index) => <article className={`roadmap-item ${item.year === "2026" ? "roadmap-item--current" : ""}`} key={`${item.year}-${index}`} aria-hidden={index >= companyRoadmap.length ? true : undefined}><div className="roadmap-marker"><span>{String((index % companyRoadmap.length) + 1).padStart(2, "0")}</span></div><div className="roadmap-year"><strong>{item.year}</strong><span>{item.stage}</span></div><div className="roadmap-copy"><h5>{item.title}</h5><p>{item.text}</p></div></article>)}</div>
+    <div className="roadmap-controls"><span><i /> ROADMAP 2016 — 2026</span><div><button onClick={() => move(-1)} aria-label="Marco anterior">←</button><button onClick={() => move(1)} aria-label="Próximo marco">→</button></div></div>
+  </div>;
+}
+
+function ProductCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const move = useCallback((direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>(".product-card");
+    const distance = (card?.offsetWidth ?? 390) + 26;
+    if (direction === -1 && track.scrollLeft < distance / 2) track.scrollLeft = track.scrollWidth / 2;
+    track.scrollBy({ left: direction * distance, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => move(1), 4200);
+    return () => window.clearInterval(timer);
+  }, [move]);
+
+  return <section className="product-carousel" aria-label="Linhas de produtos Stärke Parts">
+    <div className="product-grid product-carousel-track" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }}>
+      {[...productLines, ...productLines].map((item, index) => <article className="product-card" key={`${item.number}-${index}`} aria-hidden={index >= productLines.length ? true : undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family}</span></div><h4>{item.title}</h4><p>{item.text}</p><ul>{item.items.map(part => <li key={part}>{part}</li>)}</ul></article>)}
+    </div>
+    <div className="product-carousel-controls"><span>PORTFÓLIO · 10 SISTEMAS</span><div><button onClick={() => move(-1)} aria-label="Produto anterior">←</button><button onClick={() => move(1)} aria-label="Próximo produto">→</button></div></div>
+  </section>;
+}
+
 function InstitutionalPanel({ onContact }: { onContact: () => void }) {
-  return <>
+  return <div className="institutional-page">
     <div className="panel-heading panel-heading--institutional">
       <Eyebrow>STÄRKE PARTS · ESPECIALISTAS DESDE 2016</Eyebrow>
       <h3>A força de quem entende cada peça. A confiança de quem conhece cada detalhe.</h3>
@@ -243,8 +299,8 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
 
     <div className="metric-grid"><div><strong>2016</strong><span>O início da nossa história</span></div><div><strong>04</strong><span>Operações estratégicas em São Paulo</span></div><div><strong>11</strong><span>Montadoras e aplicações premium</span></div><div><strong>BR</strong><span>Atendimento para todo o Brasil</span></div></div>
 
-    <div className="subsection-heading"><Eyebrow>A IDENTIDADE QUE NOS MOVE</Eyebrow><h4>Um posicionamento claro.<br /><em>Uma entrega consistente.</em></h4><p className="subsection-description">A nossa atuação é orientada por princípios que conectam os interesses do mercado, a responsabilidade técnica e a construção de relacionamentos duradouros.</p></div>
-    <div className="identity-grid">{corporatePillars.map(item => <article className="identity-card" key={item.label}><span>{item.label}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
+    <div className="subsection-heading identity-heading"><Eyebrow>A IDENTIDADE QUE NOS MOVE</Eyebrow><h4>Um posicionamento claro.<br /><em>Uma entrega consistente.</em></h4><p className="subsection-description">A nossa atuação é orientada por princípios que conectam os interesses do mercado, a responsabilidade técnica e a construção de relacionamentos duradouros.</p></div>
+    <div className="institutional-pillars-layout"><aside><strong>Princípios que orientam nossas decisões.</strong><p>Três compromissos conectados por um mesmo objetivo: entregar segurança e confiança ao mercado automotivo premium.</p></aside><div>{corporatePillars.map((item, index) => <article key={item.label}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{item.label}</small><h5>{item.title}</h5></div><p>{item.text}</p></article>)}</div></div>
 
     <div className="subsection-heading company-story-heading"><Eyebrow>QUEM SOMOS E COMO EVOLUÍMOS</Eyebrow><h4>O que existe por trás<br />de cada peça <em>Stärke.</em></h4><p>Nossa história reúne propósito, especialização, relações com fabricantes e uma estrutura que acompanha o desenvolvimento do mercado premium brasileiro.</p></div>
 
@@ -252,36 +308,36 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
 
     <aside className="brand-promise"><span>O QUE NOS MOVE TODOS OS DIAS</span><h4>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h4><p>Um compromisso que orienta o nosso portfólio, o relacionamento com fabricantes, a atenção à aplicação correta e a experiência de cada cliente.</p></aside>
 
-    <div className="subsection-heading"><Eyebrow>NOSSA TRAJETÓRIA</Eyebrow><h4>Uma história de evolução,<br />proximidade e <em>especialização.</em></h4></div>
-    <div className="company-roadmap" aria-label="Roadmap de evolução da Stärke Parts entre 2016 e 2026">{companyRoadmap.map((item, index) => <article className="roadmap-item" key={item.year}><div className="roadmap-marker"><span>{String(index + 1).padStart(2, "0")}</span></div><div className="roadmap-year"><strong>{item.year}</strong><span>{item.stage}</span></div><div className="roadmap-copy"><h5>{item.title}</h5><p>{item.text}</p></div></article>)}</div>
+    <div className="subsection-heading roadmap-heading"><Eyebrow>NOSSA TRAJETÓRIA</Eyebrow><h4>Uma história de evolução,<br />proximidade e <em>especialização.</em></h4></div>
+    <CompanyRoadmap />
 
-    <div className="subsection-heading operations-heading"><Eyebrow>OS BASTIDORES DA NOSSA OPERAÇÃO</Eyebrow><h4>Uma estrutura conectada<br />por um mesmo <em>propósito.</em></h4><p>Por trás de cada atendimento, diferentes áreas trabalham de forma integrada para aproximar o mercado premium das soluções de que ele precisa.</p></div>
+    <section className="operations-intro"><div><Eyebrow>OS BASTIDORES DA NOSSA OPERAÇÃO</Eyebrow><h4>Uma estrutura conectada<br />por um mesmo <em>propósito.</em></h4></div><aside><strong>09</strong><span>áreas conectadas</span><p>Por trás de cada atendimento, diferentes áreas trabalham de forma integrada para aproximar o mercado premium das soluções de que ele precisa.</p></aside></section>
     <div className="operations-grid">{companyOperations.map((item, index) => <article className="operation-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
 
     <div className="principle-grid"><article><span>01</span><h5>Procedência</h5><p>Fabricantes reconhecidos e seleção técnica de componentes para aplicações premium.</p></article><article><span>02</span><h5>Especialização</h5><p>Atendimento preparado para considerar veículo, motorização, ano e chassi.</p></article><article><span>03</span><h5>Proximidade</h5><p>Operações regionais e relacionamento próximo com quem move o aftermarket.</p></article><article><span>04</span><h5>Confiança</h5><p>Uma experiência construída com clareza, suporte e atenção a cada detalhe.</p></article></div>
     <div className="institutional-manifesto"><Eyebrow>O QUE SIGNIFICA SER STÄRKE</Eyebrow><p>Para nós, uma autopeça nunca representa apenas um item em estoque. Ela representa o trabalho de uma oficina, a confiança de um cliente, a precisão de um projeto e a responsabilidade de colocar o veículo novamente em movimento.</p><strong>É por isso que oferecemos peças.<br /><em>E entregamos confiança.</em></strong></div>
-  </>;
+  </div>;
 }
 function ApplicationsPanel({ onContact }: { onContact: () => void }) {
   const [selected, setSelected] = useState(0);
   const vehicle = vehicleBrands[selected];
-  return <>
+  return <div className="applications-page">
     <PanelHeading kicker="APLICAÇÕES PREMIUM E DE ALTA PERFORMANCE" title="Veículos extraordinários exigem escolhas à altura." text="Trabalhamos com aplicações para algumas das montadoras mais relevantes do segmento premium e superesportivo. Nossa equipe avalia cada veículo individualmente para orientar a identificação da peça e do fabricante adequados." />
-    <div className="brand-explorer"><div className="brand-selector" aria-label="Selecione uma montadora">{vehicleBrands.map((item, index) => <button key={item.name} className={selected === index ? "selected" : ""} onClick={() => setSelected(index)} aria-pressed={selected === index}><span>{String(index + 1).padStart(2, "0")}</span>{item.name}<b>↗</b></button>)}</div><article className="brand-feature" key={vehicle.name}><div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.88),transparent 67%),url('${vehicle.image}')` }}><span>{vehicle.territory}</span><h4>{vehicle.name}</h4></div><div className="brand-feature-copy"><Eyebrow>{vehicle.focus.toUpperCase()}</Eyebrow><p>{vehicle.text}</p><button className="text-link" onClick={onContact}>Consultar uma aplicação <span>↗</span></button></div></article></div>
+    <div className="brand-explorer"><div className="brand-selector" aria-label="Selecione uma montadora">{vehicleBrands.map((item, index) => <button key={item.name} className={selected === index ? "selected" : ""} onClick={() => setSelected(index)} aria-pressed={selected === index}><span>{String(index + 1).padStart(2, "0")}</span>{item.name}<b>↗</b></button>)}</div><article className="brand-feature" key={vehicle.name}><div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.9),transparent 70%),url('${vehicle.image}')` }}><span>{vehicle.territory}</span><h4>{vehicle.name}</h4><b>{vehicle.focus}</b></div><div className="brand-feature-copy"><div className="brand-feature-summary"><span>SOBRE A MONTADORA</span><p>{vehicle.about}</p></div><div className="brand-feature-summary"><span>APLICAÇÕES STÄRKE PARTS</span><p>{vehicle.text}</p></div><button className="text-link" onClick={onContact}>Consultar uma aplicação <span>↗</span></button></div></article></div>
     <aside className="info-strip"><strong>A aplicação correta começa pelo veículo certo.</strong><span>Montadora · modelo · ano · motorização · chassi completo, quando necessário.</span></aside>
     <div className="subsection-heading"><Eyebrow>COMO IDENTIFICAMOS CADA APLICAÇÃO</Eyebrow><h4>Precisão técnica começa<br />pelas <em>informações corretas.</em></h4><p className="subsection-description">Automóveis premium podem apresentar diferenças relevantes mesmo dentro de uma mesma família. Nossa análise considera os detalhes necessários para orientar a escolha do componente.</p></div>
     <div className="detail-grid">{applicationCriteria.map((item, index) => <article className="detail-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
     <aside className="editorial-note"><strong>Não é apenas sobre a marca do veículo.</strong><p>É sobre identificar a combinação correta entre projeto, sistema, fabricante e referência para que a peça atenda à aplicação com a atenção que o segmento exige.</p></aside>
-  </>;
+  </div>;
 }
 
 function ProductsPanel({ onContact }: { onContact: () => void }) {
   return <>
     <PanelHeading kicker="LINHAS E SISTEMAS AUTOMOTIVOS" title="Um portfólio completo para quem conhece cada detalhe." text="Da manutenção preventiva aos componentes de sistemas mais exigentes, reunimos linhas selecionadas para diferentes montadoras e aplicações premium. A disponibilidade deve ser confirmada com nossa equipe conforme o veículo e o fabricante." />
     <div className="product-spotlight"><div className="product-spotlight-photo" aria-label="Autopeças premium: discos de freio, amortecedores e filtros" /><div className="product-spotlight-copy"><Eyebrow>PEÇAS QUE MOVEM CONFIANÇA</Eyebrow><h4>Cada sistema.<br /><em>A peça certa.</em></h4><p>Da frenagem ao arrefecimento, nossa seleção reúne componentes essenciais para uma manutenção compatível com o padrão de exigência dos veículos premium.</p></div></div>
-    <div className="product-grid">{productLines.map(item => <article className="product-card" key={item.title}><div className="product-card-top"><span>{item.number}</span><span>{item.family}</span></div><h4>{item.title}</h4><p>{item.text}</p><ul>{item.items.map(part => <li key={part}>{part}</li>)}</ul><button onClick={onContact}>Consultar disponibilidade <span>↗</span></button></article>)}</div>
+    <ProductCarousel />
     <div className="subsection-heading"><Eyebrow>ONDE NOSSO PORTFÓLIO FAZ A DIFERENÇA</Eyebrow><h4>Soluções pensadas para<br />diferentes momentos da <em>manutenção.</em></h4></div>
-    <div className="detail-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
+    <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
     <div className="quality-banner"><span>CRITÉRIOS STÄRKE PARTS</span><h4>Procedência. Compatibilidade.<br /><em>Confiança em cada componente.</em></h4><p>A disponibilidade, o fabricante e a referência exata são sempre confirmados de acordo com a aplicação e a necessidade apresentada pelo cliente.</p></div>
     <aside className="info-strip"><strong>Não encontrou o componente que procura?</strong><button className="text-link" onClick={onContact}>Fale com um especialista <span>↗</span></button></aside>
   </>;
@@ -345,7 +401,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
   return <main id="topo" className="landing">
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}>
-      <Link className="wordmark" href="/" aria-label="Stärke Parts, início"><span>STÄRKE</span><b>PARTS</b></Link>
+      <Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link>
       <nav className="desktop-nav" aria-label="Navegação principal"><Link href="/empresa">A empresa</Link><Link href="/montadoras">Montadoras</Link><Link href="/produtos">Produtos</Link><Link href="/fabricantes">Fabricantes</Link><Link href="/unidades">Unidades</Link></nav>
       <Link className="header-cta" href="/atendimento">Falar com especialista <span>↗</span></Link>
     </header>
@@ -364,7 +420,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
     <section className="landing-cta"><div className="landing-cta__photo" aria-hidden="true" /><div><Eyebrow light>ATENDIMENTO ESPECIALIZADO</Eyebrow><h2>Da aplicação à entrega,<br /><em>precisão em cada etapa.</em></h2><p>Conte com uma equipe preparada para identificar o componente e orientar a melhor solução para o seu veículo ou negócio.</p><Link className="button button--yellow" href="/atendimento">Fale com a Stärke Parts <span>↗</span></Link></div></section>
 
-    <footer className="footer"><Link className="wordmark" href="/"><span>STÄRKE</span><b>PARTS</b></Link><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
+    <footer className="footer"><Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
   </main>;
 }
 
@@ -430,12 +486,12 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "" : "main--hidden"}>
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><span>STÄRKE</span><b>PARTS</b></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((item, index) => <span key={`${item.name}-${index}`}>{item.name.toUpperCase()}<b>✳</b></span>)}</div></section>
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label="Áreas da Stärke Parts"><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
     <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
-    <footer className="footer"><a className="wordmark" href="#topo"><span>STÄRKE</span><b>PARTS</b></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
+    <footer className="footer"><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
   </main>
   </>;
 }
