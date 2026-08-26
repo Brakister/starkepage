@@ -356,21 +356,25 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
   </main>;
 }
 
-export function StarkePage({ initialSection = "institucional" }: { initialSection?: TabId }) {
+export function StarkePage({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
-  const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone] = useState(!showSplash);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const handleSplashComplete = useCallback(() => setSplashDone(true), []);
+  const handleSplashComplete = useCallback(() => {
+    sessionStorage.setItem("starke-welcome-seen", "true");
+    setSplashDone(true);
+  }, []);
 
   useEffect(() => {
+    if (showSplash && sessionStorage.getItem("starke-welcome-seen") === "true") setSplashDone(true);
     const listener = () => setScrolled(window.scrollY > 28);
     listener();
     window.addEventListener("scroll", listener, { passive: true });
     const hash = window.location.hash.slice(1);
     if (tabs.some(tab => tab.id === hash)) setActive(hash as TabId);
     return () => window.removeEventListener("scroll", listener);
-  }, []);
+  }, [showSplash]);
 
   function changeTab(id: TabId, shouldScroll = true) {
     if (window.location.pathname !== routes[id]) {
@@ -391,7 +395,7 @@ export function StarkePage({ initialSection = "institucional" }: { initialSectio
   const onContact = () => changeTab("atendimento");
 
   return <>
-    {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+    {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "" : "main--hidden"}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><span>STÄRKE</span><b>PARTS</b></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
@@ -404,5 +408,5 @@ export function StarkePage({ initialSection = "institucional" }: { initialSectio
 }
 
 export default function Home() {
-  return <StarkePage />;
+  return <StarkePage showSplash />;
 }
