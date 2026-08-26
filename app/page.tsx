@@ -14,7 +14,17 @@ const tabs = [
   { id: "atendimento", label: "Atendimento", number: "07" },
 ] as const;
 
-type TabId = (typeof tabs)[number]["id"];
+export type TabId = (typeof tabs)[number]["id"];
+
+const routes: Record<TabId, string> = {
+  institucional: "/empresa",
+  aplicacoes: "/montadoras",
+  produtos: "/produtos",
+  fabricantes: "/fabricantes",
+  estrutura: "/unidades",
+  logistica: "/logistica",
+  atendimento: "/atendimento",
+};
 
 const vehicleBrands = [
   { name: "Porsche", territory: "STUTTGART · ALEMANHA", focus: "Precisão esportiva", text: "Componentes para as linhas 911, Cayenne, Macan, Panamera, Boxster e Cayman, respeitando a configuração e as exigências técnicas de cada veículo.", image: "/autoparts-brakes.webp" },
@@ -289,8 +299,8 @@ function ServicePanel() {
   </>;
 }
 
-export default function Home() {
-  const [active, setActive] = useState<TabId>("institucional");
+export function StarkePage({ initialSection = "institucional" }: { initialSection?: TabId }) {
+  const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -304,8 +314,10 @@ export default function Home() {
   }, []);
 
   function changeTab(id: TabId, shouldScroll = true) {
-    setActive(id);
-    window.history.replaceState(null, "", `#${id}`);
+    if (window.location.pathname !== routes[id]) {
+      window.location.href = routes[id];
+      return;
+    }
     if (shouldScroll) document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -327,4 +339,8 @@ export default function Home() {
     <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
     <footer className="footer"><a className="wordmark" href="#topo"><span>STÄRKE</span><b>PARTS</b></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
   </main>;
+}
+
+export default function Home() {
+  return <StarkePage />;
 }
