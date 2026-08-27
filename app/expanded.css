@@ -1752,3 +1752,41 @@
   .landing-proof > div { min-height: 145px; padding: 22px; }
   .landing-cta { min-height: 650px; padding: 80px 24px; }
 }
+
+.institutional-history-signature,
+.brand-promise,
+.quality-banner,
+.official-distribution,
+.supplier-card--featured,
+.coverage-banner,
+.contact-card,
+.closing-statement,
+.product-spotlight,
+.institutional-page .institutional-pillars-layout > aside,
+.institutional-page .operations-intro,
+.institutional-page .operations-intro > aside,
+.institutional-page .identity-heading,
+.institutional-page .company-story-heading,
+.institutional-page .operations-heading > p,
+.institutional-page .institutional-manifesto,
+.institutional-page .principle-grid article,
+.institutional-page .principle-grid article:hover,
+.applications-page > .panel-heading,
+.applications-page .brand-feature,
+.applications-page .brand-feature-copy,
+.applications-page .brand-feature-summary,
+.applications-page > .subsection-heading,
+.applications-page > .detail-grid .detail-card,
+.experience > .section-intro {
+  background-color: #0c0c0c;
+  background-image:
+    radial-gradient(115% 90% at 50% 0%, rgba(255,255,255,.05), transparent 58%),
+    linear-gradient(27deg, #191919 5px, transparent 5px),
+    linear-gradient(207deg, #191919 5px, transparent 5px),
+    linear-gradient(27deg, #2a2a2a 5px, transparent 5px),
+    linear-gradient(207deg, #2a2a2a 5px, transparent 5px),
+    linear-gradient(90deg, #191919 10px, transparent 10px),
+    linear-gradient(#202020 25%, #161616 25%, #161616 50%, transparent 50%, transparent 75%, #2a2a2a 75%, #2a2a2a);
+  background-position: 0 0, 0 5px, 10px 0, 0 10px, 10px 5px, 0 0, 0 0;
+  background-size: auto, 20px 20px, 20px 20px, 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+}
