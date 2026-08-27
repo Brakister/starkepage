@@ -3,3 +3,5 @@ dist
 .DS_Store
 .sites-runtime
 .next
+.wrangler
+next-env.d.ts
