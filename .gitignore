@@ -5,3 +5,5 @@ dist
 .next
 .wrangler
 next-env.d.ts
+.vinext/
+*.tsbuildinfo

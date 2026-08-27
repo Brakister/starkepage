@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
+const WHATSAPP = "https://wa.me/5511999631185?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
 
 const tabs = [
   { id: "institucional", label: "A Stärke", number: "01" },
@@ -14,11 +15,10 @@ const tabs = [
   { id: "produtos", label: "Produtos", number: "03" },
   { id: "fabricantes", label: "Fabricantes", number: "04" },
   { id: "estrutura", label: "Estrutura", number: "05" },
-  { id: "logistica", label: "Logística", number: "06" },
-  { id: "atendimento", label: "Atendimento", number: "07" },
+  { id: "atendimento", label: "Atendimento", number: "06" },
 ] as const;
 
-export type TabId = (typeof tabs)[number]["id"];
+export type TabId = (typeof tabs)[number]["id"] | "logistica";
 
 const routes: Record<TabId, string> = {
   institucional: "/empresa",
@@ -67,11 +67,48 @@ const supplierGroups = [
   { title: "Marca própria", brands: ["Forschen"], category: "IDENTIDADE STÄRKE", description: "Uma linha própria construída dentro do universo de especialização, disponibilidade e confiança da Stärke Parts." },
 ];
 
+const manufacturerLogos = [
+  { name: "febi", origin: "Alemanha · desde 1844", history: "Uma das marcas centrais do Bilstein Group, a febi construiu uma trajetória ligada ao desenvolvimento e à distribuição de componentes para o mercado de reposição.", work: "Direção, suspensão, motor, transmissão, freios e soluções de manutenção para diferentes aplicações." },
+  { name: "SWAG", origin: "Alemanha · Bilstein Group", history: "Marca alemã integrada ao Bilstein Group, reconhecida por ampliar a oferta de reposição para veículos europeus e por sua tradição no aftermarket.", work: "Componentes de direção, suspensão, motor, transmissão, elétrica e manutenção geral." },
+  { name: "Blue Print", origin: "Reino Unido · Bilstein Group", history: "A Blue Print nasceu com foco em aplicações para veículos asiáticos e britânicos e passou a integrar o Bilstein Group, ampliando sua presença no aftermarket internacional.", work: "Filtragem, frenagem, direção, suspensão, embreagem e componentes de manutenção." },
+  { name: "TRW", origin: "Estados Unidos · atualmente ZF Aftermarket", history: "A TRW reúne uma longa herança em sistemas automotivos e passou a integrar a ZF, preservando sua presença global no mercado de reposição.", work: "Freios, direção, suspensão e componentes ligados à segurança veicular." },
+  { name: "LEMFÖRDER", origin: "Alemanha · desde 1947", history: "Marca do grupo ZF reconhecida pela especialização em componentes de chassis e por sua presença como fornecedora de projetos originais e do aftermarket.", work: "Braços, buchas, articulações, direção e componentes de suspensão." },
+  { name: "SACHS", origin: "Alemanha · desde 1895", history: "Com raízes na engenharia alemã, a SACHS tornou-se uma referência em sistemas de transmissão e controle de movimento, integrando atualmente a ZF.", work: "Amortecedores, embreagens, volantes bimassa e componentes de suspensão." },
+  { name: "Brembo", origin: "Itália · desde 1961", history: "Nascida próxima a Bérgamo, a Brembo evoluiu de uma oficina mecânica para uma referência mundial em tecnologia de frenagem e alta performance.", work: "Discos, pinças, pastilhas, fluidos e sistemas completos de freio." },
+  { name: "Textar", origin: "Alemanha · mais de um século de experiência", history: "Marca de fricção da TMD Friction com longa atuação no fornecimento de componentes para veículos de passeio e aplicações de maior exigência.", work: "Pastilhas, discos, lonas e acessórios para sistemas de frenagem." },
+  { name: "Hengst", origin: "Alemanha · desde 1958", history: "Fundada em Münster, a Hengst cresceu como especialista em filtração e gerenciamento de fluidos para mobilidade, indústria e outras aplicações técnicas.", work: "Filtros de óleo, ar, combustível, cabine e módulos de filtração." },
+  { name: "MAHLE", origin: "Alemanha · desde 1920", history: "A MAHLE nasceu em Stuttgart e tornou-se um dos grandes grupos internacionais de tecnologia para motores, mobilidade e gerenciamento térmico.", work: "Filtragem, pistões, componentes de motor, arrefecimento e gestão térmica." },
+  { name: "UFI", origin: "Itália · desde 1971", history: "A UFI Filters desenvolveu sua atuação internacional a partir da especialização em filtração para veículos, aplicações industriais e projetos de alta exigência.", work: "Filtros de óleo, ar, combustível, cabine e sistemas térmicos." },
+  { name: "Bosch", origin: "Alemanha · desde 1886", history: "Fundada por Robert Bosch em Stuttgart, a empresa tornou-se uma das maiores referências mundiais em tecnologia, mobilidade e equipamentos automotivos.", work: "Ignição, injeção, sensores, elétrica, eletrônica, frenagem, filtros e diagnóstico." },
+  { name: "HELLA", origin: "Alemanha · desde 1899", history: "Com origem em Lippstadt, a HELLA consolidou uma trajetória centenária em iluminação e eletrônica automotiva e hoje integra o grupo FORVIA.", work: "Iluminação, sensores, atuadores, eletrônica e gerenciamento de energia." },
+  { name: "Delphi", origin: "Estados Unidos · atuação global", history: "A Delphi reúne décadas de experiência em sistemas eletrônicos, gerenciamento de motores e soluções de reposição para diferentes mercados automotivos.", work: "Ignição, injeção, sensores, bombas, direção, suspensão e gerenciamento do motor." },
+  { name: "Continental", origin: "Alemanha · desde 1871", history: "Fundada em Hannover, a Continental evoluiu da produção de artefatos de borracha para um grupo global de tecnologia e soluções para mobilidade.", work: "Correias, sensores, eletrônica, freios, pneus e sistemas de gerenciamento automotivo." },
+  { name: "Pierburg", origin: "Alemanha · desde 1909", history: "A Pierburg desenvolveu sua história em torno de sistemas de alimentação e controle de motores e integra atualmente o grupo Rheinmetall.", work: "Bombas, válvulas, controle de emissões, admissão e gerenciamento de ar." },
+  { name: "HEPU", origin: "Alemanha · tradição em arrefecimento", history: "A HEPU consolidou sua presença no aftermarket europeu com foco técnico em componentes de circulação e controle térmico do motor.", work: "Bombas d’água, kits de correia, anticongelantes e componentes de arrefecimento." },
+  { name: "GEBA", origin: "Alemanha · especialista independente", history: "Fabricante alemã dedicada ao mercado de reposição, com trajetória concentrada na produção e no desenvolvimento de bombas para aplicações automotivas.", work: "Bombas d’água e componentes associados ao sistema de arrefecimento." },
+  { name: "BGA", origin: "Reino Unido · experiência em componentes de motor", history: "A BG Automotive desenvolveu uma ampla linha para reposição, apoiada em conhecimento de aplicações e cobertura para veículos europeus e asiáticos.", work: "Juntas, cabeçotes, válvulas, corrente de comando, direção e suspensão." },
+  { name: "ÜRO Parts", origin: "Estados Unidos · reposição para veículos europeus", history: "A ÜRO Parts foi criada para atender o mercado de reposição de automóveis europeus com uma linha ampla de componentes e aplicações específicas.", work: "Arrefecimento, elétrica, acabamento, suspensão, direção e componentes de carroceria." },
+  { name: "SIDEM", origin: "Bélgica · desde 1933", history: "Empresa familiar belga especializada há várias gerações em componentes de direção e suspensão para o mercado internacional de reposição.", work: "Braços, terminais, barras axiais, pivôs, buchas e articulações." },
+  { name: "Hoffer", origin: "Itália · grupo Meat&Doria", history: "A Hoffer integra a experiência italiana do grupo Meat&Doria e amplia sua presença no aftermarket com linhas ligadas à eletrônica e alimentação.", work: "Sensores, injeção, bombas, válvulas, elétrica e gerenciamento do motor." },
+  { name: "Meat&Doria", origin: "Itália · desde 1945", history: "Marca italiana com longa atuação no aftermarket, inicialmente ligada à distribuição de componentes e posteriormente ampliada para linhas eletrônicas e de motor.", work: "Injeção, sensores, bombas, filtros, válvulas e gerenciamento eletrônico." },
+  { name: "Bilstein", origin: "Alemanha · tradição em dinâmica veicular", history: "A Bilstein desenvolveu uma trajetória internacional ligada à engenharia de suspensão, fornecendo soluções para projetos originais, competição e reposição premium.", work: "Amortecedores, conjuntos de suspensão e soluções voltadas à estabilidade e ao desempenho." },
+  { name: "KYB", origin: "Japão · desde 1919", history: "A KYB construiu uma presença global a partir da engenharia hidráulica e tornou-se uma das referências em sistemas de controle de movimento para veículos.", work: "Amortecedores, molas, kits de suspensão, direção hidráulica e componentes associados." },
+  { name: "Victor Reinz", origin: "Alemanha · marca do grupo Dana", history: "A Victor Reinz reúne uma longa experiência em tecnologias de vedação e proteção térmica para motores e sistemas automotivos.", work: "Juntas, retentores, parafusos de cabeçote, vedantes e soluções de proteção térmica." },
+  { name: "WABCO", origin: "Estados Unidos · tradição em veículos comerciais", history: "A WABCO desenvolveu sua história em sistemas de segurança e controle para veículos comerciais e hoje integra o grupo ZF.", work: "Frenagem pneumática, controle de estabilidade, suspensão e sistemas para veículos comerciais." },
+  { name: "Forschen", origin: "Brasil · marca própria Stärke Parts", history: "A Forschen nasceu da experiência da Stärke Parts no mercado premium para ampliar a oferta com uma identidade própria e seleção orientada por aplicação.", work: "Componentes selecionados para manutenção e reposição, conforme disponibilidade e especificação do veículo." },
+];
+
+const manufacturerLogoFiles: Record<string, string> = {
+  Bilstein: "/manufacturer-logos/bilstein.png", "Blue Print": "/manufacturer-logos/blue-print.png", Forschen: "/manufacturer-logos/forschen-v2.png", GEBA: "/manufacturer-logos/geba.png", Hengst: "/manufacturer-logos/hengst.png", Hoffer: "/manufacturer-logos/hoffer.png", KYB: "/manufacturer-logos/kyb.png", LEMFÖRDER: "/manufacturer-logos/lemforder.png", MAHLE: "/manufacturer-logos/mahle.png", Pierburg: "/manufacturer-logos/pierburg.png", SIDEM: "/manufacturer-logos/sidem.png", SWAG: "/manufacturer-logos/swag.png", Textar: "/manufacturer-logos/textar.png", TRW: "/manufacturer-logos/trw.png", UFI: "/manufacturer-logos/ufi.png", "ÜRO Parts": "/manufacturer-logos/uro-parts.png", "Victor Reinz": "/manufacturer-logos/victor-reinz.png", WABCO: "/manufacturer-logos/wabco.png",
+};
+
+const manufacturerCarouselBrands = manufacturerLogos.filter(brand => manufacturerLogoFiles[brand.name]);
+
 const locations = [
-  { code: "SP·01", city: "São Paulo", type: "MATRIZ", area: "Chácara Santo Antônio", description: "Nossa operação central conecta atendimento comercial, gestão de portfólio e suporte especializado ao mercado de autopeças premium.", capabilities: ["Atendimento especializado", "Operação comercial", "Distribuição regional"] },
-  { code: "SP·02", city: "Sorocaba", type: "CENTRO DE DISTRIBUIÇÃO", area: "Interior de São Paulo", description: "Estrutura logística estratégica para ampliar a disponibilidade de produtos e agilizar o atendimento ao interior paulista.", capabilities: ["Estoque estratégico", "Expedição", "Atendimento regional"] },
-  { code: "SP·03", city: "Campinas", type: "FILIAL", area: "Rua Pedro Domingos Vitali, 400 · Parque Itália", description: "Presença em uma das principais regiões automotivas do estado, aproximando a Stärke de oficinas, centros automotivos e parceiros locais.", capabilities: ["Atendimento regional", "Proximidade comercial", "Suporte especializado"] },
-  { code: "SP·04", city: "Santos", type: "FILIAL", area: "Baixada Santista", description: "Operação voltada ao relacionamento com clientes do litoral paulista e à ampliação da cobertura comercial da marca.", capabilities: ["Atendimento regional", "Cobertura no litoral", "Agilidade comercial"] },
+  { code: "SP·01", city: "São Paulo", type: "MATRIZ", area: "Chácara Santo Antônio", phone: "(11) 4102-1202", phoneHref: "tel:+551141021202", description: "Nossa operação central conecta atendimento comercial, gestão de portfólio e suporte especializado ao mercado de autopeças premium.", capabilities: ["Atendimento especializado", "Operação comercial", "Distribuição regional"] },
+  { code: "SP·02", city: "Sorocaba", type: "CENTRO DE DISTRIBUIÇÃO", area: "Interior de São Paulo", phone: "(15) 98804-7031", phoneHref: "tel:+5515988047031", description: "Estrutura logística estratégica para ampliar a disponibilidade de produtos e agilizar o atendimento ao interior paulista.", capabilities: ["Estoque estratégico", "Expedição", "Atendimento regional"] },
+  { code: "SP·03", city: "Campinas", type: "FILIAL", area: "Rua Pedro Domingos Vitali, 400 · Parque Itália", phone: "(19) 97820-4813", phoneHref: "tel:+5519978204813", description: "Presença em uma das principais regiões automotivas do estado, aproximando a Stärke de oficinas, centros automotivos e parceiros locais.", capabilities: ["Atendimento regional", "Proximidade comercial", "Suporte especializado"] },
+  { code: "SP·04", city: "Santos", type: "FILIAL", area: "Baixada Santista", phone: "(13) 99205-9253", phoneHref: "tel:+5513992059253", description: "Operação voltada ao relacionamento com clientes do litoral paulista e à ampliação da cobertura comercial da marca.", capabilities: ["Atendimento regional", "Cobertura no litoral", "Agilidade comercial"] },
 ];
 
 const companyHistory = [
@@ -133,14 +170,6 @@ const productContexts = [
   { title: "Tecnologia e gerenciamento", text: "Sensores, ignição, injeção e componentes eletrônicos presentes em plataformas cada vez mais conectadas e tecnicamente complexas." },
 ];
 
-const featuredManufacturers = [
-  { name: "febi", group: "BILSTEIN GROUP · ALEMANHA", specialty: "Distribuição oficial no Brasil", text: "Como distribuidora oficial febi, a Stärke Parts trabalha com produtos recebidos diretamente da fábrica do Bilstein Group na Alemanha, reforçando a procedência e a confiança em componentes para diferentes sistemas automotivos." },
-  { name: "TRW · LEMFÖRDER · SACHS", group: "ZF AFTERMARKET", specialty: "Freios, direção, suspensão e amortecimento", text: "O ecossistema ZF reúne marcas reconhecidas por soluções ligadas à segurança, à dinâmica e ao comportamento dos veículos, com aplicações relevantes no mercado premium." },
-  { name: "Brembo · Textar", group: "FRENAGEM PREMIUM", specialty: "Discos, pastilhas e componentes de freio", text: "Fabricantes associados a sistemas de frenagem que exigem desempenho consistente, resposta previsível e compatibilidade com projetos automotivos sofisticados." },
-  { name: "Hengst · MAHLE · UFI", group: "FILTRAGEM E PROTEÇÃO", specialty: "Óleo, ar, combustível e cabine", text: "Especialistas em filtragem que ajudam a preservar conjuntos mecânicos e o funcionamento adequado dos sistemas, respeitando as necessidades de cada motorização." },
-  { name: "Forschen", group: "MARCA PRÓPRIA STÄRKE", specialty: "Identidade, seleção e disponibilidade", text: "A marca própria da Stärke Parts amplia as alternativas do portfólio e traduz a experiência da empresa em uma linha alinhada ao seu compromisso com aplicação, qualidade e confiança." },
-];
-
 const operationalJourney = [
   { step: "01", title: "Planejamento e importação", text: "Analisamos o mercado, fortalecemos o relacionamento com fornecedores e estruturamos um portfólio aderente às necessidades do segmento premium." },
   { step: "02", title: "Recebimento e organização", text: "Os componentes passam por rotinas de recebimento, identificação e organização de estoque para apoiar consultas e separações mais precisas." },
@@ -162,7 +191,6 @@ const commonQuestions = [
   { question: "A Stärke trabalha com peças usadas?", answer: "Não. Nosso portfólio é voltado a componentes novos, de fabricantes reconhecidos e linhas selecionadas conforme disponibilidade e aplicação." },
   { question: "Vocês são distribuidores oficiais febi?", answer: "Sim. A Stärke Parts é distribuidora oficial febi e recebe produtos diretamente da fábrica do Bilstein Group na Alemanha, reforçando a procedência da linha." },
   { question: "A entrega está disponível para todo o Brasil?", answer: "Sim. Trabalhamos com expedição nacional e modalidades regionais. Prazos, disponibilidade, cobertura e valores devem ser confirmados com o time de atendimento." },
-  { question: "Quando o frete grátis a partir de R$ 300 se aplica?", answer: "A condição se refere às entregas via motoboy dentro da área de atendimento aplicável. Consulte a equipe para confirmar cobertura, pedido mínimo e regras comerciais vigentes." },
 ];
 
 const serviceSteps = [
@@ -403,6 +431,17 @@ function ProductCarousel() {
   </section>;
 }
 
+function ManufacturerLogoCarousel() {
+  const [selectedBrand, setSelectedBrand] = useState(manufacturerCarouselBrands[0]);
+
+  return <section className="manufacturer-logo-carousel" aria-label="Fabricantes presentes no portfólio Stärke Parts">
+    <div className="manufacturer-logo-track">
+      {[...manufacturerCarouselBrands, ...manufacturerCarouselBrands].map((brand, index) => <button className={`manufacturer-logo ${selectedBrand.name === brand.name ? "manufacturer-logo--active" : ""}`} key={`${brand.name}-${index}`} onClick={() => setSelectedBrand(brand)} aria-pressed={selectedBrand.name === brand.name} aria-hidden={index >= manufacturerCarouselBrands.length ? true : undefined} tabIndex={index >= manufacturerCarouselBrands.length ? -1 : 0}><img src={manufacturerLogoFiles[brand.name]} alt={brand.name} /></button>)}
+    </div>
+    <article className="manufacturer-brand-summary" key={selectedBrand.name} aria-live="polite"><div><small>{selectedBrand.origin}</small><h4>{selectedBrand.name}</h4></div><div><span>HISTÓRIA</span><p>{selectedBrand.history}</p></div><div><span>PRINCIPAIS LINHAS</span><p>{selectedBrand.work}</p></div></article>
+  </section>;
+}
+
 function InstitutionalPanel({ onContact }: { onContact: () => void }) {
   return <div className="institutional-page">
     <div className="panel-heading panel-heading--institutional">
@@ -487,20 +526,17 @@ function ProductsPanel({ onContact }: { onContact: () => void }) {
 }
 
 function ManufacturersPanel({ onContact }: { onContact: () => void }) {
-  return <>
+  return <div className="manufacturers-page">
     <PanelHeading kicker="PARCERIAS E FABRICANTES INTERNACIONAIS" title="Marcas globais. Um mesmo compromisso com a qualidade." text="Nosso portfólio reúne fabricantes reconhecidos por sua atuação em diferentes sistemas automotivos. A composição da linha e a disponibilidade de cada item variam conforme a aplicação e devem ser confirmadas no atendimento." />
-    <div className="supplier-grid">{supplierGroups.map((group, index) => <article className={`supplier-card ${index === 0 ? "supplier-card--featured" : ""}`} key={group.title}><span className="supplier-category">{group.category}</span><h4>{group.title}</h4><p>{group.description}</p><div className="supplier-brands">{group.brands.map(brand => <span key={brand}>{brand}</span>)}</div></article>)}</div>
-    <div className="subsection-heading"><Eyebrow>CONHEÇA ALGUMAS DAS NOSSAS REFERÊNCIAS</Eyebrow><h4>Fabricantes que ajudam<br />a sustentar nossa <em>especialização.</em></h4><p className="subsection-description">Cada parceria contribui com conhecimento, linhas específicas e soluções alinhadas às necessidades de oficinas e profissionais que trabalham com aplicações premium.</p></div>
-    <div className="manufacturer-profiles">{featuredManufacturers.map((item, index) => <article className="manufacturer-profile" key={item.name}><span>{String(index + 1).padStart(2, "0")}</span><div><span>{item.group}</span><h5>{item.name}</h5><strong>{item.specialty}</strong><p>{item.text}</p></div></article>)}</div>
-    <div className="official-distribution"><Eyebrow light>DISTRIBUIDORA OFICIAL FEBI</Eyebrow><h4>Da Alemanha para quem<br />valoriza <em>procedência.</em></h4><p>A Stärke Parts é distribuidora oficial febi e recebe produtos diretamente da fábrica do Bilstein Group na Alemanha. Uma relação que reforça transparência, origem e confiança em cada consulta.</p></div>
+    <ManufacturerLogoCarousel />
     <aside className="manufacturer-note"><div><Eyebrow>DISTRIBUIÇÃO ESPECIALIZADA</Eyebrow><h4>Procedência que fortalece cada escolha.</h4></div><button className="button button--yellow" onClick={onContact}>Consultar fabricante <span>→</span></button></aside>
-  </>;
+  </div>;
 }
 
 function StructurePanel({ onContact }: { onContact: () => void }) {
   return <>
     <PanelHeading kicker="MATRIZ · CENTRO DE DISTRIBUIÇÃO · FILIAIS" title="Uma estrutura pensada para estar cada vez mais perto." text="Nossa presença no estado de São Paulo conecta atendimento especializado, disponibilidade regional e eficiência operacional. Cada unidade integra uma rede preparada para apoiar clientes em diferentes mercados." />
-    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type}</span></div><h4>{location.city}</h4><p className="location-area">{location.area}</p><p>{location.description}</p><ul>{location.capabilities.map(item => <li key={item}>{item}</li>)}</ul><button onClick={onContact}>Consultar atendimento <span>↗</span></button></article>)}</div>
+    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type}</span></div><h4>{location.city}</h4><p className="location-area">{location.area}</p><a className="location-phone" href={location.phoneHref} aria-label={`Ligar para a unidade ${location.city}`}><span>TELEFONE</span><strong>{location.phone}</strong></a><p>{location.description}</p><ul>{location.capabilities.map(item => <li key={item}>{item}</li>)}</ul><button onClick={onContact}>Consultar atendimento <span>↗</span></button></article>)}</div>
     <aside className="coverage-banner"><Eyebrow light>REDE STÄRKE PARTS</Eyebrow><h4>Quatro operações.<br /><em>Um mesmo padrão.</em></h4><p>Atendimento próximo, conhecimento técnico e uma operação conectada ao mercado brasileiro de autopeças premium.</p></aside>
     <div className="subsection-heading"><Eyebrow>COMO AS ÁREAS SE CONECTAM</Eyebrow><h4>Uma operação completa,<br />do fornecedor ao <em>pós-venda.</em></h4><p className="subsection-description">A distribuição especializada depende de uma cadeia integrada, na qual cada etapa contribui para uma experiência mais segura e organizada.</p></div>
     <div className="journey-list">{operationalJourney.map(item => <article className="journey-item" key={item.step}><span>{item.step}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
@@ -531,7 +567,7 @@ function ServicePanel() {
     <div className="subsection-heading"><Eyebrow>DÚVIDAS FREQUENTES</Eyebrow><h4>Informações importantes<br />antes de falar com a <em>equipe.</em></h4></div>
     <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question}><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
     <div className="after-sales"><span>RELACIONAMENTO E PÓS-VENDA</span><h5>A conversa não termina<br />quando o pedido é confirmado.</h5><p>Nosso compromisso inclui orientar o cliente durante o processo comercial e apoiar questões relacionadas à garantia, ao direcionamento correto e ao relacionamento com a unidade responsável.</p></div>
-    <div className="contact-card"><Eyebrow light>CONTATO STÄRKE PARTS</Eyebrow><h4>Vamos encontrar<br />a solução <em>certa.</em></h4><p>Entre em contato pelo nosso perfil oficial e solicite o direcionamento para um especialista ou para a unidade mais adequada.</p><a className="button button--yellow" href={INSTAGRAM} target="_blank" rel="noreferrer">Falar com a Stärke Parts <span>↗</span></a><span className="contact-handle">@starkepremiumparts</span></div>
+    <div className="contact-card"><Eyebrow light>CONTATO STÄRKE PARTS</Eyebrow><h4>Vamos encontrar<br />a solução <em>certa.</em></h4><p>Fale diretamente pelo WhatsApp e solicite o direcionamento para um especialista ou para a unidade mais adequada.</p><a className="button button--yellow button--whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Falar com a Stärke Parts pelo WhatsApp"><span className="whatsapp-mark" aria-hidden="true">●</span> Falar pelo WhatsApp <span>↗</span></a><a className="contact-handle" href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts</a></div>
   </>;
 }
 
