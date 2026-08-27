@@ -514,7 +514,7 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
 }
 
 function ProductsPanel({ onContact }: { onContact: () => void }) {
-  return <>
+  return <div className="products-page">
     <PanelHeading kicker="LINHAS E SISTEMAS AUTOMOTIVOS" title="Um portfólio completo para quem conhece cada detalhe." text="Da manutenção preventiva aos componentes de sistemas mais exigentes, reunimos linhas selecionadas para diferentes montadoras e aplicações premium. A disponibilidade deve ser confirmada com nossa equipe conforme o veículo e o fabricante." />
     <div className="product-spotlight"><div className="product-spotlight-photo" aria-label="Autopeças premium: discos de freio, amortecedores e filtros" /><div className="product-spotlight-copy"><Eyebrow>PEÇAS QUE MOVEM CONFIANÇA</Eyebrow><h4>Cada sistema.<br /><em>A peça certa.</em></h4><p>Da frenagem ao arrefecimento, nossa seleção reúne componentes essenciais para uma manutenção compatível com o padrão de exigência dos veículos premium.</p></div></div>
     <ProductCarousel />
@@ -522,7 +522,7 @@ function ProductsPanel({ onContact }: { onContact: () => void }) {
     <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
     <div className="quality-banner"><span>CRITÉRIOS STÄRKE PARTS</span><h4>Procedência. Compatibilidade.<br /><em>Confiança em cada componente.</em></h4><p>A disponibilidade, o fabricante e a referência exata são sempre confirmados de acordo com a aplicação e a necessidade apresentada pelo cliente.</p></div>
     <aside className="info-strip"><strong>Não encontrou o componente que procura?</strong><button className="text-link" onClick={onContact}>Fale com um especialista <span>↗</span></button></aside>
-  </>;
+  </div>;
 }
 
 function ManufacturersPanel({ onContact }: { onContact: () => void }) {
@@ -534,14 +534,14 @@ function ManufacturersPanel({ onContact }: { onContact: () => void }) {
 }
 
 function StructurePanel({ onContact }: { onContact: () => void }) {
-  return <>
+  return <div className="structure-page">
     <PanelHeading kicker="MATRIZ · CENTRO DE DISTRIBUIÇÃO · FILIAIS" title="Uma estrutura pensada para estar cada vez mais perto." text="Nossa presença no estado de São Paulo conecta atendimento especializado, disponibilidade regional e eficiência operacional. Cada unidade integra uma rede preparada para apoiar clientes em diferentes mercados." />
     <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type}</span></div><h4>{location.city}</h4><p className="location-area">{location.area}</p><a className="location-phone" href={location.phoneHref} aria-label={`Ligar para a unidade ${location.city}`}><span>TELEFONE</span><strong>{location.phone}</strong></a><p>{location.description}</p><ul>{location.capabilities.map(item => <li key={item}>{item}</li>)}</ul><button onClick={onContact}>Consultar atendimento <span>↗</span></button></article>)}</div>
     <aside className="coverage-banner"><Eyebrow light>REDE STÄRKE PARTS</Eyebrow><h4>Quatro operações.<br /><em>Um mesmo padrão.</em></h4><p>Atendimento próximo, conhecimento técnico e uma operação conectada ao mercado brasileiro de autopeças premium.</p></aside>
     <div className="subsection-heading"><Eyebrow>COMO AS ÁREAS SE CONECTAM</Eyebrow><h4>Uma operação completa,<br />do fornecedor ao <em>pós-venda.</em></h4><p className="subsection-description">A distribuição especializada depende de uma cadeia integrada, na qual cada etapa contribui para uma experiência mais segura e organizada.</p></div>
     <div className="journey-list">{operationalJourney.map(item => <article className="journey-item" key={item.step}><span>{item.step}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
     <aside className="editorial-note"><strong>Presença regional com visão nacional.</strong><p>Matriz, centro de distribuição e filiais trabalham de forma complementar para aproximar conhecimento técnico, disponibilidade e atendimento especializado dos clientes.</p></aside>
-  </>;
+  </div>;
 }
 
 function LogisticsPanel({ onContact }: { onContact: () => void }) {
@@ -558,7 +558,7 @@ function LogisticsPanel({ onContact }: { onContact: () => void }) {
 }
 
 function ServicePanel() {
-  return <>
+  return <div className="service-page">
     <PanelHeading kicker="ATENDIMENTO TÉCNICO E RELACIONAMENTO" title="A peça certa começa com a pergunta certa." text="Nosso time está preparado para atender oficinas, centros automotivos, lojistas e proprietários que procuram componentes para veículos premium. O objetivo é entender a necessidade, validar a aplicação e orientar a consulta com clareza." />
     <div className="service-audiences"><article><span>01</span><h4>Oficinas e centros automotivos</h4><p>Suporte especializado para a rotina de manutenção e reparação de veículos premium e importados.</p></article><article><span>02</span><h4>Lojistas e parceiros comerciais</h4><p>Atendimento voltado ao mercado de reposição, com consulta de aplicações e fabricantes disponíveis.</p></article><article><span>03</span><h4>Proprietários de veículos premium</h4><p>Orientação para identificar a linha, o componente e o canal de atendimento mais adequados.</p></article></div>
     <div className="subsection-heading"><Eyebrow>COMO FUNCIONA</Eyebrow><h4>Um atendimento orientado<br />por informação e confiança.</h4></div>
@@ -568,7 +568,7 @@ function ServicePanel() {
     <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question}><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
     <div className="after-sales"><span>RELACIONAMENTO E PÓS-VENDA</span><h5>A conversa não termina<br />quando o pedido é confirmado.</h5><p>Nosso compromisso inclui orientar o cliente durante o processo comercial e apoiar questões relacionadas à garantia, ao direcionamento correto e ao relacionamento com a unidade responsável.</p></div>
     <div className="contact-card"><Eyebrow light>CONTATO STÄRKE PARTS</Eyebrow><h4>Vamos encontrar<br />a solução <em>certa.</em></h4><p>Fale diretamente pelo WhatsApp e solicite o direcionamento para um especialista ou para a unidade mais adequada.</p><a className="button button--yellow button--whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Falar com a Stärke Parts pelo WhatsApp"><span className="whatsapp-mark" aria-hidden="true">●</span> Falar pelo WhatsApp <span>↗</span></a><a className="contact-handle" href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts</a></div>
-  </>;
+  </div>;
 }
 
 function HomeLanding({ scrolled }: { scrolled: boolean }) {
@@ -610,6 +610,7 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabListRef = useRef<HTMLDivElement>(null);
+  const activeSectionMounted = useRef(false);
   const router = useRouter();
 
   const handleSplashComplete = useCallback(() => {
@@ -635,6 +636,13 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
       const elRect = el.getBoundingClientRect();
       setIndicatorStyle({ left: elRect.left - listRect.left + tabListRef.current.scrollLeft, width: elRect.width });
     }
+    if (activeSectionMounted.current) {
+      const scrollTimer = window.setTimeout(() => {
+        document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+      return () => window.clearTimeout(scrollTimer);
+    }
+    activeSectionMounted.current = true;
   }, [active]);
 
   function changeTab(id: TabId, shouldScroll = true) {
@@ -647,7 +655,9 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
     }
     if (shouldScroll) {
       requestAnimationFrame(() => {
-        document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        requestAnimationFrame(() => {
+          document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       });
     }
   }
@@ -656,7 +666,7 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
     const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
-    changeTab(tabs[next].id, false);
+    changeTab(tabs[next].id, true);
     tabRefs.current[next]?.focus();
   }
 
