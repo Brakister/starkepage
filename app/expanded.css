@@ -2889,3 +2889,343 @@
     0 8px 0 #8f7418,
     0 24px 48px rgba(8,8,6,.2);
 }
+
+/* ============================================================
+   PREMIUM UNIFICATION — organic, less-square card grids on the
+   dark carbon-fiber system, with ambient glow and clean hierarchy.
+   ============================================================ */
+
+/* Shared premium card look */
+.institutional-page .metric-grid > div,
+.institutional-page .metric-grid > div:first-child,
+.institutional-page .operation-card,
+.institutional-page .principle-grid article,
+.applications-page > .detail-grid .detail-card,
+.products-page .detail-grid .detail-card,
+.structure-page .journey-item,
+.structure-page .location-card,
+.service-page .service-steps article,
+.service-page .service-audiences > article,
+.coverage-grid .coverage-card,
+.logistics-grid .logistics-card,
+.products-page .product-grid .product-card,
+.manufacturers-page .supplier-grid .supplier-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 130% at 12% -8%, rgba(252,204,44,.07), transparent 46%),
+    linear-gradient(165deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.012) 42%, transparent 70%),
+    url("/carbon-fiber-premium-v3.png") center/cover;
+  color: #fff;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.85),
+    0 14px 30px rgba(8,8,6,.28);
+  transform: translateZ(0);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease, box-shadow .35s ease;
+}
+
+/* soft top accent line + corner glow accent for a premium finish */
+.institutional-page .metric-grid > div::after,
+.institutional-page .operation-card::after,
+.institutional-page .principle-grid article::after,
+.applications-page > .detail-grid .detail-card::after,
+.products-page .detail-grid .detail-card::after,
+.structure-page .journey-item::after,
+.structure-page .location-card::after,
+.service-page .service-steps article::after,
+.service-page .service-audiences > article::after,
+.coverage-grid .coverage-card::after,
+.logistics-grid .logistics-card::after,
+.products-page .product-grid .product-card::after,
+.manufacturers-page .supplier-grid .supplier-card::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), transparent 18%),
+    radial-gradient(90% 70% at 100% 100%, rgba(252,204,44,.06), transparent 60%);
+  content: "";
+  pointer-events: none;
+}
+
+.institutional-page .metric-grid > div:hover,
+.institutional-page .metric-grid > div:first-child:hover,
+.institutional-page .operation-card:hover,
+.institutional-page .principle-grid article:hover,
+.applications-page > .detail-grid .detail-card:hover,
+.products-page .detail-grid .detail-card:hover,
+.structure-page .journey-item:hover,
+.structure-page .location-card:hover,
+.service-page .service-steps article:hover,
+.service-page .service-audiences > article:hover,
+.coverage-grid .coverage-card:hover,
+.logistics-grid .logistics-card:hover,
+.products-page .product-grid .product-card:hover,
+.manufacturers-page .supplier-grid .supplier-card:hover {
+  border-color: rgba(252,204,44,.34);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.1),
+    0 0 0 1px rgba(252,204,44,.08),
+    0 22px 40px rgba(8,8,6,.34),
+    0 0 34px rgba(252,204,44,.07);
+  transform: translateY(-5px) translateZ(18px);
+}
+
+/* Darker, cleaner grid containers (replace light #ebe9e2 shells) */
+.institutional-page .metric-grid,
+.institutional-page .operations-grid,
+.applications-page > .detail-grid,
+.products-page .detail-grid,
+.products-page .product-grid,
+.manufacturers-page .supplier-grid,
+.coverage-grid,
+.structure-page .journey-list,
+.service-page .service-steps,
+.service-page .service-audiences {
+  gap: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  perspective: none;
+}
+
+/* applications explorer shell → dark premium so the car cards sit cleanly */
+.applications-page .brand-explorer {
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 30px;
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.04), rgba(255,255,255,.01) 45%, rgba(252,204,44,.03)),
+    url("/carbon-fiber-premium-v3.png") center/cover;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.06), 0 24px 52px rgba(8,8,6,.3);
+}
+
+/* pillars + company chapters → dark premium cards */
+.institutional-page .institutional-pillars-layout article,
+.institutional-page .company-chapter {
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 130% at 12% -8%, rgba(252,204,44,.06), transparent 46%),
+    linear-gradient(165deg, rgba(255,255,255,.045) 0%, rgba(255,255,255,.012) 42%, transparent 70%),
+    url("/carbon-fiber-premium-v3.png") center/cover;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.08), 0 16px 32px rgba(8,8,6,.28);
+  color: #fff;
+  transform: translateZ(0);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease, box-shadow .35s ease;
+}
+.institutional-page .institutional-pillars-layout article:hover,
+.institutional-page .company-chapter:hover {
+  border-color: rgba(252,204,44,.34);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.1), 0 0 0 1px rgba(252,204,44,.08), 0 24px 42px rgba(8,8,6,.34), 0 0 34px rgba(252,204,44,.07);
+  transform: translateY(-5px) translateZ(18px);
+}
+.institutional-pillars-layout article small,
+.institutional-pillars-layout article h5,
+.institutional-pillars-layout article p,
+.institutional-page .company-chapter .chapter-copy h5,
+.institutional-page .company-chapter .chapter-copy p { color: #fff; }
+.institutional-pillars-layout article small { color: var(--yellow); }
+.institutional-page .company-chapter .chapter-index > b { color: #fff; }
+
+/* ---- text color fixes (these cards were light-on-white) ---- */
+.institutional-page .operation-card > span,
+.institutional-page .principle-grid article > span,
+.products-page .detail-grid .detail-card > span,
+.applications-page > .detail-grid .detail-card > span,
+.coverage-grid .coverage-card > span,
+.structure-page .journey-item > span,
+.service-page .service-steps article > span,
+.service-page .service-audiences > article > span {
+  color: var(--yellow);
+}
+
+.institutional-page .operation-card h5,
+.institutional-page .principle-grid article h5,
+.products-page .detail-grid .detail-card h5,
+.applications-page > .detail-grid .detail-card h5,
+.coverage-grid .coverage-card h5,
+.structure-page .journey-item h5,
+.service-page .service-steps article h5,
+.service-page .service-audiences > article h4,
+.products-page .product-grid .product-card h4,
+.manufacturers-page .supplier-grid .supplier-card h4,
+.structure-page .location-card h4,
+.logistics-grid .logistics-card h4 {
+  color: #fff;
+}
+
+.institutional-page .operation-card p,
+.institutional-page .principle-grid article > p,
+.products-page .detail-grid .detail-card p,
+.applications-page > .detail-grid .detail-card p,
+.coverage-grid .coverage-card p,
+.structure-page .journey-item p,
+.service-page .service-steps article p,
+.service-page .service-audiences > article > p,
+.products-page .product-grid .product-card p,
+.manufacturers-page .supplier-grid .supplier-card p,
+.products-page .product-grid .product-card li,
+.structure-page .location-card p,
+.structure-page .location-card .location-area,
+.structure-page .location-card .location-description,
+.structure-page .location-card li,
+.logistics-grid .logistics-card p,
+.logistics-grid .logistics-card > b,
+.logistics-grid .logistics-card > span {
+  color: rgba(255,255,255,.74);
+}
+
+/* unit cards : stack identifier + phone + list on the texture */
+.structure-page .location-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 460px;
+}
+
+.structure-page .location-card .location-area { color: var(--yellow); }
+
+.structure-page .location-card .location-phone > span { color: rgba(255,255,255,.55); }
+.structure-page .location-card .location-phone > strong { color: #fff; }
+
+.structure-page .location-card > button {
+  margin-top: auto;
+  border-top-color: rgba(255,255,255,.12);
+  color: #fff;
+}
+
+/* service audiences: keep the friendly light reading block but soften */
+.service-page .service-audiences > article { min-height: 300px; }
+
+/* supplier brand chips on dark */
+.manufacturers-page .supplier-grid .supplier-brands > span {
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.8);
+}
+.manufacturers-page .supplier-grid .supplier-card--featured .supplier-brands > span {
+  background: rgba(255,255,255,.12);
+}
+
+/* product card category chip */
+.products-page .product-grid .product-card-top > span:last-child { color: var(--yellow); }
+
+/* logistics highlight keeps its premium yellow identity */
+.logistics-grid .logistics-card--highlight {
+  background: linear-gradient(145deg,#ffdc55,#e6ae00);
+  color: var(--black);
+}
+.logistics-grid .logistics-card--highlight h4 { color: var(--black); }
+.logistics-grid .logistics-card--highlight p,
+.logistics-grid .logistics-card--highlight > b,
+.logistics-grid .logistics-card--highlight > span { color: rgba(4,4,4,.7); }
+.logistics-grid .logistics-card--highlight::after { display: none; }
+
+/* metric grid keeps a cohesive premium shell */
+.institutional-page .metric-grid {
+  gap: 16px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.institutional-page .metric-grid::before { display: none; }
+.institutional-page .metric-grid > div::before { display: none; }
+.institutional-page .metric-grid > div:last-child {
+  background:
+    radial-gradient(120% 130% at 12% -8%, rgba(255,255,255,.22), transparent 46%),
+    linear-gradient(160deg,#ffdc55,#ddae00);
+  color: var(--black);
+}
+.institutional-page .metric-grid > div:last-child:hover {
+  background: linear-gradient(160deg,#ffe06a,#e3b500);
+}
+
+/* Note strips (info/editorial/chassis) → cohesive dark carbon accents */
+.products-page .info-strip,
+.applications-page .info-strip,
+.structure-page .editorial-note,
+.service-page .chassis-note {
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 18px;
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.015) 48%, rgba(252,204,44,.03)),
+    url("/technical-mesh-premium-v2.png") center/cover;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.07), 0 14px 28px rgba(8,8,6,.24);
+  color: #fff;
+}
+.products-page .info-strip > strong,
+.applications-page .info-strip > strong,
+.service-page .chassis-note > strong,
+.structure-page .editorial-note > strong { color: #fff; }
+.products-page .info-strip > span,
+.applications-page .info-strip > span,
+.service-page .chassis-note > span,
+.structure-page .editorial-note > p { color: rgba(255,255,255,.72); }
+.structure-page .editorial-note { border-left: 5px solid var(--yellow); }
+
+/* ============================================================
+   SCROLL TRANSITIONS — soft degradê between the color zones of
+   the page (yellow ticker → white content → black textured banner
+   → white → black closer/footer) instead of hard edges.
+   ============================================================ */
+
+/* Blend the yellow ticker into the white content area below it */
+.experience { position: relative; }
+.experience::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 118px;
+  background: linear-gradient(180deg, var(--yellow) 0%, rgba(252, 204, 44, .85) 22%, rgba(252, 204, 44, .28) 58%, rgba(252, 204, 44, 0) 100%);
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Fade the black textured banner in from the white page above it */
+.experience > .section-intro::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: clamp(90px, 18vh, 150px);
+  background: linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.35) 42%, transparent 100%);
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Fade the black banner back out into the white content below it */
+.experience > .section-intro::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: clamp(90px, 18vh, 150px);
+  background: linear-gradient(0deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.35) 42%, transparent 100%);
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Keep the heading/banner text above the fade overlay */
+.experience > .section-intro > * { position: relative; z-index: 1; }
+
+/* Fade from white content into the black closing statement */
+.closing-statement { position: relative; }
+.closing-statement::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: clamp(90px, 18vh, 150px);
+  background: linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.4) 45%, transparent 100%);
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+.closing-statement > * { position: relative; z-index: 1; }
