@@ -5,20 +5,31 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
+import {
+  LanguageProvider,
+  useLanguage,
+  heroWords,
+  tabs,
+  type TabId,
+  vehicleBrands,
+  productLines,
+  manufacturerLogoFiles,
+  manufacturerCarouselBrands,
+  locations,
+  companyRoadmap,
+  companyChapters,
+  companyOperations,
+  corporatePillars,
+  applicationCriteria,
+  productContexts,
+  operationalJourney,
+  logisticsCoverage,
+  commonQuestions,
+  serviceSteps,
+} from "./i18n";
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 const WHATSAPP = "https://wa.me/5511999631185?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
-
-const tabs = [
-  { id: "institucional", label: "A Stärke", number: "01" },
-  { id: "aplicacoes", label: "Montadoras", number: "02" },
-  { id: "produtos", label: "Produtos", number: "03" },
-  { id: "fabricantes", label: "Fabricantes", number: "04" },
-  { id: "estrutura", label: "Estrutura", number: "05" },
-  { id: "atendimento", label: "Atendimento", number: "06" },
-] as const;
-
-export type TabId = (typeof tabs)[number]["id"] | "logistica";
 
 const routes: Record<TabId, string> = {
   institucional: "/empresa",
@@ -29,20 +40,6 @@ const routes: Record<TabId, string> = {
   logistica: "/logistica",
   atendimento: "/atendimento",
 };
-
-const vehicleBrands = [
-  { name: "Porsche", territory: "STUTTGART · ALEMANHA", focus: "Precisão esportiva", about: "Símbolo da engenharia esportiva alemã, a Porsche combina desempenho, precisão construtiva e evolução tecnológica em automóveis reconhecidos mundialmente.", text: "Componentes para as linhas 911, Cayenne, Macan, Panamera, Boxster e Cayman, respeitando a configuração e as exigências técnicas de cada veículo.", image: "/vehicles/porsche-hero.png" },
-  { name: "BMW", territory: "MUNIQUE · ALEMANHA", focus: "Performance e dinâmica", about: "A BMW construiu sua identidade em torno do prazer de dirigir, unindo comportamento dinâmico, tecnologia e acabamento premium em diferentes segmentos.", text: "Soluções para sedãs, SUVs e modelos esportivos das famílias Série 1, Série 3, Série 5, Série 7, X e aplicações selecionadas da linha M.", image: "/vehicles/bmw-hero.png" },
-  { name: "Mercedes-Benz", territory: "STUTTGART · ALEMANHA", focus: "Conforto e engenharia", about: "Referência histórica no automóvel premium, a Mercedes-Benz reúne conforto, segurança, inovação e engenharia em uma ampla família de veículos.", text: "Atendimento a aplicações das classes A, C, E e S, além de GLA, GLC, GLE e outros veículos da marca, sempre com validação técnica da peça.", image: "/vehicles/mercedes-hero.png" },
-  { name: "Audi", territory: "INGOLSTADT · ALEMANHA", focus: "Tecnologia e controle", about: "Design progressivo, tecnologia e precisão definem a Audi, com projetos que equilibram sofisticação, conectividade e desempenho.", text: "Peças para famílias A3, A4, A5, A6, Q3, Q5, Q7 e aplicações esportivas S e RS, conforme disponibilidade e identificação correta do veículo.", image: "/vehicles/audi-hero.png" },
-  { name: "Land Rover", territory: "COVENTRY · REINO UNIDO", focus: "Capacidade e sofisticação", about: "A Land Rover combina tradição britânica, capacidade fora de estrada e luxo, criando SUVs preparados para diferentes terrenos e experiências.", text: "Componentes para Range Rover, Evoque, Discovery e Defender, com atenção especial aos sistemas de suspensão, arrefecimento e motorização.", image: "/vehicles/land-rover-hero.png" },
-  { name: "Volvo", territory: "GOTEMBURGO · SUÉCIA", focus: "Segurança e consistência", about: "Reconhecida por sua cultura de segurança, a Volvo aplica design escandinavo, conforto e tecnologia a veículos orientados ao uso cotidiano.", text: "Soluções selecionadas para as famílias XC, S e V, considerando tecnologia embarcada, procedência e especificação de cada conjunto.", image: "/vehicles/volvo-hero.png" },
-  { name: "Jaguar", territory: "COVENTRY · REINO UNIDO", focus: "Performance britânica", about: "A Jaguar expressa elegância e desempenho britânicos por meio de sedãs, esportivos e SUVs marcados por design e personalidade.", text: "Aplicações para sedãs, SUVs e esportivos Jaguar, com suporte especializado para a identificação de versões, motores e sistemas.", image: "/vehicles/jaguar-hero.png" },
-  { name: "MINI", territory: "OXFORD · REINO UNIDO", focus: "Personalidade e agilidade", about: "Com design inconfundível e condução ágil, a MINI traduz herança britânica em automóveis compactos de forte personalidade.", text: "Componentes para Cooper, Countryman, Clubman, Cabrio e John Cooper Works, de acordo com a geração e a motorização do veículo.", image: "/vehicles/mini-hero.png" },
-  { name: "Ferrari", territory: "MARANELLO · ITÁLIA", focus: "Alto desempenho", about: "A Ferrari representa a tradição italiana em competição, exclusividade e alta performance, com projetos guiados por engenharia e emoção.", text: "Consulta especializada para aplicações selecionadas de veículos superesportivos, considerando os requisitos técnicos de cada projeto.", image: "/vehicles/ferrari-hero.png" },
-  { name: "Lamborghini", territory: "SANT’AGATA · ITÁLIA", focus: "Engenharia superesportiva", about: "Design expressivo e desempenho extremo definem a Lamborghini, fabricante italiana reconhecida por seus superesportivos de caráter singular.", text: "Atendimento sob consulta para aplicações de alta performance e componentes compatíveis com as especificações da montadora.", image: "/vehicles/lamborghini-hero.png" },
-  { name: "VW Premium", territory: "WOLFSBURG · ALEMANHA", focus: "Aplicações selecionadas", about: "A Volkswagen reúne engenharia alemã, tecnologia e ampla experiência industrial em modelos selecionados de posicionamento superior.", text: "Componentes destinados a aplicações selecionadas da Volkswagen premium, sempre conforme veículo, motorização e chassi.", image: "/vehicles/volkswagen-hero.png" },
-];
 
 const vehicleBrandLogoFiles: Record<string, string> = {
   Porsche: "/vehicle-logos/porsche.svg",
@@ -55,21 +52,8 @@ const vehicleBrandLogoFiles: Record<string, string> = {
   MINI: "/vehicle-logos/mini.svg",
   Ferrari: "/vehicle-logos/ferrari.svg",
   Lamborghini: "/vehicle-logos/lamborghini.svg",
-  "VW Premium": "/vehicle-logos/volkswagen.svg",
+"VW Premium": "/vehicle-logos/volkswagen.svg",
 };
-
-const productLines = [
-  { number: "01", family: "SEGURANÇA", title: "Freios", text: "Precisão e confiança em cada desaceleração, com componentes projetados para responder às exigências de veículos premium e esportivos.", items: ["Discos de freio", "Pastilhas", "Sensores de desgaste", "Pinças e reparos", "Flexíveis e fluidos"] },
-  { number: "02", family: "DINÂMICA", title: "Suspensão", text: "Conforto, estabilidade e controle com soluções selecionadas para a geometria e o comportamento dinâmico de cada veículo.", items: ["Amortecedores", "Braços e bandejas", "Buchas e pivôs", "Coxins e batentes", "Molas e componentes"] },
-  { number: "03", family: "CONTROLE", title: "Direção", text: "Resposta precisa e segurança de condução por meio de componentes adequados à arquitetura original do sistema de direção.", items: ["Terminais de direção", "Barras axiais", "Braços de direção", "Bombas e reparos", "Componentes hidráulicos"] },
-  { number: "04", family: "PERFORMANCE", title: "Motor", text: "Peças para manutenção preventiva e corretiva dos conjuntos mecânicos que impulsionam veículos de diferentes gerações e motorizações.", items: ["Juntas e retentores", "Correias e tensionadores", "Polias", "Coxins de motor", "Componentes internos"] },
-  { number: "05", family: "PROTEÇÃO", title: "Filtros", text: "Filtragem de alto padrão para preservar motor, cabine e sistemas essenciais, com fabricantes reconhecidos no mercado internacional.", items: ["Filtro de óleo", "Filtro de ar", "Filtro de combustível", "Filtro de cabine", "Soluções de filtragem premium"] },
-  { number: "06", family: "GESTÃO TÉRMICA", title: "Arrefecimento", text: "Controle térmico eficiente para proteger o motor e manter o desempenho em condições severas de uso.", items: ["Bombas d’água", "Válvulas termostáticas", "Radiadores", "Reservatórios", "Mangueiras e sensores"] },
-  { number: "07", family: "TECNOLOGIA", title: "Elétrica e ignição", text: "Confiabilidade para os sistemas eletrônicos e de gerenciamento que coordenam eficiência, partida e funcionamento do veículo.", items: ["Bobinas", "Velas de ignição", "Sensores", "Atuadores", "Componentes eletrônicos"] },
-  { number: "08", family: "TRAÇÃO", title: "Transmissão e eixos", text: "Soluções para a transferência de potência, preservando suavidade, resistência e compatibilidade com o conjunto original.", items: ["Componentes de câmbio", "Semieixos", "Juntas homocinéticas", "Rolamentos", "Fluidos e reparos"] },
-  { number: "09", family: "EFICIÊNCIA", title: "Injeção e combustível", text: "Componentes que contribuem para alimentação precisa, resposta do motor e funcionamento adequado dos sistemas de injeção.", items: ["Bombas de combustível", "Bicos injetores", "Sensores de pressão", "Válvulas", "Componentes de alimentação"] },
-  { number: "10", family: "EMISSÕES", title: "Escape e sistemas auxiliares", text: "Itens destinados ao funcionamento integrado do motor, ao controle de emissões e à manutenção dos sistemas complementares.", items: ["Sensores de oxigênio", "Válvulas e componentes", "Juntas de escape", "Peças auxiliares", "Aplicações sob consulta"] },
-];
 
 const supplierGroups = [
   { title: "Bilstein Group", brands: ["febi", "SWAG", "Blue Friction"], category: "AFTERMARKET PREMIUM", description: "Portfólio de componentes para manutenção e reparação com foco em procedência, abrangência e qualidade técnica. A Stärke Parts é distribuidora oficial febi." },
@@ -80,143 +64,10 @@ const supplierGroups = [
   { title: "Especialidades técnicas", brands: ["HEPU", "GEBA", "BGA", "ÜRO Parts", "SIDEM", "Hoffer", "Meat&Doria"], category: "LINHAS COMPLEMENTARES", description: "Soluções específicas para arrefecimento, direção, motor e aplicações que exigem uma seleção cuidadosa de fabricantes." },
   { title: "Marca própria", brands: ["Forschen"], category: "IDENTIDADE STÄRKE", description: "Uma linha própria construída dentro do universo de especialização, disponibilidade e confiança da Stärke Parts." },
 ];
-
-const manufacturerLogos = [
-  { name: "febi", origin: "Alemanha · desde 1844", history: "Uma das marcas centrais do Bilstein Group, a febi construiu uma trajetória ligada ao desenvolvimento e à distribuição de componentes para o mercado de reposição.", work: "Direção, suspensão, motor, transmissão, freios e soluções de manutenção para diferentes aplicações." },
-  { name: "SWAG", origin: "Alemanha · Bilstein Group", history: "Marca alemã integrada ao Bilstein Group, reconhecida por ampliar a oferta de reposição para veículos europeus e por sua tradição no aftermarket.", work: "Componentes de direção, suspensão, motor, transmissão, elétrica e manutenção geral." },
-  { name: "Blue Print", origin: "Reino Unido · Bilstein Group", history: "A Blue Print nasceu com foco em aplicações para veículos asiáticos e britânicos e passou a integrar o Bilstein Group, ampliando sua presença no aftermarket internacional.", work: "Filtragem, frenagem, direção, suspensão, embreagem e componentes de manutenção." },
-  { name: "TRW", origin: "Estados Unidos · atualmente ZF Aftermarket", history: "A TRW reúne uma longa herança em sistemas automotivos e passou a integrar a ZF, preservando sua presença global no mercado de reposição.", work: "Freios, direção, suspensão e componentes ligados à segurança veicular." },
-  { name: "LEMFÖRDER", origin: "Alemanha · desde 1947", history: "Marca do grupo ZF reconhecida pela especialização em componentes de chassis e por sua presença como fornecedora de projetos originais e do aftermarket.", work: "Braços, buchas, articulações, direção e componentes de suspensão." },
-  { name: "SACHS", origin: "Alemanha · desde 1895", history: "Com raízes na engenharia alemã, a SACHS tornou-se uma referência em sistemas de transmissão e controle de movimento, integrando atualmente a ZF.", work: "Amortecedores, embreagens, volantes bimassa e componentes de suspensão." },
-  { name: "Brembo", origin: "Itália · desde 1961", history: "Nascida próxima a Bérgamo, a Brembo evoluiu de uma oficina mecânica para uma referência mundial em tecnologia de frenagem e alta performance.", work: "Discos, pinças, pastilhas, fluidos e sistemas completos de freio." },
-  { name: "Textar", origin: "Alemanha · mais de um século de experiência", history: "Marca de fricção da TMD Friction com longa atuação no fornecimento de componentes para veículos de passeio e aplicações de maior exigência.", work: "Pastilhas, discos, lonas e acessórios para sistemas de frenagem." },
-  { name: "Hengst", origin: "Alemanha · desde 1958", history: "Fundada em Münster, a Hengst cresceu como especialista em filtração e gerenciamento de fluidos para mobilidade, indústria e outras aplicações técnicas.", work: "Filtros de óleo, ar, combustível, cabine e módulos de filtração." },
-  { name: "MAHLE", origin: "Alemanha · desde 1920", history: "A MAHLE nasceu em Stuttgart e tornou-se um dos grandes grupos internacionais de tecnologia para motores, mobilidade e gerenciamento térmico.", work: "Filtragem, pistões, componentes de motor, arrefecimento e gestão térmica." },
-  { name: "UFI", origin: "Itália · desde 1971", history: "A UFI Filters desenvolveu sua atuação internacional a partir da especialização em filtração para veículos, aplicações industriais e projetos de alta exigência.", work: "Filtros de óleo, ar, combustível, cabine e sistemas térmicos." },
-  { name: "Bosch", origin: "Alemanha · desde 1886", history: "Fundada por Robert Bosch em Stuttgart, a empresa tornou-se uma das maiores referências mundiais em tecnologia, mobilidade e equipamentos automotivos.", work: "Ignição, injeção, sensores, elétrica, eletrônica, frenagem, filtros e diagnóstico." },
-  { name: "HELLA", origin: "Alemanha · desde 1899", history: "Com origem em Lippstadt, a HELLA consolidou uma trajetória centenária em iluminação e eletrônica automotiva e hoje integra o grupo FORVIA.", work: "Iluminação, sensores, atuadores, eletrônica e gerenciamento de energia." },
-  { name: "Delphi", origin: "Estados Unidos · atuação global", history: "A Delphi reúne décadas de experiência em sistemas eletrônicos, gerenciamento de motores e soluções de reposição para diferentes mercados automotivos.", work: "Ignição, injeção, sensores, bombas, direção, suspensão e gerenciamento do motor." },
-  { name: "Continental", origin: "Alemanha · desde 1871", history: "Fundada em Hannover, a Continental evoluiu da produção de artefatos de borracha para um grupo global de tecnologia e soluções para mobilidade.", work: "Correias, sensores, eletrônica, freios, pneus e sistemas de gerenciamento automotivo." },
-  { name: "Pierburg", origin: "Alemanha · desde 1909", history: "A Pierburg desenvolveu sua história em torno de sistemas de alimentação e controle de motores e integra atualmente o grupo Rheinmetall.", work: "Bombas, válvulas, controle de emissões, admissão e gerenciamento de ar." },
-  { name: "HEPU", origin: "Alemanha · tradição em arrefecimento", history: "A HEPU consolidou sua presença no aftermarket europeu com foco técnico em componentes de circulação e controle térmico do motor.", work: "Bombas d’água, kits de correia, anticongelantes e componentes de arrefecimento." },
-  { name: "GEBA", origin: "Alemanha · especialista independente", history: "Fabricante alemã dedicada ao mercado de reposição, com trajetória concentrada na produção e no desenvolvimento de bombas para aplicações automotivas.", work: "Bombas d’água e componentes associados ao sistema de arrefecimento." },
-  { name: "BGA", origin: "Reino Unido · experiência em componentes de motor", history: "A BG Automotive desenvolveu uma ampla linha para reposição, apoiada em conhecimento de aplicações e cobertura para veículos europeus e asiáticos.", work: "Juntas, cabeçotes, válvulas, corrente de comando, direção e suspensão." },
-  { name: "ÜRO Parts", origin: "Estados Unidos · reposição para veículos europeus", history: "A ÜRO Parts foi criada para atender o mercado de reposição de automóveis europeus com uma linha ampla de componentes e aplicações específicas.", work: "Arrefecimento, elétrica, acabamento, suspensão, direção e componentes de carroceria." },
-  { name: "SIDEM", origin: "Bélgica · desde 1933", history: "Empresa familiar belga especializada há várias gerações em componentes de direção e suspensão para o mercado internacional de reposição.", work: "Braços, terminais, barras axiais, pivôs, buchas e articulações." },
-  { name: "Hoffer", origin: "Itália · grupo Meat&Doria", history: "A Hoffer integra a experiência italiana do grupo Meat&Doria e amplia sua presença no aftermarket com linhas ligadas à eletrônica e alimentação.", work: "Sensores, injeção, bombas, válvulas, elétrica e gerenciamento do motor." },
-  { name: "Meat&Doria", origin: "Itália · desde 1945", history: "Marca italiana com longa atuação no aftermarket, inicialmente ligada à distribuição de componentes e posteriormente ampliada para linhas eletrônicas e de motor.", work: "Injeção, sensores, bombas, filtros, válvulas e gerenciamento eletrônico." },
-  { name: "Bilstein", origin: "Alemanha · tradição em dinâmica veicular", history: "A Bilstein desenvolveu uma trajetória internacional ligada à engenharia de suspensão, fornecendo soluções para projetos originais, competição e reposição premium.", work: "Amortecedores, conjuntos de suspensão e soluções voltadas à estabilidade e ao desempenho." },
-  { name: "KYB", origin: "Japão · desde 1919", history: "A KYB construiu uma presença global a partir da engenharia hidráulica e tornou-se uma das referências em sistemas de controle de movimento para veículos.", work: "Amortecedores, molas, kits de suspensão, direção hidráulica e componentes associados." },
-  { name: "Victor Reinz", origin: "Alemanha · marca do grupo Dana", history: "A Victor Reinz reúne uma longa experiência em tecnologias de vedação e proteção térmica para motores e sistemas automotivos.", work: "Juntas, retentores, parafusos de cabeçote, vedantes e soluções de proteção térmica." },
-  { name: "WABCO", origin: "Estados Unidos · tradição em veículos comerciais", history: "A WABCO desenvolveu sua história em sistemas de segurança e controle para veículos comerciais e hoje integra o grupo ZF.", work: "Frenagem pneumática, controle de estabilidade, suspensão e sistemas para veículos comerciais." },
-  { name: "Forschen", origin: "Brasil · marca própria Stärke Parts", history: "A Forschen nasceu da experiência da Stärke Parts no mercado premium para ampliar a oferta com uma identidade própria e seleção orientada por aplicação.", work: "Componentes selecionados para manutenção e reposição, conforme disponibilidade e especificação do veículo." },
-];
-
-const manufacturerLogoFiles: Record<string, string> = {
-  Bilstein: "/manufacturer-logos/bilstein.png", "Blue Print": "/manufacturer-logos/blue-print.png", Forschen: "/manufacturer-logos/forschen-v2.png", GEBA: "/manufacturer-logos/geba.png", Hengst: "/manufacturer-logos/hengst.png", Hoffer: "/manufacturer-logos/hoffer.png", KYB: "/manufacturer-logos/kyb.png", LEMFÖRDER: "/manufacturer-logos/lemforder.png", MAHLE: "/manufacturer-logos/mahle.png", Pierburg: "/manufacturer-logos/pierburg.png", SIDEM: "/manufacturer-logos/sidem.png", SWAG: "/manufacturer-logos/swag.png", Textar: "/manufacturer-logos/textar.png", TRW: "/manufacturer-logos/trw.png", UFI: "/manufacturer-logos/ufi.png", "ÜRO Parts": "/manufacturer-logos/uro-parts.png", "Victor Reinz": "/manufacturer-logos/victor-reinz.png", WABCO: "/manufacturer-logos/wabco.png",
-};
-
-const manufacturerCarouselBrands = manufacturerLogos.filter(brand => manufacturerLogoFiles[brand.name]);
-
-const locations = [
-  { code: "SP·01", city: "São Paulo", type: "MATRIZ", area: "Chácara Santo Antônio", phone: "(11) 4102-1202", phoneHref: "tel:+551141021202", description: "Nossa operação central conecta atendimento comercial, gestão de portfólio e suporte especializado ao mercado de autopeças premium.", capabilities: ["Atendimento especializado", "Operação comercial", "Distribuição regional"] },
-  { code: "SP·02", city: "Sorocaba", type: "CENTRO DE DISTRIBUIÇÃO", area: "Interior de São Paulo", phone: "(15) 98804-7031", phoneHref: "tel:+5515988047031", description: "Estrutura logística estratégica para ampliar a disponibilidade de produtos e agilizar o atendimento ao interior paulista.", capabilities: ["Estoque estratégico", "Expedição", "Atendimento regional"] },
-  { code: "SP·03", city: "Campinas", type: "FILIAL", area: "Rua Pedro Domingos Vitali, 400 · Parque Itália", phone: "(19) 97820-4813", phoneHref: "tel:+5519978204813", description: "Presença em uma das principais regiões automotivas do estado, aproximando a Stärke de oficinas, centros automotivos e parceiros locais.", capabilities: ["Atendimento regional", "Proximidade comercial", "Suporte especializado"] },
-  { code: "SP·04", city: "Santos", type: "FILIAL", area: "Baixada Santista", phone: "(13) 99205-9253", phoneHref: "tel:+5513992059253", description: "Operação voltada ao relacionamento com clientes do litoral paulista e à ampliação da cobertura comercial da marca.", capabilities: ["Atendimento regional", "Cobertura no litoral", "Agilidade comercial"] },
-];
-
-const companyHistory = [
-  { year: "2016", title: "Uma empresa nasce com foco definido", text: "A Stärke Parts inicia sua trajetória a partir de uma leitura clara do mercado: veículos importados, premium e de alta performance exigem uma distribuição especializada, capaz de combinar conhecimento técnico, procedência e atendimento próximo." },
-  { year: "ORIGEM", title: "Especialização desde os primeiros passos", text: "Nos primeiros anos, a operação consolida uma forma própria de atender: compreender a aplicação correta, selecionar fabricantes reconhecidos e construir relações de confiança com oficinas, centros automotivos, lojistas e proprietários." },
-  { year: "EVOLUÇÃO", title: "Um portfólio construído com critério", text: "A experiência comercial e técnica amplia o relacionamento com importantes fabricantes do aftermarket internacional, fortalecendo linhas como freios, suspensão, motor, filtragem, arrefecimento e sistemas eletrônicos." },
-  { year: "2024", title: "A estrutura ganha nova escala", text: "O centro de distribuição em Sorocaba marca um avanço importante na estrutura logística da empresa, ampliando a capacidade operacional e fortalecendo a conexão com clientes do interior de São Paulo." },
-  { year: "2025", title: "Expansão para estar mais perto", text: "As operações de Campinas e Santos ampliam a presença regional da Stärke, aproximando o atendimento especializado de dois mercados estratégicos: a região metropolitana de Campinas e a Baixada Santista." },
-  { year: "2026", title: "Uma presença consolidada no segmento premium", text: "Com matriz, centro de distribuição, filiais, fabricantes reconhecidos e atendimento nacional, a Stärke reforça seu posicionamento entre as referências brasileiras em autopeças premium e continua expandindo sua relação de confiança com o mercado." },
-];
-
-const companyRoadmap = [
-  { year: "2016", stage: "FUNDAÇÃO", title: "Nasce a Stärke Parts", text: "A empresa inicia sua trajetória com foco definido em veículos importados, premium e de alta performance, combinando conhecimento técnico, procedência e atendimento próximo." },
-  { year: "2018", stage: "ESPECIALIZAÇÃO", title: "Conhecimento que ganha escala", text: "A operação aprofunda sua atuação técnica e fortalece o relacionamento com oficinas, centros automotivos, lojistas e profissionais especializados." },
-  { year: "2021", stage: "PORTFÓLIO", title: "Conexões com referências globais", text: "A seleção de fabricantes internacionais amplia as soluções em freios, suspensão, motor, filtragem, arrefecimento e sistemas eletrônicos." },
-  { year: "2024", stage: "ESTRUTURA", title: "Novo centro de distribuição", text: "A inauguração do centro de distribuição em Sorocaba amplia a capacidade operacional, a disponibilidade de produtos e a conexão com o interior paulista." },
-  { year: "2025", stage: "EXPANSÃO", title: "Mais perto de novos mercados", text: "As operações de Campinas e Santos aproximam a Stärke de duas regiões estratégicas e fortalecem sua cobertura comercial no estado de São Paulo." },
-  { year: "2026", stage: "CONSOLIDAÇÃO", title: "Uma referência no segmento premium", text: "Com quatro operações, atendimento nacional e um portfólio reconhecido, a Stärke consolida uma década de evolução e prepara seu próximo ciclo de crescimento." },
-];
-
-const companyChapters = [
-  { number: "01", icon: "✦", eyebrow: "NOSSA ORIGEM", title: "Uma necessidade do mercado transformada em especialidade.", paragraphs: ["A Stärke Parts nasceu em 2016 com uma proposta objetiva: oferecer ao mercado brasileiro uma distribuição mais preparada para as exigências de veículos importados, premium e superesportivos.", "Desde o início, entendemos que esse segmento pede mais do que um código de peça. Ele exige leitura técnica, atenção à compatibilidade, fabricantes confiáveis e uma equipe capaz de orientar cada atendimento com responsabilidade."] },
-  { number: "02", icon: "⚙", eyebrow: "NOSSA ESSÊNCIA", title: "Conhecimento técnico que acompanha cada escolha.", paragraphs: ["A identificação correta de um componente depende da análise de detalhes como montadora, modelo, ano, motorização, versão e, quando necessário, chassi completo.", "Essa atenção orienta a nossa maneira de trabalhar e ajuda oficinas, centros automotivos, lojistas e proprietários a realizar consultas mais seguras, conscientes e compatíveis com a aplicação do veículo."] },
-  { number: "03", icon: "▦", eyebrow: "NOSSO PORTFÓLIO", title: "Fabricantes globais para um mercado que não aceita improviso.", paragraphs: ["Nosso relacionamento com referências do aftermarket internacional reúne nomes como Bilstein Group, ZF, Brembo, Bosch, MAHLE, Hengst, Textar e outras marcas relevantes para diferentes sistemas automotivos.", "A condição de distribuidora oficial febi, marca do Bilstein Group, representa esse compromisso com a procedência. A Forschen, nossa marca própria, amplia o portfólio e fortalece nossa identidade dentro do mercado de reposição."] },
-  { number: "04", icon: "↗", eyebrow: "NOSSA EVOLUÇÃO", title: "Crescer sem abrir mão da atenção aos detalhes.", paragraphs: ["A matriz em São Paulo, o centro de distribuição em Sorocaba e as operações em Campinas e Santos formam uma estrutura pensada para aproximar o atendimento e apoiar a distribuição regional.", "Essa presença se conecta a uma operação de expedição para todo o Brasil, permitindo que o conhecimento técnico e o portfólio da Stärke cheguem a diferentes profissionais e mercados."] },
-  { number: "05", icon: "❖", eyebrow: "NOSSA RELAÇÃO COM O MERCADO", title: "Parcerias construídas muito além da primeira venda.", paragraphs: ["A Stärke se desenvolve ao lado de oficinas especializadas, centros automotivos, lojistas e profissionais que conhecem a responsabilidade envolvida na manutenção de automóveis premium.", "Cada relacionamento é fortalecido por disponibilidade, orientação técnica, transparência nas condições comerciais e uma postura próxima antes, durante e depois do atendimento."] },
-  { number: "06", icon: "➤", eyebrow: "NOSSO PRÓXIMO CAPÍTULO", title: "Uma marca consolidada, pronta para continuar evoluindo.", paragraphs: ["Em 2026, a Stärke Parts reafirma sua presença entre os principais nomes brasileiros dedicados ao mercado de autopeças premium e de alta performance.", "O futuro é construído sobre os mesmos fundamentos que deram origem à empresa: ampliar conexões, qualificar a operação e entregar componentes de confiança a um mercado que não admite concessões."] },
-];
-
-const companyOperations = [
-  { title: "Importação e relacionamento", text: "Conexão com fabricantes e fornecedores reconhecidos para fortalecer a seleção de componentes e a procedência do portfólio." },
-  { title: "Curadoria técnica", text: "Análise de aplicações, linhas e referências para orientar uma oferta alinhada às necessidades do segmento premium." },
-  { title: "Estoque e separação", text: "Organização operacional voltada à identificação, à disponibilidade e à conferência dos componentes comercializados." },
-  { title: "Expedição e logística", text: "Integração entre atendimento, preparação de pedidos, entregas regionais e envio para diferentes pontos do Brasil." },
-  { title: "Atendimento especializado", text: "Equipe preparada para orientar oficinas, centros automotivos, lojistas, parceiros e proprietários de veículos premium." },
-  { title: "Garantia e pós-venda", text: "Suporte que complementa a experiência comercial e reforça o compromisso com um relacionamento transparente e confiável." },
-  { title: "Loja e relacionamento comercial", text: "Atendimento consultivo para compreender demandas, identificar oportunidades e aproximar os clientes da unidade mais adequada." },
-  { title: "E-commerce e canais digitais", text: "Presença conectada aos novos hábitos de compra e pesquisa, levando a especialização da Stärke também aos ambientes digitais." },
-  { title: "Gestão e desenvolvimento", text: "Áreas administrativas, financeiras e de pessoas que apoiam a organização e a evolução sustentável de todas as operações." },
-];
-
-const corporatePillars = [
-  { label: "NOSSO PROPÓSITO", title: "Conectar qualidade a quem não pode parar.", text: "Aproximar fabricantes confiáveis e profissionais especializados por meio de uma distribuição que valoriza procedência, precisão técnica e atendimento responsável." },
-  { label: "NOSSA VISÃO", title: "Ser referência em confiança no segmento premium.", text: "Fortalecer continuamente a presença da Stärke Parts no mercado brasileiro de reposição premium, evoluindo a estrutura, o relacionamento e a experiência dos clientes." },
-  { label: "NOSSO COMPROMISSO", title: "Transformar conhecimento em segurança.", text: "Tratar cada consulta com a atenção que uma aplicação automotiva exige, respeitando as características do veículo, a origem da peça e a necessidade real de quem compra." },
-];
-
-const applicationCriteria = [
-  { title: "Montadora e modelo", text: "Identificamos o fabricante, a família e a configuração do veículo para estabelecer o ponto de partida correto da consulta." },
-  { title: "Ano e geração", text: "Diferenças de geração, período de produção e atualização de projeto podem alterar significativamente a aplicação de um componente." },
-  { title: "Motorização e versão", text: "Cilindrada, combustível, potência, câmbio e especificações de acabamento ajudam a distinguir peças visualmente semelhantes." },
-  { title: "Chassi e referência", text: "Quando necessário, o chassi completo e os códigos originais permitem uma verificação mais precisa da compatibilidade técnica." },
-];
-
-const productContexts = [
-  { title: "Manutenção preventiva", text: "Filtros, componentes de desgaste, fluidos e itens periódicos que ajudam a preservar a operação do veículo dentro da especificação correta." },
-  { title: "Reparação especializada", text: "Peças e conjuntos destinados às demandas identificadas por oficinas e centros automotivos com experiência no segmento premium." },
-  { title: "Segurança e dirigibilidade", text: "Linhas relacionadas a freios, suspensão, direção e estabilidade, selecionadas para acompanhar as exigências de cada aplicação." },
-  { title: "Tecnologia e gerenciamento", text: "Sensores, ignição, injeção e componentes eletrônicos presentes em plataformas cada vez mais conectadas e tecnicamente complexas." },
-];
-
-const operationalJourney = [
-  { step: "01", title: "Planejamento e importação", text: "Analisamos o mercado, fortalecemos o relacionamento com fornecedores e estruturamos um portfólio aderente às necessidades do segmento premium." },
-  { step: "02", title: "Recebimento e organização", text: "Os componentes passam por rotinas de recebimento, identificação e organização de estoque para apoiar consultas e separações mais precisas." },
-  { step: "03", title: "Atendimento e validação", text: "A equipe comercial e técnica identifica a demanda, verifica a aplicação e orienta o cliente sobre fabricantes, disponibilidade e condições." },
-  { step: "04", title: "Separação e conferência", text: "Após a confirmação, o pedido é organizado com atenção às referências, às quantidades e às características necessárias para a expedição." },
-  { step: "05", title: "Entrega e acompanhamento", text: "A modalidade logística é definida conforme o destino e a operação, mantendo o relacionamento ativo também no pós-venda." },
-];
-
-const logisticsCoverage = [
-  { title: "Grande São Paulo", badge: "ENTREGAS RÁPIDAS", text: "Atendimento voltado à rotina de oficinas e clientes da região metropolitana, com modalidades rápidas e programadas conforme área de cobertura." },
-  { title: "Interior paulista", badge: "ESTRUTURA REGIONAL", text: "A presença do centro de distribuição de Sorocaba e da operação de Campinas fortalece o relacionamento e o apoio aos mercados do interior." },
-  { title: "Baixada Santista", badge: "PROXIMIDADE LOCAL", text: "A filial Santos aproxima a Stärke dos clientes do litoral e contribui para uma experiência comercial mais conectada à região." },
-  { title: "Demais estados", badge: "ENVIO NACIONAL", text: "Pedidos podem ser organizados para outras regiões do Brasil, respeitando disponibilidade, modalidade, prazo e condições de frete aplicáveis." },
-];
-
-const commonQuestions = [
-  { question: "A Stärke Parts atende somente oficinas?", answer: "Não. Atendemos oficinas, centros automotivos, lojistas, parceiros comerciais e proprietários que procuram orientação para aplicações premium. O direcionamento depende da necessidade apresentada." },
-  { question: "Quais informações preciso enviar para consultar uma peça?", answer: "Informe montadora, modelo, ano, motorização e, se possível, o código da peça. Quando a aplicação exigir uma confirmação mais precisa, nossa equipe poderá solicitar o chassi completo." },
-  { question: "A Stärke trabalha com peças usadas?", answer: "Não. Nosso portfólio é voltado a componentes novos, de fabricantes reconhecidos e linhas selecionadas conforme disponibilidade e aplicação." },
-  { question: "Vocês são distribuidores oficiais febi?", answer: "Sim. A Stärke Parts é distribuidora oficial febi e recebe produtos diretamente da fábrica do Bilstein Group na Alemanha, reforçando a procedência da linha." },
-  { question: "A entrega está disponível para todo o Brasil?", answer: "Sim. Trabalhamos com expedição nacional e modalidades regionais. Prazos, disponibilidade, cobertura e valores devem ser confirmados com o time de atendimento." },
-];
-
-const serviceSteps = [
-  { number: "01", title: "Entendemos a sua necessidade", text: "Você informa a peça procurada, o veículo e o perfil do atendimento: oficina, centro automotivo, lojista ou proprietário." },
-  { number: "02", title: "Validamos a aplicação", text: "Nossa equipe considera montadora, modelo, ano, motorização e, quando necessário, o chassi completo para reduzir dúvidas de compatibilidade." },
-  { number: "03", title: "Apresentamos as alternativas", text: "Consultamos a disponibilidade e indicamos opções de fabricantes e componentes adequados à necessidade identificada." },
-  { number: "04", title: "Organizamos a entrega", text: "O atendimento segue com a unidade mais adequada, considerando disponibilidade, localização e a modalidade logística aplicável." },
-];
-
 function SplashScreen({ onComplete }: { onComplete: () => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const lettersRef = useRef<Array<HTMLSpanElement | null>>([]);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -269,14 +120,14 @@ function SplashScreen({ onComplete }: { onComplete: () => void }) {
     <div className="splash" ref={rootRef} aria-hidden="true">
       <div className="splash-glow" aria-hidden="true" />
       <div className="splash-center">
-        <p className="splash-kicker">PREMIUM AUTOMOTIVE PARTS</p>
+        <p className="splash-kicker">{t("splash.kicker")}</p>
         <h1 className="splash-title splash-shimmer" aria-label="STÄRKE PARTS">
           {"STÄRKE PARTS".split("").map((ch, i) => (
             <span key={i} ref={el => { lettersRef.current[i] = el; }} aria-hidden="true">{ch}</span>
           ))}
         </h1>
         <span className="splash-rule" />
-        <p className="splash-tagline">Oferecemos peças. Entregamos confiança.</p>
+        <p className="splash-tagline">{t("splash.tagline")}</p>
       </div>
     </div>
   );
@@ -308,11 +159,13 @@ function HeroBackdrop() {
   );
 }
 
-const WORDS = ["EXCELÊNCIA", "PRECISÃO", "DURABILIDADE", "PERFORMANCE"];
-
 function RotatingWord() {
   const ref = useRef<HTMLSpanElement>(null);
+  const { lang } = useLanguage();
   const [idx, setIdx] = useState(0);
+  const words = heroWords[lang];
+
+  useEffect(() => { setIdx(0); }, [lang]);
 
   useEffect(() => {
     const el = ref.current;
@@ -320,11 +173,11 @@ function RotatingWord() {
     const timer = setInterval(() => {
       gsap.to(el, {
         opacity: 0.15, y: -18, rotateX: 60, scale: 0.96, duration: 0.32, ease: "power2.in",
-        onComplete: () => setIdx((i) => (i + 1) % WORDS.length),
+        onComplete: () => setIdx((i) => (i + 1) % words.length),
       });
     }, 3200);
     return () => clearInterval(timer);
-  }, []);
+  }, [words.length]);
 
   useEffect(() => {
     if (idx === 0) return;
@@ -336,11 +189,12 @@ function RotatingWord() {
     );
   }, [idx]);
 
-  return <span ref={ref} className="invite-fade--accent">{WORDS[idx]}</span>;
+  return <span ref={ref} className="invite-fade--accent">{words[idx]}</span>;
 }
 
 function HeroInvite() {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { lang, t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -362,14 +216,14 @@ function HeroInvite() {
 
   return (
     <div className="hero-card" id="hero-title" ref={cardRef}>
-      <h1 className="hero-title">
-        <span className="hero-line"><span className="hero-key">A</span> <RotatingWord /></span>
-        <span className="hero-line">começa na</span>
-        <span className="hero-line hero-line--red">peça certa.</span>
+<h1 className="hero-title">
+        <span className="hero-line">{lang === "pt" && <span className="hero-key">A</span>} <RotatingWord /></span>
+        <span className="hero-line">{t("hero.line2")}</span>
+        <span className="hero-line hero-line--red">{t("hero.line3")}</span>
       </h1>
       <div className="hero-card__foot">
         <span className="hero-rule" />
-        <span className="hero-hint">ROLE PARA EXPLORAR</span>
+        <span className="hero-hint">{t("hero.hint")}</span>
       </div>
     </div>
   );
@@ -389,6 +243,7 @@ function PanelHeading({ kicker, title, text }: { kicker: string; title: string; 
 
 function CompanyRoadmap() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const { lang, t } = useLanguage();
 
   const move = useCallback((direction: 1 | -1) => {
     const track = trackRef.current;
@@ -412,13 +267,14 @@ function CompanyRoadmap() {
   }, [move]);
 
   return <div className="roadmap-shell">
-    <div className="company-roadmap" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }} aria-label="Roadmap de evolução da Stärke Parts entre 2016 e 2026">{[...companyRoadmap, ...companyRoadmap].map((item, index) => <article className={`roadmap-item ${item.year === "2026" ? "roadmap-item--current" : ""}`} key={`${item.year}-${index}`} aria-hidden={index >= companyRoadmap.length ? true : undefined}><div className="roadmap-marker"><span>{String((index % companyRoadmap.length) + 1).padStart(2, "0")}</span></div><div className="roadmap-year"><strong>{item.year}</strong><span>{item.stage}</span></div><div className="roadmap-copy"><h5>{item.title}</h5><p>{item.text}</p></div></article>)}</div>
-    <div className="roadmap-controls"><span><i /> ROADMAP 2016 — 2026</span><div><button onClick={() => move(-1)} aria-label="Marco anterior">←</button><button onClick={() => move(1)} aria-label="Próximo marco">→</button></div></div>
+    <div className="company-roadmap" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }} aria-label={t("road.aria")}>{[...companyRoadmap, ...companyRoadmap].map((item, index) => <article className={`roadmap-item ${item.year === "2026" ? "roadmap-item--current" : ""}`} key={`${item.year}-${index}`} aria-hidden={index >= companyRoadmap.length ? true : undefined}><div className="roadmap-marker"><span>{String((index % companyRoadmap.length) + 1).padStart(2, "0")}</span></div><div className="roadmap-year"><strong>{item.year}</strong><span>{item.stage[lang]}</span></div><div className="roadmap-copy"><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div></article>)}</div>
+    <div className="roadmap-controls"><span><i /> ROADMAP 2016 — 2026</span><div><button onClick={() => move(-1)} aria-label={t("road.prev")}>←</button><button onClick={() => move(1)} aria-label={t("road.next")}>→</button></div></div>
   </div>;
 }
 
 function ProductCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const { lang, t } = useLanguage();
 
   const move = useCallback((direction: 1 | -1) => {
     const track = trackRef.current;
@@ -435,22 +291,23 @@ function ProductCarousel() {
     return () => window.clearInterval(timer);
   }, [move]);
 
-  return <section className="product-carousel" aria-label="Linhas de produtos Stärke Parts">
+  return <section className="product-carousel" aria-label={t("prod.carAria")}>
     <div className="product-grid product-carousel-track" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }}>
-      {[...productLines, ...productLines].map((item, index) => <article className="product-card" key={`${item.number}-${index}`} aria-hidden={index >= productLines.length ? true : undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family}</span></div><h4>{item.title}</h4><p>{item.text}</p><ul>{item.items.map(part => <li key={part}>{part}</li>)}</ul></article>)}
+      {[...productLines, ...productLines].map((item, index) => <article className="product-card" key={`${item.number}-${index}`} aria-hidden={index >= productLines.length ? true : undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul></article>)}
     </div>
-    <div className="product-carousel-controls"><span>PORTFÓLIO · 10 SISTEMAS</span><div><button onClick={() => move(-1)} aria-label="Produto anterior">←</button><button onClick={() => move(1)} aria-label="Próximo produto">→</button></div></div>
+    <div className="product-carousel-controls"><span>{t("prod.carControl")}</span><div><button onClick={() => move(-1)} aria-label={t("prod.carPrev")}>←</button><button onClick={() => move(1)} aria-label={t("prod.carNext")}>→</button></div></div>
   </section>;
 }
 
 function ManufacturerLogoCarousel() {
+  const { lang, t } = useLanguage();
   const [selectedBrand, setSelectedBrand] = useState(manufacturerCarouselBrands[0]);
 
-  return <section className="manufacturer-logo-carousel" aria-label="Fabricantes presentes no portfólio Stärke Parts">
+  return <section className="manufacturer-logo-carousel" aria-label={t("man.logoAria")}>
     <div className="manufacturer-logo-track">
       {[...manufacturerCarouselBrands, ...manufacturerCarouselBrands].map((brand, index) => <button className={`manufacturer-logo ${selectedBrand.name === brand.name ? "manufacturer-logo--active" : ""}`} key={`${brand.name}-${index}`} onClick={() => setSelectedBrand(brand)} aria-pressed={selectedBrand.name === brand.name} aria-hidden={index >= manufacturerCarouselBrands.length ? true : undefined} tabIndex={index >= manufacturerCarouselBrands.length ? -1 : 0}><img src={manufacturerLogoFiles[brand.name]} alt={brand.name} /></button>)}
     </div>
-    <article className="manufacturer-brand-summary" key={selectedBrand.name} aria-live="polite"><div><small>{selectedBrand.origin}</small><h4>{selectedBrand.name}</h4></div><div><span>HISTÓRIA</span><p>{selectedBrand.history}</p></div><div><span>PRINCIPAIS LINHAS</span><p>{selectedBrand.work}</p></div></article>
+    <article className="manufacturer-brand-summary" key={selectedBrand.name} aria-live="polite"><div><small>{selectedBrand.origin[lang]}</small><h4>{selectedBrand.name}</h4></div><div><span>{t("man.history")}</span><p>{selectedBrand.history[lang]}</p></div><div><span>{t("man.lines")}</span><p>{selectedBrand.work[lang]}</p></div></article>
   </section>;
 }
 
@@ -618,6 +475,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 export function StarkePage({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
+  const [language, setLanguage] = useState<SiteLanguage>("pt");
   const [splashDone, setSplashDone] = useState(!showSplash);
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -625,9 +483,46 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   const activeSectionMounted = useRef(false);
   const router = useRouter();
 
+  const changeLanguage = useCallback((nextLanguage: SiteLanguage) => {
+    if (nextLanguage === language) return;
+    localStorage.setItem("starke-language", nextLanguage);
+    const translation = nextLanguage === "en" ? "/pt/en" : "/pt/pt";
+    document.cookie = `googtrans=${translation}; path=/; SameSite=Lax`;
+    document.cookie = `googtrans=${translation}; path=/; domain=${window.location.hostname}; SameSite=Lax`;
+    window.location.reload();
+  }, [language]);
+
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("starke-welcome-seen", "true");
     setSplashDone(true);
+  }, []);
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("starke-language") === "en" ? "en" : "pt";
+    setLanguage(storedLanguage);
+    document.documentElement.lang = storedLanguage === "en" ? "en" : "pt-BR";
+
+    window.googleTranslateElementInit = () => {
+      if (!window.google?.translate || document.querySelector("#google_translate_element select")) return;
+      new window.google.translate.TranslateElement({
+        pageLanguage: "pt",
+        includedLanguages: "pt,en",
+        autoDisplay: false,
+      }, "google_translate_element");
+    };
+
+    if (window.google?.translate) {
+      window.googleTranslateElementInit();
+      return;
+    }
+
+    if (!document.getElementById("google-translate-script")) {
+      const script = document.createElement("script");
+      script.id = "google-translate-script";
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
+    }
   }, []);
 
   useEffect(() => {
@@ -687,7 +582,7 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label="Selecionar idioma"><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => changeLanguage("pt")} aria-pressed={language === "pt"}>PT</button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => changeLanguage("en")} aria-pressed={language === "en"}>EN</button></div><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button><div id="google_translate_element" aria-hidden="true" /></div></header>
     <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label="Áreas da Stärke Parts"><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>

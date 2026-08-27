@@ -4,6 +4,11 @@
   --measure: 76ch;
 }
 
+:root[data-theme="dark"] {
+  --surface: #171715;
+  --surface-muted: #20201d;
+}
+
 .section-intro > p:last-child {
   max-width: 670px;
   margin: -30px 0 46px;
@@ -3372,6 +3377,7 @@
 .applications-page .brand-selector button:nth-child(10) .brand-selector-name::before { background-image: url("/vehicle-logos/lamborghini.svg"); }
 .applications-page .brand-selector button:nth-child(11) .brand-selector-name::before { background-image: url("/vehicle-logos/volkswagen.svg"); }
 
+
 /* Global hover contrast audit: dark cards must never switch to a light fill */
 .institutional-page .metric-grid > div:hover,
 .institutional-page .metric-grid > div:first-child:hover,
@@ -3404,4 +3410,149 @@
 
 .tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article:hover p {
   color: #68665f;
+}
+
+/* Complete night theme */
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .experience {
+  background-color: #0d0d0c;
+  background-image: radial-gradient(circle at 15% 20%, rgba(252,204,44,.08), transparent 25%), radial-gradient(circle at 82% 68%, rgba(255,255,255,.035), transparent 30%);
+  color: #f5f4ef;
+}
+
+:root[data-theme="dark"] .experience > .tab-list,
+:root[data-theme="dark"] .applications-page > .detail-grid,
+:root[data-theme="dark"] .product-context-grid,
+:root[data-theme="dark"] .product-grid,
+:root[data-theme="dark"] .supplier-grid,
+:root[data-theme="dark"] .locations-grid,
+:root[data-theme="dark"] .service-audiences,
+:root[data-theme="dark"] .institutional-page .company-chapters,
+:root[data-theme="dark"] .institutional-page .institutional-history-milestones,
+:root[data-theme="dark"] .institutional-page .company-roadmap,
+:root[data-theme="dark"] .institutional-page .institutional-pillars-layout {
+  border-color: rgba(255,255,255,.1);
+  background: #151513;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .experience > .tab-list .tab {
+  border-color: rgba(255,255,255,.11);
+  background: #191917;
+  box-shadow: none;
+  color: #aaa9a2;
+}
+
+:root[data-theme="dark"] .experience > .tab-list .tab:hover,
+:root[data-theme="dark"] .experience > .tab-list .tab--active {
+  border-color: rgba(252,204,44,.45);
+  background: #070707;
+  color: #fff;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .structure-page .location-card,
+:root[data-theme="dark"] .structure-page .location-card:hover,
+:root[data-theme="dark"] .tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article,
+:root[data-theme="dark"] .tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article:hover,
+:root[data-theme="dark"] .institutional-page .institutional-history-milestones > div:not(:last-child),
+:root[data-theme="dark"] .institutional-page .roadmap-item:not(:last-child) {
+  border-color: rgba(255,255,255,.1);
+  background: #181816;
+  color: #f5f4ef;
+  box-shadow: 0 8px 0 #050505, 0 20px 34px rgba(0,0,0,.28);
+}
+
+:root[data-theme="dark"] .structure-page .location-card h4,
+:root[data-theme="dark"] .structure-page .location-card > p:not(.location-area),
+:root[data-theme="dark"] .structure-page .location-card li,
+:root[data-theme="dark"] .tab-panel[aria-labelledby="tab-atendimento"] .service-audiences article h4,
+:root[data-theme="dark"] .tab-panel[aria-labelledby="tab-atendimento"] .service-audiences article > p,
+:root[data-theme="dark"] .institutional-page .institutional-history-milestones > div:not(:last-child),
+:root[data-theme="dark"] .institutional-page .roadmap-item:not(:last-child) {
+  color: #f5f4ef;
+}
+
+:root[data-theme="dark"] .structure-page .location-card .location-phone,
+:root[data-theme="dark"] .structure-page .location-card li,
+:root[data-theme="dark"] .faq-item {
+  border-color: rgba(255,255,255,.12);
+  background: #22221f;
+}
+
+:root[data-theme="dark"] .structure-page .location-card .location-phone > span,
+:root[data-theme="dark"] .structure-page .location-card .location-phone > strong,
+:root[data-theme="dark"] .structure-page .location-card li {
+  color: #f5f4ef;
+}
+
+:root[data-theme="dark"] .institutional-page .institutional-history-summary > p,
+:root[data-theme="dark"] .institutional-page .institutional-history-summary > .institutional-history-closing {
+  color: #fff;
+}
+
+:root[data-theme="dark"] .tab-panel,
+:root[data-theme="dark"] .institutional-page,
+:root[data-theme="dark"] .applications-page,
+:root[data-theme="dark"] .products-page,
+:root[data-theme="dark"] .manufacturers-page,
+:root[data-theme="dark"] .structure-page,
+:root[data-theme="dark"] .service-page {
+  color: #f5f4ef;
+}
+
+:root[data-theme="dark"] .editorial-copy,
+:root[data-theme="dark"] .identity-card,
+:root[data-theme="dark"] .product-card,
+:root[data-theme="dark"] .supplier-card,
+:root[data-theme="dark"] .location-card,
+:root[data-theme="dark"] .logistics-card,
+:root[data-theme="dark"] .service-audiences > article,
+:root[data-theme="dark"] .company-chapter,
+:root[data-theme="dark"] .journey-item,
+:root[data-theme="dark"] .coverage-card,
+:root[data-theme="dark"] .detail-card,
+:root[data-theme="dark"] .faq-item,
+:root[data-theme="dark"] .brand-feature-copy,
+:root[data-theme="dark"] .brand-feature-summary {
+  border-color: rgba(255,255,255,.1);
+  background-color: #171715;
+  color: #f5f4ef;
+}
+
+:root[data-theme="dark"] .editorial-copy p,
+:root[data-theme="dark"] .identity-card p,
+:root[data-theme="dark"] .product-card p,
+:root[data-theme="dark"] .supplier-card p,
+:root[data-theme="dark"] .logistics-card p,
+:root[data-theme="dark"] .journey-item p,
+:root[data-theme="dark"] .coverage-card p,
+:root[data-theme="dark"] .detail-card p,
+:root[data-theme="dark"] .faq-item p,
+:root[data-theme="dark"] .brand-feature-summary p,
+:root[data-theme="dark"] .subsection-description {
+  color: #c3c2bb;
+}
+
+:root[data-theme="dark"] .editorial-copy h4,
+:root[data-theme="dark"] .identity-card h5,
+:root[data-theme="dark"] .product-card h4,
+:root[data-theme="dark"] .supplier-card h4,
+:root[data-theme="dark"] .journey-item h5,
+:root[data-theme="dark"] .coverage-card h5,
+:root[data-theme="dark"] .detail-card h5,
+:root[data-theme="dark"] .faq-item summary,
+:root[data-theme="dark"] .subsection-heading h4 {
+  color: #fff;
+}
+
+:root[data-theme="dark"] .landing-intro,
+:root[data-theme="dark"] .landing-proof {
+  background: #11110f;
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .header-actions { gap: 7px; }
+  .theme-toggle { width: 38px; height: 38px; }
 }
