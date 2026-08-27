@@ -2874,14 +2874,7 @@
 .service-page > .subsection-heading,
 .after-sales {
   background-color: #070707;
-  background-image:
-    linear-gradient(105deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,.03) 38%, rgba(0,0,0,.3) 100%),
-    radial-gradient(105% 95% at 18% 0%, rgba(255,255,255,.045), transparent 55%),
-    url("/carbon-fiber-waves.png");
-  background-position: center, center, center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-blend-mode: normal;
+  background-image: none;
   box-shadow:
     inset 1px 1px 0 rgba(255,255,255,.12),
     inset -1px -1px 0 rgba(0,0,0,.85),
@@ -2892,7 +2885,7 @@
 
 /* ============================================================
    PREMIUM UNIFICATION — organic, less-square card grids on the
-   dark carbon-fiber system, with ambient glow and clean hierarchy.
+   dark premium system, with ambient glow and clean hierarchy.
    ============================================================ */
 
 /* Shared premium card look */
@@ -2914,10 +2907,7 @@
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.09);
   border-radius: 26px;
-  background:
-    radial-gradient(120% 130% at 12% -8%, rgba(252,204,44,.07), transparent 46%),
-    linear-gradient(165deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.012) 42%, transparent 70%),
-    url("/carbon-fiber-premium-v3.png") center/cover;
+  background: #070707;
   color: #fff;
   box-shadow:
     inset 1px 1px 0 rgba(255,255,255,.08),
@@ -2943,9 +2933,7 @@
 .manufacturers-page .supplier-grid .supplier-card::after {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.06), transparent 18%),
-    radial-gradient(90% 70% at 100% 100%, rgba(252,204,44,.06), transparent 60%);
+  background: none;
   content: "";
   pointer-events: none;
 }
@@ -2998,9 +2986,7 @@
   padding: 18px;
   border: 1px solid rgba(255,255,255,.09);
   border-radius: 30px;
-  background:
-    linear-gradient(165deg, rgba(255,255,255,.04), rgba(255,255,255,.01) 45%, rgba(252,204,44,.03)),
-    url("/carbon-fiber-premium-v3.png") center/cover;
+  background: #070707;
   box-shadow: inset 1px 1px 0 rgba(255,255,255,.06), 0 24px 52px rgba(8,8,6,.3);
 }
 
@@ -3009,10 +2995,7 @@
 .institutional-page .company-chapter {
   border: 1px solid rgba(255,255,255,.09);
   border-radius: 26px;
-  background:
-    radial-gradient(120% 130% at 12% -8%, rgba(252,204,44,.06), transparent 46%),
-    linear-gradient(165deg, rgba(255,255,255,.045) 0%, rgba(255,255,255,.012) 42%, transparent 70%),
-    url("/carbon-fiber-premium-v3.png") center/cover;
+  background: #070707;
   box-shadow: inset 1px 1px 0 rgba(255,255,255,.08), 0 16px 32px rgba(8,8,6,.28);
   color: #fff;
   transform: translateZ(0);
@@ -3021,6 +3004,7 @@
 .institutional-page .institutional-pillars-layout article:hover,
 .institutional-page .company-chapter:hover {
   border-color: rgba(252,204,44,.34);
+  background: #070707;
   box-shadow: inset 1px 1px 0 rgba(255,255,255,.1), 0 0 0 1px rgba(252,204,44,.08), 0 24px 42px rgba(8,8,6,.34), 0 0 34px rgba(252,204,44,.07);
   transform: translateY(-5px) translateZ(18px);
 }
@@ -3179,24 +3163,16 @@
   top: 0;
   right: 0;
   left: 0;
-  height: 118px;
-  background: linear-gradient(180deg, var(--yellow) 0%, rgba(252, 204, 44, .85) 22%, rgba(252, 204, 44, .28) 58%, rgba(252, 204, 44, 0) 100%);
+  height: 0;
+  background: var(--yellow);
   content: "";
   pointer-events: none;
   z-index: 0;
 }
 
-/* Fade the black textured banner in from the white page above it */
+/* Keep the explorer banner background solid at the top */
 .experience > .section-intro::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: clamp(90px, 18vh, 150px);
-  background: linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.35) 42%, transparent 100%);
-  content: "";
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 /* Fade the black banner back out into the white content below it */
@@ -3215,17 +3191,217 @@
 /* Keep the heading/banner text above the fade overlay */
 .experience > .section-intro > * { position: relative; z-index: 1; }
 
-/* Fade from white content into the black closing statement */
+/* Fade from the brand yellow into the black closing statement */
 .closing-statement { position: relative; }
 .closing-statement::before {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: clamp(90px, 18vh, 150px);
-  background: linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.4) 45%, transparent 100%);
+  inset: 0;
+  z-index: 0;
+  display: block;
+  background: var(--yellow);
+  clip-path: polygon(66% 0, 100% 0, 100% 100%, 58% 100%);
   content: "";
   pointer-events: none;
+}
+
+.closing-statement::after {
+  position: absolute;
+  inset: 0;
   z-index: 0;
+  background: #ffe36a;
+  clip-path: polygon(65.5% 0, 66.2% 0, 58.2% 100%, 57.5% 100%);
+  content: "";
+  pointer-events: none;
 }
 .closing-statement > * { position: relative; z-index: 1; }
+
+/* Unit cards — light palette with the original brand accents */
+.structure-page .locations-grid {
+  border-color: #d8d4c8;
+  background: #ebe9e2;
+}
+
+.structure-page .location-card {
+  border-color: #dedacf;
+  background: #fff;
+  box-shadow: 0 8px 0 #d4d0c4, 0 22px 38px rgba(20, 18, 12, .12);
+  color: #111;
+}
+
+.structure-page .location-card::after {
+  display: none;
+}
+
+.structure-page .location-card:hover {
+  border-color: rgba(252, 204, 44, .42);
+  box-shadow: 0 11px 0 #d0aa16, 0 28px 46px rgba(20, 18, 12, .16);
+}
+
+.structure-page .location-card h4 {
+  color: #111;
+}
+
+.structure-page .location-card .location-area {
+  color: var(--red);
+}
+
+.structure-page .location-card > p:not(.location-area) {
+  color: #696760;
+}
+
+.structure-page .location-card .location-phone,
+.structure-page .location-card li {
+  border-color: #dfdbcf;
+  background: #efede6;
+}
+
+.structure-page .location-card .location-phone > span {
+  color: #77736a;
+}
+
+.structure-page .location-card .location-phone > strong,
+.structure-page .location-card li {
+  color: #171713;
+}
+
+.structure-page .location-card li::before,
+.structure-page .location-card > button span {
+  background: var(--yellow);
+  color: #090909;
+}
+
+.structure-page .location-card > button {
+  border-color: #242424;
+  background: #0b0b0b;
+  box-shadow: 0 5px 0 #d0a814, 0 10px 18px rgba(0, 0, 0, .22);
+}
+
+/* Application criteria — remove the large outline and darken its index */
+.applications-page > .detail-grid .detail-card::after {
+  display: none;
+}
+
+.applications-page > .detail-grid .detail-card > span {
+  color: #090909;
+}
+
+.institutional-page .operation-card > span {
+  color: #090909;
+}
+
+.institutional-page .principle-grid article::after {
+  display: none;
+}
+
+.institutional-page .principle-grid article > span {
+  display: none;
+}
+
+.institutional-page .principle-grid article {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.institutional-page .principle-grid article h5 {
+  margin: 0 0 14px;
+}
+
+.institutional-page .principle-grid article > p {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+/* Service audiences — restore contrast on the light cards */
+.tab-panel[aria-labelledby="tab-atendimento"] .service-audiences article h4 {
+  color: #171713;
+}
+
+.tab-panel[aria-labelledby="tab-atendimento"] .service-audiences article > p {
+  color: #68665f;
+}
+
+.tab-panel[aria-labelledby="tab-atendimento"] .service-audiences article > span {
+  color: #090909;
+}
+
+@media (max-width: 760px) {
+  .closing-statement::before {
+    clip-path: polygon(88% 0, 100% 0, 100% 100%, 73% 100%);
+  }
+
+  .closing-statement::after {
+    clip-path: polygon(86.8% 0, 88.4% 0, 74% 100%, 72.4% 100%);
+  }
+}
+
+/* Automaker emblems inside the vehicle selector */
+.applications-page .brand-selector button {
+  grid-template-columns: 34px minmax(0, 1fr) 32px;
+}
+
+.applications-page .brand-selector-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+}
+
+.applications-page .brand-selector-name::before {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  filter: grayscale(1) brightness(0) invert(1);
+  opacity: .9;
+}
+
+.applications-page .brand-selector button:nth-child(1) .brand-selector-name::before { background-image: url("/vehicle-logos/porsche.svg"); }
+.applications-page .brand-selector button:nth-child(2) .brand-selector-name::before { background-image: url("/vehicle-logos/bmw.svg"); }
+.applications-page .brand-selector button:nth-child(3) .brand-selector-name::before { background-image: url("/vehicle-logos/mercedes-benz.svg"); }
+.applications-page .brand-selector button:nth-child(4) .brand-selector-name::before { background-image: url("/vehicle-logos/audi.svg"); }
+.applications-page .brand-selector button:nth-child(5) .brand-selector-name::before { background-image: url("/vehicle-logos/land-rover.svg"); }
+.applications-page .brand-selector button:nth-child(6) .brand-selector-name::before { background-image: url("/vehicle-logos/volvo.svg"); }
+.applications-page .brand-selector button:nth-child(7) .brand-selector-name::before { background-image: url("/vehicle-logos/jaguar.svg"); }
+.applications-page .brand-selector button:nth-child(8) .brand-selector-name::before { background-image: url("/vehicle-logos/mini.svg"); }
+.applications-page .brand-selector button:nth-child(9) .brand-selector-name::before { background-image: url("/vehicle-logos/ferrari.svg"); }
+.applications-page .brand-selector button:nth-child(10) .brand-selector-name::before { background-image: url("/vehicle-logos/lamborghini.svg"); }
+.applications-page .brand-selector button:nth-child(11) .brand-selector-name::before { background-image: url("/vehicle-logos/volkswagen.svg"); }
+
+/* Global hover contrast audit: dark cards must never switch to a light fill */
+.institutional-page .metric-grid > div:hover,
+.institutional-page .metric-grid > div:first-child:hover,
+.institutional-page .operation-card:hover,
+.institutional-page .principle-grid article:hover,
+.applications-page > .detail-grid .detail-card:hover,
+.products-page .detail-grid .detail-card:hover,
+.structure-page .journey-item:hover,
+.service-page .service-steps article:hover,
+.coverage-grid .coverage-card:hover,
+.logistics-grid .logistics-card:hover,
+.products-page .product-grid .product-card:hover,
+.manufacturers-page .supplier-grid .supplier-card:hover,
+.institutional-page .institutional-pillars-layout article:hover,
+.institutional-page .company-chapter:hover {
+  background: #070707;
+  color: #fff;
+}
+
+/* Light-card exceptions keep their light fill and dark typography on hover */
+.structure-page .location-card:hover,
+.tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article:hover {
+  background: #fff;
+  color: #171713;
+}
+
+.tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article:hover h4 {
+  color: #171713;
+}
+
+.tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article:hover p {
+  color: #68665f;
+}

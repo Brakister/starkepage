@@ -44,6 +44,20 @@ const vehicleBrands = [
   { name: "VW Premium", territory: "WOLFSBURG · ALEMANHA", focus: "Aplicações selecionadas", about: "A Volkswagen reúne engenharia alemã, tecnologia e ampla experiência industrial em modelos selecionados de posicionamento superior.", text: "Componentes destinados a aplicações selecionadas da Volkswagen premium, sempre conforme veículo, motorização e chassi.", image: "/vehicles/volkswagen-hero.png" },
 ];
 
+const vehicleBrandLogoFiles: Record<string, string> = {
+  Porsche: "/vehicle-logos/porsche.svg",
+  BMW: "/vehicle-logos/bmw.svg",
+  "Mercedes-Benz": "/vehicle-logos/mercedes-benz.svg",
+  Audi: "/vehicle-logos/audi.svg",
+  "Land Rover": "/vehicle-logos/land-rover.svg",
+  Volvo: "/vehicle-logos/volvo.svg",
+  Jaguar: "/vehicle-logos/jaguar.svg",
+  MINI: "/vehicle-logos/mini.svg",
+  Ferrari: "/vehicle-logos/ferrari.svg",
+  Lamborghini: "/vehicle-logos/lamborghini.svg",
+  "VW Premium": "/vehicle-logos/volkswagen.svg",
+};
+
 const productLines = [
   { number: "01", family: "SEGURANÇA", title: "Freios", text: "Precisão e confiança em cada desaceleração, com componentes projetados para responder às exigências de veículos premium e esportivos.", items: ["Discos de freio", "Pastilhas", "Sensores de desgaste", "Pinças e reparos", "Flexíveis e fluidos"] },
   { number: "02", family: "DINÂMICA", title: "Suspensão", text: "Conforto, estabilidade e controle com soluções selecionadas para a geometria e o comportamento dinâmico de cada veículo.", items: ["Amortecedores", "Braços e bandejas", "Buchas e pivôs", "Coxins e batentes", "Molas e componentes"] },
@@ -336,11 +350,6 @@ function HeroInvite() {
         { clipPath: "inset(0 0 0% 0)", duration: 1.4 },
         0.5
       );
-      tl.fromTo(".hero-card .eyebrow",
-        { opacity: 0, y: 10, letterSpacing: ".5em" },
-        { opacity: 1, y: 0, letterSpacing: ".16em", duration: 1.0 },
-        0.62
-      );
       tl.fromTo(".hero-card__foot",
         { opacity: 0, y: 22 },
         { opacity: 1, y: 0, duration: 1.0 },
@@ -353,7 +362,6 @@ function HeroInvite() {
 
   return (
     <div className="hero-card" id="hero-title" ref={cardRef}>
-      <Eyebrow light>PREMIUM AUTOMOTIVE PARTS</Eyebrow>
       <h1 className="hero-title">
         <span className="hero-line"><span className="hero-key">A</span> <RotatingWord /></span>
         <span className="hero-line">começa na</span>
@@ -365,6 +373,10 @@ function HeroInvite() {
       </div>
     </div>
   );
+}
+
+function InstagramIcon() {
+  return <svg className="instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4.25" /><circle className="instagram-icon-dot" cx="17.4" cy="6.7" r="1" /></svg>;
 }
 
 function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
@@ -599,7 +611,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
     <section className="landing-cta"><div className="landing-cta__photo" aria-hidden="true" /><div><Eyebrow light>ATENDIMENTO ESPECIALIZADO</Eyebrow><h2>Da aplicação à entrega,<br /><em>precisão em cada etapa.</em></h2><p>Conte com uma equipe preparada para identificar o componente e orientar a melhor solução para o seu veículo ou negócio.</p><Link className="button button--yellow" href="/atendimento">Fale com a Stärke Parts <span>↗</span></Link></div></section>
 
-    <footer className="footer"><Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
+    <footer className="footer"><Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link><span>Oferecemos peças. Entregamos confiança.</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
   </main>;
 }
 
@@ -677,10 +689,10 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
     <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
-    <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((item, index) => <span key={`${item.name}-${index}`}>{item.name.toUpperCase()}<b>✳</b></span>)}</div></section>
+    <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label="Áreas da Stärke Parts"><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
     <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
-    <footer className="footer"><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><span>Oferecemos peças. Entregamos confiança.</span><a href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts ↗</a></footer>
+    <footer className="footer"><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><span>Oferecemos peças. Entregamos confiança.</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
   </main>
   </>;
 }
