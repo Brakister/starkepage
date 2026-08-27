@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
+import { Anton, Inter } from "next/font/google";
 import "./globals.css";
 import "./expanded.css";
+
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display", display: "swap" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  axes: ["opsz"],
+  preload: true,
+});
 
 const siteOrigin = new URL("https://starke-parts-premium.wiildias.chatgpt.site");
 
@@ -46,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased">{children}</body>
+      <body className={`antialiased ${anton.variable} ${inter.variable}`}>{children}</body>
     </html>
   );
 }

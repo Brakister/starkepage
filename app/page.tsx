@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback, type KeyboardEvent } from "re
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 
@@ -172,25 +173,167 @@ const serviceSteps = [
 ];
 
 function SplashScreen({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<"enter" | "visible" | "exit">("enter");
+  const rootRef = useRef<HTMLDivElement>(null);
+  const lettersRef = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {
-    const showTimer = setTimeout(() => setPhase("visible"), 50);
-    const exitTimer = setTimeout(() => setPhase("exit"), 2200);
-    const doneTimer = setTimeout(onComplete, 3000);
-    return () => { clearTimeout(showTimer); clearTimeout(exitTimer); clearTimeout(doneTimer); };
+    const ctx = gsap.context(() => {
+      const target = "STÄRKE PARTS";
+      const chars = target.split("");
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÉÇ#%*+0123456789";
+
+      const progress = { value: 0 };
+      const update = () => {
+        const solved = Math.floor(progress.value * chars.length);
+        chars.forEach((char, i) => {
+          const el = lettersRef.current[i];
+          if (!el) return;
+          if (i < solved) {
+            el.textContent = char;
+            el.classList.add("is-solid");
+            el.classList.remove("is-ghost");
+          } else {
+            el.textContent = alphabet[Math.floor(Math.random() * alphabet.length)];
+            el.classList.add("is-ghost");
+            el.classList.remove("is-solid");
+          }
+        });
+      };
+
+      gsap.set(rootRef.current, { autoAlpha: 0 });
+      update();
+      gsap.to(rootRef.current, { autoAlpha: 1, duration: 0.15, ease: "none" });
+
+      gsap.to(".splash-shimmer", {
+        backgroundPosition: "200% 0",
+        duration: 2.6,
+        ease: "none",
+        repeat: -1,
+      });
+
+      const tl = gsap.timeline();
+      tl.fromTo(".splash-title", { scale: .94, opacity: 0 }, { scale: 1, opacity: 1, duration: .35, ease: "power2.out" }, .25);
+      tl.to(progress, { value: 1, duration: 1.15, ease: "power1.inOut", onUpdate: update }, .3);
+      tl.fromTo(".splash-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: .4, ease: "power2.out" }, .35);
+      tl.fromTo(".splash-rule", { scaleX: 0 }, { scaleX: 1, duration: .5, ease: "power3.inOut" }, 1.05);
+      tl.fromTo(".splash-tagline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "power2.out" }, 1.15);
+      tl.to(rootRef.current, { opacity: 0, duration: .55, ease: "power2.inOut" }, 2.35);
+      tl.call(onComplete, undefined, 2.9);
+    }, rootRef);
+    return () => ctx.revert();
   }, [onComplete]);
 
   return (
-    <div className={`splash splash--${phase}`} aria-hidden="true">
-      <div className="splash-inner">
-        <div className="splash-logo">
-          <span>STÄRKE</span>
-          <b>PARTS</b>
-        </div>
-        <div className="splash-divider" />
-        <p className="splash-tagline">Bem-vindo à Stärke</p>
-        <p className="splash-sub">Premium Automotive Parts</p>
+    <div className="splash" ref={rootRef} aria-hidden="true">
+      <div className="splash-glow" aria-hidden="true" />
+      <div className="splash-center">
+        <p className="splash-kicker">PREMIUM AUTOMOTIVE PARTS</p>
+        <h1 className="splash-title splash-shimmer" aria-label="STÄRKE PARTS">
+          {"STÄRKE PARTS".split("").map((ch, i) => (
+            <span key={i} ref={el => { lettersRef.current[i] = el; }} aria-hidden="true">{ch}</span>
+          ))}
+        </h1>
+        <span className="splash-rule" />
+        <p className="splash-tagline">Oferecemos peças. Entregamos confiança.</p>
+      </div>
+    </div>
+  );
+}
+
+function HeroBackdrop() {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const img = gsap.utils.toArray<HTMLElement>(".hero-backdrop__img")[0];
+      gsap.fromTo(img,
+        { scale: 1.14, filter: "blur(22px) saturate(1.7)", opacity: 0.6 },
+        { scale: 1, filter: "blur(5px) saturate(1.15)", opacity: 1, duration: 2.2, ease: "power2.out" }
+      );
+      gsap.fromTo(".hero-backdrop__scrim",
+        { opacity: 0 },
+        { opacity: 1, duration: 1.6, ease: "power2.out", delay: 0.4 }
+      );
+    }, rootRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div className="hero-backdrop" ref={rootRef} aria-hidden="true">
+      <div className="hero-backdrop__img" />
+      <div className="hero-backdrop__scrim" />
+    </div>
+  );
+}
+
+const WORDS = ["EXCELÊNCIA", "PRECISÃO", "DURABILIDADE", "PERFORMANCE"];
+
+function RotatingWord() {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const timer = setInterval(() => {
+      gsap.to(el, {
+        opacity: 0.15, y: -18, rotateX: 60, scale: 0.96, duration: 0.32, ease: "power2.in",
+        onComplete: () => setIdx((i) => (i + 1) % WORDS.length),
+      });
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (idx === 0) return;
+    const el = ref.current;
+    if (!el) return;
+    gsap.fromTo(el,
+      { opacity: 0.15, y: 18, rotateX: -60, scale: 0.96 },
+      { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.5, ease: "power3.out" }
+    );
+  }, [idx]);
+
+  return <span ref={ref} className="invite-fade--accent">{WORDS[idx]}</span>;
+}
+
+function HeroInvite() {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      tl.fromTo(".hero-title",
+        { clipPath: "inset(0 0 100% 0)" },
+        { clipPath: "inset(0 0 0% 0)", duration: 1.4 },
+        0.5
+      );
+      tl.fromTo(".hero-card .eyebrow",
+        { opacity: 0, y: 10, letterSpacing: ".5em" },
+        { opacity: 1, y: 0, letterSpacing: ".16em", duration: 1.0 },
+        0.62
+      );
+      tl.fromTo(".hero-card__foot",
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 1.0 },
+        0.95
+      );
+      tl.from(".hero-card__foot .hero-rule", { scaleY: 0, transformOrigin: "bottom", duration: 0.85, ease: "power3.out" }, 1.05);
+    }, cardRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div className="hero-card" id="hero-title" ref={cardRef}>
+      <Eyebrow light>PREMIUM AUTOMOTIVE PARTS</Eyebrow>
+      <h1 className="hero-title">
+        <span className="hero-line"><span className="hero-key">A</span> <RotatingWord /></span>
+        <span className="hero-line">começa na</span>
+        <span className="hero-line hero-line--red">peça certa.</span>
+      </h1>
+      <div className="hero-card__foot">
+        <span className="hero-rule" />
+        <span className="hero-hint">ROLE PARA EXPLORAR</span>
       </div>
     </div>
   );
@@ -485,9 +628,9 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
 
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
-    <main id="topo" className={splashDone ? "" : "main--hidden"}>
+    <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button></header>
-    <section className="hero" aria-labelledby="hero-title"><div className="hero-photo" aria-hidden="true" /><div className="hero-content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="hero-title">A excelência<br />começa <em>na peça certa.</em></h1><p className="hero-description">Desde 2016, conectamos fabricantes reconhecidos, autopeças premium e conhecimento técnico para entregar confiança em cada aplicação.</p><div className="hero-actions"><button className="button button--yellow" onClick={() => changeTab("produtos")}>Explorar o portfólio <span>→</span></button><button className="button button--quiet" onClick={() => changeTab("institucional")}>Conheça a Stärke <span>↓</span></button></div></div><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
+    <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((item, index) => <span key={`${item.name}-${index}`}>{item.name.toUpperCase()}<b>✳</b></span>)}</div></section>
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label="Áreas da Stärke Parts"><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
     <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
