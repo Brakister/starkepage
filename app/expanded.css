@@ -3975,10 +3975,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 38px 36px 28px;
-  border-radius: 40px;
-  background: #0c0c0b;
-  box-shadow: 0 34px 70px rgba(0, 0, 0, .3);
+  padding: 30px 30px 26px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 26px;
+  background: #0b0b0a;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, .26),inset 0 1px 0 rgba(255,255,255,.04);
   color: #fff;
   overflow: hidden;
 }
@@ -3986,27 +3987,18 @@
 .story-chat-card::before {
   content: "";
   position: absolute;
-  top: -70px;
-  right: -70px;
-  width: 210px;
-  height: 210px;
+  top: -95px;
+  right: -95px;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(37, 211, 102, .28), transparent 68%);
+  background: radial-gradient(circle, rgba(37, 211, 102, .13), transparent 70%);
   pointer-events: none;
 }
 
 .story-chat-card::after {
-  content: "WA";
-  position: absolute;
-  right: -26px;
-  bottom: -58px;
-  font-family: var(--font-display), "Archivo Black", sans-serif;
-  font-size: 220px;
-  line-height: 1;
-  letter-spacing: -.04em;
-  color: rgba(37, 211, 102, .06);
-  pointer-events: none;
-  user-select: none;
+  display: none;
+  content: none;
 }
 
 .story-chat-card__live {
@@ -4032,20 +4024,20 @@
 
 .story-chat-card > .whatsapp-icon {
   position: relative;
-  width: 54px;
-  height: 54px;
-  margin-top: 26px;
+  width: 44px;
+  height: 44px;
+  margin-top: 20px;
   color: #25d366;
   fill: currentColor;
-  filter: drop-shadow(0 8px 22px rgba(37, 211, 102, .38));
+  filter: drop-shadow(0 5px 12px rgba(37, 211, 102, .22));
 }
 
 .story-chat-card > strong {
   position: relative;
-  margin-top: 14px;
+  margin-top: 12px;
   font-family: var(--font-league), "Helvetica Neue", sans-serif;
   font-weight: 700;
-  font-size: clamp(24px, 2.8vw, 30px);
+  font-size: clamp(23px, 2.5vw, 28px);
   letter-spacing: .005em;
 }
 
@@ -4060,31 +4052,38 @@
 
 .story-chat-card .story-contact__btn {
   position: relative;
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
   justify-content: center;
+  gap: 9px;
   align-self: stretch;
-  margin-top: 24px;
-  padding: 15px 18px 14px;
-  border: 0;
+  margin-top: 20px;
+  padding: 12px 18px;
+  border: 1px solid rgba(255,255,255,.18);
   border-radius: 999px;
-  background: linear-gradient(145deg, #2dd463 0%, #25d366 55%, #12a14d 100%);
-  box-shadow: 0 5px 0 #0d7a38, 0 12px 26px rgba(37, 211, 102, .22), inset 0 1px 0 rgba(255, 255, 255, .5);
+  background: #20bd5a;
+  box-shadow: 0 8px 20px rgba(37,211,102,.14);
   color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .18);
+  font-size: 13px;
+  font-weight: 700;
+  text-shadow: none;
+  transition: background .2s ease,transform .2s ease,box-shadow .2s ease;
 }
 
-.story-chat-card .story-contact__btn:hover { box-shadow: 0 7px 0 #0d7a38, 0 16px 30px rgba(37, 211, 102, .28), inset 0 1px 0 rgba(255, 255, 255, .55); }
-.story-chat-card .story-contact__btn:active { box-shadow: 0 2px 0 #0d7a38, 0 6px 14px rgba(37, 211, 102, .2), inset 0 2px 4px rgba(0, 0, 0, .12); transform: translateY(3px); }
+.story-chat-card .story-contact__btn:hover { background: #25c964; box-shadow: 0 10px 24px rgba(37,211,102,.2); transform: translateY(-1px); }
+.story-chat-card .story-contact__btn:active { box-shadow: 0 5px 12px rgba(37,211,102,.12); transform: translateY(0); }
 
 .story-contact__btn .whatsapp-icon { width: 18px; height: 18px; fill: currentColor; }
 
 .story-chat-card__foot {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 18px;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 11px;
   margin-top: 26px;
-  padding: 13px 15px;
+  padding: 14px 16px;
   border: 1px solid rgba(255, 255, 255, .1);
   border-radius: 14px;
   background: rgba(255, 255, 255, .045);
@@ -4114,11 +4113,15 @@
   gap: 8px;
   margin: 0;
   color: rgba(255, 255, 255, .68);
-  font-size: 8px;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  color: rgba(255, 255, 255, .72);
+  font-size: 7.5px;
   font-weight: 750;
   letter-spacing: .13em;
   line-height: 1.4;
-  text-align: right;
+  text-align: left;
 }
 .story-contact__note::before { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 4px rgba(37,211,102,.1); content: ""; }
 
