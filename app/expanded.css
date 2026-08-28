@@ -1579,16 +1579,16 @@
 .institutional-page .roadmap-year { display: flex; flex-direction: column; padding: 0; }
 .institutional-page .roadmap-year strong { font-size: clamp(52px,5vw,70px); line-height: .9; }
 .institutional-page .roadmap-year span { margin-top: 14px; color: var(--red); font-size: 10px; font-weight: 850; letter-spacing: .16em; }
-.institutional-page .roadmap-item:last-child .roadmap-year span { color: rgba(4,4,4,.62); }
+.institutional-page .roadmap-item:last-child .roadmap-year span { color: var(--red); }
 .institutional-page .roadmap-copy { display: flex; flex: 1; flex-direction: column; justify-content: flex-end; padding: 48px 0 0; border: 0; }
 .institutional-page .roadmap-copy h5 { margin: 0 0 16px; font-size: 27px; line-height: 1.12; }
 .institutional-page .roadmap-copy p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
-.institutional-page .roadmap-item:last-child .roadmap-copy p { color: rgba(4,4,4,.68); }
+.institutional-page .roadmap-item:last-child .roadmap-copy p { color: #c3c2bb; }
 .institutional-page .roadmap-item--current { background: var(--yellow); }
 .institutional-page .roadmap-item--current:hover { background: #ffd94d; }
 .institutional-page .roadmap-item--current .roadmap-marker { background: var(--yellow); color: transparent; box-shadow: 0 0 0 1px var(--yellow); }
-.institutional-page .roadmap-item--current .roadmap-year span { color: rgba(4,4,4,.62); }
-.institutional-page .roadmap-item--current .roadmap-copy p { color: rgba(4,4,4,.68); }
+.institutional-page .roadmap-item--current .roadmap-year span { color: var(--red); }
+.institutional-page .roadmap-item--current .roadmap-copy p { color: #c3c2bb; }
 .institutional-page .roadmap-shell { position: relative; max-width: 100%; margin-bottom: 120px; }
 .institutional-page .roadmap-shell .company-roadmap { margin-bottom: 0; scroll-behavior: smooth; scrollbar-width: none; }
 .institutional-page .roadmap-shell .company-roadmap::-webkit-scrollbar { display: none; }
@@ -1597,8 +1597,9 @@
 .institutional-page .roadmap-controls > span { display: flex; align-items: center; gap: 11px; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
 .institutional-page .roadmap-controls > span i { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: roadmap-dot 1.8s ease-in-out infinite; }
 .institutional-page .roadmap-controls > div { display: flex; gap: 8px; }
-.institutional-page .roadmap-controls button { display: flex; width: 46px; height: 46px; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 50%; background: #fff; color: var(--ink); font-size: 18px; transition: background .22s ease, color .22s ease, transform .22s ease; }
+.institutional-page .roadmap-controls button { display: flex; width: 46px; height: 46px; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 50%; background: #fff; color: #080808; font-family: Arial, sans-serif; font-size: 20px; font-weight: 800; line-height: 1; text-shadow: none; transition: background .22s ease, color .22s ease, transform .22s ease; }
 .institutional-page .roadmap-controls button:hover { background: var(--yellow); color: var(--black); transform: translateY(-2px); }
+.institutional-page .roadmap-controls button:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; color: #080808; }
 @keyframes roadmap-pulse { 0% { transform: translateX(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateX(min(850px,70vw)); opacity: 0; } }
 @keyframes roadmap-dot { 50% { box-shadow: 0 0 0 7px rgba(228,36,52,.12); } }
 @media (prefers-reduced-motion: reduce) { .institutional-page .roadmap-shell .company-roadmap::after, .institutional-page .roadmap-controls > span i { animation: none; } }
@@ -2093,28 +2094,19 @@
   .tab-panel[aria-labelledby="tab-atendimento"] .service-audiences > article { min-height: 225px; padding: 25px; }
 }
 
-.button--whatsapp {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-}
-
-.button--whatsapp .whatsapp-mark {
-  display: grid;
-  width: 27px;
-  height: 27px;
-  place-items: center;
-  border-radius: 50%;
-  background: #111;
-  box-shadow: inset 1px 1px 1px rgba(255,255,255,.2), 0 3px 0 rgba(0,0,0,.28);
-  color: #25d366;
-  font-size: 13px;
-  line-height: 1;
-}
-
-.button--whatsapp > span:last-child { margin-left: 7px; }
-.contact-card .contact-handle { color: rgba(255,255,255,.62); text-decoration: none; }
-.contact-card .contact-handle:hover { color: var(--yellow); }
+.contact-socials { display: grid; max-width: 720px; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 28px; }
+.contact-card .contact-social { display: grid; min-height: 76px; grid-template-columns: 42px minmax(0,1fr) 26px; align-items: center; gap: 13px; padding: 13px 15px; border: 1px solid rgba(255,255,255,.13); border-radius: 14px; background: rgba(255,255,255,.055); color: #fff; text-decoration: none; transition: border-color .22s ease,background .22s ease,transform .22s ease; }
+.contact-card .contact-social:hover { border-color: rgba(252,204,44,.48); background: rgba(255,255,255,.09); color: #fff; transform: translateY(-2px); }
+.contact-social__icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 12px; background: rgba(255,255,255,.07); }
+.contact-social__icon .whatsapp-icon, .contact-social__icon .instagram-icon { width: 27px; height: 27px; filter: none; }
+.contact-social__icon .whatsapp-icon-bg { fill: #25d366; }
+.contact-social__icon .whatsapp-icon-phone { fill: #fff; }
+.contact-social__copy { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
+.contact-social__copy small { color: #fff; font-size: 8px; font-weight: 850; letter-spacing: .16em; }
+.contact-social__copy strong { overflow: hidden; color: #f5f4ef; font-size: 13px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.contact-social__arrow { display: grid; width: 26px; height: 26px; place-items: center; border-radius: 50%; color: var(--yellow); font-size: 14px; transition: background .22s ease,transform .22s ease; }
+.contact-social:hover .contact-social__arrow { background: var(--yellow); color: #080808; transform: translate(2px,-2px); }
+@media (max-width: 680px) { .contact-socials { grid-template-columns: 1fr; } }
 .roadmap-year span { margin-top: 12px; color: var(--red); font-size: 9px; font-weight: 800; letter-spacing: .16em; }
 .roadmap-copy { max-width: 760px; padding: 3px 0 44px; border-bottom: 1px solid var(--line); }
 .roadmap-copy h5 { margin: 0 0 14px; font-size: clamp(24px, 2.4vw, 34px); font-weight: 720; letter-spacing: -.035em; line-height: 1.12; }
@@ -3550,6 +3542,42 @@
 :root[data-theme="dark"] .landing-proof {
   background: #11110f;
   color: #fff;
+}
+
+/* Keep every roadmap card visually consistent in night mode */
+:root[data-theme="dark"] .institutional-page .roadmap-item,
+:root[data-theme="dark"] .institutional-page .roadmap-item:last-child,
+:root[data-theme="dark"] .institutional-page .roadmap-item--current,
+:root[data-theme="dark"] .institutional-page .roadmap-item:hover,
+:root[data-theme="dark"] .institutional-page .roadmap-item:last-child:hover,
+:root[data-theme="dark"] .institutional-page .roadmap-item--current:hover {
+  border-color: rgba(255,255,255,.1);
+  background: #181816;
+  color: #f5f4ef;
+  box-shadow: 0 8px 0 #050505, 0 20px 34px rgba(0,0,0,.28);
+}
+
+:root[data-theme="dark"] .institutional-page .roadmap-item .roadmap-year span,
+:root[data-theme="dark"] .institutional-page .roadmap-item:last-child .roadmap-year span,
+:root[data-theme="dark"] .institutional-page .roadmap-item--current .roadmap-year span {
+  color: var(--red);
+}
+
+:root[data-theme="dark"] .institutional-page .roadmap-item .roadmap-copy h5 {
+  color: #fff;
+}
+
+:root[data-theme="dark"] .institutional-page .roadmap-item .roadmap-copy p,
+:root[data-theme="dark"] .institutional-page .roadmap-item:last-child .roadmap-copy p,
+:root[data-theme="dark"] .institutional-page .roadmap-item--current .roadmap-copy p {
+  color: #c3c2bb;
+}
+
+:root[data-theme="dark"] .institutional-page .roadmap-item .roadmap-marker,
+:root[data-theme="dark"] .institutional-page .roadmap-item:last-child .roadmap-marker,
+:root[data-theme="dark"] .institutional-page .roadmap-item--current .roadmap-marker {
+  background: var(--red);
+  box-shadow: 0 0 0 1px var(--red);
 }
 
 @media (max-width: 760px) {
