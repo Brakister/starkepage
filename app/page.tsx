@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, type KeyboardEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -299,10 +297,24 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
   const { lang, t } = useLanguage();
   const wrapRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const root = wrapRef.current;
     if (!root) return;
+    const io = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        setReady(true);
+        io.disconnect();
+      }
+    }, { rootMargin: "900px 0px" });
+    io.observe(root);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const root = wrapRef.current;
+    if (!root || !ready) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       const marquee = root.querySelector<HTMLElement>(".story-marquee__track");
@@ -330,7 +342,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
       ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", scrub: 0.6, animation: tl });
     }, root);
     return () => ctx.revert();
-  }, []);
+  }, [ready]);
 
   const marquee = [
     ...productLines.map(p => p.title[lang]),
@@ -338,7 +350,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
   ];
 
   return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
-    <div className="story-intro__pin">
+    {ready && <div className="story-intro__pin">
       <article className="story-slide story-slide--n1">
         <div className="story-kinetic">
           <div className="story-kinetic__top story-appear">
@@ -408,9 +420,35 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
       <div className="story-rail" role="presentation">
         {[0, 1, 2].map(i => <span key={i} className={`story-rail__item ${active === i ? "is-active" : ""}`}><b>{String(i + 1).padStart(2, "0")}</b><i /></span>)}
       </div>
-    </div>
+    </div>}
   </section>;
 }
+
+const MemoStoryIntro = memo(StoryIntro);
+
+function HeroSection() {
+  const { t } = useLanguage();
+  return <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>;
+}
+const MemoHero = memo(HeroSection);
+
+function TickerSection() {
+  const { t } = useLanguage();
+  return <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>;
+}
+const MemoTicker = memo(TickerSection);
+
+function ClosingSection({ onContact }: { onContact: () => void }) {
+  const { t } = useLanguage();
+  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>;
+}
+const MemoClosing = memo(ClosingSection);
+
+function FooterSection() {
+  const { t } = useLanguage();
+  return <footer className="footer"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><span>{t("footer.tagline")}</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>;
+}
+const MemoFooter = memo(FooterSection);
 
 function CompanyRoadmap() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -577,12 +615,9 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
           </button>;
         })}
       </div>
-      <motion.article
+      <article
         key={selected}
-        className="brand-feature"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: .16, ease: [.4, 0, .15, 1] }}
+        className="brand-feature brand-feature--in"
       >
         <div className="brand-feature-inner">
           <div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.9),transparent 70%),url('${vehicle.image}')` }}>
@@ -594,7 +629,7 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
             <button className="text-link" onClick={onContact}>{t("app.cta")} <span>↗</span></button>
           </div>
         </div>
-      </motion.article>
+      </article>
     </div>
     <aside className="info-strip"><strong>{t("app.stripStrong")}</strong><span>{t("app.stripSpan")}</span></aside>
     <div className="subsection-heading"><Eyebrow>{t("app.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("app.secHeading") }} /><p className="subsection-description">{t("app.secDesc")}</p></div>
@@ -700,7 +735,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
 function StarkePageContent({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
   const { lang: language, setLanguage, t } = useLanguage();
-  const tabs = translatedTabs.map(tab => ({ ...tab, label: tab.label[language] }));
+  const tabs = useMemo(() => translatedTabs.map(tab => ({ ...tab, label: tab.label[language] })), [language]);
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
   const [splashDone, setSplashDone] = useState(!showSplash);
@@ -709,13 +744,12 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   const tabListRef = useRef<HTMLDivElement>(null);
   const activeSectionMounted = useRef(false);
   const lenisRef = useRef<Lenis | null>(null);
-  const router = useRouter();
 
-  const scrollToExplore = () => {
+  const scrollToExplore = useCallback(() => {
     const lenis = lenisRef.current;
     if (lenis) lenis.scrollTo("#explore", { duration: 1.2, offset: -70, easing: (t) => 1 - Math.pow(1 - t, 4) });
     else document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
@@ -784,20 +818,32 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     return () => window.clearTimeout(indicatorTimer);
   }, [active]);
 
-  function changeTab(id: TabId, shouldScroll = true) {
-    if (active !== id) {
-      const path = routes[id];
-      if (window.location.pathname !== path) {
-        router.push(path, { scroll: false });
+  useEffect(() => {
+    const onPopState = () => {
+      const path = window.location.pathname;
+      const id = (Object.keys(routes) as TabId[]).find(key => routes[key] === path);
+      if (id && id !== active) setActive(id);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [active]);
+
+  const changeTab = useCallback((id: TabId, shouldScroll = true) => {
+    setActive(current => {
+      if (current !== id) {
+        const path = routes[id];
+        if (window.location.pathname !== path) {
+          window.history.pushState({ tab: id }, "", path);
+        }
       }
-      setActive(id);
-    }
+      return id;
+    });
     if (shouldScroll) {
       requestAnimationFrame(() => {
         requestAnimationFrame(scrollToExplore);
       });
     }
-  }
+  }, [scrollToExplore]);
 
   function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
@@ -807,18 +853,18 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     tabRefs.current[next]?.focus();
   }
 
-  const onContact = () => changeTab("atendimento");
+  const onContact = useCallback(() => changeTab("atendimento"), [changeTab]);
 
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div><button className="header-cta" onClick={onContact}>{t("nav.cta")} <span>↗</span></button></div></header>
-    <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
-    <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
-    <StoryIntro onContact={onContact} />
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .25, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
-    <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>
-    <footer className="footer"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><span>{t("footer.tagline")}</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
+    <MemoHero />
+    <MemoTicker />
+    <MemoStoryIntro onContact={onContact} />
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
+    <MemoClosing onContact={onContact} />
+    <MemoFooter />
   </main>
   </>;
 }
