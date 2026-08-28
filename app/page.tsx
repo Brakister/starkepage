@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 import {
   LanguageProvider,
   useLanguage,
@@ -651,7 +652,28 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabListRef = useRef<HTMLDivElement>(null);
   const activeSectionMounted = useRef(false);
+  const lenisRef = useRef<Lenis | null>(null);
   const router = useRouter();
+
+  const scrollToExplore = () => {
+    const lenis = lenisRef.current;
+    if (lenis) lenis.scrollTo("#explore", { duration: 1.2, offset: -70, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    lenisRef.current = lenis;
+    lenis.on("scroll", ScrollTrigger.update);
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+    return () => {
+      gsap.ticker.remove(raf);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("starke-welcome-seen", "true");
@@ -677,9 +699,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
       setIndicatorStyle({ left: elRect.left - listRect.left + tabListRef.current.scrollLeft, width: elRect.width });
     }
     if (activeSectionMounted.current) {
-      const scrollTimer = window.setTimeout(() => {
-        document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 80);
+      const scrollTimer = window.setTimeout(scrollToExplore, 80);
       return () => window.clearTimeout(scrollTimer);
     }
     activeSectionMounted.current = true;
@@ -695,9 +715,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     }
     if (shouldScroll) {
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+        requestAnimationFrame(scrollToExplore);
       });
     }
   }

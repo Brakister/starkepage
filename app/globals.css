@@ -34,7 +34,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { margin: 0; background-color: var(--paper); background-image: radial-gradient(circle at 12% 18%, rgba(252,204,44,.13), transparent 28%), radial-gradient(circle at 88% 72%, rgba(30,30,26,.08), transparent 32%); background-size: 145% 145%; color: var(--ink); font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif; font-feature-settings: "cv11", "ss01"; animation: ambient-background 18s ease-in-out infinite alternate; }
 button, a { font: inherit; }
 button { cursor: pointer; }

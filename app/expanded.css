@@ -4201,3 +4201,9 @@
   .story-rail__item i { width: 22px; height: 2px; }
   .story-rail__item b { font-size: 8px; }
 }
+
+/* --- Lenis smooth scroll --- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
