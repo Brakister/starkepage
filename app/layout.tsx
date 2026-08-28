@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Anton, Inter } from "next/font/google";
+import { Anton, Inter, League_Spartan } from "next/font/google";
 import "./globals.css";
 import "./expanded.css";
 
 const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display", display: "swap" });
+const leagueSpartan = League_Spartan({
+  subsets: ["latin"],
+  variable: "--font-league",
+  display: "swap",
+});
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -56,7 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" data-theme="dark">
-      <body className={`antialiased ${anton.variable} ${inter.variable}`}>{children}</body>
+      <body className={`antialiased ${anton.variable} ${leagueSpartan.variable} ${inter.variable}`}>{children}</body>
     </html>
   );
 }

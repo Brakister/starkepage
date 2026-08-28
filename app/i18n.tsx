@@ -98,6 +98,42 @@ export const copy: Record<string, Bilingual> = {
   },
   "closing.cta": { pt: "Fale com um especialista", en: "Talk to an expert" },
 
+  /* Story intro slides */
+  "intro.aria": { pt: "A Stärke Parts em três momentos", en: "Stärke Parts in three moments" },
+  "intro1.eyebrow": { pt: "STÄRKE PARTS · ESPECIALISTAS DESDE 2016", en: "STÄRKE PARTS · SPECIALISTS SINCE 2016" },
+  "intro1.title": {
+    pt: "Oferecemos peças.<br /><em class=\"story-line2\">Entregamos confiança.</em>",
+    en: "We offer parts.<br /><em class=\"story-line2\">We deliver trust.</em>",
+  },
+  "intro1.text": {
+    pt: "Distribuidora especializada em autopeças premium para veículos importados, premium e superesportivos — unindo fabricantes globais, conhecimento técnico em profundidade e uma operação integrada que atende todo o Brasil.",
+    en: "A distributor specialized in premium auto parts for imported, premium and super sports vehicles — combining global manufacturers, deep technical knowledge and an integrated operation serving all of Brazil.",
+  },
+  "intro1.s1": { pt: "ESPECIALIZAÇÃO DESDE", en: "EXPERTISE SINCE" },
+  "intro1.s2": { pt: "OPERAÇÕES EM SÃO PAULO", en: "OPERATIONS IN SÃO PAULO" },
+  "intro1.s3": { pt: "FABRICANTES SELECIONADOS", en: "SELECTED MANUFACTURERS" },
+  "intro1.s4": { pt: "EXPEDIÇÃO PARA TODO O PAÍS", en: "SHIPPING ACROSS BRAZIL" },
+  "intro2.eyebrow": { pt: "CONTATE A GENTE", en: "CONTACT US" },
+  "intro2.title": {
+    pt: "Vamos encontrar<br />a solução <em>certa.</em>",
+    en: "Let's find<br />the <em>right</em> solution.",
+  },
+  "intro2.text": {
+    pt: "Fale com um especialista pelo WhatsApp ou visite uma de nossas unidades em Chácara Santo Antônio, Sorocaba, Campinas ou Santos — com atendimento ágil no horário comercial.",
+    en: "Talk to a specialist on WhatsApp or visit one of our units in Chácara Santo Antônio, Sorocaba, Campinas or Santos — with swift service during business hours.",
+  },
+  "intro2.cta": { pt: "Falar com um especialista", en: "Talk to an expert" },
+  "intro2.whatsapp": { pt: "Falar pelo WhatsApp", en: "Chat on WhatsApp" },
+  "intro2.note": { pt: "RESPONDEMOS NO HORÁRIO COMERCIAL", en: "WE REPLY DURING BUSINESS HOURS" },
+  "intro2.live": { pt: "ATENDIMENTO COMERCIAL · FÁBIL", en: "COMMERCIAL SERVICE · ONLINE" },
+  "intro2.phoneLabel": { pt: "WHATSAPP COMERCIAL", en: "BUSINESS WHATSAPP" },
+  "intro3.eyebrow": { pt: "EM MOVIMENTO", en: "IN MOTION" },
+  "intro3.title": {
+    pt: "Uma operação<br />em <em>movimento.</em>",
+    en: "An operation<br />in <em>motion.</em>",
+  },
+  "intro3.cycle": { pt: "QUANDO O ASSUNTO É", en: "WHEN IT COMES TO" },
+
   /* Footer */
   "footer.tagline": { pt: "Oferecemos peças. Entregamos confiança.", en: "We offer parts. We deliver trust." },
 
@@ -482,6 +518,11 @@ export const copy: Record<string, Bilingual> = {
 export const heroWords: Record<SiteLanguage, string[]> = {
   pt: ["EXCELÊNCIA", "PRECISÃO", "DURABILIDADE", "PERFORMANCE"],
   en: ["EXCELLENCE", "PRECISION", "DURABILITY", "PERFORMANCE"],
+};
+
+export const introCycles: Record<SiteLanguage, string[]> = {
+  pt: ["FRENAGEM", "SUSPENSÃO", "DIREÇÃO", "MOTOR", "FILTRAGEM", "ARREFECIMENTO", "ELÉTRICA", "INJEÇÃO", "TRANSMISSÃO"],
+  en: ["BRAKING", "SUSPENSION", "STEERING", "ENGINE", "FILTRATION", "COOLING", "ELECTRICAL", "INJECTION", "TRANSMISSION"],
 };
 
 export const tabs = [

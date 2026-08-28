@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import {
   LanguageProvider,
   useLanguage,
   heroWords,
+  introCycles,
   tabs as translatedTabs,
   type TabId,
   vehicleBrands,
@@ -27,6 +29,8 @@ import {
   commonQuestions,
   serviceSteps,
 } from "./i18n";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 const WHATSAPP = "https://wa.me/5511999631185?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
@@ -201,7 +205,7 @@ function HeroInvite() {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
       tl.fromTo(".hero-title",
         { clipPath: "inset(0 0 100% 0)" },
-        { clipPath: "inset(0 0 0% 0)", duration: 1.4 },
+        { clipPath: "inset(0 0 0% 0)", duration: 1.4, onComplete: () => gsap.set(".hero-title", { clipPath: "none" }) },
         0.5
       );
       tl.fromTo(".hero-card__foot",
@@ -233,12 +237,166 @@ function InstagramIcon() {
   return <svg className="instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4.25" /><circle className="instagram-icon-dot" cx="17.4" cy="6.7" r="1" /></svg>;
 }
 
+function WhatsAppIcon({ className = "" }: { className?: string }) {
+  return <svg className={`whatsapp-icon ${className}`} viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>;
+}
+
 function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return <p className={`eyebrow ${light ? "" : "eyebrow--dark"}`}><span />{children}</p>;
 }
 
 function PanelHeading({ kicker, title, text }: { kicker: string; title: string; text: string }) {
   return <div className="panel-heading"><Eyebrow>{kicker}</Eyebrow><h3>{title}</h3><p>{text}</p></div>;
+}
+
+function RotatingIntroWord() {
+  const ref = useRef<HTMLSpanElement>(null);
+  const { lang } = useLanguage();
+  const [idx, setIdx] = useState(0);
+  const words = introCycles[lang];
+
+  useEffect(() => { setIdx(0); }, [lang]);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const timer = setInterval(() => {
+      gsap.to(el, {
+        opacity: 0, y: -16, rotateX: 55, scale: 0.97, duration: 0.3, ease: "power2.in",
+        onComplete: () => setIdx((i) => (i + 1) % words.length),
+      });
+    }, 2800);
+    return () => clearInterval(timer);
+  }, [words.length]);
+
+  useEffect(() => {
+    if (idx === 0) return;
+    const el = ref.current;
+    if (!el) return;
+    gsap.fromTo(el,
+      { opacity: 0, y: 16, rotateX: -55, scale: 0.97 },
+      { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.45, ease: "power3.out" }
+    );
+  }, [idx]);
+
+  return <span className="story-cycle__word" ref={ref}>{words[idx]}</span>;
+}
+
+function StoryIntro({ onContact }: { onContact: () => void }) {
+  const { lang, t } = useLanguage();
+  const wrapRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const root = wrapRef.current;
+    if (!root) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const ctx = gsap.context(() => {
+      const marquee = root.querySelector<HTMLElement>(".story-marquee__track");
+      if (marquee) {
+        gsap.to(marquee, { xPercent: -50, ease: "none", duration: 30, repeat: -1 });
+      }
+
+      gsap.set(".story-slide--n1", { autoAlpha: 0, yPercent: -130 });
+      gsap.set(".story-slide--n2", { autoAlpha: 0, xPercent: -100 });
+      gsap.set(".story-slide--n3", { autoAlpha: 0, xPercent: 100 });
+
+      const tl = gsap.timeline();
+      tl.to(".story-slide--n1", { autoAlpha: 1, yPercent: 0, duration: 3, ease: "power2.out" }, 0)
+        .fromTo(".story-slide--n1 .story-appear", { y: 36, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.14, ease: "power2.out" }, 0.5)
+        .add(() => setActive(0), 0)
+        .to(".story-slide--n1", { yPercent: -24, autoAlpha: 0, duration: 1, ease: "power2.in" }, 3.4)
+        .fromTo(".story-slide--n2", { xPercent: -100, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: 2.6, ease: "power2.out" }, 4.2)
+        .fromTo(".story-slide--n2 .story-appear", { x: 44, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 4.7)
+        .add(() => setActive(1), 4.2)
+        .to(".story-slide--n2", { xPercent: 24, autoAlpha: 0, duration: 1, ease: "power2.in" }, 7.2)
+        .fromTo(".story-slide--n3", { xPercent: 100, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: 2.6, ease: "power2.out" }, 8.2)
+        .fromTo(".story-slide--n3 .story-appear", { x: -44, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 8.7)
+        .add(() => setActive(2), 8.2);
+
+      ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", scrub: 0.6, animation: tl });
+    }, root);
+    return () => ctx.revert();
+  }, []);
+
+  const marquee = [
+    ...productLines.map(p => p.title[lang]),
+    ...vehicleBrands.slice(0, 8).map(b => b.name.toUpperCase()),
+  ];
+
+  return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
+    <div className="story-intro__pin">
+      <article className="story-slide story-slide--n1">
+        <div className="story-kinetic">
+          <div className="story-kinetic__top story-appear">
+            <Eyebrow light>{t("intro1.eyebrow")}</Eyebrow>
+            <span className="story-kinetic__index">01 <b>/ 03</b></span>
+          </div>
+          <div className="story-kinetic__heading story-appear">
+            <h3 dangerouslySetInnerHTML={{ __html: t("intro1.title") }} />
+          </div>
+          <div className="story-kinetic__lead story-appear">
+            <span className="story-kinetic__arrow" aria-hidden="true">↘</span>
+            <p>{t("intro1.text")}</p>
+          </div>
+          <ul className="story-kinetic__stats story-appear">
+            <li><strong>2016</strong><span>{t("intro1.s1")}</span></li>
+            <li><strong>04</strong><span>{t("intro1.s2")}</span></li>
+            <li><strong>30+</strong><span>{t("intro1.s3")}</span></li>
+            <li><strong>BR</strong><span>{t("intro1.s4")}</span></li>
+          </ul>
+          <span className="story-kinetic__ghost" aria-hidden="true">STÄRKE</span>
+        </div>
+      </article>
+
+      <article className="story-slide story-slide--n2">
+        <div className="story-contact">
+          <div className="story-contact__col story-appear">
+            <div className="story-contact__head">
+              <Eyebrow>{t("intro2.eyebrow")}</Eyebrow>
+              <h3 dangerouslySetInnerHTML={{ __html: t("intro2.title") }} />
+            </div>
+            <p className="story-contact__text">{t("intro2.text")}</p>
+            <button className="text-link story-contact__link" onClick={onContact}>{t("intro2.cta")} <span>↗</span></button>
+          </div>
+          <div className="story-chat-card story-appear">
+            <span className="story-chat-card__live"><i aria-hidden="true" />{t("intro2.live")}</span>
+            <WhatsAppIcon />
+            <strong>+55 11 99963-1185</strong>
+            <small>{t("intro2.phoneLabel")}</small>
+            <a className="story-contact__btn" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("intro2.whatsapp")}><WhatsAppIcon /> {t("intro2.whatsapp")} <span>↗</span></a>
+            <div className="story-chat-card__foot">
+              <a className="story-contact__handle" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts <span>↗</span></a>
+              <span className="story-contact__note">{t("intro2.note")}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article className="story-slide story-slide--n3">
+        <div className="story-dynamic">
+          <div className="story-dynamic__head story-appear">
+            <Eyebrow light>{t("intro3.eyebrow")}</Eyebrow>
+            <h3 dangerouslySetInnerHTML={{ __html: t("intro3.title") }} />
+            <span className="story-live"><i aria-hidden="true" />EM MOVIMENTO</span>
+          </div>
+          <div className="story-cycle story-appear">
+            <span>{t("intro3.cycle")}</span>
+            <RotatingIntroWord />
+          </div>
+          <div className="story-marquee story-appear" aria-hidden="true">
+            <div className="story-marquee__track">
+              {[...marquee, ...marquee].map((label, index) => <span key={`${label}-${index}`}>{label}<i>✦</i></span>)}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div className="story-rail" role="presentation">
+        {[0, 1, 2].map(i => <span key={i} className={`story-rail__item ${active === i ? "is-active" : ""}`}><b>{String(i + 1).padStart(2, "0")}</b><i /></span>)}
+      </div>
+    </div>
+  </section>;
 }
 
 function CompanyRoadmap() {
@@ -556,6 +714,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-pressed={language === "pt"}>PT</button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-pressed={language === "en"}>EN</button></div><button className="header-cta" onClick={onContact}>{t("nav.cta")} <span>↗</span></button></div></header>
     <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
+    <StoryIntro onContact={onContact} />
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
     <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>
     <footer className="footer"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><span>{t("footer.tagline")}</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
