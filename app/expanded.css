@@ -1096,8 +1096,15 @@
 }
 
 .contact-card {
-  padding: 70px;
+  width: min(1040px, 100%);
+  margin-right: auto;
+  margin-left: auto;
+  padding: 36px 42px 40px;
+  border-radius: 30px;
 }
+
+.contact-card h4 { margin: 13px 0; font-size: clamp(34px,3.2vw,49px); }
+.contact-card .contact-socials { max-width: 680px; margin-top: 18px; }
 
 .contact-card .button {
   display: inline-flex;
@@ -2107,6 +2114,7 @@
 .contact-social__arrow { display: grid; width: 26px; height: 26px; place-items: center; border-radius: 50%; color: var(--yellow); font-size: 14px; transition: background .22s ease,transform .22s ease; }
 .contact-social:hover .contact-social__arrow { background: var(--yellow); color: #080808; transform: translate(2px,-2px); }
 @media (max-width: 680px) { .contact-socials { grid-template-columns: 1fr; } }
+@media (max-width: 680px) { .contact-card { padding: 30px 20px 34px; border-radius: 24px; } }
 .roadmap-year span { margin-top: 12px; color: var(--red); font-size: 9px; font-weight: 800; letter-spacing: .16em; }
 .roadmap-copy { max-width: 760px; padding: 3px 0 44px; border-bottom: 1px solid var(--line); }
 .roadmap-copy h5 { margin: 0 0 14px; font-size: clamp(24px, 2.4vw, 34px); font-weight: 720; letter-spacing: -.035em; line-height: 1.12; }
@@ -3093,6 +3101,17 @@
 
 /* product card category chip */
 .products-page .product-grid .product-card-top > span:last-child { color: var(--yellow); }
+.products-page .product-grid .product-card::before,
+.products-page .product-grid .product-card::after,
+.products-page .product-grid .product-card-top::before,
+.products-page .product-grid .product-card-top::after { display: none; content: none; }
+.products-page .product-context-grid .detail-card::before,
+.products-page .product-context-grid .detail-card::after { display: none; content: none; }
+.manufacturers-page > .panel-heading::after,
+.applications-page > .panel-heading::after,
+.applications-page > .subsection-heading::after,
+.products-page > .subsection-heading::after,
+.manufacturers-page .supplier-card::after { display: none; content: none; }
 
 /* logistics highlight keeps its premium yellow identity */
 .logistics-grid .logistics-card--highlight {
@@ -3335,20 +3354,23 @@
 
 /* Automaker emblems inside the vehicle selector */
 .applications-page .brand-selector button {
+  min-height: 84px;
   grid-template-columns: 34px minmax(0, 1fr) 32px;
 }
 
 .applications-page .brand-selector-name {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   color: #fff;
+  font-size: 16px;
+  line-height: 1.1;
 }
 
 .applications-page .brand-selector-name::before {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -3967,40 +3989,48 @@
 
 .story-chat-card__foot {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  gap: 18px;
   margin-top: 26px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, .1);
+  padding: 13px 15px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .045);
 }
 
 .story-contact__handle {
   display: inline-flex;
+  min-width: 0;
   align-items: center;
   gap: 8px;
-  color: var(--yellow);
-  font-size: 10px;
+  color: #fff;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: .02em;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s ease;
+  transition: color .2s ease;
 }
 
-.story-contact__handle:hover { border-bottom-color: var(--yellow); }
+.story-contact__handle:hover { color: var(--yellow); }
+.story-contact__handle > span:last-child { margin-left: 2px; color: var(--yellow); font-size: 13px; }
 
-.story-contact__handle .instagram-icon { width: 15px; height: 15px; color: var(--yellow); }
+.story-contact__handle .instagram-icon { width: 18px; height: 18px; flex: 0 0 auto; }
 
 .story-contact__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 0;
-  color: rgba(255, 255, 255, .34);
+  color: rgba(255, 255, 255, .68);
   font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .16em;
+  font-weight: 750;
+  letter-spacing: .13em;
+  line-height: 1.4;
   text-align: right;
 }
+.story-contact__note::before { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 4px rgba(37,211,102,.1); content: ""; }
 
 /* --- Slide 3: dinâmico --- */
 .story-dynamic {
@@ -4185,7 +4215,7 @@
   .story-contact h3 { font-size: clamp(38px, 12vw, 58px); }
   .story-contact__text { font-size: 14px; }
   .story-chat-card { padding: 30px 26px 24px; }
-  .story-chat-card__foot { flex-direction: column; align-items: flex-start; }
+  .story-chat-card__foot { grid-template-columns: 1fr; align-items: flex-start; gap: 12px; }
   .story-contact__note { text-align: left; }
   .story-cycle { flex-direction: column; gap: 10px; }
   .story-marquee { margin-top: 48px; }

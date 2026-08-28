@@ -145,8 +145,8 @@ function HeroBackdrop() {
     const ctx = gsap.context(() => {
       const img = gsap.utils.toArray<HTMLElement>(".hero-backdrop__img")[0];
       gsap.fromTo(img,
-        { scale: 1.14, filter: "blur(22px) saturate(1.7)", opacity: 0.6 },
-        { scale: 1, filter: "blur(5px) saturate(1.15)", opacity: 1, duration: 2.2, ease: "power2.out" }
+        { scale: 1.08, opacity: 0.72 },
+        { scale: 1, opacity: 1, duration: 1.35, ease: "power2.out", clearProps: "willChange" }
       );
       gsap.fromTo(".hero-backdrop__scrim",
         { opacity: 0 },
@@ -244,6 +244,14 @@ function WhatsAppBadge() {
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return <svg className={`whatsapp-icon ${className}`} viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>;
+}
+
+function BrazilFlag() {
+  return <svg className="language-flag" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2" fill="#229e45" /><path d="m14 3 10 7-10 7-10-7Z" fill="#f7d229" /><circle cx="14" cy="10" r="4.2" fill="#244aa5" /><path d="M10.3 9.1c2.8-.7 5.3-.3 7.5 1.1" fill="none" stroke="#fff" strokeWidth=".65" /></svg>;
+}
+
+function UnitedStatesFlag() {
+  return <svg className="language-flag" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2" fill="#fff" /><path d="M0 0h28v2H0zm0 4h28v2H0zm0 4h28v2H0zm0 4h28v2H0zm0 4h28v2H0z" fill="#d52b3f" /><path d="M0 0h12v11H0Z" fill="#23488f" /><path d="M2 2h1v1H2zm3 0h1v1H5zm3 0h1v1H8zM2 5h1v1H2zm3 0h1v1H5zm3 0h1v1H8zM2 8h1v1H2zm3 0h1v1H5zm3 0h1v1H8z" fill="#fff" /></svg>;
 }
 
 function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
@@ -536,10 +544,58 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
 function ApplicationsPanel({ onContact }: { onContact: () => void }) {
   const { lang, t } = useLanguage();
   const [selected, setSelected] = useState(0);
+  const [previewed, setPreviewed] = useState<number | null>(null);
   const vehicle = vehicleBrands[selected];
+
+  const selectVehicle = (index: number) => {
+    setSelected(index);
+    setPreviewed(null);
+  };
+
   return <div className="applications-page">
     <PanelHeading kicker={t("app.kicker")} title={t("app.title")} text={t("app.text")} />
-    <div className="brand-explorer"><div className="brand-selector" aria-label={t("app.selectorAria")}>{vehicleBrands.map((item, index) => <button key={item.name} className={selected === index ? "selected" : ""} onClick={() => setSelected(index)} aria-pressed={selected === index} style={{ ["--vehicle-image" as string]: `url('${item.image}')` }}><span className="brand-selector-index">{String(index + 1).padStart(2, "0")}</span><span className="brand-selector-name">{item.name}</span><b>↗</b></button>)}</div><AnimatePresence mode="wait"><motion.article key={vehicle.name} className="brand-feature" initial={{ opacity: 0, filter: "blur(7px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} exit={{ opacity: 0, filter: "blur(3px)" }} transition={{ duration: .45, ease: [.4, 0, .15, 1] }}><motion.div className="brand-feature-inner" initial={{ scale: .94 }} animate={{ scale: 1 }} exit={{ scale: .97 }} transition={{ duration: .5, ease: [.25, .1, .25, 1] }}><div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.9),transparent 70%),url('${vehicle.image}')` }}><span>{vehicle.territory[lang]}</span><h4>{vehicle.name}</h4><b>{vehicle.focus[lang]}</b></div><div className="brand-feature-copy"><div className="brand-feature-summary"><span>{t("app.about")}</span><p>{vehicle.about[lang]}</p></div><div className="brand-feature-summary"><span>{t("app.apply")}</span><p>{vehicle.text[lang]}</p></div><button className="text-link" onClick={onContact}>{t("app.cta")} <span>↗</span></button></div></motion.div></motion.article></AnimatePresence></div>
+    <div className="brand-explorer">
+      <div className="brand-selector" aria-label={t("app.selectorAria")}>
+        {vehicleBrands.map((item, index) => {
+          const showing = selected === index || previewed === index;
+          return <button
+            type="button"
+            key={item.name}
+            className={`${selected === index ? "selected" : ""} ${previewed === index ? "is-previewed" : ""}`}
+            onPointerDown={() => selectVehicle(index)}
+            onClick={() => selectVehicle(index)}
+            onMouseEnter={() => setPreviewed(index)}
+            onMouseLeave={() => setPreviewed(null)}
+            onFocus={() => setPreviewed(index)}
+            onBlur={() => setPreviewed(null)}
+            aria-pressed={selected === index}
+            style={showing ? { ["--vehicle-image" as string]: `url('${item.image}')` } : undefined}
+          >
+            <span className="brand-selector-index">{String(index + 1).padStart(2, "0")}</span>
+            <span className="brand-selector-name">{item.name}</span>
+            <b>↗</b>
+          </button>;
+        })}
+      </div>
+      <motion.article
+        key={selected}
+        className="brand-feature"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: .16, ease: [.4, 0, .15, 1] }}
+      >
+        <div className="brand-feature-inner">
+          <div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.9),transparent 70%),url('${vehicle.image}')` }}>
+            <span>{vehicle.territory[lang]}</span><h4>{vehicle.name}</h4><b>{vehicle.focus[lang]}</b>
+          </div>
+          <div className="brand-feature-copy">
+            <div className="brand-feature-summary"><span>{t("app.about")}</span><p>{vehicle.about[lang]}</p></div>
+            <div className="brand-feature-summary"><span>{t("app.apply")}</span><p>{vehicle.text[lang]}</p></div>
+            <button className="text-link" onClick={onContact}>{t("app.cta")} <span>↗</span></button>
+          </div>
+        </div>
+      </motion.article>
+    </div>
     <aside className="info-strip"><strong>{t("app.stripStrong")}</strong><span>{t("app.stripSpan")}</span></aside>
     <div className="subsection-heading"><Eyebrow>{t("app.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("app.secHeading") }} /><p className="subsection-description">{t("app.secDesc")}</p></div>
     <div className="detail-grid">{applicationCriteria.map((item, index) => <article className="detail-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
@@ -682,12 +738,28 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
 
   useEffect(() => {
     if (showSplash && sessionStorage.getItem("starke-welcome-seen") === "true") setSplashDone(true);
-    const listener = () => setScrolled(window.scrollY > 28);
+    let scrollFrame = 0;
+    let lastScrolled = window.scrollY > 28;
+    setScrolled(lastScrolled);
+    const listener = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(() => {
+        scrollFrame = 0;
+        const nextScrolled = window.scrollY > 28;
+        if (nextScrolled !== lastScrolled) {
+          lastScrolled = nextScrolled;
+          setScrolled(nextScrolled);
+        }
+      });
+    };
     listener();
     window.addEventListener("scroll", listener, { passive: true });
     const hash = window.location.hash.slice(1);
     if (tabs.some(tab => tab.id === hash)) setActive(hash as TabId);
-    return () => window.removeEventListener("scroll", listener);
+    return () => {
+      window.removeEventListener("scroll", listener);
+      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
+    };
   }, [showSplash]);
 
   useEffect(() => {
@@ -733,11 +805,11 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-pressed={language === "pt"}>PT</button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-pressed={language === "en"}>EN</button></div><button className="header-cta" onClick={onContact}>{t("nav.cta")} <span>↗</span></button></div></header>
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div><button className="header-cta" onClick={onContact}>{t("nav.cta")} <span>↗</span></button></div></header>
     <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
     <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
     <StoryIntro onContact={onContact} />
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: .25, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
     <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>
     <footer className="footer"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><span>{t("footer.tagline")}</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
   </main>
