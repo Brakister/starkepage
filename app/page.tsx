@@ -247,7 +247,7 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 function BrazilFlag() {
-  return <svg className="language-flag" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2" fill="#229e45" /><path d="m14 3 10 7-10 7-10-7Z" fill="#f7d229" /><circle cx="14" cy="10" r="4.2" fill="#244aa5" /><path d="M10.3 9.1c2.8-.7 5.3-.3 7.5 1.1" fill="none" stroke="#fff" strokeWidth=".65" /></svg>;
+  return <svg className="language-flag" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2" fill="#229e45" /><path d="m14 3 10 7-10 7-10-7Z" fill="#f7d229" /><path d="M10.3 9.1c2.8-.7 5.3-.3 7.5 1.1" fill="none" stroke="#fff" strokeWidth=".65" /><circle cx="14" cy="10" r="4.2" fill="#244aa5" /></svg>;
 }
 
 function UnitedStatesFlag() {
