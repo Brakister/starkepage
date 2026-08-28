@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Anton, Inter, League_Spartan } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "./expanded.css";
 
-const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display", display: "swap" });
-const leagueSpartan = League_Spartan({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-league",
+  variable: "--font-site",
   display: "swap",
-});
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-  axes: ["opsz"],
   preload: true,
 });
 
@@ -61,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" data-theme="dark">
-      <body className={`antialiased ${anton.variable} ${leagueSpartan.variable} ${inter.variable}`}>{children}</body>
+      <body className={`antialiased ${montserrat.variable}`}>{children}</body>
     </html>
   );
 }

@@ -763,18 +763,25 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   }, [showSplash]);
 
   useEffect(() => {
-    const idx = tabs.findIndex(t => t.id === active);
-    const el = tabRefs.current[idx];
-    if (el && tabListRef.current) {
+    const updateIndicator = () => {
+      const idx = tabs.findIndex(t => t.id === active);
+      const el = tabRefs.current[idx];
+      if (!el || !tabListRef.current) return;
       const listRect = tabListRef.current.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
       setIndicatorStyle({ left: elRect.left - listRect.left + tabListRef.current.scrollLeft, width: elRect.width });
-    }
+    };
+    updateIndicator();
+    const indicatorTimer = window.setTimeout(updateIndicator, 360);
     if (activeSectionMounted.current) {
       const scrollTimer = window.setTimeout(scrollToExplore, 80);
-      return () => window.clearTimeout(scrollTimer);
+      return () => {
+        window.clearTimeout(scrollTimer);
+        window.clearTimeout(indicatorTimer);
+      };
     }
     activeSectionMounted.current = true;
+    return () => window.clearTimeout(indicatorTimer);
   }, [active]);
 
   function changeTab(id: TabId, shouldScroll = true) {
