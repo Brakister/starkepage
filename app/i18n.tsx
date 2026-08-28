@@ -125,7 +125,7 @@ export const copy: Record<string, Bilingual> = {
   "intro2.cta": { pt: "Falar com um especialista", en: "Talk to an expert" },
   "intro2.whatsapp": { pt: "Falar pelo WhatsApp", en: "Chat on WhatsApp" },
   "intro2.note": { pt: "RESPONDEMOS NO HORÁRIO COMERCIAL", en: "WE REPLY DURING BUSINESS HOURS" },
-  "intro2.live": { pt: "ATENDIMENTO COMERCIAL · FÁBIL", en: "COMMERCIAL SERVICE · ONLINE" },
+  "intro2.live": { pt: "ATENDIMENTO COMERCIAL", en: "COMMERCIAL SERVICE" },
   "intro2.phoneLabel": { pt: "WHATSAPP COMERCIAL", en: "BUSINESS WHATSAPP" },
   "intro3.eyebrow": { pt: "EM MOVIMENTO", en: "IN MOTION" },
   "intro3.title": {

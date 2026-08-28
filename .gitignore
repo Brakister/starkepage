@@ -7,3 +7,7 @@ dist
 next-env.d.ts
 .vinext/
 *.tsbuildinfo
+
+# fontes baixadas locais
+*.zip
+public/fonts/
