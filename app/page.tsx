@@ -167,6 +167,7 @@ function RotatingWord() {
   const { lang } = useLanguage();
   const [idx, setIdx] = useState(0);
   const words = heroWords[lang];
+  const widest = words.reduce((a, b) => (b.length > a.length ? b : a));
 
   useEffect(() => { setIdx(0); }, [lang]);
 
@@ -175,7 +176,7 @@ function RotatingWord() {
     if (!el) return;
     const timer = setInterval(() => {
       gsap.to(el, {
-        opacity: 0.15, y: -18, rotateX: 60, scale: 0.96, duration: 0.32, ease: "power2.in",
+        opacity: 0, y: -14, duration: 0.3, ease: "power2.in",
         onComplete: () => setIdx((i) => (i + 1) % words.length),
       });
     }, 3200);
@@ -187,17 +188,20 @@ function RotatingWord() {
     const el = ref.current;
     if (!el) return;
     gsap.fromTo(el,
-      { opacity: 0.15, y: 18, rotateX: -60, scale: 0.96 },
-      { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.5, ease: "power3.out" }
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }
     );
   }, [idx]);
 
-  return <span ref={ref} className="invite-fade--accent">{words[idx]}</span>;
+  return <span className="invite-accent-group">
+    <span ref={ref} className="invite-fade--accent">{words[idx]}</span>
+    <span className="invite-accent-ghost" aria-hidden="true">{widest}</span>
+  </span>;
 }
 
 function HeroInvite() {
   const cardRef = useRef<HTMLDivElement>(null);
-  const { lang, t } = useLanguage();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -220,7 +224,7 @@ function HeroInvite() {
   return (
     <div className="hero-card" id="hero-title" ref={cardRef}>
 <h1 className="hero-title">
-        <span className="hero-line">{lang === "pt" && <span className="hero-key">A</span>} <RotatingWord /></span>
+        <span className="hero-line"><RotatingWord /></span>
         <span className="hero-line">{t("hero.line2")}</span>
         <span className="hero-line hero-line--red">{t("hero.line3")}</span>
       </h1>

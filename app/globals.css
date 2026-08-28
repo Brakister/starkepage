@@ -83,6 +83,9 @@ a { color: inherit; text-decoration: none; }
 .eyebrow--dark { color: var(--muted); }
 .hero-title { margin: 26px auto 52px; font-family: var(--font-league), var(--font-display), "Archivo Black", "Helvetica Neue", sans-serif; font-weight: 700; text-transform: uppercase; font-size: clamp(38px, 6.6vw, 100px); line-height: 1.14; letter-spacing: -.012em; padding: .06em 0; clip-path: inset(0 0 100% 0); }
 .hero-title .hero-line { display: block; white-space: nowrap; padding: 0 .04em; }
+.hero-title .invite-accent-group { display: inline-grid; position: relative; vertical-align: baseline; line-height: 1; will-change: transform, opacity; }
+.hero-title .invite-fade--accent { grid-area: 1 / 1; justify-self: center; }
+.hero-title .invite-accent-ghost { grid-area: 1 / 1; visibility: hidden; }
 .hero-title .hero-line--red {
   background-image: linear-gradient(100deg, #7a0d16 0%, #e42434 35%, #ff6b75 50%, #e42434 65%, #7a0d16 100%);
   background-size: 200% auto;
