@@ -9,7 +9,7 @@ import {
   LanguageProvider,
   useLanguage,
   heroWords,
-  tabs,
+  tabs as translatedTabs,
   type TabId,
   vehicleBrands,
   productLines,
@@ -312,131 +312,138 @@ function ManufacturerLogoCarousel() {
 }
 
 function InstitutionalPanel({ onContact }: { onContact: () => void }) {
+  const { lang, t } = useLanguage();
   return <div className="institutional-page">
     <div className="panel-heading panel-heading--institutional">
-      <Eyebrow>STÄRKE PARTS · ESPECIALISTAS DESDE 2016</Eyebrow>
-      <h3>A força de quem entende cada peça. A confiança de quem conhece cada detalhe.</h3>
+      <Eyebrow>{t("inst.eyebrow")}</Eyebrow>
+      <h3>{t("inst.title")}</h3>
 
       <div className="institutional-history-intro">
-        <p className="institutional-history-lead">Nascemos para elevar o padrão da distribuição de autopeças premium no Brasil. Desde 2016, conectamos conhecimento técnico, grandes fabricantes e uma operação preparada para entregar mais segurança em cada escolha.</p>
+        <p className="institutional-history-lead">{t("inst.lead")}</p>
 
         <div className="institutional-history-summary">
-          <p>A Stärke Parts nasceu com uma missão clara: transformar a compra de autopeças para veículos importados, premium e superesportivos em uma experiência mais precisa, ágil e confiável. Por isso, atendemos oficinas, centros automotivos, lojistas e proprietários com uma equipe que entende as particularidades de marcas como Porsche, BMW, Mercedes-Benz, Audi, Land Rover, Volvo, Jaguar, MINI, Ferrari e Lamborghini.</p>
+          <p>{t("inst.p1")}</p>
 
-          <p>Nosso portfólio reúne soluções para freios, suspensão, direção, motor, filtragem, arrefecimento, elétrica, ignição, injeção, transmissão e outros sistemas essenciais. Trabalhamos com referências globais como Bilstein Group, ZF, Brembo, Textar, Bosch, MAHLE e Hengst. Somos distribuidores oficiais febi, com produtos recebidos diretamente da fábrica do Bilstein Group na Alemanha, e ampliamos nossa entrega com a Forschen, marca própria que traduz a experiência e a identidade da Stärke.</p>
+          <p>{t("inst.p2")}</p>
 
-          <p>Da matriz na Chácara Santo Antônio ao centro de distribuição de Sorocaba, inaugurado em 2024, construímos uma operação integrada entre importação, estoque, atendimento, separação, expedição, e-commerce, garantia e pós-venda. Em 2025, chegamos a Campinas e Santos para ficar ainda mais próximos do interior paulista e da Baixada Santista, sem perder a capacidade de atender clientes em todo o Brasil.</p>
+          <p>{t("inst.p3")}</p>
 
-          <p className="institutional-history-closing">Em 2026, a Stärke Parts chega a uma nova fase: consolidada, forte e posicionada entre as principais referências brasileiras no segmento premium. Uma conquista construída com procedência, especialização e relações duradouras — porque, para nós, cada peça carrega a responsabilidade de manter histórias, negócios e grandes máquinas em movimento.</p>
+          <p className="institutional-history-closing">{t("inst.close")}</p>
         </div>
 
-        <div className="institutional-history-milestones" aria-label="Principais marcos da história da Stärke Parts"><div><strong>2016</strong><span>Nasce uma nova força no aftermarket premium</span></div><div><strong>2024</strong><span>Mais estrutura com o CD Sorocaba</span></div><div><strong>2025</strong><span>Mais perto com Campinas e Santos</span></div><div><strong>2026</strong><span>Uma das principais referências do segmento</span></div></div>
+        <div className="institutional-history-milestones" aria-label={t("inst.eyebrow")}><div><strong>2016</strong><span>{t("inst.m1")}</span></div><div><strong>2024</strong><span>{t("inst.m2")}</span></div><div><strong>2025</strong><span>{t("inst.m3")}</span></div><div><strong>2026</strong><span>{t("inst.m4")}</span></div></div>
 
-        <p className="institutional-history-signature"><span>STÄRKE PARTS</span><strong>Potência em Qualidade.<br />Excelência em Cada Detalhe.</strong><em>Oferecemos peças. Entregamos confiança.</em></p>
+        <p className="institutional-history-signature"><span>STÄRKE PARTS</span><strong>{t("inst.sig1")}<br />{t("inst.sig2")}</strong><em>{t("inst.sig3")}</em></p>
       </div>
     </div>
 
     <div className="editorial-grid">
       <div className="editorial-photo editorial-photo--warehouse" aria-label="Componentes automotivos premium: freios, filtros e suspensão" />
       <div className="editorial-copy">
-        <span className="section-number">01 / A NOSSA ESSÊNCIA</span>
-        <h4>Oferecemos peças.<br /><em>Entregamos confiança.</em></h4>
-        <p>Acreditamos que uma boa peça começa muito antes da instalação. Ela começa na procedência, na identificação correta da aplicação, na orientação técnica e na segurança de contar com quem conhece o segmento premium em profundidade.</p>
-        <p>Por isso, construímos uma operação que conecta marcas reconhecidas internacionalmente a oficinas especializadas, centros automotivos, lojistas e proprietários de veículos que valorizam qualidade e atendimento responsável.</p>
-        <p>Mais do que fornecer componentes, buscamos apoiar decisões mais assertivas e cultivar relacionamentos duradouros com quem movimenta o mercado de reposição automotiva.</p>
-        <button className="text-link" onClick={onContact}>Conheça nosso atendimento <span>↗</span></button>
+        <span className="section-number">{t("inst.edit.eyebrow")}</span>
+        <h4>{t("inst.edit.t1")}<br /><em>{t("inst.edit.t2")}</em></h4>
+        <p>{t("inst.edit.p1")}</p>
+        <p>{t("inst.edit.p2")}</p>
+        <p>{t("inst.edit.p3")}</p>
+        <button className="text-link" onClick={onContact}>{t("inst.edit.cta")} <span>↗</span></button>
       </div>
     </div>
 
-    <div className="metric-grid"><div><strong>2016</strong><span>O início da nossa história</span></div><div><strong>04</strong><span>Operações estratégicas em São Paulo</span></div><div><strong>11</strong><span>Montadoras e aplicações premium</span></div><div><strong>BR</strong><span>Atendimento para todo o Brasil</span></div></div>
+    <div className="metric-grid"><div><strong>2016</strong><span>{t("inst.met1")}</span></div><div><strong>04</strong><span>{t("inst.met2")}</span></div><div><strong>11</strong><span>{t("inst.met3")}</span></div><div><strong>BR</strong><span>{t("inst.met4")}</span></div></div>
 
-    <div className="subsection-heading identity-heading"><Eyebrow>A IDENTIDADE QUE NOS MOVE</Eyebrow><h4>Um posicionamento claro.<br /><em>Uma entrega consistente.</em></h4><p className="subsection-description">A nossa atuação é orientada por princípios que conectam os interesses do mercado, a responsabilidade técnica e a construção de relacionamentos duradouros.</p></div>
-    <div className="institutional-pillars-layout"><aside><strong>Princípios que orientam nossas decisões.</strong><p>Três compromissos conectados por um mesmo objetivo: entregar segurança e confiança ao mercado automotivo premium.</p></aside><div>{corporatePillars.map((item, index) => <article key={item.label}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{item.label}</small><h5>{item.title}</h5></div><p>{item.text}</p></article>)}</div></div>
+    <div className="subsection-heading identity-heading"><Eyebrow>{t("inst.id.eyebrow")}</Eyebrow><h4>{t("inst.id.t1")}<br /><em>{t("inst.id.t2")}</em></h4><p className="subsection-description">{t("inst.id.desc")}</p></div>
+    <div className="institutional-pillars-layout"><aside><strong>{t("inst.pill.aside")}</strong><p>{t("inst.pill.text")}</p></aside><div>{corporatePillars.map((item, index) => <article key={item.label[lang]}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{item.label[lang]}</small><h5>{item.title[lang]}</h5></div><p>{item.text[lang]}</p></article>)}</div></div>
 
-    <div className="subsection-heading company-story-heading"><Eyebrow>QUEM SOMOS E COMO EVOLUÍMOS</Eyebrow><h4>O que existe por trás<br />de cada peça <em>Stärke.</em></h4><p>Nossa história reúne propósito, especialização, relações com fabricantes e uma estrutura que acompanha o desenvolvimento do mercado premium brasileiro.</p></div>
+    <div className="subsection-heading company-story-heading"><Eyebrow>{t("inst.story.eyebrow")}</Eyebrow><h4>{t("inst.story.t1")}<br />{t("inst.story.t2")} <em>Stärke.</em></h4><p>{t("inst.story.desc")}</p></div>
 
-    <div className="company-chapters">{companyChapters.map(chapter => <article className="company-chapter" key={chapter.number}><div className="chapter-index"><span className="chapter-icon">{chapter.icon}</span><b>{chapter.eyebrow}</b></div><div className="chapter-copy"><h5>{chapter.title}</h5>{chapter.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></article>)}</div>
+    <div className="company-chapters">{companyChapters.map(chapter => <article className="company-chapter" key={chapter.number}><div className="chapter-index"><span className="chapter-icon">{chapter.icon}</span><b>{chapter.eyebrow[lang]}</b></div><div className="chapter-copy"><h5>{chapter.title[lang]}</h5>{chapter.paragraphs.map(paragraph => <p key={paragraph[lang]}>{paragraph[lang]}</p>)}</div></article>)}</div>
 
-    <aside className="brand-promise"><span>O QUE NOS MOVE TODOS OS DIAS</span><h4>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h4><p>Um compromisso que orienta o nosso portfólio, o relacionamento com fabricantes, a atenção à aplicação correta e a experiência de cada cliente.</p></aside>
+    <aside className="brand-promise"><span>{t("inst.brand.eyebrow")}</span><h4 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><p>{t("inst.brand.text")}</p></aside>
 
-    <div className="subsection-heading roadmap-heading"><Eyebrow>NOSSA TRAJETÓRIA</Eyebrow><h4>Uma história de evolução,<br />proximidade e <em>especialização.</em></h4></div>
+    <div className="subsection-heading roadmap-heading"><Eyebrow>{t("inst.road.eyebrow")}</Eyebrow><h4>{t("inst.road.t1")}<br />{t("inst.road.t2")} <em>{t("inst.road.t3")}</em></h4></div>
     <CompanyRoadmap />
 
-    <section className="operations-intro"><div><Eyebrow>OS BASTIDORES DA NOSSA OPERAÇÃO</Eyebrow><h4>Uma estrutura conectada<br />por um mesmo <em>propósito.</em></h4></div><aside><strong>09</strong><span>áreas conectadas</span><p>Por trás de cada atendimento, diferentes áreas trabalham de forma integrada para aproximar o mercado premium das soluções de que ele precisa.</p></aside></section>
-    <div className="operations-grid">{companyOperations.map((item, index) => <article className="operation-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
+    <section className="operations-intro"><div><Eyebrow>{t("inst.ops.eyebrow")}</Eyebrow><h4>{t("inst.ops.t1")}<br />{t("inst.ops.t2")} <em>{t("inst.ops.t3")}</em></h4></div><aside><strong>09</strong><span>{t("inst.ops.count")}</span><p>{t("inst.ops.text")}</p></aside></section>
+    <div className="operations-grid">{companyOperations.map((item, index) => <article className="operation-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
 
-    <div className="principle-grid"><article><span>01</span><h5>Procedência</h5><p>Fabricantes reconhecidos e seleção técnica de componentes para aplicações premium.</p></article><article><span>02</span><h5>Especialização</h5><p>Atendimento preparado para considerar veículo, motorização, ano e chassi.</p></article><article><span>03</span><h5>Proximidade</h5><p>Operações regionais e relacionamento próximo com quem move o aftermarket.</p></article><article><span>04</span><h5>Confiança</h5><p>Uma experiência construída com clareza, suporte e atenção a cada detalhe.</p></article></div>
-    <div className="institutional-manifesto"><Eyebrow>O QUE SIGNIFICA SER STÄRKE</Eyebrow><p>Para nós, uma autopeça nunca representa apenas um item em estoque. Ela representa o trabalho de uma oficina, a confiança de um cliente, a precisão de um projeto e a responsabilidade de colocar o veículo novamente em movimento.</p><strong>É por isso que oferecemos peças.<br /><em>E entregamos confiança.</em></strong></div>
+    <div className="principle-grid"><article><span>01</span><h5>{t("inst.princ1.t")}</h5><p>{t("inst.princ1.p")}</p></article><article><span>02</span><h5>{t("inst.princ2.t")}</h5><p>{t("inst.princ2.p")}</p></article><article><span>03</span><h5>{t("inst.princ3.t")}</h5><p>{t("inst.princ3.p")}</p></article><article><span>04</span><h5>{t("inst.princ4.t")}</h5><p>{t("inst.princ4.p")}</p></article></div>
+    <div className="institutional-manifesto"><Eyebrow>{t("inst.manifesto.eyebrow")}</Eyebrow><p>{t("inst.manifesto.p")}</p><strong>{t("inst.manifesto.strong1")}<br /><em>{t("inst.manifesto.strong2")}</em></strong></div>
   </div>;
 }
 function ApplicationsPanel({ onContact }: { onContact: () => void }) {
+  const { lang, t } = useLanguage();
   const [selected, setSelected] = useState(0);
   const vehicle = vehicleBrands[selected];
   return <div className="applications-page">
-    <PanelHeading kicker="APLICAÇÕES PREMIUM E DE ALTA PERFORMANCE" title="Veículos extraordinários exigem escolhas à altura." text="Trabalhamos com aplicações para algumas das montadoras mais relevantes do segmento premium e superesportivo. Nossa equipe avalia cada veículo individualmente para orientar a identificação da peça e do fabricante adequados." />
-    <div className="brand-explorer"><div className="brand-selector" aria-label="Selecione uma montadora">{vehicleBrands.map((item, index) => <button key={item.name} className={selected === index ? "selected" : ""} onClick={() => setSelected(index)} aria-pressed={selected === index} style={{ ["--vehicle-image" as string]: `url('${item.image}')` }}><span className="brand-selector-index">{String(index + 1).padStart(2, "0")}</span><span className="brand-selector-name">{item.name}</span><b>↗</b></button>)}</div><AnimatePresence mode="wait"><motion.article key={vehicle.name} className="brand-feature" initial={{ opacity: 0, filter: "blur(7px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} exit={{ opacity: 0, filter: "blur(3px)" }} transition={{ duration: .45, ease: [.4, 0, .15, 1] }}><motion.div className="brand-feature-inner" initial={{ scale: .94 }} animate={{ scale: 1 }} exit={{ scale: .97 }} transition={{ duration: .5, ease: [.25, .1, .25, 1] }}><div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.9),transparent 70%),url('${vehicle.image}')` }}><span>{vehicle.territory}</span><h4>{vehicle.name}</h4><b>{vehicle.focus}</b></div><div className="brand-feature-copy"><div className="brand-feature-summary"><span>SOBRE A MONTADORA</span><p>{vehicle.about}</p></div><div className="brand-feature-summary"><span>APLICAÇÕES STÄRKE PARTS</span><p>{vehicle.text}</p></div><button className="text-link" onClick={onContact}>Consultar uma aplicação <span>↗</span></button></div></motion.div></motion.article></AnimatePresence></div>
-    <aside className="info-strip"><strong>A aplicação correta começa pelo veículo certo.</strong><span>Montadora · modelo · ano · motorização · chassi completo, quando necessário.</span></aside>
-    <div className="subsection-heading"><Eyebrow>COMO IDENTIFICAMOS CADA APLICAÇÃO</Eyebrow><h4>Precisão técnica começa<br />pelas <em>informações corretas.</em></h4><p className="subsection-description">Automóveis premium podem apresentar diferenças relevantes mesmo dentro de uma mesma família. Nossa análise considera os detalhes necessários para orientar a escolha do componente.</p></div>
-    <div className="detail-grid">{applicationCriteria.map((item, index) => <article className="detail-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
-    <aside className="editorial-note"><strong>Não é apenas sobre a marca do veículo.</strong><p>É sobre identificar a combinação correta entre projeto, sistema, fabricante e referência para que a peça atenda à aplicação com a atenção que o segmento exige.</p></aside>
+    <PanelHeading kicker={t("app.kicker")} title={t("app.title")} text={t("app.text")} />
+    <div className="brand-explorer"><div className="brand-selector" aria-label={t("app.selectorAria")}>{vehicleBrands.map((item, index) => <button key={item.name} className={selected === index ? "selected" : ""} onClick={() => setSelected(index)} aria-pressed={selected === index} style={{ ["--vehicle-image" as string]: `url('${item.image}')` }}><span className="brand-selector-index">{String(index + 1).padStart(2, "0")}</span><span className="brand-selector-name">{item.name}</span><b>↗</b></button>)}</div><AnimatePresence mode="wait"><motion.article key={vehicle.name} className="brand-feature" initial={{ opacity: 0, filter: "blur(7px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} exit={{ opacity: 0, filter: "blur(3px)" }} transition={{ duration: .45, ease: [.4, 0, .15, 1] }}><motion.div className="brand-feature-inner" initial={{ scale: .94 }} animate={{ scale: 1 }} exit={{ scale: .97 }} transition={{ duration: .5, ease: [.25, .1, .25, 1] }}><div className="brand-feature-photo" style={{ backgroundImage: `linear-gradient(0deg,rgba(4,4,4,.9),transparent 70%),url('${vehicle.image}')` }}><span>{vehicle.territory[lang]}</span><h4>{vehicle.name}</h4><b>{vehicle.focus[lang]}</b></div><div className="brand-feature-copy"><div className="brand-feature-summary"><span>{t("app.about")}</span><p>{vehicle.about[lang]}</p></div><div className="brand-feature-summary"><span>{t("app.apply")}</span><p>{vehicle.text[lang]}</p></div><button className="text-link" onClick={onContact}>{t("app.cta")} <span>↗</span></button></div></motion.div></motion.article></AnimatePresence></div>
+    <aside className="info-strip"><strong>{t("app.stripStrong")}</strong><span>{t("app.stripSpan")}</span></aside>
+    <div className="subsection-heading"><Eyebrow>{t("app.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("app.secHeading") }} /><p className="subsection-description">{t("app.secDesc")}</p></div>
+    <div className="detail-grid">{applicationCriteria.map((item, index) => <article className="detail-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <aside className="editorial-note"><strong>{t("app.noteStrong")}</strong><p>{t("app.noteText")}</p></aside>
   </div>;
 }
 
 function ProductsPanel({ onContact }: { onContact: () => void }) {
+  const { lang, t } = useLanguage();
   return <div className="products-page">
-    <PanelHeading kicker="LINHAS E SISTEMAS AUTOMOTIVOS" title="Um portfólio completo para quem conhece cada detalhe." text="Da manutenção preventiva aos componentes de sistemas mais exigentes, reunimos linhas selecionadas para diferentes montadoras e aplicações premium. A disponibilidade deve ser confirmada com nossa equipe conforme o veículo e o fabricante." />
-    <div className="product-spotlight"><div className="product-spotlight-photo" aria-label="Autopeças premium: discos de freio, amortecedores e filtros" /><div className="product-spotlight-copy"><Eyebrow>PEÇAS QUE MOVEM CONFIANÇA</Eyebrow><h4>Cada sistema.<br /><em>A peça certa.</em></h4><p>Da frenagem ao arrefecimento, nossa seleção reúne componentes essenciais para uma manutenção compatível com o padrão de exigência dos veículos premium.</p></div></div>
+    <PanelHeading kicker={t("prod.kicker")} title={t("prod.title")} text={t("prod.text")} />
+    <div className="product-spotlight"><div className="product-spotlight-photo" aria-label={t("prod.spotEyebrow")} /><div className="product-spotlight-copy"><Eyebrow>{t("prod.spotEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.spotHeading") }} /><p>{t("prod.spotText")}</p></div></div>
     <ProductCarousel />
-    <div className="subsection-heading"><Eyebrow>ONDE NOSSO PORTFÓLIO FAZ A DIFERENÇA</Eyebrow><h4>Soluções pensadas para<br />diferentes momentos da <em>manutenção.</em></h4></div>
-    <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
-    <div className="quality-banner"><span>CRITÉRIOS STÄRKE PARTS</span><h4>Procedência. Compatibilidade.<br /><em>Confiança em cada componente.</em></h4><p>A disponibilidade, o fabricante e a referência exata são sempre confirmados de acordo com a aplicação e a necessidade apresentada pelo cliente.</p></div>
-    <aside className="info-strip"><strong>Não encontrou o componente que procura?</strong><button className="text-link" onClick={onContact}>Fale com um especialista <span>↗</span></button></aside>
+    <div className="subsection-heading"><Eyebrow>{t("prod.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.secHeading") }} /></div>
+    <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <div className="quality-banner"><span>{t("prod.bannerEyebrow")}</span><h4 dangerouslySetInnerHTML={{ __html: t("prod.bannerHeading") }} /><p>{t("prod.bannerText")}</p></div>
+    <aside className="info-strip"><strong>{t("prod.notFound")}</strong><button className="text-link" onClick={onContact}>{t("prod.cta")} <span>↗</span></button></aside>
   </div>;
 }
 
 function ManufacturersPanel({ onContact }: { onContact: () => void }) {
+  const { t } = useLanguage();
   return <div className="manufacturers-page">
-    <PanelHeading kicker="PARCERIAS E FABRICANTES INTERNACIONAIS" title="Marcas globais. Um mesmo compromisso com a qualidade." text="Nosso portfólio reúne fabricantes reconhecidos por sua atuação em diferentes sistemas automotivos. A composição da linha e a disponibilidade de cada item variam conforme a aplicação e devem ser confirmadas no atendimento." />
+    <PanelHeading kicker={t("man.kicker")} title={t("man.title")} text={t("man.text")} />
     <ManufacturerLogoCarousel />
-    <aside className="manufacturer-note"><div><Eyebrow>DISTRIBUIÇÃO ESPECIALIZADA</Eyebrow><h4>Procedência que fortalece cada escolha.</h4></div><button className="button button--yellow" onClick={onContact}>Consultar fabricante <span>→</span></button></aside>
+    <aside className="manufacturer-note"><div><Eyebrow>{t("man.noteEyebrow")}</Eyebrow><h4>{t("man.noteHeading")}</h4></div><button className="button button--yellow" onClick={onContact}>{t("man.cta")} <span>→</span></button></aside>
   </div>;
 }
 
 function StructurePanel({ onContact }: { onContact: () => void }) {
+  const { lang, t } = useLanguage();
   return <div className="structure-page">
-    <PanelHeading kicker="MATRIZ · CENTRO DE DISTRIBUIÇÃO · FILIAIS" title="Uma estrutura pensada para estar cada vez mais perto." text="Nossa presença no estado de São Paulo conecta atendimento especializado, disponibilidade regional e eficiência operacional. Cada unidade integra uma rede preparada para apoiar clientes em diferentes mercados." />
-    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type}</span></div><h4>{location.city}</h4><p className="location-area">{location.area}</p><a className="location-phone" href={location.phoneHref} aria-label={`Ligar para a unidade ${location.city}`}><span>TELEFONE</span><strong>{location.phone}</strong></a><p>{location.description}</p><ul>{location.capabilities.map(item => <li key={item}>{item}</li>)}</ul><button onClick={onContact}>Consultar atendimento <span>↗</span></button></article>)}</div>
-    <aside className="coverage-banner"><Eyebrow light>REDE STÄRKE PARTS</Eyebrow><h4>Quatro operações.<br /><em>Um mesmo padrão.</em></h4><p>Atendimento próximo, conhecimento técnico e uma operação conectada ao mercado brasileiro de autopeças premium.</p></aside>
-    <div className="subsection-heading"><Eyebrow>COMO AS ÁREAS SE CONECTAM</Eyebrow><h4>Uma operação completa,<br />do fornecedor ao <em>pós-venda.</em></h4><p className="subsection-description">A distribuição especializada depende de uma cadeia integrada, na qual cada etapa contribui para uma experiência mais segura e organizada.</p></div>
-    <div className="journey-list">{operationalJourney.map(item => <article className="journey-item" key={item.step}><span>{item.step}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
-    <aside className="editorial-note"><strong>Presença regional com visão nacional.</strong><p>Matriz, centro de distribuição e filiais trabalham de forma complementar para aproximar conhecimento técnico, disponibilidade e atendimento especializado dos clientes.</p></aside>
+    <PanelHeading kicker={t("str.kicker")} title={t("str.title")} text={t("str.text")} />
+    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type[lang]}</span></div><h4>{location.city}</h4><p className="location-area">{location.area[lang]}</p><a className="location-phone" href={location.phoneHref} aria-label={t("str.cardAria").replace("{city}", location.city)}><span>{t("str.phone")}</span><strong>{location.phone}</strong></a><p>{location.description[lang]}</p><ul>{location.capabilities.map(item => <li key={item[lang]}>{item[lang]}</li>)}</ul><button onClick={onContact}>{t("str.cardCta")} <span>↗</span></button></article>)}</div>
+    <aside className="coverage-banner"><Eyebrow light>{t("str.coverEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("str.coverHeading") }} /><p>{t("str.coverText")}</p></aside>
+    <div className="subsection-heading"><Eyebrow>{t("str.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("str.secHeading") }} /><p className="subsection-description">{t("str.secDesc")}</p></div>
+    <div className="journey-list">{operationalJourney.map(item => <article className="journey-item" key={item.step}><span>{item.step}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <aside className="editorial-note"><strong>{t("str.noteStrong")}</strong><p>{t("str.noteText")}</p></aside>
   </div>;
 }
 
 function LogisticsPanel({ onContact }: { onContact: () => void }) {
+  const { lang, t } = useLanguage();
   return <>
-    <PanelHeading kicker="OPERAÇÃO LOGÍSTICA E COBERTURA NACIONAL" title="A peça certa, no ritmo que a sua operação precisa." text="Organizamos a distribuição para atender desde demandas urgentes na Grande São Paulo até envios para diferentes regiões do Brasil. Modalidades, prazos e condições dependem da disponibilidade, do destino e da política comercial aplicável." />
-    <div className="logistics-grid"><article className="logistics-card logistics-card--highlight"><span>01 / GRANDE SÃO PAULO</span><h4>Entregas rápidas<br />e programadas.</h4><p>Opções de entrega estruturadas para acompanhar a dinâmica de oficinas, centros automotivos e clientes da região metropolitana.</p><b>Consulte cobertura, prazo e modalidade.</b></article><article className="logistics-card"><span>02 / CONDIÇÃO REGIONAL</span><h4>Frete grátis a partir de <em>R$ 300.</em></h4><p>Condição válida para entregas via motoboy na área de atendimento aplicável, sujeita à confirmação de cobertura e regras comerciais.</p><b>Verifique as condições com a equipe.</b></article><article className="logistics-card"><span>03 / TERRITÓRIO NACIONAL</span><h4>Da nossa estrutura<br />para todo o Brasil.</h4><p>Expedição nacional para aproximar fabricantes reconhecidos, conhecimento especializado e aplicações premium de clientes em diferentes estados.</p><b>Prazos e fretes variam conforme o destino.</b></article></div>
-    <div className="subsection-heading"><Eyebrow>ÁREAS DE COBERTURA</Eyebrow><h4>Uma estrutura preparada<br />para diferentes <em>destinos.</em></h4></div>
-    <div className="coverage-grid">{logisticsCoverage.map(item => <article className="coverage-card" key={item.title}><span>{item.badge}</span><h5>{item.title}</h5><p>{item.text}</p></article>)}</div>
-    <div className="subsection-heading"><Eyebrow>DA CONSULTA ATÉ A ENTREGA</Eyebrow><h4>Cada etapa importa<br />quando o tempo <em>faz diferença.</em></h4></div>
-    <div className="process-flow">{["Consulta da aplicação", "Confirmação da disponibilidade", "Separação e conferência", "Expedição ou entrega"].map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><h5>{step}</h5></div>)}</div>
-    <aside className="editorial-note"><strong>Agilidade começa com informação correta.</strong><p>Ao informar o veículo, a peça procurada e o destino da entrega, nossa equipe consegue orientar a disponibilidade e a modalidade logística mais adequada para cada pedido.</p></aside>
-    <button className="text-link" onClick={onContact}>Consulte a melhor opção de entrega <span>↗</span></button>
+    <PanelHeading kicker={t("log.kicker")} title={t("log.title")} text={t("log.text")} />
+    <div className="logistics-grid"><article className="logistics-card logistics-card--highlight"><span>{t("log.card1.span")}</span><h4 dangerouslySetInnerHTML={{ __html: t("log.card1.title") }} /><p>{t("log.card1.text")}</p><b>{t("log.card1.note")}</b></article><article className="logistics-card"><span>{t("log.card2.span")}</span><h4 dangerouslySetInnerHTML={{ __html: t("log.card2.title") }} /><p>{t("log.card2.text")}</p><b>{t("log.card2.note")}</b></article><article className="logistics-card"><span>{t("log.card3.span")}</span><h4 dangerouslySetInnerHTML={{ __html: t("log.card3.title") }} /><p>{t("log.card3.text")}</p><b>{t("log.card3.note")}</b></article></div>
+    <div className="subsection-heading"><Eyebrow>{t("log.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("log.secHeading") }} /></div>
+    <div className="coverage-grid">{logisticsCoverage.map(item => <article className="coverage-card" key={item.title[lang]}><span>{item.badge[lang]}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <div className="subsection-heading"><Eyebrow>{t("log.procEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("log.procHeading") }} /></div>
+    <div className="process-flow">{[t("log.step1"), t("log.step2"), t("log.step3"), t("log.step4")].map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><h5>{step}</h5></div>)}</div>
+    <aside className="editorial-note"><strong>{t("log.noteStrong")}</strong><p>{t("log.noteText")}</p></aside>
+    <button className="text-link" onClick={onContact}>{t("log.cta")} <span>↗</span></button>
   </>;
 }
 
 function ServicePanel() {
+  const { lang, t } = useLanguage();
   return <div className="service-page">
-    <PanelHeading kicker="ATENDIMENTO TÉCNICO E RELACIONAMENTO" title="A peça certa começa com a pergunta certa." text="Nosso time está preparado para atender oficinas, centros automotivos, lojistas e proprietários que procuram componentes para veículos premium. O objetivo é entender a necessidade, validar a aplicação e orientar a consulta com clareza." />
-    <div className="service-audiences"><article><span>01</span><h4>Oficinas e centros automotivos</h4><p>Suporte especializado para a rotina de manutenção e reparação de veículos premium e importados.</p></article><article><span>02</span><h4>Lojistas e parceiros comerciais</h4><p>Atendimento voltado ao mercado de reposição, com consulta de aplicações e fabricantes disponíveis.</p></article><article><span>03</span><h4>Proprietários de veículos premium</h4><p>Orientação para identificar a linha, o componente e o canal de atendimento mais adequados.</p></article></div>
-    <div className="subsection-heading"><Eyebrow>COMO FUNCIONA</Eyebrow><h4>Um atendimento orientado<br />por informação e confiança.</h4></div>
-    <div className="service-steps">{serviceSteps.map(step => <article key={step.number}><span>{step.number}</span><div><h5>{step.title}</h5><p>{step.text}</p></div></article>)}</div>
-    <aside className="chassis-note"><strong>Tenha as informações do veículo em mãos.</strong><span>Marca · modelo · ano · motorização · código da peça, se disponível · chassi completo, quando necessário.</span></aside>
-    <div className="subsection-heading"><Eyebrow>DÚVIDAS FREQUENTES</Eyebrow><h4>Informações importantes<br />antes de falar com a <em>equipe.</em></h4></div>
-    <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question}><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
-    <div className="after-sales"><span>RELACIONAMENTO E PÓS-VENDA</span><h5>A conversa não termina<br />quando o pedido é confirmado.</h5><p>Nosso compromisso inclui orientar o cliente durante o processo comercial e apoiar questões relacionadas à garantia, ao direcionamento correto e ao relacionamento com a unidade responsável.</p></div>
-    <div className="contact-card"><Eyebrow light>CONTATO STÄRKE PARTS</Eyebrow><h4>Vamos encontrar<br />a solução <em>certa.</em></h4><p>Fale diretamente pelo WhatsApp e solicite o direcionamento para um especialista ou para a unidade mais adequada.</p><a className="button button--yellow button--whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Falar com a Stärke Parts pelo WhatsApp"><span className="whatsapp-mark" aria-hidden="true">●</span> Falar pelo WhatsApp <span>↗</span></a><a className="contact-handle" href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts</a></div>
+    <PanelHeading kicker={t("srv.kicker")} title={t("srv.title")} text={t("srv.text")} />
+    <div className="service-audiences"><article><span>01</span><h4>{t("srv.aud1.title")}</h4><p>{t("srv.aud1.text")}</p></article><article><span>02</span><h4>{t("srv.aud2.title")}</h4><p>{t("srv.aud2.text")}</p></article><article><span>03</span><h4>{t("srv.aud3.title")}</h4><p>{t("srv.aud3.text")}</p></article></div>
+    <div className="subsection-heading"><Eyebrow>{t("srv.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.secHeading") }} /></div>
+    <div className="service-steps">{serviceSteps.map(step => <article key={step.number}><span>{step.number}</span><div><h5>{step.title[lang]}</h5><p>{step.text[lang]}</p></div></article>)}</div>
+    <aside className="chassis-note"><strong>{t("srv.chassisStrong")}</strong><span>{t("srv.chassisSpan")}</span></aside>
+    <div className="subsection-heading"><Eyebrow>{t("srv.faqEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.faqHeading") }} /></div>
+    <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question[lang]}><summary>{item.question[lang]}<span>+</span></summary><p>{item.answer[lang]}</p></details>)}</div>
+    <div className="after-sales"><span>{t("srv.afterEyebrow")}</span><h5 dangerouslySetInnerHTML={{ __html: t("srv.afterTitle") }} /><p>{t("srv.afterText")}</p></div>
+    <div className="contact-card"><Eyebrow light>{t("srv.contactEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.contactTitle") }} /><p>{t("srv.contactText")}</p><a className="button button--yellow button--whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("srv.whatsapp")}><span className="whatsapp-mark" aria-hidden="true">●</span> {t("srv.whatsapp")} <span>↗</span></a><a className="contact-handle" href={INSTAGRAM} target="_blank" rel="noreferrer">@starkepremiumparts</a></div>
   </div>;
 }
 
@@ -472,10 +479,11 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
   </main>;
 }
 
-export function StarkePage({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
+function StarkePageContent({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
+  const { lang: language, setLanguage, t } = useLanguage();
+  const tabs = translatedTabs.map(tab => ({ ...tab, label: tab.label[language] }));
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);
-  const [language, setLanguage] = useState<SiteLanguage>("pt");
   const [splashDone, setSplashDone] = useState(!showSplash);
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -483,46 +491,9 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   const activeSectionMounted = useRef(false);
   const router = useRouter();
 
-  const changeLanguage = useCallback((nextLanguage: SiteLanguage) => {
-    if (nextLanguage === language) return;
-    localStorage.setItem("starke-language", nextLanguage);
-    const translation = nextLanguage === "en" ? "/pt/en" : "/pt/pt";
-    document.cookie = `googtrans=${translation}; path=/; SameSite=Lax`;
-    document.cookie = `googtrans=${translation}; path=/; domain=${window.location.hostname}; SameSite=Lax`;
-    window.location.reload();
-  }, [language]);
-
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("starke-welcome-seen", "true");
     setSplashDone(true);
-  }, []);
-
-  useEffect(() => {
-    const storedLanguage = localStorage.getItem("starke-language") === "en" ? "en" : "pt";
-    setLanguage(storedLanguage);
-    document.documentElement.lang = storedLanguage === "en" ? "en" : "pt-BR";
-
-    window.googleTranslateElementInit = () => {
-      if (!window.google?.translate || document.querySelector("#google_translate_element select")) return;
-      new window.google.translate.TranslateElement({
-        pageLanguage: "pt",
-        includedLanguages: "pt,en",
-        autoDisplay: false,
-      }, "google_translate_element");
-    };
-
-    if (window.google?.translate) {
-      window.googleTranslateElementInit();
-      return;
-    }
-
-    if (!document.getElementById("google-translate-script")) {
-      const script = document.createElement("script");
-      script.id = "google-translate-script";
-      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      script.async = true;
-      document.body.appendChild(script);
-    }
   }, []);
 
   useEffect(() => {
@@ -582,14 +553,18 @@ export function StarkePage({ initialSection = "institucional", showSplash = fals
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label="Navegação principal"><button onClick={() => changeTab("institucional")}>A empresa</button><button onClick={() => changeTab("aplicacoes")}>Montadoras</button><button onClick={() => changeTab("produtos")}>Portfólio</button><button onClick={() => changeTab("estrutura")}>Unidades</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label="Selecionar idioma"><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => changeLanguage("pt")} aria-pressed={language === "pt"}>PT</button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => changeLanguage("en")} aria-pressed={language === "en"}>EN</button></div><button className="header-cta" onClick={onContact}>Falar com especialista <span>↗</span></button><div id="google_translate_element" aria-hidden="true" /></div></header>
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-pressed={language === "pt"}>PT</button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-pressed={language === "en"}>EN</button></div><button className="header-cta" onClick={onContact}>{t("nav.cta")} <span>↗</span></button></div></header>
     <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>
-    <section className="ticker" aria-label="Montadoras atendidas"><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>EXPLORE A STÄRKE</Eyebrow><h2 id="explore-heading">Conheça cada dimensão<br />da nossa <em>especialidade.</em></h2><p>Selecione uma área para conhecer nossa história, aplicações, fabricantes, estrutura e tudo o que torna a Stärke uma referência em autopeças premium.</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label="Áreas da Stärke Parts"><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
-    <section className="closing-statement"><Eyebrow light>STÄRKE PARTS · PREMIUM AUTOMOTIVE</Eyebrow><h2>Potência em qualidade.<br /><em>Excelência em cada detalhe.</em></h2><button className="button button--yellow" onClick={onContact}>Fale com um especialista <span>↗</span></button></section>
-    <footer className="footer"><a className="wordmark" href="#topo" aria-label="Stärke Parts, voltar ao início"><img src="/starke-parts-logo.png" alt="" /></a><span>Oferecemos peças. Entregamos confiança.</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
+    <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><motion.div className="tab-indicator" layoutId="tab-indicator" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><motion.span className="tab-droplet" layoutId="tab-droplet" transition={{ type: "spring", stiffness: 420, damping: 32 }} style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <motion.button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)} whileHover={{ color: "#11110f" }} whileTap={{ scale: .95 }} transition={{ type: "spring", stiffness: 500, damping: 25 }}><span>{tab.number}</span>{tab.label}</motion.button>)}</div><AnimatePresence mode="wait"><motion.article key={active} className="tab-panel" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0} initial={{ opacity: 0, y: 20, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(2px)" }} transition={{ duration: .35, ease: [.4, 0, .15, 1] }}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</motion.article></AnimatePresence></section>
+    <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>
+    <footer className="footer"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><span>{t("footer.tagline")}</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
   </main>
   </>;
+}
+
+export function StarkePage(props: { initialSection?: TabId; showSplash?: boolean }) {
+  return <LanguageProvider><StarkePageContent {...props} /></LanguageProvider>;
 }
 
 export default function Home() {

@@ -59,6 +59,11 @@ a { color: inherit; text-decoration: none; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .theme-toggle { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; background: rgba(8,8,8,.72); color: var(--yellow); font-size: 20px; line-height: 1; transition: color .2s ease, border-color .2s ease, transform .2s ease; }
 .theme-toggle:hover { border-color: var(--yellow); color: #fff; transform: translateY(-2px); }
+.language-switcher { display: inline-flex; height: 38px; align-items: center; gap: 3px; padding: 4px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(5,5,5,.68); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); backdrop-filter: blur(12px); }
+.language-switcher button { display: inline-flex; min-width: 34px; height: 28px; align-items: center; justify-content: center; padding: 0 8px; border: 0; border-radius: 999px; background: transparent; color: rgba(255,255,255,.56); font-size: 10px; font-weight: 900; letter-spacing: .08em; transition: background .2s ease, color .2s ease, transform .2s ease; }
+.language-switcher button:hover { color: #fff; transform: translateY(-1px); }
+.language-switcher button.is-active { background: var(--yellow); color: #080808; box-shadow: 0 2px 0 #9c7600, inset 0 1px 0 rgba(255,255,255,.55); }
+.language-switcher > span { width: 1px; height: 13px; background: rgba(255,255,255,.14); }
 
 .hero { position: relative; min-height: 760px; height: 100svh; max-height: 980px; overflow: hidden; color: white; background: #040404; }
 .hero-backdrop { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
@@ -178,6 +183,9 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
   .desktop-nav { display: none; }
   .header-cta { gap: 7px; padding: 10px 11px 9px; font-size: 10px; }
   .header-cta span { width: 20px; height: 20px; font-size: 11px; }
+  .header-actions { gap: 7px; }
+  .language-switcher { height: 34px; padding: 3px; }
+  .language-switcher button { min-width: 29px; height: 26px; padding: 0 6px; font-size: 9px; }
   .hero { min-height: 680px; max-height: 860px; }
   .hero-backdrop__img { background-position: 66% center; }
   .hero-card { width: min(620px, calc(100% - 40px)); }
