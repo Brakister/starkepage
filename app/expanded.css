@@ -1818,9 +1818,14 @@
 .experience > .tab-list .tab > span { display: inline-flex; width: 25px; height: 25px; align-items: center; justify-content: center; border: 1px solid #d5d0c5; border-radius: 50%; background: linear-gradient(145deg,#fff,#e1ddd4); color: #918b80; font-size: 8px; font-weight: 900; box-shadow: 0 2px 0 #aaa49a,0 4px 7px rgba(20,20,16,.13),inset 0 1px 0 #fff; }
 .experience > .tab-list .tab--active { border-color: rgba(252,204,44,.5); background: linear-gradient(145deg,#282721,#0b0b0a 72%); box-shadow: 0 5px 0 #716125,0 10px 0 #332d19,0 17px 25px rgba(10,10,8,.28),inset 1px 1px 0 rgba(255,255,255,.12); color: #fff; font-weight: 850; transform: rotateX(-1deg) translateY(-2px); }
 .experience > .tab-list .tab--active > span { border-color: #ffe077; background: linear-gradient(145deg,#ffdf5c,#dfa900); color: #111; box-shadow: 0 3px 0 #8c6900,0 7px 11px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.7); }
-.experience > .tab-list .tab-indicator { bottom: 7px; height: 3px; border-radius: 4px; background: var(--yellow); box-shadow: 0 2px 5px rgba(130,96,0,.3); }
-.experience > .tab-list .tab-droplet { bottom: 2px; width: 10px; height: 10px; background: var(--yellow); box-shadow: 0 2px 0 #9b7500,0 5px 9px rgba(0,0,0,.2); }
+.experience > .tab-list .tab-indicator { bottom: 7px; height: 3px; border-radius: 4px; background: var(--yellow); box-shadow: 0 2px 5px rgba(130,96,0,.3); transition: left .38s cubic-bezier(.2,.8,.2,1), width .38s cubic-bezier(.2,.8,.2,1); will-change: left, width; }
+.experience > .tab-list .tab-droplet { bottom: 2px; width: 10px; height: 10px; background: var(--yellow); box-shadow: 0 2px 0 #9b7500,0 5px 9px rgba(0,0,0,.2); transition: left .38s cubic-bezier(.2,.8,.2,1); will-change: left; }
 .experience > .tab-list .tab-droplet::after { background: var(--yellow); }
+.experience > .tab-list .tab:active { transform: scale(.95) !important; }
+.tab-panel--in { animation: tab-panel-in .28s cubic-bezier(.4,0,.15,1); }
+@keyframes tab-panel-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.brand-feature--in { animation: brand-feature-in .22s cubic-bezier(.4,0,.15,1); }
+@keyframes brand-feature-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* Compact numbered navigation: only the active tab reveals its title */
 .experience > .tab-list { justify-content: center; gap: 8px; padding: 9px 10px 15px; }
