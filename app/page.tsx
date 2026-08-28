@@ -163,38 +163,24 @@ function HeroBackdrop() {
 }
 
 function RotatingWord() {
-  const ref = useRef<HTMLSpanElement>(null);
   const { lang } = useLanguage();
   const [idx, setIdx] = useState(0);
+  const [started, setStarted] = useState(false);
   const words = heroWords[lang];
   const widest = words.reduce((a, b) => (b.length > a.length ? b : a));
 
   useEffect(() => { setIdx(0); }, [lang]);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
     const timer = setInterval(() => {
-      gsap.to(el, {
-        opacity: 0, y: -14, duration: 0.3, ease: "power2.in",
-        onComplete: () => setIdx((i) => (i + 1) % words.length),
-      });
+      setStarted(true);
+      setIdx((i) => (i + 1) % words.length);
     }, 3200);
     return () => clearInterval(timer);
   }, [words.length]);
 
-  useEffect(() => {
-    if (idx === 0) return;
-    const el = ref.current;
-    if (!el) return;
-    gsap.fromTo(el,
-      { opacity: 0, y: 14 },
-      { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }
-    );
-  }, [idx]);
-
   return <span className="invite-accent-group">
-    <span ref={ref} className="invite-fade--accent">{words[idx]}</span>
+    <span className={`invite-fade--accent ${started ? "invite-fade--in" : ""}`} key={`w-${idx}`}>{words[idx]}</span>
     <span className="invite-accent-ghost" aria-hidden="true">{widest}</span>
   </span>;
 }
@@ -234,6 +220,18 @@ function HeroInvite() {
       </div>
     </div>
   );
+}
+
+function HeroMarkOne() {
+  return <svg className="hero-mark hero-mark--tr" viewBox="0 0 89.68 155.95" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <polygon fill="#fbbb00" points=".25 56.15 45.35 56.15 1.93 0 .25 2.13 .25 56.15" />
+    <polygon fill="none" stroke="#666665" strokeWidth="0.5" points="70.24 155.7 26.82 99.56 .25 133.21 .25 155.7 70.24 155.7" />
+    <polyline fill="#981b1d" points="89.68 0 45.35 56.15 1.93 0 89.68 0" />
+    <polyline fill="#4e4a4c" points="45.37 56.14 22.53 85.06 .16 56.14 45.37 56.14" />
+    <polyline fill="#666665" points=".2 56.18 22.52 85.13 .2 113.47 .2 56.18" />
+    <polyline fill="#fbbb00" points="45.33 56.15 67.65 85.09 45.33 113.44 45.33 56.15" />
+    <polyline fill="none" stroke="#666665" strokeWidth="0.5" points="82.32 27.81 60 56.76 82.32 85.11 82.32 27.81" />
+  </svg>;
 }
 
 function InstagramIcon() {
@@ -432,7 +430,7 @@ const MemoStoryIntro = memo(StoryIntro);
 
 function HeroSection() {
   const { t } = useLanguage();
-  return <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>;
+  return <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><HeroMarkOne /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>;
 }
 const MemoHero = memo(HeroSection);
 
