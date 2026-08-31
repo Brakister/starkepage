@@ -31,7 +31,8 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
-const WHATSAPP = "https://wa.me/551141021202?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
+const WHATSAPP_PT = "https://wa.me/551141021202?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
+const WHATSAPP_EN = "https://wa.me/551141021202?text=Hello%2C%20I%27d%20like%20to%20talk%20to%20a%20St%C3%A4rke%20Parts%20specialist.";
 
 const routes: Record<TabId, string> = {
   institucional: "/empresa",
@@ -262,7 +263,8 @@ function PanelHeading({ kicker, title, text }: { kicker: string; title: string; 
 }
 
 function StoryIntro({ onContact }: { onContact: () => void }) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
+  const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const wrapRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [ready, setReady] = useState(false);
@@ -645,6 +647,7 @@ function LogisticsPanel({ onContact }: { onContact: () => void }) {
 
 function ServicePanel() {
   const { lang, t } = useLanguage();
+  const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   return <div className="service-page">
     <PanelHeading kicker={t("srv.kicker")} title={t("srv.title")} text={t("srv.text")} />
     <div className="service-audiences"><article><span>01</span><h4>{t("srv.aud1.title")}</h4><p>{t("srv.aud1.text")}</p></article><article><span>02</span><h4>{t("srv.aud2.title")}</h4><p>{t("srv.aud2.text")}</p></article><article><span>03</span><h4>{t("srv.aud3.title")}</h4><p>{t("srv.aud3.text")}</p></article></div>
@@ -659,6 +662,8 @@ function ServicePanel() {
 }
 
 function HomeLanding({ scrolled }: { scrolled: boolean }) {
+  const { lang } = useLanguage();
+  const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const specialties = [
     { href: "/produtos", image: "/autoparts-brakes.webp", number: "01", title: "Portfólio premium", text: "Freios, suspensão, motor, filtragem e sistemas técnicos para aplicações exigentes." },
     { href: "/montadoras", image: "/autoparts-editorial-conjunto.png", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
@@ -692,6 +697,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
 function StarkePageContent({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
   const { lang: language, setLanguage, t } = useLanguage();
+  const WHATSAPP = language === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const tabs = useMemo(() => translatedTabs.map(tab => ({ ...tab, label: tab.label[language] })), [language]);
   const [active, setActive] = useState<TabId>(initialSection);
   const [scrolled, setScrolled] = useState(false);

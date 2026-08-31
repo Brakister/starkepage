@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "./expanded.css";
+import { StarfieldBackground } from "./starfield";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -51,7 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" data-theme="dark">
-      <body className={`antialiased ${montserrat.variable}`}>{children}</body>
+      <body className={`antialiased ${montserrat.variable}`}>
+        <StarfieldBackground />
+        {children}
+      </body>
     </html>
   );
 }

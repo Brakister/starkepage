@@ -1008,7 +1008,7 @@
   position: relative;
   overflow: hidden;
   padding: 65px;
-  background: var(--black);
+  background: transparent;
   color: white;
 }
 
@@ -3738,7 +3738,7 @@
 .story-intro {
   position: relative;
   height: 300vh;
-  background: var(--black);
+  background: transparent;
 }
 
 .story-intro__pin {
