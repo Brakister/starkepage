@@ -293,3 +293,30 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* 404 page */
+.landing--404 { min-height: 100svh; }
+.landing-hero--404 { height: calc(100svh - 86px); }
+.landing-hero--404 h1 em { color: var(--yellow); font-style: normal; }
+.landing-hero--404 h1 em::after { content: " 404."; }
+.landing-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 8px; }
+.landing-hero__actions .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease, transform .2s ease, border-color .2s ease;
+}
+.landing-hero__actions .button span { display: inline-flex; }
+.landing-hero__actions .button--yellow { background: var(--yellow); color: var(--black); }
+.landing-hero__actions .button--yellow:hover { background: #ffda45; transform: translateY(-2px); }
+.landing-hero__actions .button--ghost { border: 1px solid rgba(255,255,255,.35); color: #fff; background: rgba(255,255,255,.04); }
+.landing-hero__actions .button--ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+.eyebrow--light { color: var(--yellow); }
+
