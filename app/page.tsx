@@ -32,7 +32,7 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
-const WHATSAPP = "https://wa.me/5511999631185?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
+const WHATSAPP = "https://wa.me/551141021202?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
 
 const routes: Record<TabId, string> = {
   institucional: "/empresa",
@@ -714,7 +714,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}>
       <Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link>
       <nav className="desktop-nav" aria-label="Navegação principal"><Link href="/empresa">A empresa</Link><Link href="/montadoras">Montadoras</Link><Link href="/produtos">Produtos</Link><Link href="/fabricantes">Fabricantes</Link><Link href="/unidades">Unidades</Link></nav>
-      <Link className="header-cta" href="/atendimento">Falar com especialista <span>↗</span></Link>
+      <a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">Falar com especialista <span>↗</span></a>
     </header>
 
     <section className="landing-hero" aria-labelledby="landing-title">
@@ -860,7 +860,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div><button className="header-cta" onClick={onContact}>{t("nav.cta")} <span>↗</span></button></div></header>
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div><a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">{t("nav.cta")} <span>↗</span></a></div></header>
     <MemoHero />
     <MemoTicker />
     <MemoStoryIntro onContact={onContact} />
