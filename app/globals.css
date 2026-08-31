@@ -47,6 +47,12 @@ button { cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--yellow); color: var(--black); }
 
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,.06); }
+::-webkit-scrollbar-thumb { background: rgba(252,204,44,.35); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(252,204,44,.6); }
+* { scrollbar-width: thin; scrollbar-color: rgba(252,204,44,.35) rgba(255,255,255,.06); }
+
 .masthead { position: fixed; inset: 0 0 auto; z-index: 20; display: flex; height: 86px; align-items: center; justify-content: space-between; padding: 0 max(6.2vw, 28px); background: linear-gradient(180deg, rgba(4, 4, 4, .73), transparent); color: #fff; transition: background .3s ease, backdrop-filter .3s ease; }
 .masthead--scrolled { background: rgba(4, 4, 4, .91); backdrop-filter: blur(18px); }
 .wordmark { display: inline-flex; align-items: baseline; gap: 7px; font-size: 18px; font-weight: 850; letter-spacing: .08em; }
