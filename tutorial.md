@@ -799,9 +799,6 @@ const routes: Record<TabId, string> = {
 **Arquivo:** `app/layout.tsx`, linha 5
 
 ```tsx
-const siteOrigin = new URL("https://starke-parts-premium.wiildias.chatgpt.site");
-
-// Mude para seu domínio:
 const siteOrigin = new URL("https://seudominio.com.br");
 ```
 

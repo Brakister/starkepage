@@ -10,7 +10,7 @@ const montserrat = Montserrat({
   preload: true,
 });
 
-const siteOrigin = new URL("https://starke-parts-premium.wiildias.chatgpt.site");
+const siteOrigin = new URL("https://starkeparts.com.br");
 
 export const metadata: Metadata = {
   metadataBase: siteOrigin,
@@ -41,9 +41,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
-  },
-  other: {
-    "codex-preview": "development",
   },
 };
 
