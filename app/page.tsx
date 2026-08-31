@@ -389,7 +389,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
           <div className="story-chat-card story-appear">
             <span className="story-chat-card__live"><i aria-hidden="true" />{t("intro2.live")}</span>
             <WhatsAppIcon />
-            <strong>+55 11 99963-1185</strong>
+            <strong>+55 11 4102-1202</strong>
             <small>{t("intro2.phoneLabel")}</small>
             <a className="story-contact__btn" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("intro2.whatsapp")}><WhatsAppIcon /> {t("intro2.whatsapp")} <span>↗</span></a>
             <div className="story-chat-card__foot">
