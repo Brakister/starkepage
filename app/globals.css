@@ -239,7 +239,7 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
   .hero-title { font-size: clamp(30px, 11vw, 52px); line-height: 1.06; }
   .hero-card__foot { gap: 14px; }
   .hero-meta { right: 24px; left: 24px; font-size: 7px; }
-  .hero-mark { height: 46vh; max-height: 340px; opacity: .8; }
+  .hero-mark { height: 56vh; max-height: 440px; opacity: .8; }
   .ticker { height: 44px; }
   .experience { padding: 86px 24px 99px; }
   .section-intro h2 { font-size: 54px; }
