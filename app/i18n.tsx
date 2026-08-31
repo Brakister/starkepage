@@ -1237,6 +1237,9 @@ export const locations = [
     city: "São Paulo",
     type: { pt: "MATRIZ", en: "HEADQUARTERS" },
     area: { pt: "Chácara Santo Antônio", en: "Chácara Santo Antônio" },
+    address:
+      "R. Américo Brasiliense, 2414 · Chácara Santo Antônio, São Paulo - SP · CEP 04715-004",
+    addressHref: "https://maps.google.com/?q=R.+Américo+Brasiliense,+2414,+Chácara+Santo+Antônio,+São+Paulo+-+SP,+04715-004",
     phone: "(11) 4102-1202",
     phoneHref: "tel:+551141021202",
     description: {
@@ -1254,6 +1257,8 @@ export const locations = [
     city: "Sorocaba",
     type: { pt: "CENTRO DE DISTRIBUIÇÃO", en: "DISTRIBUTION CENTER" },
     area: { pt: "Interior de São Paulo", en: "São Paulo state countryside" },
+    address: "Rua Tapiraí, 87 · Jd Leocádia, Sorocaba - SP · CEP 18085-300",
+    addressHref: "https://maps.google.com/?q=Rua+Tapiraí,+87,+Jardim+Leocádia,+Sorocaba+-+SP,+18085-300",
     phone: "(15) 98804-7031",
     phoneHref: "tel:+5515988047031",
     description: {
@@ -1270,7 +1275,10 @@ export const locations = [
     code: "SP·03",
     city: "Campinas",
     type: { pt: "FILIAL", en: "BRANCH" },
-    area: { pt: "Rua Pedro Domingos Vitali, 400 · Parque Itália", en: "Pedro Domingos Vitali St., 400 · Parque Itália" },
+    area: { pt: "Parque das Universidades", en: "Parque das Universidades" },
+    address:
+      "Av. José Próspero Jacobucci, 253 · Pq das Universidades, Campinas - SP · CEP 13086-090",
+    addressHref: "https://maps.google.com/?q=Av.+José+Próspero+Jacobucci,+253,+Parque+das+Universidades,+Campinas+-+SP,+13086-090",
     phone: "(19) 97820-4813",
     phoneHref: "tel:+5519978204813",
     description: {
@@ -1287,7 +1295,9 @@ export const locations = [
     code: "SP·04",
     city: "Santos",
     type: { pt: "FILIAL", en: "BRANCH" },
-    area: { pt: "Baixada Santista", en: "Santos coastline" },
+    area: { pt: "Vila Mathias", en: "Vila Mathias" },
+    address: "Rua Luiz de Camões, 230 · Vila Mathias, Santos - SP · CEP 11015-400",
+    addressHref: "https://maps.google.com/?q=Rua+Luiz+de+Camões,+230,+Vila+Mathias,+Santos+-+SP,+11015-400",
     phone: "(13) 99205-9253",
     phoneHref: "tel:+5513992059253",
     description: {

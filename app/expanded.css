@@ -1297,11 +1297,31 @@
 
 .location-card .location-area {
   min-height: 0;
-  margin: 0 0 20px;
+  margin: 0 0 12px;
   color: #d62432;
   font-size: 13px;
   font-weight: 760;
   line-height: 1.4;
+}
+
+.location-address {
+  display: block;
+  margin: 0 0 19px;
+  color: #55524b;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.55;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.location-address:hover {
+  color: #d1aa17;
+}
+
+.location-card .location-address {
+  border-bottom: 1px dashed #d2cec1;
+  padding-bottom: 12px;
 }
 
 .location-phone {
@@ -3201,6 +3221,13 @@
 }
 
 .structure-page .location-card .location-area { color: var(--yellow); }
+
+.structure-page .location-card .location-address {
+  color: rgba(255,255,255,.78);
+  border-bottom-color: rgba(255,255,255,.14);
+}
+
+.structure-page .location-card .location-address:hover { color: var(--yellow); }
 
 .structure-page .location-card .location-phone > span { color: rgba(255,255,255,.55); }
 .structure-page .location-card .location-phone > strong { color: #fff; }
