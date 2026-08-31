@@ -133,6 +133,17 @@ export const copy: Record<string, Bilingual> = {
     en: "An operation<br />in <em>motion.</em>",
   },
   "intro3.cycle": { pt: "QUANDO O ASSUNTO É", en: "WHEN IT COMES TO" },
+  "intro4.eyebrow": { pt: "TAMBÉM ESTAMOS NO", en: "ALSO ON" },
+  "intro4.title": {
+    pt: "Mercado Livre.<br /><em>Comprando com confiança.</em>",
+    en: "Mercado Livre.<br /><em>Shopping with confidence.</em>",
+  },
+  "intro4.text": {
+    pt: "Encontre as peças Stärke Parts no Mercado Livre com a mesma qualidade e procedência que você espera de nós — prático, rápido e com toda a segurança.",
+    en: "Find Stärke Parts on Mercado Livre with the same quality and authenticity you expect from us — easy, fast and fully secure.",
+  },
+  "intro4.cta": { pt: "Visitar nossa loja", en: "Visit our store" },
+  "intro4.badge": { pt: "LOJA OFICIAL", en: "OFFICIAL STORE" },
 
   /* Footer */
   "footer.tagline": { pt: "Oferecemos peças. Entregamos confiança.", en: "We offer parts. We deliver trust." },

@@ -9,7 +9,6 @@ import {
   LanguageProvider,
   useLanguage,
   heroWords,
-  introCycles,
   tabs as translatedTabs,
   type TabId,
   vehicleBrands,
@@ -262,41 +261,8 @@ function PanelHeading({ kicker, title, text }: { kicker: string; title: string; 
   return <div className="panel-heading"><Eyebrow>{kicker}</Eyebrow><h3>{title}</h3><p>{text}</p></div>;
 }
 
-function RotatingIntroWord() {
-  const ref = useRef<HTMLSpanElement>(null);
-  const { lang } = useLanguage();
-  const [idx, setIdx] = useState(0);
-  const words = introCycles[lang];
-
-  useEffect(() => { setIdx(0); }, [lang]);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const timer = setInterval(() => {
-      gsap.to(el, {
-        opacity: 0, y: -16, rotateX: 55, scale: 0.97, duration: 0.3, ease: "power2.in",
-        onComplete: () => setIdx((i) => (i + 1) % words.length),
-      });
-    }, 2800);
-    return () => clearInterval(timer);
-  }, [words.length]);
-
-  useEffect(() => {
-    if (idx === 0) return;
-    const el = ref.current;
-    if (!el) return;
-    gsap.fromTo(el,
-      { opacity: 0, y: 16, rotateX: -55, scale: 0.97 },
-      { opacity: 1, y: 0, rotateX: 0, scale: 1, duration: 0.45, ease: "power3.out" }
-    );
-  }, [idx]);
-
-  return <span className="story-cycle__word" ref={ref}>{words[idx]}</span>;
-}
-
 function StoryIntro({ onContact }: { onContact: () => void }) {
-  const { lang, t } = useLanguage();
+  const { t } = useLanguage();
   const wrapRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [ready, setReady] = useState(false);
@@ -319,14 +285,9 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
     if (!root || !ready) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      const marquee = root.querySelector<HTMLElement>(".story-marquee__track");
-      if (marquee) {
-        gsap.to(marquee, { xPercent: -50, ease: "none", duration: 30, repeat: -1 });
-      }
-
       gsap.set(".story-slide--n1", { autoAlpha: 0, yPercent: -130 });
       gsap.set(".story-slide--n2", { autoAlpha: 0, xPercent: -100 });
-      gsap.set(".story-slide--n3", { autoAlpha: 0, xPercent: 100 });
+      gsap.set(".story-slide--n3", { autoAlpha: 0, yPercent: 100 });
 
       const tl = gsap.timeline();
       tl.to(".story-slide--n1", { autoAlpha: 1, yPercent: 0, duration: 3, ease: "power2.out" }, 0)
@@ -337,19 +298,14 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
         .fromTo(".story-slide--n2 .story-appear", { x: 44, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 4.7)
         .add(() => setActive(1), 4.2)
         .to(".story-slide--n2", { xPercent: 24, autoAlpha: 0, duration: 1, ease: "power2.in" }, 7.2)
-        .fromTo(".story-slide--n3", { xPercent: 100, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: 2.6, ease: "power2.out" }, 8.2)
-        .fromTo(".story-slide--n3 .story-appear", { x: -44, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 8.7)
+        .fromTo(".story-slide--n3", { yPercent: 100, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 2.6, ease: "power2.out" }, 8.2)
+        .fromTo(".story-slide--n3 .story-appear", { y: 44, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 8.7)
         .add(() => setActive(2), 8.2);
 
       ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", scrub: 0.6, animation: tl });
     }, root);
     return () => ctx.revert();
   }, [ready]);
-
-  const marquee = [
-    ...productLines.map(p => p.title[lang]),
-    ...vehicleBrands.slice(0, 8).map(b => b.name.toUpperCase()),
-  ];
 
   return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
     {ready && <div className="story-intro__pin">
@@ -401,20 +357,19 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
       </article>
 
       <article className="story-slide story-slide--n3">
-        <div className="story-dynamic">
-          <div className="story-dynamic__head story-appear">
-            <Eyebrow light>{t("intro3.eyebrow")}</Eyebrow>
-            <h3 dangerouslySetInnerHTML={{ __html: t("intro3.title") }} />
-            <span className="story-live"><i aria-hidden="true" />EM MOVIMENTO</span>
+        <div className="story-ml">
+          <div className="story-ml__badge story-appear">
+            <span className="story-ml__badge-dot" />
+            {t("intro4.badge")}
           </div>
-          <div className="story-cycle story-appear">
-            <span>{t("intro3.cycle")}</span>
-            <RotatingIntroWord />
-          </div>
-          <div className="story-marquee story-appear" aria-hidden="true">
-            <div className="story-marquee__track">
-              {[...marquee, ...marquee].map((label, index) => <span key={`${label}-${index}`}>{label}<i>✦</i></span>)}
-            </div>
+          <div className="story-ml__content story-appear">
+            <Eyebrow light>{t("intro4.eyebrow")}</Eyebrow>
+            <h3 dangerouslySetInnerHTML={{ __html: t("intro4.title") }} />
+            <p>{t("intro4.text")}</p>
+            <a className="story-ml__link" href="https://www.mercadolivre.com.br/pagina/starkeparts2600" target="_blank" rel="noreferrer">
+              <svg className="story-ml__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              {t("intro4.cta")} <span>↗</span>
+            </a>
           </div>
         </div>
       </article>
