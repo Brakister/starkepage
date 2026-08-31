@@ -504,8 +504,7 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
       </div>
     </div>
 
-    <div className="editorial-grid">
-      <div className="editorial-photo editorial-photo--warehouse" aria-label="Componentes automotivos premium: freios, filtros e suspensão" />
+    <div className="editorial-grid editorial-grid--no-photo">
       <div className="editorial-copy">
         <span className="section-number">{t("inst.edit.eyebrow")}</span>
         <h4>{t("inst.edit.t1")}<br /><em>{t("inst.edit.t2")}</em></h4>
