@@ -158,6 +158,11 @@
   background: var(--surface);
 }
 
+.institutional-page .editorial-grid.editorial-grid--no-photo {
+  grid-template-columns: 1fr;
+  min-height: 0;
+}
+
 .editorial-photo--warehouse {
   align-self: center;
   aspect-ratio: 1672 / 939;
@@ -4448,3 +4453,86 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* São Paulo unit: storefront photograph with a dark readability overlay. */
+.structure-page .locations-grid .location-card:first-child,
+.structure-page .locations-grid .location-card:first-child:hover {
+  background:
+    linear-gradient(135deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .82)),
+    url("/unidade-sao-paulo.png") center 58% / cover no-repeat;
+  color: #fff;
+}
+
+.structure-page .locations-grid .location-card:nth-child(3),
+.structure-page .locations-grid .location-card:nth-child(3):hover {
+  background:
+    linear-gradient(135deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .82)),
+    url("/unidade-campinas.png") center / cover no-repeat;
+  color: #fff;
+}
+
+.structure-page .locations-grid .location-card:first-child h4,
+.structure-page .locations-grid .location-card:first-child > p:not(.location-area),
+.structure-page .locations-grid .location-card:first-child li,
+.structure-page .locations-grid .location-card:first-child .location-phone > strong,
+.structure-page .locations-grid .location-card:nth-child(3) h4,
+.structure-page .locations-grid .location-card:nth-child(3) > p:not(.location-area),
+.structure-page .locations-grid .location-card:nth-child(3) li,
+.structure-page .locations-grid .location-card:nth-child(3) .location-phone > strong {
+  color: #fff;
+}
+
+.structure-page .locations-grid .location-card:first-child .location-phone,
+.structure-page .locations-grid .location-card:first-child li,
+.structure-page .locations-grid .location-card:nth-child(3) .location-phone,
+.structure-page .locations-grid .location-card:nth-child(3) li {
+  border-color: rgba(255, 255, 255, .18);
+  background: rgba(12, 12, 12, .58);
+  backdrop-filter: blur(3px);
+}
+
+.structure-page .locations-grid .location-card:first-child .location-phone > span,
+.structure-page .locations-grid .location-card:nth-child(3) .location-phone > span {
+  color: rgba(255, 255, 255, .68);
+}
+
+/* Keep FAQ content safely inside each accordion row. */
+.service-page .faq-list {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.service-page .faq-item,
+.service-page .faq-item > summary,
+.service-page .faq-item > p {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}
+
+.service-page .faq-item > summary {
+  align-items: center;
+  padding: 24px 28px;
+}
+
+.service-page .faq-item > summary > span {
+  flex: 0 0 auto;
+  margin-left: 16px;
+}
+
+.service-page .faq-item > p {
+  max-width: none;
+  padding: 0 68px 24px 28px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .service-page .faq-item > summary {
+    gap: 14px;
+    padding: 20px 18px;
+  }
+
+  .service-page .faq-item > p {
+    padding: 0 44px 20px 18px;
+  }
+}
