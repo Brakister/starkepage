@@ -661,7 +661,7 @@ function ServicePanel() {
 function HomeLanding({ scrolled }: { scrolled: boolean }) {
   const specialties = [
     { href: "/produtos", image: "/autoparts-brakes.webp", number: "01", title: "Portfólio premium", text: "Freios, suspensão, motor, filtragem e sistemas técnicos para aplicações exigentes." },
-    { href: "/montadoras", image: "/autoparts-editorial.webp", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
+    { href: "/montadoras", image: "/autoparts-editorial-conjunto.png", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
     { href: "/fabricantes", image: "/autoparts-filters.webp", number: "03", title: "Fabricantes globais", text: "Marcas reconhecidas e procedência para escolhas mais seguras em cada reparação." },
   ];
 

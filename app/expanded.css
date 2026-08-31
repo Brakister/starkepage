@@ -159,8 +159,14 @@
 }
 
 .editorial-photo--warehouse {
-  min-height: 510px;
-  background: linear-gradient(0deg, rgba(4, 4, 4, .22), rgba(4, 4, 4, .04)), url("/autoparts-editorial.webp") center / cover;
+  align-self: center;
+  aspect-ratio: 1672 / 939;
+  min-height: 0;
+  background-color: #f7f7f7;
+  background-image: linear-gradient(0deg, rgba(4, 4, 4, .12), rgba(4, 4, 4, 0)), url("/autoparts-editorial-conjunto.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%, contain;
 }
 
 .editorial-copy {
@@ -819,8 +825,14 @@
 }
 
 .product-spotlight-photo {
-  min-height: 430px;
-  background: linear-gradient(90deg, rgba(4, 4, 4, .04), rgba(4, 4, 4, .28)), url("/autoparts-editorial.webp") center / cover;
+  align-self: center;
+  aspect-ratio: 1672 / 939;
+  min-height: 0;
+  background-color: #f7f7f7;
+  background-image: linear-gradient(90deg, rgba(4, 4, 4, 0), rgba(4, 4, 4, .12)), url("/autoparts-editorial-conjunto.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%, contain;
 }
 
 .product-spotlight-copy {
@@ -1157,7 +1169,7 @@
   .institutional-history-summary > p { font-size: 13px; }
   .institutional-history-milestones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 27px 18px; margin-top: 44px; }
   .editorial-grid, .brand-explorer, .locations-grid, .service-steps, .company-story-heading, .operations-heading, .brand-promise, .product-spotlight { grid-template-columns: 1fr; }
-  .editorial-photo--warehouse { min-height: 340px; }
+  .editorial-photo--warehouse { min-height: 0; }
   .editorial-copy { padding: 36px 27px; }
   .metric-grid, .timeline, .principle-grid, .process-flow, .product-grid, .supplier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .metric-grid { gap: 34px 15px; padding: 51px 0; }
@@ -1178,7 +1190,7 @@
   .quality-banner, .official-distribution, .after-sales { margin-top: 48px; padding: 42px 27px; }
   .faq-item > summary { font-size: 14px; }
   .operation-card { min-height: 0; }
-  .product-spotlight-photo { min-height: 340px; }
+  .product-spotlight-photo { min-height: 0; }
   .principle-grid { gap: 28px 20px; padding: 30px 23px; }
   .brand-explorer { gap: 28px; }
   .brand-selector { display: flex; overflow-x: auto; }
