@@ -3794,6 +3794,18 @@
   text-align: center;
 }
 
+.story-ml__logo {
+  max-width: 220px;
+  height: auto;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 12px rgba(255, 230, 0, .2));
+  transition: transform .3s ease;
+}
+
+.story-ml__logo:hover {
+  transform: scale(1.04);
+}
+
 .story-ml__badge {
   display: inline-flex;
   align-items: center;

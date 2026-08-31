@@ -358,6 +358,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
 
       <article className="story-slide story-slide--n3">
         <div className="story-ml">
+          <img src="/mercadolivre.png" alt="Mercado Livre" className="story-ml__logo story-appear" />
           <div className="story-ml__badge story-appear">
             <span className="story-ml__badge-dot" />
             {t("intro4.badge")}
