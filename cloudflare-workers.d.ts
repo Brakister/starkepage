@@ -1,3 +1,7 @@
-declare module "cloudflare:workers" {
-  export const env: Record<string, any>;
+/// <reference types="@cloudflare/workers-types" />
+
+declare namespace Cloudflare {
+  interface Env {
+    DB: D1Database;
+  }
 }
