@@ -1209,24 +1209,24 @@ export const manufacturerLogos = [
 ];
 
 export const manufacturerLogoFiles: Record<string, string> = {
-  Bilstein: "/manufacturer-logos/bilstein.png",
-  "Blue Print": "/manufacturer-logos/blue-print.png",
-  Forschen: "/manufacturer-logos/forschen-v2.png",
-  GEBA: "/manufacturer-logos/geba.png",
-  Hengst: "/manufacturer-logos/hengst.png",
-  Hoffer: "/manufacturer-logos/hoffer.png",
-  KYB: "/manufacturer-logos/kyb.png",
-  LEMFÖRDER: "/manufacturer-logos/lemforder.png",
-  MAHLE: "/manufacturer-logos/mahle.png",
-  Pierburg: "/manufacturer-logos/pierburg.png",
-  SIDEM: "/manufacturer-logos/sidem.png",
-  SWAG: "/manufacturer-logos/swag.png",
-  Textar: "/manufacturer-logos/textar.png",
-  TRW: "/manufacturer-logos/trw.png",
-  UFI: "/manufacturer-logos/ufi.png",
-  "ÜRO Parts": "/manufacturer-logos/uro-parts.png",
-  "Victor Reinz": "/manufacturer-logos/victor-reinz.png",
-  WABCO: "/manufacturer-logos/wabco.png",
+  Bilstein: "/manufacturer-logos/normalized/bilstein.png",
+  "Blue Print": "/manufacturer-logos/normalized/blue-print.png",
+  Forschen: "/manufacturer-logos/normalized/forschen-v2.png",
+  GEBA: "/manufacturer-logos/normalized/geba.png",
+  Hengst: "/manufacturer-logos/normalized/hengst.png",
+  Hoffer: "/manufacturer-logos/normalized/hoffer.png",
+  KYB: "/manufacturer-logos/normalized/kyb.png",
+  LEMFÖRDER: "/manufacturer-logos/normalized/lemforder.png",
+  MAHLE: "/manufacturer-logos/normalized/mahle.png",
+  Pierburg: "/manufacturer-logos/normalized/pierburg.png",
+  SIDEM: "/manufacturer-logos/normalized/sidem.png",
+  SWAG: "/manufacturer-logos/normalized/swag.png",
+  Textar: "/manufacturer-logos/normalized/textar.png",
+  TRW: "/manufacturer-logos/normalized/trw.png",
+  UFI: "/manufacturer-logos/normalized/ufi.png",
+  "ÜRO Parts": "/manufacturer-logos/normalized/uro-parts.png",
+  "Victor Reinz": "/manufacturer-logos/normalized/victor-reinz.png",
+  WABCO: "/manufacturer-logos/normalized/wabco.png",
 };
 
 export const manufacturerCarouselBrands = manufacturerLogos.filter(brand => manufacturerLogoFiles[brand.name]);
@@ -1240,8 +1240,8 @@ export const locations = [
     address:
       "R. Américo Brasiliense, 2414 · Chácara Santo Antônio, São Paulo - SP · CEP 04715-004",
     addressHref: "https://maps.google.com/?q=R.+Américo+Brasiliense,+2414,+Chácara+Santo+Antônio,+São+Paulo+-+SP,+04715-004",
-    phone: "(11) 4102-1202",
-    phoneHref: "tel:+551141021202",
+    phone: "(11) 95206-3102",
+    phoneHref: "tel:+5511952063102",
     description: {
       pt: "Nossa operação central conecta atendimento comercial, gestão de portfólio e suporte especializado ao mercado de autopeças premium.",
       en: "Our central operation connects commercial service, portfolio management and specialized support to the premium auto parts market.",

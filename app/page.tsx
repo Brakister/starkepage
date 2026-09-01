@@ -31,8 +31,8 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
-const WHATSAPP_PT = "https://wa.me/551141021202?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
-const WHATSAPP_EN = "https://wa.me/551141021202?text=Hello%2C%20I%27d%20like%20to%20talk%20to%20a%20St%C3%A4rke%20Parts%20specialist.";
+const WHATSAPP_PT = "https://wa.me/5511952063102?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
+const WHATSAPP_EN = "https://wa.me/5511952063102?text=Hello%2C%20I%27d%20like%20to%20talk%20to%20a%20St%C3%A4rke%20Parts%20specialist.";
 
 const routes: Record<TabId, string> = {
   institucional: "/empresa",
@@ -334,7 +334,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
           <div className="story-chat-card story-appear">
             <span className="story-chat-card__live"><i aria-hidden="true" />{t("intro2.live")}</span>
             <WhatsAppIcon />
-            <strong>+55 11 4102-1202</strong>
+            <strong>+55 11 95206-3102</strong>
             <small>{t("intro2.phoneLabel")}</small>
             <a className="story-contact__btn" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("intro2.whatsapp")}><WhatsAppIcon /> {t("intro2.whatsapp")} <span>↗</span></a>
             <div className="story-chat-card__foot">
@@ -422,7 +422,7 @@ function InstitutionalVideoSection() {
 }
 function ClosingSection({ onContact }: { onContact: () => void }) {
   const { t } = useLanguage();
-  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>;
+  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button><div className="closing-statement__assets" aria-hidden="true"><img className="closing-asset closing-asset--one" src="/ativo-1.svg" alt="" /><img className="closing-asset closing-asset--two" src="/ativo-2.svg" alt="" /><img className="closing-asset closing-asset--three" src="/ativo-3.svg" alt="" /></div></section>;
 }
 const MemoClosing = memo(ClosingSection);
 

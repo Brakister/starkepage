@@ -8,8 +8,8 @@ export const siteConfig = {
   origin: base,
   ogImage,
   contact: {
-    phone: "+55 11 4102-1202",
-    whatsapp: "https://wa.me/551141021202",
+    phone: "+55 11 95206-3102",
+    whatsapp: "https://wa.me/5511952063102",
   },
 };
 

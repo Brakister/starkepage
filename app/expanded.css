@@ -1758,7 +1758,7 @@
 .manufacturer-logo-track { display: flex; width: max-content; gap: 14px; padding: 0 7px; animation: manufacturer-logo-marquee 52s linear infinite; will-change: transform; }
 .manufacturer-logo { display: flex; width: 205px; height: 122px; flex: 0 0 205px; align-items: center; justify-content: center; padding: 20px; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; background: linear-gradient(145deg,#fff,#e9e5dc); box-shadow: 0 5px 0 #aaa397,0 11px 19px rgba(0,0,0,.3),inset 1px 1px 0 #fff; color: #11110f; cursor: pointer; transform: rotateX(1deg); transition: border-color .28s ease,background .28s ease,color .28s ease,transform .28s ease,box-shadow .28s ease; }
 .manufacturer-logo span { font-size: 25px; font-weight: 900; letter-spacing: -.045em; line-height: 1; text-align: center; white-space: nowrap; }
-.manufacturer-logo img { display: block; width: auto; max-width: 150px; height: auto; max-height: 72px; object-fit: contain; }
+.manufacturer-logo img { display: block; width: 158px; height: 70px; object-fit: contain; object-position: center; }
 .manufacturer-logo:hover { border-color: #FACE2D; background: linear-gradient(145deg,#fff,#f2eee5); box-shadow: 0 7px 0 #FACE2D,0 16px 26px rgba(0,0,0,.38),inset 0 1px 0 #fff; transform: rotateX(-3deg) translateY(-5px); }
 .manufacturer-logo--active { border-color: #FACE2D; background: #fff; box-shadow: 0 7px 0 #FACE2D,0 16px 26px rgba(0,0,0,.38),inset 0 1px 0 #fff,0 0 0 2px rgba(250,206,45,.2); }
 .manufacturer-brand-summary { display: grid; grid-template-columns: minmax(190px,.55fr) repeat(2,minmax(260px,1fr)); gap: 34px; align-items: start; margin: 30px 18px 0; padding: 34px 36px; border: 1px solid rgba(250,206,45,.2); border-radius: 18px; background: linear-gradient(145deg,#1b1a16,#0d0d0c); box-shadow: 0 5px 0 #403923,0 12px 23px rgba(0,0,0,.32),inset 1px 1px 0 rgba(255,255,255,.08); color: #fff; animation: manufacturer-summary-in .32s ease both; }
@@ -1778,7 +1778,8 @@
   .manufacturers-page .supplier-card:hover { transform: translateY(-4px); }
   .manufacturer-logo-carousel { padding: 14px 0 21px; border-radius: 20px; }
   .manufacturer-logo-track { gap: 10px; animation-duration: 42s; }
-  .manufacturer-logo { width: 160px; height: 96px; flex-basis: 160px; }
+  .manufacturer-logo { width: 160px; height: 96px; flex-basis: 160px; padding: 16px; }
+  .manufacturer-logo img { width: 126px; height: 58px; }
   .manufacturer-logo span { font-size: 20px; }
   .manufacturer-brand-summary { grid-template-columns: 1fr; gap: 24px; margin: 25px 12px 0; padding: 28px 24px; }
   .manufacturer-brand-summary > div:not(:first-child) { padding: 20px 0 0; border-top: 1px solid rgba(250,206,45,.2); border-left: 0; }
@@ -3382,6 +3383,11 @@
   pointer-events: none;
 }
 .closing-statement > * { position: relative; z-index: 1; }
+.closing-statement .closing-statement__assets { position: absolute; inset: 0 auto 0 0; z-index: 0; width: clamp(180px, 14vw, 215px); overflow: hidden; pointer-events: none; }
+.closing-asset { position: absolute; display: block; height: auto; opacity: .7; filter: saturate(1.08) contrast(1.06) drop-shadow(0 10px 20px rgba(0,0,0,.38)); }
+.closing-asset--one { top: 18px; left: 28px; width: 90px; transform: rotate(1deg); }
+.closing-asset--two { top: 50%; left: -100px; width: 300px; transform: translateY(-50%); }
+.closing-asset--three { bottom: 16px; left: -10px; width: 140px; transform: rotate(-1deg); }
 
 /* Unit cards — light palette with the original brand accents */
 .structure-page .locations-grid {
@@ -3502,6 +3508,10 @@
   .closing-statement::after {
     clip-path: polygon(86.8% 0, 88.4% 0, 74% 100%, 72.4% 100%);
   }
+  .closing-statement .closing-statement__assets { right: auto; left: 0; width: 112px; opacity: .66; }
+  .closing-asset--one { top: 14px; left: 18px; width: 60px; }
+  .closing-asset--two { top: 50%; left: -74px; width: 205px; }
+  .closing-asset--three { bottom: 12px; left: -8px; width: 94px; }
 }
 
 /* Automaker emblems inside the vehicle selector */
@@ -3537,7 +3547,13 @@
 .applications-page .brand-selector button:nth-child(4) .brand-selector-name::before { background-image: url("/vehicle-logos/audi.svg"); }
 .applications-page .brand-selector button:nth-child(5) .brand-selector-name::before { background-image: url("/vehicle-logos/land-rover.svg"); }
 .applications-page .brand-selector button:nth-child(6) .brand-selector-name::before { background-image: url("/vehicle-logos/volvo.svg"); }
-.applications-page .brand-selector button:nth-child(7) .brand-selector-name::before { background-image: url("/vehicle-logos/jaguar.svg"); }
+.applications-page .brand-selector button:nth-child(7) .brand-selector-name::before {
+  width: 72px;
+  height: 38px;
+  flex-basis: 72px;
+  background-image: url("/vehicle-logos/logo-jaguar-badge.png");
+  background-size: contain;
+}
 .applications-page .brand-selector button:nth-child(8) .brand-selector-name::before { background-image: url("/vehicle-logos/mini.svg"); }
 .applications-page .brand-selector button:nth-child(9) .brand-selector-name::before { background-image: url("/vehicle-logos/ferrari.svg"); }
 .applications-page .brand-selector button:nth-child(10) .brand-selector-name::before { background-image: url("/vehicle-logos/lamborghini.svg"); }

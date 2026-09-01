@@ -132,7 +132,7 @@ export default function RootLayout({
                   image: ogImage,
                   foundingDate: "2016",
                   email: "contato@starkeparts.com",
-                  telephone: "+55-11-4102-1202",
+                  telephone: "+55-11-95206-3102",
                   sameAs: [
                     "https://www.instagram.com/starkepremiumparts/",
                     "https://www.mercadolivre.com.br/pagina/starkeparts2600",
