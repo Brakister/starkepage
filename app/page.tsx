@@ -393,7 +393,7 @@ function InstitutionalVideoSection() {
         text: "Discover our structure, our team and the expertise that connects premium automotive parts to customers throughout Brazil.",
         label: "STÄRKE PARTS · SINCE 2016",
         aria: "Stärke Parts institutional video",
-        fallback: "Your browser does not support video playback.",
+        status: "Institutional video coming soon",
       }
     : {
         eyebrow: "VÍDEO INSTITUCIONAL",
@@ -401,7 +401,7 @@ function InstitutionalVideoSection() {
         text: "Nossa estrutura, nossa equipe e a experiência que conecta autopeças premium a clientes de todo o Brasil.",
         label: "STÄRKE PARTS · DESDE 2016",
         aria: "Vídeo institucional da Stärke Parts",
-        fallback: "Seu navegador não oferece suporte à reprodução de vídeos.",
+        status: "Vídeo institucional em preparação",
       };
 
   return <section className="institutional-video" aria-labelledby="institutional-video-title">
@@ -411,10 +411,10 @@ function InstitutionalVideoSection() {
       <p>{copy.text}</p>
     </div>
     <div className="institutional-video__frame story-appear">
-      <video controls playsInline preload="none" poster="/unidade-sao-paulo.webp" aria-label={copy.aria}>
-        <source src="/video-institucional-starke.mp4" type="video/mp4" />
-        {copy.fallback}
-      </video>
+      <div className="institutional-video__placeholder" role="img" aria-label={copy.aria}>
+        <img src="/unidade-sao-paulo.webp" alt="" loading="lazy" decoding="async" />
+        <span>{copy.status}</span>
+      </div>
       <span className="institutional-video__label">{copy.label}</span>
     </div>
   </section>;

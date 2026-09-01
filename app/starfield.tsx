@@ -40,7 +40,12 @@ export function StarfieldBackground({
 
     let animationId: number;
     let tick = 0;
+    let lastFrame = 0;
     const maxDepth = 1500;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const limitedDevice = navigator.hardwareConcurrency <= 4;
+    const renderedStarCount = Math.min(count, limitedDevice ? 140 : 260);
+    const frameInterval = 1000 / (limitedDevice ? 20 : 30);
 
     const createStar = (initialZ?: number): Star => ({
       x: (Math.random() - 0.5) * width * 2,
@@ -50,7 +55,7 @@ export function StarfieldBackground({
       twinkleOffset: Math.random() * Math.PI * 2,
     });
 
-    const stars: Star[] = Array.from({ length: count }, () => createStar());
+    const stars: Star[] = Array.from({ length: renderedStarCount }, () => createStar());
 
     const handleResize = () => {
       const rect = container.getBoundingClientRect();
@@ -63,7 +68,12 @@ export function StarfieldBackground({
     const ro = new ResizeObserver(handleResize);
     ro.observe(container);
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
+      if (!reduceMotion && timestamp - lastFrame < frameInterval) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrame = timestamp;
       tick++;
 
       ctx.fillStyle = "rgba(10, 10, 15, 0.2)";
@@ -115,16 +125,26 @@ export function StarfieldBackground({
       }
 
       ctx.globalAlpha = 1;
-      animationId = requestAnimationFrame(animate);
+      if (!reduceMotion) animationId = requestAnimationFrame(animate);
+    };
+
+    const handleVisibility = () => {
+      cancelAnimationFrame(animationId);
+      if (!document.hidden && !reduceMotion) {
+        lastFrame = 0;
+        animationId = requestAnimationFrame(animate);
+      }
     };
 
     ctx.fillStyle = "#0a0a0f";
     ctx.fillRect(0, 0, width, height);
 
     animationId = requestAnimationFrame(animate);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       cancelAnimationFrame(animationId);
+      document.removeEventListener("visibilitychange", handleVisibility);
       ro.disconnect();
     };
   }, [count, speed, starColor, twinkle]);

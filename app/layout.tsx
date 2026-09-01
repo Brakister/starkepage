@@ -45,12 +45,9 @@ export const metadata: Metadata = {
   creator: "Stärke Parts",
   publisher: "Stärke Parts",
   category: "business",
-  alternates: {
-    canonical: siteOrigin,
-    languages: {
-      "pt-BR": siteOrigin.toString(),
-      en: `${siteOrigin}/en`,
-    },
+    alternates: {
+      canonical: siteOrigin,
+      languages: { "pt-BR": siteOrigin.toString() },
   },
   robots: {
     index: true,
