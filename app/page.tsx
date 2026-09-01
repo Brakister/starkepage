@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo, memo, type CSSProperties, type KeyboardEvent } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -165,7 +165,6 @@ function HeroBackdrop() {
 function RotatingWord() {
   const { lang } = useLanguage();
   const [idx, setIdx] = useState(0);
-  const [started, setStarted] = useState(false);
   const words = heroWords[lang];
   const widest = words.reduce((a, b) => (b.length > a.length ? b : a));
 
@@ -173,14 +172,20 @@ function RotatingWord() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setStarted(true);
       setIdx((i) => (i + 1) % words.length);
-    }, 3200);
+    }, 2400);
     return () => clearInterval(timer);
   }, [words.length]);
 
   return <span className="invite-accent-group">
-    <span className={`invite-fade--accent ${started ? "invite-fade--in" : ""}`} key={`w-${idx}`}>{words[idx]}</span>
+    <span className="invite-fade--accent invite-fade--in" key={`${lang}-${idx}`} aria-label={words[idx]}>
+      {Array.from(words[idx]).map((letter, charIndex) => <span
+        className="invite-letter"
+        aria-hidden="true"
+        key={`${letter}-${charIndex}`}
+        style={{ "--char-index": charIndex } as CSSProperties}
+      >{letter === " " ? "\u00a0" : letter}</span>)}
+    </span>
     <span className="invite-accent-ghost" aria-hidden="true">{widest}</span>
   </span>;
 }
@@ -502,6 +507,11 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
     <div className="panel-heading panel-heading--institutional">
       <Eyebrow>{t("inst.eyebrow")}</Eyebrow>
       <h3>{t("inst.title")}</h3>
+      <div className="institutional-heading-assets" aria-hidden="true">
+        <img className="institutional-heading-asset institutional-heading-asset--one" src="/ativo-1.svg" alt="" />
+        <img className="institutional-heading-asset institutional-heading-asset--two" src="/ativo-2.svg" alt="" />
+        <img className="institutional-heading-asset institutional-heading-asset--three" src="/ativo-3.svg" alt="" />
+      </div>
 
       <div className="institutional-history-intro">
         <p className="institutional-history-lead">{t("inst.lead")}</p>
@@ -748,14 +758,18 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   useEffect(() => {
     if (!splashDone) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+    const limitedDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
+    const smoothWheel = !reduceMotion && !coarsePointer && !limitedDevice;
     const lenis = new Lenis({
       autoRaf: true,
-      lerp: 0.13,
-      smoothWheel: !reduceMotion,
+      lerp: 0.18,
+      smoothWheel,
       wheelMultiplier: 1,
       touchMultiplier: 1,
       syncTouch: false,
-      overscroll: true,
+      overscroll: false,
     });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);

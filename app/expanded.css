@@ -1514,8 +1514,23 @@
 /* Corporate treatment for the institutional page */
 .institutional-page { max-width: 1260px; margin: 0 auto; }
 .institutional-page .panel-heading--institutional { max-width: 1080px; margin: 0 auto 100px; }
-.institutional-page .panel-heading--institutional h3 { max-width: 980px; font-size: clamp(46px, 5vw, 70px); line-height: 1.04; letter-spacing: -.055em; }
-.institutional-page .institutional-history-lead { max-width: 820px; font-size: 20px; line-height: 1.75; }
+.institutional-page .panel-heading--institutional h3 { max-width: 62%; font-size: clamp(46px, 5vw, 70px); line-height: 1.04; letter-spacing: -.055em; }
+.institutional-page .panel-heading--institutional { position: relative; isolation: isolate; }
+.institutional-page .panel-heading--institutional > .eyebrow,
+.institutional-page .panel-heading--institutional > h3,
+.institutional-page .panel-heading--institutional > .institutional-history-intro { position: relative; z-index: 1; }
+.institutional-heading-assets { position: absolute; z-index: 0; top: 0; right: 0; width: min(38%, 420px); height: 340px; overflow: hidden; opacity: .6; pointer-events: none; }
+.institutional-heading-asset { position: absolute; display: block; height: auto; filter: saturate(1.08) contrast(1.08) drop-shadow(0 12px 22px rgba(0,0,0,.34)); }
+.institutional-heading-asset--one { top: -34px; right: 32px; width: 54px; transform: rotate(90deg); }
+.institutional-heading-asset--two { top: -1px; right: 106px; width: clamp(175px, 18vw, 245px); }
+.institutional-heading-asset--three { top: 58%; right: -1px; width: clamp(145px, 14vw, 195px); transform: translateY(-50%); }
+
+.institutional-page .panel-heading--institutional .institutional-history-lead { max-width: 62%; font-size: 20px; line-height: 1.75; }
+@media (max-width: 900px) {
+  .institutional-heading-assets { display: none; }
+  .institutional-page .panel-heading--institutional h3,
+  .institutional-page .panel-heading--institutional .institutional-history-lead { max-width: 100%; }
+}
 .institutional-page .institutional-history-summary { max-width: 920px; columns: 1; column-gap: 0; margin-top: 52px; }
 .institutional-page .institutional-history-summary > p { margin-bottom: 22px; color: #55554f; font-size: 16px; line-height: 1.85; }
 .institutional-page .institutional-history-summary > p:first-child::first-letter { float: none; margin: 0; color: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; }
@@ -2021,6 +2036,10 @@
 
 @media (max-width: 760px) {
   .institutional-page .panel-heading--institutional h3 { font-size: 43px; }
+  .institutional-heading-assets { top: 20px; right: 10px; width: 42%; height: 220px; opacity: .3; }
+  .institutional-heading-asset--one { top: -24px; right: 8px; width: 40px; }
+  .institutional-heading-asset--two { top: -1px; right: 48px; width: 120px; }
+  .institutional-heading-asset--three { top: 58%; right: 0; width: 92px; }
   .institutional-page .roadmap-heading h4 { font-size: 42px; line-height: 1.04; }
   .institutional-page .identity-heading { grid-template-columns: 1fr; grid-template-rows: auto; gap: 30px; min-height: 580px; padding: 50px 30px 75px; }
   .institutional-page .identity-heading h4 { grid-column: 1; grid-row: auto; font-size: 46px; }

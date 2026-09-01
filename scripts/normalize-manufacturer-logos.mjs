@@ -51,6 +51,7 @@ for (const file of files) {
 
   await sharp(data, { raw: info })
     .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .resize({ width: 480, height: 180, fit: "inside", withoutEnlargement: true })
     .png({ compressionLevel: 9, palette: true })
     .toFile(path.join(outputDirectory, file));
 }
