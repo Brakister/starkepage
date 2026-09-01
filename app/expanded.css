@@ -3797,6 +3797,7 @@
 .story-slide > * { position: relative; z-index: 1; }
 
 .story-slide--n1 { background: #0a0a09; }
+.story-slide--n1 { padding: 0; }
 .story-slide--n1::before {
   background:
     radial-gradient(62% 56% at 18% 28%, rgba(238, 50, 53, .17), transparent 62%),
@@ -4490,6 +4491,38 @@
   }
   .story-rail__item i { width: 22px; height: 2px; }
   .story-rail__item b { font-size: 8px; }
+}
+
+/* --- Institutional video --- */
+.institutional-video {
+  display: grid;
+  grid-template-columns: minmax(260px, .72fr) minmax(0, 1.5fr);
+  gap: clamp(44px, 7vw, 110px);
+  align-items: center;
+  padding: clamp(90px, 10vw, 150px) max(8vw, 34px);
+  overflow: hidden;
+  background: #090909;
+  color: #fff;
+}
+.story-slide--n1 .institutional-video { width: 100%; min-height: 100%; }
+.institutional-video__intro { max-width: 500px; }
+.institutional-video__intro h2 { margin: 22px 0 25px; font-size: clamp(44px, 5.4vw, 82px); line-height: .96; letter-spacing: -.055em; }
+.institutional-video__intro h2 em { color: var(--yellow); font-style: normal; }
+.institutional-video__intro > p { max-width: 450px; margin: 0; color: rgba(255,255,255,.66); font-size: 15px; line-height: 1.75; }
+.institutional-video__frame { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.15); border-radius: 4px; background: #000; box-shadow: 0 30px 80px rgba(0,0,0,.42); }
+.institutional-video__frame::before { position: absolute; inset: 0; z-index: 1; border: 1px solid rgba(250,206,45,.22); content: ""; pointer-events: none; }
+.institutional-video__frame video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #050505; object-fit: cover; }
+.institutional-video__label { position: absolute; z-index: 2; top: 18px; left: 18px; padding: 8px 11px; background: rgba(5,5,5,.72); color: rgba(255,255,255,.82); font-size: 8px; font-weight: 800; letter-spacing: .18em; backdrop-filter: blur(10px); pointer-events: none; }
+
+@media (max-width: 900px) {
+  .institutional-video { grid-template-columns: 1fr; }
+  .institutional-video__intro { max-width: 650px; }
+}
+
+@media (max-width: 560px) {
+  .institutional-video { gap: 35px; padding-right: 20px; padding-left: 20px; }
+  .institutional-video__intro h2 { font-size: clamp(40px, 13vw, 60px); }
+  .institutional-video__label { top: 10px; left: 10px; }
 }
 
 /* --- Lenis smooth scroll --- */

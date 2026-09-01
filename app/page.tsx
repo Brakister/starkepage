@@ -310,14 +310,6 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
         end: "bottom bottom",
         scrub: true,
         animation: tl,
-        snap: {
-          snapTo: [0, 1 / 3, 2 / 3, 1],
-          duration: 0.24,
-          delay: 0,
-          ease: "power2.inOut",
-          directional: false,
-          inertia: false,
-        },
       });
     }, root);
     return () => ctx.revert();
@@ -326,26 +318,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
   return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
     {ready && <div className="story-intro__pin">
       <article className="story-slide story-slide--n1">
-        <div className="story-kinetic">
-          <div className="story-kinetic__top story-appear">
-            <Eyebrow light>{t("intro1.eyebrow")}</Eyebrow>
-            <span className="story-kinetic__index">01 <b>/ 03</b></span>
-          </div>
-          <div className="story-kinetic__heading story-appear">
-            <h3 dangerouslySetInnerHTML={{ __html: t("intro1.title") }} />
-          </div>
-          <div className="story-kinetic__lead story-appear">
-            <span className="story-kinetic__arrow" aria-hidden="true">↘</span>
-            <p>{t("intro1.text")}</p>
-          </div>
-          <ul className="story-kinetic__stats story-appear">
-            <li><strong>2016</strong><span>{t("intro1.s1")}</span></li>
-            <li><strong>04</strong><span>{t("intro1.s2")}</span></li>
-            <li><strong>30+</strong><span>{t("intro1.s3")}</span></li>
-            <li><strong>BR</strong><span>{t("intro1.s4")}</span></li>
-          </ul>
-          <span className="story-kinetic__ghost" aria-hidden="true">STÄRKE</span>
-        </div>
+        <InstitutionalVideoSection />
       </article>
 
       <article className="story-slide story-slide--n2">
@@ -412,6 +385,41 @@ function TickerSection() {
 }
 const MemoTicker = memo(TickerSection);
 
+function InstitutionalVideoSection() {
+  const { lang } = useLanguage();
+  const copy = lang === "en"
+    ? {
+        eyebrow: "INSTITUTIONAL VIDEO",
+        title: <>Get to know the strength<br />behind <em>every part.</em></>,
+        text: "Discover our structure, our team and the expertise that connects premium automotive parts to customers throughout Brazil.",
+        label: "STÄRKE PARTS · SINCE 2016",
+        aria: "Stärke Parts institutional video",
+        fallback: "Your browser does not support video playback.",
+      }
+    : {
+        eyebrow: "VÍDEO INSTITUCIONAL",
+        title: <>Conheça a força<br />por trás de <em>cada peça.</em></>,
+        text: "Nossa estrutura, nossa equipe e a experiência que conecta autopeças premium a clientes de todo o Brasil.",
+        label: "STÄRKE PARTS · DESDE 2016",
+        aria: "Vídeo institucional da Stärke Parts",
+        fallback: "Seu navegador não oferece suporte à reprodução de vídeos.",
+      };
+
+  return <section className="institutional-video" aria-labelledby="institutional-video-title">
+    <div className="institutional-video__intro story-appear">
+      <Eyebrow light>{copy.eyebrow}</Eyebrow>
+      <h2 id="institutional-video-title">{copy.title}</h2>
+      <p>{copy.text}</p>
+    </div>
+    <div className="institutional-video__frame story-appear">
+      <video controls playsInline preload="none" poster="/unidade-sao-paulo.webp" aria-label={copy.aria}>
+        <source src="/video-institucional-starke.mp4" type="video/mp4" />
+        {copy.fallback}
+      </video>
+      <span className="institutional-video__label">{copy.label}</span>
+    </div>
+  </section>;
+}
 function ClosingSection({ onContact }: { onContact: () => void }) {
   const { t } = useLanguage();
   return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>;
@@ -747,22 +755,21 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     if (!splashDone) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lenis = new Lenis({
-      lerp: 0.16,
+      autoRaf: true,
+      lerp: 0.13,
       smoothWheel: !reduceMotion,
-      wheelMultiplier: 1.15,
+      wheelMultiplier: 1,
       touchMultiplier: 1,
       syncTouch: false,
-      overscroll: false,
+      overscroll: true,
     });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
-    const raf = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(500, 33);
-    const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    const refreshFrame = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
     return () => {
       window.cancelAnimationFrame(refreshFrame);
-      gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;
     };
