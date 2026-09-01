@@ -2,89 +2,138 @@
 
 import { useEffect, useRef } from "react";
 
-const STAR_COUNT = 120;
-const SPEED = 0.3;
-
 interface Star {
   x: number;
   y: number;
-  r: number;
-  a: number;
-  vy: number;
+  z: number;
+  twinkleSpeed: number;
+  twinkleOffset: number;
 }
 
-function makeStars(w: number, h: number): Star[] {
-  return Array.from({ length: STAR_COUNT }, () => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r: Math.random() * 1.5 + 0.3,
-    a: Math.random() * 0.6 + 0.2,
-    vy: Math.random() * SPEED + 0.05,
-  }));
-}
-
-export function StarfieldBackground() {
+export function StarfieldBackground({
+  count = 400,
+  speed = 0.5,
+  starColor = "#ffffff",
+  twinkle = true,
+}: {
+  count?: number;
+  speed?: number;
+  starColor?: string;
+  twinkle?: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let w = window.innerWidth;
-    let h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
+    const rect = container.getBoundingClientRect();
+    let width = rect.width;
+    let height = rect.height;
+    canvas.width = width;
+    canvas.height = height;
 
-    let stars = makeStars(w, h);
-    let raf: number;
+    let animationId: number;
+    let tick = 0;
+    const maxDepth = 1500;
 
-    const resize = () => {
-      w = window.innerWidth;
-      h = window.innerHeight;
-      canvas.width = w;
-      canvas.height = h;
-      stars = makeStars(w, h);
+    const createStar = (initialZ?: number): Star => ({
+      x: (Math.random() - 0.5) * width * 2,
+      y: (Math.random() - 0.5) * height * 2,
+      z: initialZ ?? Math.random() * maxDepth,
+      twinkleSpeed: Math.random() * 0.02 + 0.01,
+      twinkleOffset: Math.random() * Math.PI * 2,
+    });
+
+    const stars: Star[] = Array.from({ length: count }, () => createStar());
+
+    const handleResize = () => {
+      const rect = container.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width;
+      canvas.height = height;
     };
 
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h);
-      for (const s of stars) {
-        s.y += s.vy;
-        if (s.y > h) {
-          s.y = 0;
-          s.x = Math.random() * w;
+    const ro = new ResizeObserver(handleResize);
+    ro.observe(container);
+
+    const animate = () => {
+      tick++;
+
+      ctx.fillStyle = "rgba(10, 10, 15, 0.2)";
+      ctx.fillRect(0, 0, width, height);
+
+      const cx = width / 2;
+      const cy = height / 2;
+
+      for (const star of stars) {
+        star.z -= speed * 2;
+
+        if (star.z <= 0) {
+          star.x = (Math.random() - 0.5) * width * 2;
+          star.y = (Math.random() - 0.5) * height * 2;
+          star.z = maxDepth;
         }
+
+        const scale = 400 / star.z;
+        const x = cx + star.x * scale;
+        const y = cy + star.y * scale;
+
+        if (x < -10 || x > width + 10 || y < -10 || y > height + 10) continue;
+
+        const size = Math.max(0.5, (1 - star.z / maxDepth) * 3);
+
+        let opacity = (1 - star.z / maxDepth) * 0.9 + 0.1;
+
+        if (twinkle && star.twinkleSpeed > 0.015) {
+          opacity *= 0.7 + 0.3 * Math.sin(tick * star.twinkleSpeed + star.twinkleOffset);
+        }
+
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fillStyle = starColor;
+        ctx.globalAlpha = opacity;
         ctx.fill();
+
+        if (star.z < maxDepth * 0.3 && speed > 0.3) {
+          const streakLength = (1 - star.z / maxDepth) * speed * 8;
+          const angle = Math.atan2(star.y, star.x);
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x - Math.cos(angle) * streakLength, y - Math.sin(angle) * streakLength);
+          ctx.strokeStyle = starColor;
+          ctx.globalAlpha = opacity * 0.3;
+          ctx.lineWidth = size * 0.5;
+          ctx.stroke();
+        }
       }
-      raf = requestAnimationFrame(draw);
+
+      ctx.globalAlpha = 1;
+      animationId = requestAnimationFrame(animate);
     };
 
-    window.addEventListener("resize", resize);
-    draw();
+    ctx.fillStyle = "#0a0a0f";
+    ctx.fillRect(0, 0, width, height);
+
+    animationId = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationId);
+      ro.disconnect();
     };
-  }, []);
+  }, [count, speed, starColor, twinkle]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "fixed",
-        inset: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: 0,
-        pointerEvents: "none",
-      }}
-    />
+    <div ref={containerRef} className="starfield" aria-hidden="true">
+      <canvas ref={canvasRef} className="starfield__canvas" />
+      <div className="starfield__nebula" />
+      <div className="starfield__vignette" />
+    </div>
   );
 }
