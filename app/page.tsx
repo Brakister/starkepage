@@ -285,43 +285,37 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
   useEffect(() => {
     const root = wrapRef.current;
     if (!root || !ready) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const ctx = gsap.context(() => {
-      gsap.set(".story-slide--n1", { autoAlpha: 0, yPercent: -130 });
-      gsap.set(".story-slide--n2", { autoAlpha: 0, xPercent: -100 });
-      gsap.set(".story-slide--n3", { autoAlpha: 0, yPercent: 100 });
+    const pinWindow = Math.max(1, root.offsetHeight - window.innerHeight);
+    let raf = 0;
 
-      const tl = gsap.timeline();
-      tl.to(".story-slide--n1", { autoAlpha: 1, yPercent: 0, duration: 3, ease: "power2.out" }, 0)
-        .fromTo(".story-slide--n1 .story-appear", { y: 36, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.14, ease: "power2.out" }, 0.5)
-        .add(() => setActive(0), 0)
-        .to(".story-slide--n1", { yPercent: -24, autoAlpha: 0, duration: 1, ease: "power2.in" }, 3.4)
-        .fromTo(".story-slide--n2", { xPercent: -100, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: 2.6, ease: "power2.out" }, 4.2)
-        .fromTo(".story-slide--n2 .story-appear", { x: 44, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 4.7)
-        .add(() => setActive(1), 4.2)
-        .to(".story-slide--n2", { xPercent: 24, autoAlpha: 0, duration: 1, ease: "power2.in" }, 7.2)
-        .fromTo(".story-slide--n3", { yPercent: 100, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 2.6, ease: "power2.out" }, 8.2)
-        .fromTo(".story-slide--n3 .story-appear", { y: 44, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 8.7)
-        .add(() => setActive(2), 8.2);
+    const compute = () => {
+      raf = 0;
+      const top = root.getBoundingClientRect().top;
+      const p = Math.min(1, Math.max(0, -top / pinWindow));
+      setActive(Math.min(2, Math.floor(p * 3)));
+    };
 
-      ScrollTrigger.create({
-        trigger: root,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-        animation: tl,
-      });
-    }, root);
-    return () => ctx.revert();
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(compute);
+    };
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [ready]);
 
   return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
     {ready && <div className="story-intro__pin">
-      <article className="story-slide story-slide--n1">
+      <article className={`story-slide story-slide--n1 ${active === 0 ? "is-active" : ""}`}>
         <InstitutionalVideoSection />
       </article>
 
-      <article className="story-slide story-slide--n2">
+      <article className={`story-slide story-slide--n2 ${active === 1 ? "is-active" : ""}`}>
         <div className="story-contact">
           <div className="story-contact__col story-appear">
             <div className="story-contact__head">
@@ -345,7 +339,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
         </div>
       </article>
 
-      <article className="story-slide story-slide--n3">
+      <article className={`story-slide story-slide--n3 ${active === 2 ? "is-active" : ""}`}>
         <div className="story-ml">
           <img src="/mercadolivre.png" alt="Mercado Livre" className="story-ml__logo story-appear" loading="lazy" decoding="async" />
           <div className="story-ml__badge story-appear">

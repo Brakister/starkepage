@@ -3781,7 +3781,7 @@
 
 .story-intro {
   position: relative;
-  height: 240vh;
+  height: 300vh;
   background: transparent;
 }
 
@@ -3800,6 +3800,15 @@
   display: grid;
   place-items: center;
   padding: 96px max(8vw, 34px) 60px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .24s ease, visibility .24s ease;
+}
+
+.story-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
 }
 
 .story-slide::before {
@@ -4462,7 +4471,6 @@
     min-height: 100vh;
     opacity: 1 !important;
     visibility: visible !important;
-    transform: none !important;
   }
   .story-marquee__track { flex-wrap: wrap; }
 }
