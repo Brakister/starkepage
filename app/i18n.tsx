@@ -560,7 +560,7 @@ export const vehicleBrands = [
       pt: "Componentes para as linhas 911, Cayenne, Macan, Panamera, Boxster e Cayman, respeitando a configuração e as exigências técnicas de cada veículo.",
       en: "Components for the 911, Cayenne, Macan, Panamera, Boxster and Cayman lines, respecting the configuration and technical requirements of each vehicle.",
     },
-    image: "/vehicles/porsche-color-hero.png",
+    image: "/vehicles/porsche-color-hero.webp",
   },
   {
     name: "BMW",
@@ -574,7 +574,7 @@ export const vehicleBrands = [
       pt: "Soluções para sedãs, SUVs e modelos esportivos das famílias Série 1, Série 3, Série 5, Série 7, X e aplicações selecionadas da linha M.",
       en: "Solutions for sedans, SUVs and sports models from the 1, 3, 5 and 7 Series, X and selected M-line applications.",
     },
-    image: "/vehicles/bmw-color-hero.png",
+    image: "/vehicles/bmw-color-hero.webp",
   },
   {
     name: "Mercedes-Benz",
@@ -588,7 +588,7 @@ export const vehicleBrands = [
       pt: "Atendimento a aplicações das classes A, C, E e S, além de GLA, GLC, GLE e outros veículos da marca, sempre com validação técnica da peça.",
       en: "Service for A, C, E and S-Class applications, plus GLA, GLC, GLE and other vehicles from the brand, always with technical validation of the part.",
     },
-    image: "/vehicles/mercedes-color-hero.png",
+    image: "/vehicles/mercedes-color-hero.webp",
   },
   {
     name: "Audi",
@@ -602,7 +602,7 @@ export const vehicleBrands = [
       pt: "Peças para famílias A3, A4, A5, A6, Q3, Q5, Q7 e aplicações esportivas S e RS, conforme disponibilidade e identificação correta do veículo.",
       en: "Parts for the A3, A4, A5, A6, Q3, Q5 and Q7 families and S and RS performance applications, according to availability and correct vehicle identification.",
     },
-    image: "/vehicles/audi-color-hero.png",
+    image: "/vehicles/audi-color-hero.webp",
   },
   {
     name: "Land Rover",
@@ -616,7 +616,7 @@ export const vehicleBrands = [
       pt: "Componentes para Range Rover, Evoque, Discovery e Defender, com atenção especial aos sistemas de suspensão, arrefecimento e motorização.",
       en: "Components for Range Rover, Evoque, Discovery and Defender, with special attention to suspension, cooling and engine systems.",
     },
-    image: "/vehicles/land-rover-color-hero.png",
+    image: "/vehicles/land-rover-color-hero.webp",
   },
   {
     name: "Volvo",
@@ -630,7 +630,7 @@ export const vehicleBrands = [
       pt: "Soluções selecionadas para as famílias XC, S e V, considerando tecnologia embarcada, procedência e especificação de cada conjunto.",
       en: "Selected solutions for the XC, S and V families, considering onboard technology, origin and specification of each assembly.",
     },
-    image: "/vehicles/volvo-color-hero.png",
+    image: "/vehicles/volvo-color-hero.webp",
   },
   {
     name: "Jaguar",
@@ -644,7 +644,7 @@ export const vehicleBrands = [
       pt: "Aplicações para sedãs, SUVs e esportivos Jaguar, com suporte especializado para a identificação de versões, motores e sistemas.",
       en: "Applications for Jaguar sedans, SUVs and sports cars, with specialized support for identifying versions, engines and systems.",
     },
-    image: "/vehicles/jaguar-color-hero.png",
+    image: "/vehicles/jaguar-color-hero.webp",
   },
   {
     name: "MINI",
@@ -658,7 +658,7 @@ export const vehicleBrands = [
       pt: "Componentes para Cooper, Countryman, Clubman, Cabrio e John Cooper Works, de acordo com a geração e a motorização do veículo.",
       en: "Components for Cooper, Countryman, Clubman, Cabrio and John Cooper Works, according to the generation and engine of the vehicle.",
     },
-    image: "/vehicles/mini-hero.png",
+    image: "/vehicles/mini-hero.webp",
   },
   {
     name: "Ferrari",
@@ -672,7 +672,7 @@ export const vehicleBrands = [
       pt: "Consulta especializada para aplicações selecionadas de veículos superesportivos, considerando os requisitos técnicos de cada projeto.",
       en: "Specialized consultation for selected supercar applications, considering the technical requirements of each project.",
     },
-    image: "/vehicles/ferrari-hero.png",
+    image: "/vehicles/ferrari-hero.webp",
   },
   {
     name: "Lamborghini",
@@ -686,7 +686,7 @@ export const vehicleBrands = [
       pt: "Atendimento sob consulta para aplicações de alta performance e componentes compatíveis com as especificações da montadora.",
       en: "Service on request for high-performance applications and components compatible with the manufacturer's specifications.",
     },
-    image: "/vehicles/lamborghini-hero.png",
+    image: "/vehicles/lamborghini-hero.webp",
   },
   {
     name: "VW Premium",
@@ -700,7 +700,7 @@ export const vehicleBrands = [
       pt: "Componentes destinados a aplicações selecionadas da Volkswagen premium, sempre conforme veículo, motorização e chassi.",
       en: "Components for selected premium Volkswagen applications, always according to vehicle, engine and chassis.",
     },
-    image: "/vehicles/volkswagen-color-hero.png",
+    image: "/vehicles/volkswagen-color-hero.webp",
   },
 ];
 

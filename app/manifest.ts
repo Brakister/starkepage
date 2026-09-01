@@ -14,14 +14,9 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["business", "shopping"],
     icons: [
       {
-        src: "/starke-parts-logo.png",
-        sizes: "any",
+        src: "/favicon-starke.png",
+        sizes: "512x512",
         type: "image/png",
-      },
-      {
-        src: "/favicon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
       },
     ],
   };

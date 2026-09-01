@@ -91,12 +91,9 @@ export const metadata: Metadata = {
     images: [ogImage],
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
-    shortcut: "/favicon.ico",
-    apple: "/starke-parts-logo.png",
+    icon: [{ url: "/favicon-starke.png?v=2", type: "image/png", sizes: "512x512" }],
+    shortcut: "/favicon-starke.png?v=2",
+    apple: "/favicon-starke.png?v=2",
   },
   verification: {
     google: undefined,
@@ -114,6 +111,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" data-theme="dark">
       <head>
+        <link rel="icon" href="/favicon-starke.png?v=2" type="image/png" sizes="512x512" />
+        <link rel="shortcut icon" href="/favicon-starke.png?v=2" type="image/png" />
+        <link rel="preload" href="/unidade-sao-paulo.webp" as="image" type="image/webp" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <link rel="canonical" href={siteOrigin.toString()} />

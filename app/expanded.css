@@ -169,7 +169,7 @@
   aspect-ratio: 1672 / 939;
   min-height: 0;
   background-color: #f7f7f7;
-  background-image: linear-gradient(0deg, rgba(4, 4, 4, .12), rgba(4, 4, 4, 0)), url("/autoparts-editorial-conjunto.png");
+  background-image: linear-gradient(0deg, rgba(4, 4, 4, .12), rgba(4, 4, 4, 0)), url("/autoparts-editorial-conjunto.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%, contain;
@@ -835,7 +835,7 @@
   aspect-ratio: 1672 / 939;
   min-height: 0;
   background-color: #f7f7f7;
-  background-image: linear-gradient(90deg, rgba(4, 4, 4, 0), rgba(4, 4, 4, .12)), url("/autoparts-editorial-conjunto.png");
+  background-image: linear-gradient(90deg, rgba(4, 4, 4, 0), rgba(4, 4, 4, .12)), url("/autoparts-editorial-conjunto.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%, contain;
@@ -3304,7 +3304,7 @@
   border-radius: 18px;
   background:
     linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.015) 48%, rgba(250,206,45,.03)),
-    url("/technical-mesh-premium-v2.png") center/cover;
+    url("/technical-mesh-premium-v2.webp") center/cover;
   box-shadow: inset 1px 1px 0 rgba(255,255,255,.07), 0 14px 28px rgba(8,8,6,.24);
   color: #fff;
 }
@@ -3765,7 +3765,7 @@
 
 .story-intro {
   position: relative;
-  height: 300vh;
+  height: 240vh;
   background: transparent;
 }
 
@@ -4503,7 +4503,7 @@ html.lenis, html.lenis body { height: auto; }
 .structure-page .locations-grid .location-card:first-child:hover {
   background:
     linear-gradient(135deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .82)),
-    url("/unidade-sao-paulo.png") center 58% / cover no-repeat;
+    url("/unidade-sao-paulo.webp") center 58% / cover no-repeat;
   color: #fff;
 }
 
@@ -4511,7 +4511,7 @@ html.lenis, html.lenis body { height: auto; }
 .structure-page .locations-grid .location-card:nth-child(3):hover {
   background:
     linear-gradient(135deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .82)),
-    url("/unidade-campinas.png") center / cover no-repeat;
+    url("/unidade-campinas.webp") center / cover no-repeat;
   color: #fff;
 }
 

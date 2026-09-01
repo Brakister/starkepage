@@ -51,7 +51,7 @@ const vehicleBrandLogoFiles: Record<string, string> = {
   Audi: "/vehicle-logos/audi.svg",
   "Land Rover": "/vehicle-logos/land-rover.svg",
   Volvo: "/vehicle-logos/volvo.svg",
-  Jaguar: "/vehicle-logos/jaguar.svg",
+  Jaguar: "/vehicle-logos/logo-jaguar.png",
   MINI: "/vehicle-logos/mini.svg",
   Ferrari: "/vehicle-logos/ferrari.svg",
   Lamborghini: "/vehicle-logos/lamborghini.svg",
@@ -304,7 +304,21 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
         .fromTo(".story-slide--n3 .story-appear", { y: 44, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 8.7)
         .add(() => setActive(2), 8.2);
 
-      ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", scrub: 0.6, animation: tl });
+      ScrollTrigger.create({
+        trigger: root,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        animation: tl,
+        snap: {
+          snapTo: [0, 1 / 3, 2 / 3, 1],
+          duration: 0.24,
+          delay: 0,
+          ease: "power2.inOut",
+          directional: false,
+          inertia: false,
+        },
+      });
     }, root);
     return () => ctx.revert();
   }, [ready]);
@@ -360,7 +374,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
 
       <article className="story-slide story-slide--n3">
         <div className="story-ml">
-          <img src="/mercadolivre.png" alt="Mercado Livre" className="story-ml__logo story-appear" />
+          <img src="/mercadolivre.png" alt="Mercado Livre" className="story-ml__logo story-appear" loading="lazy" decoding="async" />
           <div className="story-ml__badge story-appear">
             <span className="story-ml__badge-dot" />
             {t("intro4.badge")}
@@ -474,7 +488,7 @@ function ManufacturerLogoCarousel() {
 
   return <section className="manufacturer-logo-carousel" aria-label={t("man.logoAria")}>
     <div className="manufacturer-logo-track">
-      {[...manufacturerCarouselBrands, ...manufacturerCarouselBrands].map((brand, index) => <button className={`manufacturer-logo ${selectedBrand.name === brand.name ? "manufacturer-logo--active" : ""}`} key={`${brand.name}-${index}`} onClick={() => setSelectedBrand(brand)} aria-pressed={selectedBrand.name === brand.name} aria-hidden={index >= manufacturerCarouselBrands.length ? true : undefined} tabIndex={index >= manufacturerCarouselBrands.length ? -1 : 0}><img src={manufacturerLogoFiles[brand.name]} alt={brand.name} /></button>)}
+      {[...manufacturerCarouselBrands, ...manufacturerCarouselBrands].map((brand, index) => <button className={`manufacturer-logo ${selectedBrand.name === brand.name ? "manufacturer-logo--active" : ""}`} key={`${brand.name}-${index}`} onClick={() => setSelectedBrand(brand)} aria-pressed={selectedBrand.name === brand.name} aria-hidden={index >= manufacturerCarouselBrands.length ? true : undefined} tabIndex={index >= manufacturerCarouselBrands.length ? -1 : 0}><img src={manufacturerLogoFiles[brand.name]} alt={brand.name} loading="lazy" decoding="async" /></button>)}
     </div>
     <article className="manufacturer-brand-summary" key={selectedBrand.name} aria-live="polite"><div><small>{selectedBrand.origin[lang]}</small><h4>{selectedBrand.name}</h4></div><div><span>{t("man.history")}</span><p>{selectedBrand.history[lang]}</p></div><div><span>{t("man.lines")}</span><p>{selectedBrand.work[lang]}</p></div></article>
   </section>;
@@ -666,7 +680,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
   const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const specialties = [
     { href: "/produtos", image: "/autoparts-brakes.webp", number: "01", title: "Portfólio premium", text: "Freios, suspensão, motor, filtragem e sistemas técnicos para aplicações exigentes." },
-    { href: "/montadoras", image: "/autoparts-editorial-conjunto.png", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
+    { href: "/montadoras", image: "/autoparts-editorial-conjunto.webp", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
     { href: "/fabricantes", image: "/autoparts-filters.webp", number: "03", title: "Fabricantes globais", text: "Marcas reconhecidas e procedência para escolhas mais seguras em cada reparação." },
   ];
 
@@ -685,7 +699,7 @@ function HomeLanding({ scrolled }: { scrolled: boolean }) {
 
     <section className="landing-intro"><Eyebrow>QUEM SOMOS</Eyebrow><div><h2>Especialistas no universo<br />automotivo <em>premium.</em></h2><p>A Stärke Parts conecta oficinas, centros automotivos, lojistas e proprietários a componentes selecionados para automóveis importados e de alta performance.</p><Link className="text-link" href="/empresa">Conheça nossa história <span>↗</span></Link></div></section>
 
-    <section className="landing-specialties"><div className="landing-section-title"><Eyebrow light>NOSSAS ESPECIALIDADES</Eyebrow><h2>Soluções construídas<br />sobre <em>confiança.</em></h2></div><div className="landing-card-grid">{specialties.map(item => <Link className="landing-card" href={item.href} key={item.number}><img src={item.image} alt="" /><div className="landing-card__shade" /><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.text}</p><b>Explorar →</b></div></Link>)}</div></section>
+    <section className="landing-specialties"><div className="landing-section-title"><Eyebrow light>NOSSAS ESPECIALIDADES</Eyebrow><h2>Soluções construídas<br />sobre <em>confiança.</em></h2></div><div className="landing-card-grid">{specialties.map(item => <Link className="landing-card" href={item.href} key={item.number}><img src={item.image} alt="" loading="lazy" decoding="async" /><div className="landing-card__shade" /><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.text}</p><b>Explorar →</b></div></Link>)}</div></section>
 
     <section className="landing-proof"><div><strong>10</strong><span>anos de<br />especialização</span></div><div><strong>04</strong><span>operações<br />em São Paulo</span></div><div><strong>30+</strong><span>fabricantes<br />selecionados</span></div><div><strong>BR</strong><span>expedição para<br />todo o país</span></div></section>
 
@@ -715,18 +729,44 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   }, []);
 
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    if (splashDone) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    window.scrollTo(0, 0);
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+    };
+  }, [splashDone]);
+
+  useEffect(() => {
+    if (!splashDone) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const lenis = new Lenis({
+      lerp: 0.16,
+      smoothWheel: !reduceMotion,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1,
+      syncTouch: false,
+      overscroll: false,
+    });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
+    const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => {
+      window.cancelAnimationFrame(refreshFrame);
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, []);
+  }, [splashDone]);
 
   const handleSplashComplete = useCallback(() => {
     sessionStorage.setItem("starke-welcome-seen", "true");
