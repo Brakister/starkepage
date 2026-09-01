@@ -1275,16 +1275,9 @@ export const locations = [
     code: "SP·03",
     city: "Campinas",
     type: { pt: "FILIAL", en: "BRANCH" },
-<<<<<<< HEAD
     area: { pt: "Parque Italia", en: "Parque Italia" },
     address: "R. Pedro Domingos Vitali, 400 - Parque Italia, Campinas - SP, 13036-180",
     addressHref: "https://www.google.com/maps/search/?api=1&query=R.+Pedro+Domingos+Vitali,+400,+Parque+Italia,+Campinas+-+SP,+13036-180",
-=======
-    area: { pt: "Parque das Universidades", en: "Parque das Universidades" },
-    address:
-      "Av. José Próspero Jacobucci, 253 · Pq das Universidades, Campinas - SP · CEP 13086-090",
-    addressHref: "https://maps.google.com/?q=Av.+José+Próspero+Jacobucci,+253,+Parque+das+Universidades,+Campinas+-+SP,+13086-090",
->>>>>>> 42fe1f74236589f6c8b7169d7bee5405b51e4c9e
     phone: "(19) 97820-4813",
     phoneHref: "tel:+5519978204813",
     description: {
@@ -1799,8 +1792,4 @@ export const serviceSteps = [
       en: "The service continues with the most suitable unit, considering availability, location and the applicable logistics option.",
     },
   },
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> 42fe1f74236589f6c8b7169d7bee5405b51e4c9e

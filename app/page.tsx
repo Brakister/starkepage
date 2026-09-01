@@ -304,26 +304,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
         .fromTo(".story-slide--n3 .story-appear", { y: 44, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.12, ease: "power2.out" }, 8.7)
         .add(() => setActive(2), 8.2);
 
-<<<<<<< HEAD
       ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", scrub: 0.6, animation: tl });
-=======
-      ScrollTrigger.create({
-        trigger: root,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.6,
-        animation: tl,
-        snap: {
-          snapTo: [0, 1 / 3, 2 / 3],
-          duration: { min: 0.2, max: 0.7 },
-          ease: "power1.inOut",
-          delay: 0,
-          onStart: () => { },
-          onInterrupt: () => { },
-          onComplete: () => { }
-        }
-      });
->>>>>>> 42fe1f74236589f6c8b7169d7bee5405b51e4c9e
     }, root);
     return () => ctx.revert();
   }, [ready]);
