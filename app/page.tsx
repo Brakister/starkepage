@@ -165,6 +165,7 @@ function HeroBackdrop() {
 function RotatingWord() {
   const { lang } = useLanguage();
   const [idx, setIdx] = useState(0);
+  const accentRef = useRef<HTMLSpanElement>(null);
   const words = heroWords[lang];
   const widest = words.reduce((a, b) => (b.length > a.length ? b : a));
 
@@ -177,13 +178,29 @@ function RotatingWord() {
     return () => clearInterval(timer);
   }, [words.length]);
 
+  useEffect(() => {
+    const el = accentRef.current;
+    if (!el) return;
+    const letters = el.querySelectorAll(".invite-letter");
+    gsap.fromTo(letters,
+      { opacity: 0, transform: "translateY(.42em) rotateX(-80deg) scale(.84)" },
+      {
+        opacity: 1,
+        transform: "translateY(0) rotateX(0deg) scale(1)",
+        duration: 0.6,
+        ease: "power3.out",
+        stagger: 0.05,
+        clearProps: "transform",
+      }
+    );
+  }, [idx, lang]);
+
   return <span className="invite-accent-group">
-    <span className="invite-fade--accent invite-fade--in" key={`${lang}-${idx}`} aria-label={words[idx]}>
+    <span className="invite-fade--accent" ref={accentRef} key={`${lang}-${idx}`} aria-label={words[idx]}>
       {Array.from(words[idx]).map((letter, charIndex) => <span
         className="invite-letter"
         aria-hidden="true"
         key={`${letter}-${charIndex}`}
-        style={{ "--char-index": charIndex } as CSSProperties}
       >{letter === " " ? "\u00a0" : letter}</span>)}
     </span>
     <span className="invite-accent-ghost" aria-hidden="true">{widest}</span>
