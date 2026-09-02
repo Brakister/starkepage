@@ -284,7 +284,7 @@ function PanelHeading({ kicker, title, text }: { kicker: string; title: string; 
   return <div className="panel-heading"><Eyebrow>{kicker}</Eyebrow><h3>{title}</h3><p>{text}</p></div>;
 }
 
-function StoryIntro({ onContact }: { onContact: () => void }) {
+function StoryIntro() {
   const { lang, t } = useLanguage();
   const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const wrapRef = useRef<HTMLElement>(null);
@@ -331,6 +331,18 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
     };
   }, [ready]);
 
+  const goToSlide = useCallback((index: number) => {
+    const root = wrapRef.current;
+    if (!root) return;
+    const pinWindow = Math.max(1, root.offsetHeight - window.innerHeight);
+    const rootTop = window.scrollY + root.getBoundingClientRect().top;
+    const progress = (index + 0.5) / 3;
+    window.scrollTo({
+      top: rootTop + pinWindow * progress,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }, []);
+
   return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
     {ready && <div className="story-intro__pin">
       <article className={`story-slide story-slide--n1 ${active === 0 ? "is-active" : ""}`}>
@@ -345,7 +357,7 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
               <h3 dangerouslySetInnerHTML={{ __html: t("intro2.title") }} />
             </div>
             <p className="story-contact__text">{t("intro2.text")}</p>
-            <button className="text-link story-contact__link" onClick={onContact}>{t("intro2.cta")} <span>↗</span></button>
+            <a className="text-link story-contact__link" href={WHATSAPP} target="_blank" rel="noreferrer">{t("intro2.cta")} <span>↗</span></a>
           </div>
           <div className="story-chat-card story-appear">
             <span className="story-chat-card__live"><i aria-hidden="true" />{t("intro2.live")}</span>
@@ -380,9 +392,9 @@ function StoryIntro({ onContact }: { onContact: () => void }) {
         </div>
       </article>
 
-      <div className="story-rail" role="presentation">
-        {[0, 1, 2].map(i => <span key={i} className={`story-rail__item ${active === i ? "is-active" : ""}`}><b>{String(i + 1).padStart(2, "0")}</b><i /></span>)}
-      </div>
+      <nav className="story-rail" aria-label={lang === "en" ? "Intro slides" : "Telas de introdução"}>
+        {[0, 1, 2].map(i => <button type="button" key={i} className={`story-rail__item ${active === i ? "is-active" : ""}`} onClick={() => goToSlide(i)} aria-label={lang === "en" ? `Go to slide ${i + 1}` : `Ir para a tela ${i + 1}`} aria-current={active === i ? "step" : undefined}><b>{String(i + 1).padStart(2, "0")}</b><i aria-hidden="true" /></button>)}
+      </nav>
     </div>}
   </section>;
 }
@@ -436,9 +448,10 @@ function InstitutionalVideoSection() {
     </div>
   </section>;
 }
-function ClosingSection({ onContact }: { onContact: () => void }) {
-  const { t } = useLanguage();
-  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>;
+function ClosingSection() {
+  const { lang, t } = useLanguage();
+  const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
+  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><a className="button button--yellow" href={WHATSAPP} target="_blank" rel="noreferrer">{t("closing.cta")} <span>↗</span></a></section>;
 }
 const MemoClosing = memo(ClosingSection);
 
@@ -592,7 +605,6 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
     <div className="brand-explorer">
       <div className="brand-selector" aria-label={t("app.selectorAria")}>
         {vehicleBrands.map((item, index) => {
-          const showing = selected === index || previewed === index;
           return <button
             type="button"
             key={item.name}
@@ -604,7 +616,7 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
             onFocus={() => setPreviewed(index)}
             onBlur={() => setPreviewed(null)}
             aria-pressed={selected === index}
-            style={showing ? { ["--vehicle-image" as string]: `url('${item.image}')` } : undefined}
+            style={{ ["--vehicle-image" as string]: `url('${item.image}')` }}
           >
             <span className="brand-selector-index">{String(index + 1).padStart(2, "0")}</span>
             <span className="brand-selector-name">{item.name}</span>
@@ -635,8 +647,9 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
   </div>;
 }
 
-function ProductsPanel({ onContact }: { onContact: () => void }) {
+function ProductsPanel() {
   const { lang, t } = useLanguage();
+  const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   return <div className="products-page">
     <PanelHeading kicker={t("prod.kicker")} title={t("prod.title")} text={t("prod.text")} />
     <div className="product-spotlight"><div className="product-spotlight-photo" aria-label={t("prod.spotEyebrow")} /><div className="product-spotlight-copy"><Eyebrow>{t("prod.spotEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.spotHeading") }} /><p>{t("prod.spotText")}</p></div></div>
@@ -644,7 +657,7 @@ function ProductsPanel({ onContact }: { onContact: () => void }) {
     <div className="subsection-heading"><Eyebrow>{t("prod.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.secHeading") }} /></div>
     <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
     <div className="quality-banner"><span>{t("prod.bannerEyebrow")}</span><h4 dangerouslySetInnerHTML={{ __html: t("prod.bannerHeading") }} /><p>{t("prod.bannerText")}</p></div>
-    <aside className="info-strip"><strong>{t("prod.notFound")}</strong><button className="text-link" onClick={onContact}>{t("prod.cta")} <span>↗</span></button></aside>
+    <aside className="info-strip"><strong>{t("prod.notFound")}</strong><a className="text-link" href={WHATSAPP} target="_blank" rel="noreferrer">{t("prod.cta")} <span>↗</span></a></aside>
   </div>;
 }
 
@@ -891,9 +904,9 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div><a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">{t("nav.cta")} <span>↗</span></a></div></header>
     <MemoHero />
     <MemoTicker />
-    <MemoStoryIntro onContact={onContact} />
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel onContact={onContact} />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
-    <MemoClosing onContact={onContact} />
+    <MemoStoryIntro />
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
+    <MemoClosing />
     <MemoFooter />
   </main>
   </>;

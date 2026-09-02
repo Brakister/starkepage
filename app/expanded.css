@@ -3392,6 +3392,7 @@
 }
 .closing-statement > * { position: relative; z-index: 1; }
 
+
 /* Unit cards — light palette with the original brand accents */
 .structure-page .locations-grid {
   border-color: #d8d4c8;
@@ -4431,7 +4432,6 @@
   align-items: flex-end;
   gap: 20px;
   transform: translateY(-50%);
-  pointer-events: none;
 }
 
 .story-rail__item {
@@ -4439,7 +4439,16 @@
   grid-template-columns: auto auto;
   gap: 10px;
   align-items: center;
+  margin: 0;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
 }
+
+.story-rail__item:hover { box-shadow: none; transform: none; }
+.story-rail__item:focus-visible { outline: 2px solid var(--yellow); outline-offset: 5px; }
 
 .story-rail__item b {
   color: rgba(255, 255, 255, .32);
