@@ -421,7 +421,7 @@ function InstitutionalVideoSection() {
 }
 function ClosingSection({ onContact }: { onContact: () => void }) {
   const { t } = useLanguage();
-  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button><div className="closing-statement__assets" aria-hidden="true"><img className="closing-asset closing-asset--one" src="/ativo-1.svg" alt="" /><img className="closing-asset closing-asset--two" src="/ativo-2.svg" alt="" /><img className="closing-asset closing-asset--three" src="/ativo-3.svg" alt="" /></div></section>;
+  return <section className="closing-statement"><Eyebrow light>{t("closing.eyebrow")}</Eyebrow><h2 dangerouslySetInnerHTML={{ __html: t("closing.heading") }} /><button className="button button--yellow" onClick={onContact}>{t("closing.cta")} <span>↗</span></button></section>;
 }
 const MemoClosing = memo(ClosingSection);
 
@@ -507,11 +507,6 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
     <div className="panel-heading panel-heading--institutional">
       <Eyebrow>{t("inst.eyebrow")}</Eyebrow>
       <h3>{t("inst.title")}</h3>
-      <div className="institutional-heading-assets" aria-hidden="true">
-        <img className="institutional-heading-asset institutional-heading-asset--one" src="/ativo-1.svg" alt="" />
-        <img className="institutional-heading-asset institutional-heading-asset--two" src="/ativo-2.svg" alt="" />
-        <img className="institutional-heading-asset institutional-heading-asset--three" src="/ativo-3.svg" alt="" />
-      </div>
 
       <div className="institutional-history-intro">
         <p className="institutional-history-lead">{t("inst.lead")}</p>

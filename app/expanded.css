@@ -1519,15 +1519,8 @@
 .institutional-page .panel-heading--institutional > .eyebrow,
 .institutional-page .panel-heading--institutional > h3,
 .institutional-page .panel-heading--institutional > .institutional-history-intro { position: relative; z-index: 1; }
-.institutional-heading-assets { position: absolute; z-index: 0; top: 0; right: 0; width: min(38%, 420px); height: 340px; overflow: hidden; opacity: .6; pointer-events: none; }
-.institutional-heading-asset { position: absolute; display: block; height: auto; filter: saturate(1.08) contrast(1.08) drop-shadow(0 12px 22px rgba(0,0,0,.34)); }
-.institutional-heading-asset--one { top: -34px; right: 32px; width: 54px; transform: rotate(90deg); }
-.institutional-heading-asset--two { top: -1px; right: 106px; width: clamp(175px, 18vw, 245px); }
-.institutional-heading-asset--three { top: 58%; right: -1px; width: clamp(145px, 14vw, 195px); transform: translateY(-50%); }
-
 .institutional-page .panel-heading--institutional .institutional-history-lead { max-width: 62%; font-size: 20px; line-height: 1.75; }
 @media (max-width: 900px) {
-  .institutional-heading-assets { display: none; }
   .institutional-page .panel-heading--institutional h3,
   .institutional-page .panel-heading--institutional .institutional-history-lead { max-width: 100%; }
 }
@@ -2036,10 +2029,6 @@
 
 @media (max-width: 760px) {
   .institutional-page .panel-heading--institutional h3 { font-size: 43px; }
-  .institutional-heading-assets { top: 20px; right: 10px; width: 42%; height: 220px; opacity: .3; }
-  .institutional-heading-asset--one { top: -24px; right: 8px; width: 40px; }
-  .institutional-heading-asset--two { top: -1px; right: 48px; width: 120px; }
-  .institutional-heading-asset--three { top: 58%; right: 0; width: 92px; }
   .institutional-page .roadmap-heading h4 { font-size: 42px; line-height: 1.04; }
   .institutional-page .identity-heading { grid-template-columns: 1fr; grid-template-rows: auto; gap: 30px; min-height: 580px; padding: 50px 30px 75px; }
   .institutional-page .identity-heading h4 { grid-column: 1; grid-row: auto; font-size: 46px; }
@@ -3402,11 +3391,6 @@
   pointer-events: none;
 }
 .closing-statement > * { position: relative; z-index: 1; }
-.closing-statement .closing-statement__assets { position: absolute; inset: 0 auto 0 0; z-index: 0; width: clamp(180px, 14vw, 215px); overflow: hidden; pointer-events: none; }
-.closing-asset { position: absolute; display: block; height: auto; opacity: .7; filter: saturate(1.08) contrast(1.06) drop-shadow(0 10px 20px rgba(0,0,0,.38)); }
-.closing-asset--one { top: 18px; left: 28px; width: 90px; transform: rotate(1deg); }
-.closing-asset--two { top: 50%; left: -100px; width: 300px; transform: translateY(-50%); }
-.closing-asset--three { bottom: 16px; left: -10px; width: 140px; transform: rotate(-1deg); }
 
 /* Unit cards — light palette with the original brand accents */
 .structure-page .locations-grid {
@@ -3527,10 +3511,6 @@
   .closing-statement::after {
     clip-path: polygon(86.8% 0, 88.4% 0, 74% 100%, 72.4% 100%);
   }
-  .closing-statement .closing-statement__assets { right: auto; left: 0; width: 112px; opacity: .66; }
-  .closing-asset--one { top: 14px; left: 18px; width: 60px; }
-  .closing-asset--two { top: 50%; left: -74px; width: 205px; }
-  .closing-asset--three { bottom: 12px; left: -8px; width: 94px; }
 }
 
 /* Automaker emblems inside the vehicle selector */
