@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo, memo, type CSSProperties, type KeyboardEvent } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -58,15 +57,6 @@ const vehicleBrandLogoFiles: Record<string, string> = {
 "VW Premium": "/vehicle-logos/volkswagen.svg",
 };
 
-const supplierGroups = [
-  { title: "Bilstein Group", brands: ["febi", "SWAG", "Blue Friction"], category: "AFTERMARKET PREMIUM", description: "Portfólio de componentes para manutenção e reparação com foco em procedência, abrangência e qualidade técnica. A Stärke Parts é distribuidora oficial febi." },
-  { title: "ZF Aftermarket", brands: ["TRW", "LEMFÖRDER", "SACHS"], category: "SEGURANÇA E DINÂMICA", description: "Soluções reconhecidas para freios, suspensão, direção e amortecimento em aplicações premium." },
-  { title: "Frenagem e performance", brands: ["Brembo", "Textar"], category: "SISTEMAS DE FREIO", description: "Fabricantes com soluções para discos, pastilhas e componentes de frenagem orientados à segurança e à performance." },
-  { title: "Filtragem e motor", brands: ["Hengst", "MAHLE", "UFI"], category: "FILTRAGEM ESPECIALIZADA", description: "Marcas reconhecidas por soluções de filtragem e componentes relacionados à proteção e ao funcionamento do motor." },
-  { title: "Tecnologia automotiva", brands: ["Bosch", "HELLA", "Delphi", "Continental", "Pierburg"], category: "ELÉTRICA E GERENCIAMENTO", description: "Especialistas em sensores, sistemas eletrônicos, ignição, componentes de motor e tecnologias automotivas." },
-  { title: "Especialidades técnicas", brands: ["HEPU", "GEBA", "BGA", "ÜRO Parts", "SIDEM", "Hoffer", "Meat&Doria"], category: "LINHAS COMPLEMENTARES", description: "Soluções específicas para arrefecimento, direção, motor e aplicações que exigem uma seleção cuidadosa de fabricantes." },
-  { title: "Marca própria", brands: ["Forschen"], category: "IDENTIDADE STÄRKE", description: "Uma linha própria construída dentro do universo de especialização, disponibilidade e confiança da Stärke Parts." },
-];
 function SplashScreen({ onComplete }: { onComplete: () => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const lettersRef = useRef<Array<HTMLSpanElement | null>>([]);
@@ -168,8 +158,7 @@ function RotatingWord() {
   const accentRef = useRef<HTMLSpanElement>(null);
   const words = heroWords[lang];
   const widest = words.reduce((a, b) => (b.length > a.length ? b : a));
-
-  useEffect(() => { setIdx(0); }, [lang]);
+  const activeIdx = idx % words.length;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -196,8 +185,8 @@ function RotatingWord() {
   }, [idx, lang]);
 
   return <span className="invite-accent-group">
-    <span className="invite-fade--accent" ref={accentRef} key={`${lang}-${idx}`} aria-label={words[idx]}>
-      {Array.from(words[idx]).map((letter, charIndex) => <span
+    <span className="invite-fade--accent" ref={accentRef} key={`${lang}-${activeIdx}`} aria-label={words[activeIdx]}>
+      {Array.from(words[activeIdx]).map((letter, charIndex) => <span
         className="invite-letter"
         aria-hidden="true"
         key={`${letter}-${charIndex}`}
@@ -402,7 +391,6 @@ function StoryIntro() {
 const MemoStoryIntro = memo(StoryIntro);
 
 function HeroSection() {
-  const { t } = useLanguage();
   return <section className="hero" aria-labelledby="hero-title"><HeroBackdrop /><HeroInvite /><HeroMarkOne /><div className="hero-meta"><span>SÃO PAULO · SOROCABA · CAMPINAS · SANTOS</span><span>EST. 2016</span></div></section>;
 }
 const MemoHero = memo(HeroSection);
@@ -712,47 +700,21 @@ function ServicePanel() {
   </div>;
 }
 
-function HomeLanding({ scrolled }: { scrolled: boolean }) {
-  const { lang } = useLanguage();
-  const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
-  const specialties = [
-    { href: "/produtos", image: "/autoparts-brakes.webp", number: "01", title: "Portfólio premium", text: "Freios, suspensão, motor, filtragem e sistemas técnicos para aplicações exigentes." },
-    { href: "/montadoras", image: "/autoparts-editorial-conjunto.webp", number: "02", title: "Aplicações", text: "Atendimento especializado para veículos importados, premium e superesportivos." },
-    { href: "/fabricantes", image: "/autoparts-filters.webp", number: "03", title: "Fabricantes globais", text: "Marcas reconhecidas e procedência para escolhas mais seguras em cada reparação." },
-  ];
-
-  return <main id="topo" className="landing">
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}>
-      <Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link>
-      <nav className="desktop-nav" aria-label="Navegação principal"><Link href="/empresa">A empresa</Link><Link href="/montadoras">Montadoras</Link><Link href="/produtos">Produtos</Link><Link href="/fabricantes">Fabricantes</Link><Link href="/unidades">Unidades</Link></nav>
-      <a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">Falar com especialista <span>↗</span></a>
-    </header>
-
-    <section className="landing-hero" aria-labelledby="landing-title">
-      <div className="landing-hero__photo" aria-hidden="true" />
-      <div className="landing-hero__content"><Eyebrow light>PREMIUM AUTOMOTIVE PARTS · BRASIL</Eyebrow><h1 id="landing-title">Engenharia exige<br /><em>a peça certa.</em></h1><p>Distribuição especializada, fabricantes globais e conhecimento técnico para veículos que não aceitam concessões.</p><Link className="button button--yellow" href="/produtos">Conheça nossas soluções <span>→</span></Link></div>
-      <div className="landing-hero__index"><span>STÄRKE PARTS</span><span>DESDE 2016</span></div>
-    </section>
-
-    <section className="landing-intro"><Eyebrow>QUEM SOMOS</Eyebrow><div><h2>Especialistas no universo<br />automotivo <em>premium.</em></h2><p>A Stärke Parts conecta oficinas, centros automotivos, lojistas e proprietários a componentes selecionados para automóveis importados e de alta performance.</p><Link className="text-link" href="/empresa">Conheça nossa história <span>↗</span></Link></div></section>
-
-    <section className="landing-specialties"><div className="landing-section-title"><Eyebrow light>NOSSAS ESPECIALIDADES</Eyebrow><h2>Soluções construídas<br />sobre <em>confiança.</em></h2></div><div className="landing-card-grid">{specialties.map(item => <Link className="landing-card" href={item.href} key={item.number}><img src={item.image} alt="" loading="lazy" decoding="async" /><div className="landing-card__shade" /><span>{item.number}</span><div><h3>{item.title}</h3><p>{item.text}</p><b>Explorar →</b></div></Link>)}</div></section>
-
-    <section className="landing-proof"><div><strong>10</strong><span>anos de<br />especialização</span></div><div><strong>04</strong><span>operações<br />em São Paulo</span></div><div><strong>30+</strong><span>fabricantes<br />selecionados</span></div><div><strong>BR</strong><span>expedição para<br />todo o país</span></div></section>
-
-    <section className="landing-cta"><div className="landing-cta__photo" aria-hidden="true" /><div><Eyebrow light>ATENDIMENTO ESPECIALIZADO</Eyebrow><h2>Da aplicação à entrega,<br /><em>precisão em cada etapa.</em></h2><p>Conte com uma equipe preparada para identificar o componente e orientar a melhor solução para o seu veículo ou negócio.</p><Link className="button button--yellow" href="/atendimento">Fale com a Stärke Parts <span>↗</span></Link></div></section>
-
-    <footer className="footer"><Link className="wordmark" href="/" aria-label="Stärke Parts, início"><img src="/starke-parts-logo.png" alt="" /></Link><span>Oferecemos peças. Entregamos confiança.</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>
-  </main>;
-}
-
 function StarkePageContent({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
   const { lang: language, setLanguage, t } = useLanguage();
   const WHATSAPP = language === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const tabs = useMemo(() => translatedTabs.map(tab => ({ ...tab, label: tab.label[language] })), [language]);
-  const [active, setActive] = useState<TabId>(initialSection);
-  const [scrolled, setScrolled] = useState(false);
-  const [splashDone, setSplashDone] = useState(!showSplash);
+  const [active, setActive] = useState<TabId>(() => {
+    if (typeof window === "undefined") return initialSection;
+    const hash = window.location.hash.slice(1);
+    return translatedTabs.some(tab => tab.id === hash) ? hash as TabId : initialSection;
+  });
+  const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 28);
+  const [splashDone, setSplashDone] = useState(() => {
+    if (!showSplash) return true;
+    if (typeof window === "undefined") return false;
+    return window.sessionStorage.getItem("starke-welcome-seen") === "true";
+  });
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabListRef = useRef<HTMLDivElement>(null);
@@ -814,10 +776,8 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   }, []);
 
   useEffect(() => {
-    if (showSplash && sessionStorage.getItem("starke-welcome-seen") === "true") setSplashDone(true);
     let scrollFrame = 0;
     let lastScrolled = window.scrollY > 28;
-    setScrolled(lastScrolled);
     const listener = () => {
       if (scrollFrame) return;
       scrollFrame = window.requestAnimationFrame(() => {
@@ -831,13 +791,11 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     };
     listener();
     window.addEventListener("scroll", listener, { passive: true });
-    const hash = window.location.hash.slice(1);
-    if (tabs.some(tab => tab.id === hash)) setActive(hash as TabId);
     return () => {
       window.removeEventListener("scroll", listener);
       if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
     };
-  }, [showSplash]);
+  }, []);
 
   useEffect(() => {
     const updateIndicator = () => {
@@ -859,7 +817,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     }
     activeSectionMounted.current = true;
     return () => window.clearTimeout(indicatorTimer);
-  }, [active]);
+  }, [active, scrollToExplore, tabs]);
 
   useEffect(() => {
     const onPopState = () => {
@@ -919,3 +877,4 @@ export function StarkePage(props: { initialSection?: TabId; showSplash?: boolean
 export default function Home() {
   return <StarkePage showSplash />;
 }
+

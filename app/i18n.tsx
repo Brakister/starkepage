@@ -19,17 +19,14 @@ const LanguageContext = createContext<{ lang: SiteLanguage; setLanguage: (next: 
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<SiteLanguage>("pt");
-
-  useEffect(() => {
-    let stored: SiteLanguage = "pt";
+  const [lang, setLang] = useState<SiteLanguage>(() => {
+    if (typeof window === "undefined") return "pt";
     try {
-      stored = window.localStorage.getItem("starke-language") === "en" ? "en" : "pt";
+      return window.localStorage.getItem("starke-language") === "en" ? "en" : "pt";
     } catch {
-      /* ignore */
+      return "pt";
     }
-    setLang(stored);
-  }, []);
+  });
 
   useEffect(() => {
     document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
@@ -189,15 +186,15 @@ export const copy: Record<string, Bilingual> = {
     en: "Our portfolio brings together solutions for brakes, suspension, steering, engine, filtration, cooling, electrical, ignition, injection, transmission and other essential systems. We work with global references such as Bilstein Group, ZF, Brembo, Textar, Bosch, MAHLE and Hengst. We are official febi distributors, receiving products directly from the Bilstein Group factory in Germany, and we expand our offering with Forschen, our own brand that reflects Stärke's experience and identity.",
   },
   "inst.p3": {
-    pt: "Da matriz na Chácara Santo Antônio ao centro de distribuição de Sorocaba, inaugurado em 2024, construímos uma operação integrada entre importação, estoque, atendimento, separação, expedição, e-commerce, garantia e pós-venda. Em 2025, chegamos a Campinas e Santos para ficar ainda mais próximos do interior paulista e da Baixada Santista, sem perder a capacidade de atender clientes em todo o Brasil.",
-    en: "From the headquarters in Chácara Santo Antônio to the Sorocaba distribution center, opened in 2024, we built an integrated operation connecting import, stock, service, picking, shipping, e-commerce, warranty and after-sales. In 2025, we arrived in Campinas and Santos to be even closer to the interior of São Paulo and the Santos coastline, without giving up the ability to serve clients across Brazil.",
+    pt: "Da matriz na Chácara Santo Antônio à filial de Sorocaba, inaugurada em 2024, construímos uma operação integrada entre importação, estoque, atendimento, separação, expedição, e-commerce, garantia e pós-venda. Em 2025, chegamos a Campinas e Santos para ficar ainda mais próximos do interior paulista e da Baixada Santista, sem perder a capacidade de atender clientes em todo o Brasil.",
+    en: "From the headquarters in Chácara Santo Antônio to the Sorocaba branch, opened in 2024, we built an integrated operation connecting import, stock, service, picking, shipping, e-commerce, warranty and after-sales. In 2025, we arrived in Campinas and Santos to be even closer to the interior of São Paulo and the Santos coastline, without giving up the ability to serve clients across Brazil.",
   },
   "inst.close": {
     pt: "Em 2026, a Stärke Parts chega a uma nova fase: consolidada, forte e posicionada entre as principais referências brasileiras no segmento premium. Uma conquista construída com procedência, especialização e relações duradouras — porque, para nós, cada peça carrega a responsabilidade de manter histórias, negócios e grandes máquinas em movimento.",
     en: "In 2026, Stärke Parts reaches a new phase: consolidated, strong and positioned among Brazil's leading references in the premium segment. An achievement built on provenance, specialization and lasting relationships — because, for us, every part carries the responsibility of keeping stories, businesses and great machines moving.",
   },
   "inst.m1": { pt: "Nasce uma nova força no aftermarket premium", en: "A new force is born in the premium aftermarket" },
-  "inst.m2": { pt: "Mais estrutura com o CD Sorocaba", en: "More structure with the Sorocaba DC" },
+  "inst.m2": { pt: "Mais estrutura com a filial Sorocaba", en: "More structure with the Sorocaba branch" },
   "inst.m3": { pt: "Mais perto com Campinas e Santos", en: "Closer with Campinas and Santos" },
   "inst.m4": { pt: "Uma das principais referências do segmento", en: "One of the leading references in the segment" },
   "inst.sig1": { pt: "Potência em Qualidade.", en: "Power in Quality." },
@@ -379,7 +376,7 @@ export const copy: Record<string, Bilingual> = {
   "man.cta": { pt: "Consultar fabricante", en: "Inquire about a manufacturer" },
 
   /* Structure */
-  "str.kicker": { pt: "MATRIZ · CENTRO DE DISTRIBUIÇÃO · FILIAIS", en: "HEADQUARTERS · DISTRIBUTION CENTER · BRANCHES" },
+  "str.kicker": { pt: "MATRIZ · FILIAIS", en: "HEADQUARTERS · BRANCHES" },
   "str.title": {
     pt: "Uma estrutura pensada para estar cada vez mais perto.",
     en: "A structure designed to be closer every day.",
@@ -411,8 +408,8 @@ export const copy: Record<string, Bilingual> = {
   },
   "str.noteStrong": { pt: "Presença regional com visão nacional.", en: "Regional presence with a national vision." },
   "str.noteText": {
-    pt: "Matriz, centro de distribuição e filiais trabalham de forma complementar para aproximar conhecimento técnico, disponibilidade e atendimento especializado dos clientes.",
-    en: "Headquarters, distribution center and branches work together to bring technical knowledge, availability and specialized service closer to clients.",
+    pt: "Matriz e filiais trabalham de forma complementar para aproximar conhecimento técnico, disponibilidade e atendimento especializado dos clientes.",
+    en: "Headquarters and branches work together to bring technical knowledge, availability and specialized service closer to clients.",
   },
 
   /* Logistics */
@@ -1255,7 +1252,7 @@ export const locations = [
   {
     code: "SP·02",
     city: "Sorocaba",
-    type: { pt: "CENTRO DE DISTRIBUIÇÃO", en: "DISTRIBUTION CENTER" },
+    type: { pt: "FILIAL", en: "BRANCH" },
     area: { pt: "Interior de São Paulo", en: "São Paulo state countryside" },
     address: "Rua Tapiraí, 87 · Jd Leocádia, Sorocaba - SP · CEP 18085-300",
     addressHref: "https://maps.google.com/?q=Rua+Tapiraí,+87,+Jardim+Leocádia,+Sorocaba+-+SP,+18085-300",
@@ -1342,10 +1339,10 @@ export const companyRoadmap = [
   {
     year: "2024",
     stage: { pt: "ESTRUTURA", en: "STRUCTURE" },
-    title: { pt: "Novo centro de distribuição", en: "New distribution center" },
+    title: { pt: "Nova filial em Sorocaba", en: "New Sorocaba branch" },
     text: {
-      pt: "A inauguração do centro de distribuição em Sorocaba amplia a capacidade operacional, a disponibilidade de produtos e a conexão com o interior paulista.",
-      en: "The inauguration of the distribution center in Sorocaba expands operational capacity, product availability and the connection with the interior of São Paulo.",
+      pt: "A inauguração da filial em Sorocaba amplia a capacidade operacional, a disponibilidade de produtos e a conexão com o interior paulista.",
+      en: "The opening of the Sorocaba branch expands operational capacity, product availability and the connection with the interior of São Paulo.",
     },
   },
   {
@@ -1436,8 +1433,8 @@ export const companyChapters = [
     },
     paragraphs: [
       {
-        pt: "A matriz em São Paulo, o centro de distribuição em Sorocaba e as operações em Campinas e Santos formam uma estrutura pensada para aproximar o atendimento e apoiar a distribuição regional.",
-        en: "The headquarters in São Paulo, the distribution center in Sorocaba and the operations in Campinas and Santos form a structure designed to bring service closer and support regional distribution.",
+        pt: "A matriz em São Paulo e as filiais de Sorocaba, Campinas e Santos formam uma estrutura pensada para aproximar o atendimento e apoiar a distribuição regional.",
+        en: "The headquarters in São Paulo and the Sorocaba, Campinas and Santos branches form a structure designed to bring service closer and support regional distribution.",
       },
       {
         pt: "Essa presença se conecta a uma operação de expedição para todo o Brasil, permitindo que o conhecimento técnico e o portfólio da Stärke cheguem a diferentes profissionais e mercados.",
@@ -1696,8 +1693,8 @@ export const logisticsCoverage = [
     title: { pt: "Interior paulista", en: "São Paulo state interior" },
     badge: { pt: "ESTRUTURA REGIONAL", en: "REGIONAL STRUCTURE" },
     text: {
-      pt: "A presença do centro de distribuição de Sorocaba e da operação de Campinas fortalece o relacionamento e o apoio aos mercados do interior.",
-      en: "The presence of the Sorocaba distribution center and the Campinas operation strengthens relationships and support for interior markets.",
+      pt: "A presença das filiais de Sorocaba e Campinas fortalece o relacionamento e o apoio aos mercados do interior.",
+      en: "The presence of the Sorocaba and Campinas branches strengthens relationships and support for interior markets.",
     },
   },
   {
