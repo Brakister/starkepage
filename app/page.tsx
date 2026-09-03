@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import {
   LanguageProvider,
@@ -26,8 +25,6 @@ import {
   commonQuestions,
   serviceSteps,
 } from "./i18n";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 const WHATSAPP_PT = "https://wa.me/5511952063102?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
@@ -662,7 +659,7 @@ function StructurePanel({ onContact }: { onContact: () => void }) {
   const { lang, t } = useLanguage();
   return <div className="structure-page">
     <PanelHeading kicker={t("str.kicker")} title={t("str.title")} text={t("str.text")} />
-    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type[lang]}</span></div><h4>{location.city}</h4><p className="location-area">{location.area[lang]}</p><a className="location-address" href={location.addressHref} target="_blank" rel="noreferrer" aria-label={`Endereço ${location.city}`}><span>{location.address}</span></a><a className="location-phone" href={location.phoneHref} aria-label={t("str.cardAria").replace("{city}", location.city)}><span>{t("str.phone")}</span><strong>{location.phone}</strong></a><p>{location.description[lang]}</p><ul>{location.capabilities.map(item => <li key={item[lang]}>{item[lang]}</li>)}</ul><button onClick={onContact}>{t("str.cardCta")} <span>↗</span></button></article>)}</div>
+    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type[lang]}</span></div><h4>{location.city}</h4><p className="location-area">{location.area[lang]}</p><a className="location-address" href={location.addressHref} target="_blank" rel="noreferrer" aria-label={`Endereço ${location.city}`}><span>{location.address}</span></a><a className="location-phone" href={location.phoneHref} aria-label={t("str.cardAria").replace("{city}", location.city)}><span>{t("str.phone")}</span><strong>{location.phone}</strong></a><p>{location.description[lang]}</p><ul>{location.capabilities.map(item => <li key={item[lang]}>{item[lang]}</li>)}</ul><button onClick={onContact}>{t("str.cardCta")}</button></article>)}</div>
     <aside className="coverage-banner"><Eyebrow light>{t("str.coverEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("str.coverHeading") }} /><p>{t("str.coverText")}</p></aside>
     <div className="subsection-heading"><Eyebrow>{t("str.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("str.secHeading") }} /><p className="subsection-description">{t("str.secDesc")}</p></div>
     <div className="journey-list">{operationalJourney.map(item => <article className="journey-item" key={item.step}><span>{item.step}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
@@ -749,6 +746,10 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
     const limitedDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
     const smoothWheel = !reduceMotion && !coarsePointer && !limitedDevice;
+    if (!smoothWheel) {
+      lenisRef.current = null;
+      return;
+    }
     const lenis = new Lenis({
       autoRaf: true,
       lerp: 0.18,
@@ -759,12 +760,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
       overscroll: false,
     });
     lenisRef.current = lenis;
-    lenis.on("scroll", ScrollTrigger.update);
-    const refreshFrame = window.requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-    });
     return () => {
-      window.cancelAnimationFrame(refreshFrame);
       lenis.destroy();
       lenisRef.current = null;
     };

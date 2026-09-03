@@ -11,7 +11,7 @@ interface Star {
 }
 
 export function StarfieldBackground({
-  count = 400,
+  count = 220,
   speed = 0.5,
   starColor = "#ffffff",
   twinkle = true,
@@ -43,9 +43,10 @@ export function StarfieldBackground({
     let lastFrame = 0;
     const maxDepth = 1500;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const limitedDevice = navigator.hardwareConcurrency <= 4;
-    const renderedStarCount = Math.min(count, limitedDevice ? 140 : 260);
-    const frameInterval = 1000 / (limitedDevice ? 20 : 30);
+    const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+    const limitedDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
+    const renderedStarCount = Math.min(count, limitedDevice ? 90 : 180);
+    const frameInterval = 1000 / (limitedDevice ? 16 : 24);
 
     const createStar = (initialZ?: number): Star => ({
       x: (Math.random() - 0.5) * width * 2,

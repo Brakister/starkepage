@@ -979,6 +979,54 @@
   font-size: 35px;
 }
 
+/* Keep the manufacturer callout readable and safely inset at every width. */
+.manufacturer-note {
+  padding: clamp(32px, 3vw, 48px) clamp(24px, 4vw, 64px);
+}
+
+.manufacturer-note > div {
+  min-width: 0;
+}
+
+.manufacturer-note .eyebrow {
+  line-height: 1.45;
+}
+
+.manufacturer-note h4 {
+  max-width: 28ch;
+  font-size: clamp(25px, 2.25vw, 35px);
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  overflow-wrap: anywhere;
+}
+
+.manufacturer-note .button--yellow {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 1px solid rgba(250, 206, 45, .72);
+  border-radius: 999px;
+  color: #fff;
+  font-size: clamp(12px, .9vw, 14px);
+  font-weight: 750;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.manufacturer-note .button--yellow:hover {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.manufacturer-note .button--yellow span {
+  flex: 0 0 auto;
+}
+
 .locations-grid,
 .logistics-grid,
 .service-audiences {
@@ -1207,6 +1255,7 @@
   .product-card, .supplier-card { padding: 20px 16px; }
   .product-card h4, .supplier-card h4 { font-size: 22px; }
   .manufacturer-note { align-items: flex-start; flex-direction: column; }
+  .manufacturer-note .button--yellow { align-self: flex-start; white-space: normal; }
   .location-card { min-height: 370px; padding: 30px; }
   .coverage-banner, .contact-card { padding: 46px 26px; }
   .service-audiences article { min-height: 180px; }
@@ -1407,14 +1456,16 @@
 
 .location-card > button {
   display: flex;
-  width: 100%;
-  min-height: 52px;
+  width: fit-content;
+  min-height: 44px;
   align-items: center;
-  justify-content: space-between;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
   margin-top: auto;
-  padding: 0 18px;
+  padding: 0 24px;
   border: 1px solid #242424;
-  border-radius: 13px;
+  border-radius: 999px;
   background: #0b0b0b;
   box-shadow: 0 5px 0 #FACE2D, 0 10px 18px rgba(0, 0, 0, .13);
   color: #fff;
@@ -5505,6 +5556,204 @@ html.lenis, html.lenis body { height: auto; }
   }
 }
 
+/* Operational journey: five compact, clearly ordered columns. */
+.structure-page .journey-list,
+:root[data-theme="dark"] .structure-page .journey-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 1.2vw, 18px);
+  align-items: stretch;
+}
+
+.structure-page .journey-item,
+:root[data-theme="dark"] .structure-page .journey-item {
+  display: flex;
+  min-width: 0;
+  min-height: 310px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: clamp(22px, 2vw, 30px);
+  border-color: rgba(250,206,45,.36);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(250,206,45,.1), transparent 34%),
+    #10100f;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 12px 28px rgba(0,0,0,.25);
+}
+
+.structure-page .journey-item::before {
+  position: absolute;
+  top: 0;
+  right: 24px;
+  left: 24px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(250,206,45,.85), transparent);
+  content: "";
+  opacity: .7;
+}
+
+.structure-page .journey-item > span,
+:root[data-theme="dark"] .structure-page .journey-item > span {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 34px;
+  border: 1px solid rgba(255,255,255,.35);
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,.65), 0 4px 0 #8d710f, 0 10px 22px rgba(250,206,45,.16);
+  color: #090909;
+}
+
+.structure-page .journey-item h5,
+:root[data-theme="dark"] .structure-page .journey-item h5 {
+  width: 100%;
+  margin: 0 0 16px;
+  font-size: clamp(19px, 1.45vw, 25px);
+  line-height: 1.12;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+
+.structure-page .journey-item p,
+:root[data-theme="dark"] .structure-page .journey-item p {
+  width: 100%;
+  margin: auto 0 0;
+  color: rgba(255,255,255,.7);
+  font-size: clamp(12px, .82vw, 14px);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.structure-page .journey-item:hover {
+  border-color: rgba(250,206,45,.72);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(250,206,45,.16), transparent 38%),
+    #11110f;
+}
+
+@media (max-width: 1280px) {
+  .structure-page .journey-list,
+  :root[data-theme="dark"] .structure-page .journey-list {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .structure-page .journey-item,
+  :root[data-theme="dark"] .structure-page .journey-item { grid-column: span 2; }
+
+  .structure-page .journey-item:nth-child(4),
+  .structure-page .journey-item:nth-child(5),
+  :root[data-theme="dark"] .structure-page .journey-item:nth-child(4),
+  :root[data-theme="dark"] .structure-page .journey-item:nth-child(5) { grid-column: span 3; }
+}
+
+/* Performance pass: skip off-screen layout and avoid paint-heavy perpetual shadows. */
+:is(
+  .metric-grid,
+  .operations-grid,
+  .principle-grid,
+  .company-chapters,
+  .company-roadmap,
+  .brand-explorer,
+  .product-grid,
+  .product-context-grid,
+  .manufacturer-logo-carousel,
+  .locations-grid,
+  .journey-list,
+  .logistics-grid,
+  .coverage-grid,
+  .service-audiences,
+  .service-steps,
+  .faq-list,
+  .contact-card
+) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
+}
+
+:is(
+  .institutional-page .brand-promise,
+  .institutional-page .operations-intro,
+  .institutional-page .identity-heading,
+  .institutional-page .company-story-heading,
+  .institutional-page .institutional-manifesto,
+  .applications-page > .panel-heading,
+  .applications-page > .subsection-heading,
+  .products-page > .panel-heading,
+  .products-page > .subsection-heading,
+  .products-page .quality-banner,
+  .manufacturers-page > .panel-heading,
+  .manufacturer-note,
+  .structure-page > .panel-heading,
+  .structure-page > .subsection-heading,
+  .structure-page .coverage-banner,
+  .service-page > .panel-heading,
+  .service-page > .subsection-heading,
+  .after-sales,
+  .contact-card,
+  .landing-intro > div,
+  .landing-section-title,
+  .landing-cta > div:last-child
+) {
+  animation: none !important;
+}
+
+.structure-page .locations-grid .location-card,
+:root[data-theme="dark"] .structure-page .locations-grid .location-card {
+  animation: none;
+  contain: layout paint;
+}
+
+.structure-page .locations-grid .location-card::after,
+:root[data-theme="dark"] .structure-page .locations-grid .location-card::after {
+  filter: none;
+  animation-duration: 6s;
+}
+
+@media (pointer: coarse), (max-width: 760px) {
+  .structure-page .locations-grid .location-card::before {
+    animation: none;
+    opacity: .42;
+  }
+
+  .structure-page .locations-grid .location-card::after,
+  :root[data-theme="dark"] .structure-page .locations-grid .location-card::after {
+    animation-duration: 8s;
+  }
+
+  .manufacturer-logo-track,
+  .ticker-track {
+    will-change: auto;
+  }
+
+  .location-phone,
+  .institutional-video__label {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .structure-page .journey-list,
+  :root[data-theme="dark"] .structure-page .journey-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .structure-page .journey-item,
+  .structure-page .journey-item:nth-child(4),
+  .structure-page .journey-item:nth-child(5),
+  :root[data-theme="dark"] .structure-page .journey-item,
+  :root[data-theme="dark"] .structure-page .journey-item:nth-child(4),
+  :root[data-theme="dark"] .structure-page .journey-item:nth-child(5) {
+    grid-column: auto;
+    min-height: 240px;
+  }
+
+  .structure-page .journey-item > span,
+  :root[data-theme="dark"] .structure-page .journey-item > span { margin-bottom: 26px; }
+}
+
 /* Keep the same animated yellow-border language on the main framed sections */
 :is(
   .institutional-page .brand-promise,
@@ -5730,5 +5979,106 @@ html.lenis, html.lenis body { height: auto; }
     grid-template-columns: 1fr;
     gap: 14px;
     padding: 28px 24px;
+  }
+}
+
+/* Unit cards: reuse the animated yellow-frame language from the other pages. */
+.structure-page .locations-grid .location-card,
+:root[data-theme="dark"] .structure-page .locations-grid .location-card {
+  isolation: isolate;
+  contain: layout paint;
+  animation: none;
+}
+
+.structure-page .locations-grid .location-card:nth-child(2) { animation-delay: -.9s; }
+.structure-page .locations-grid .location-card:nth-child(3) { animation-delay: -1.8s; }
+.structure-page .locations-grid .location-card:nth-child(4) { animation-delay: -2.7s; }
+
+.structure-page .locations-grid .location-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  background: radial-gradient(circle at var(--location-glow-x, 12%) 8%, rgba(250,206,45,.15), transparent 31%);
+  content: "";
+  opacity: .55;
+  pointer-events: none;
+  animation: location-card-ambient 7s ease-in-out infinite alternate;
+}
+
+.structure-page .locations-grid .location-card:nth-child(even)::before {
+  --location-glow-x: 88%;
+  animation-delay: -2.4s;
+}
+
+.structure-page .locations-grid .location-card::after,
+:root[data-theme="dark"] .structure-page .locations-grid .location-card::after {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  border: 0;
+  border-radius: inherit;
+  background: conic-gradient(from var(--location-border-angle), transparent 0 72%, rgba(250,206,45,.18) 78%, #FACE2D 88%, #fff7bd 92%, #FACE2D 96%, transparent 100%);
+  content: "";
+  opacity: .95;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: none;
+  animation: location-card-edge-orbit 6s linear infinite;
+}
+
+.structure-page .locations-grid .location-card:nth-child(2)::after { animation-delay: -.7s; }
+.structure-page .locations-grid .location-card:nth-child(3)::after { animation-delay: -1.4s; }
+.structure-page .locations-grid .location-card:nth-child(4)::after { animation-delay: -2.1s; }
+
+.structure-page .locations-grid .location-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes location-card-border-glow {
+  0%, 100% {
+    border-color: rgba(250,206,45,.42);
+    box-shadow: 0 8px 0 #050505, 0 20px 34px rgba(0,0,0,.28), 0 0 0 rgba(250,206,45,0);
+  }
+  50% {
+    border-color: rgba(250,206,45,.86);
+    box-shadow: 0 8px 0 #9a7c16, 0 22px 42px rgba(0,0,0,.34), 0 0 28px rgba(250,206,45,.18);
+  }
+}
+
+@property --location-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes location-card-edge-orbit {
+  to { --location-border-angle: 360deg; }
+}
+
+@keyframes location-card-ambient {
+  from { opacity: .38; transform: translate3d(-2%, -2%, 0) scale(1); }
+  to { opacity: .72; transform: translate3d(3%, 2%, 0) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .structure-page .locations-grid .location-card,
+  :root[data-theme="dark"] .structure-page .locations-grid .location-card,
+  .structure-page .locations-grid .location-card::before,
+  .structure-page .locations-grid .location-card::after,
+  :root[data-theme="dark"] .structure-page .locations-grid .location-card::after {
+    animation: none;
+  }
+
+  .structure-page .locations-grid .location-card::after,
+  :root[data-theme="dark"] .structure-page .locations-grid .location-card::after {
+    opacity: .72;
   }
 }
