@@ -5118,3 +5118,617 @@ html.lenis, html.lenis body { height: auto; }
   color: #090909;
   transform: translateY(-2px);
 }
+
+/* Larger experience tab labels and numbered icon spheres */
+.experience > .tab-list .tab,
+.experience > .tab-list .tab:hover,
+.experience > .tab-list .tab--active,
+:root[data-theme="dark"] .experience > .tab-list .tab,
+:root[data-theme="dark"] .experience > .tab-list .tab:hover,
+:root[data-theme="dark"] .experience > .tab-list .tab--active {
+  min-height: 58px;
+  gap: 12px;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 780;
+}
+
+.experience > .tab-list .tab > span,
+.experience > .tab-list .tab--active > span,
+:root[data-theme="dark"] .experience > .tab-list .tab > span,
+:root[data-theme="dark"] .experience > .tab-list .tab--active > span {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .experience > .tab-list .tab,
+  .experience > .tab-list .tab--active,
+  :root[data-theme="dark"] .experience > .tab-list .tab,
+  :root[data-theme="dark"] .experience > .tab-list .tab--active {
+    min-width: 148px;
+    min-height: 56px;
+    flex-basis: 148px;
+    gap: 10px;
+    padding: 0 14px;
+    font-size: 12px;
+  }
+
+  .experience > .tab-list .tab > span,
+  .experience > .tab-list .tab--active > span,
+  :root[data-theme="dark"] .experience > .tab-list .tab > span,
+  :root[data-theme="dark"] .experience > .tab-list .tab--active > span {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+}
+
+/* ============================================================
+   Black cards with numbered yellow spheres (01-09): remove the
+   spheres from the top of each card and center all text content
+   in the geometric center of each black box, keeping the
+   original background/font/grid layout intact.
+   ============================================================ */
+:is(
+  .applications-page > .detail-grid .detail-card,
+  .products-page .detail-grid .detail-card,
+  .institutional-page .operation-card
+) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Hide the numbered yellow spheres at the top of each card */
+:is(
+  .applications-page > .detail-grid .detail-card,
+  .products-page .detail-grid .detail-card,
+  .institutional-page .operation-card
+) > span {
+  display: none !important;
+}
+
+/* Re-center the title and description in the middle of the box */
+:is(
+  .applications-page > .detail-grid .detail-card,
+  .products-page .detail-grid .detail-card,
+  .institutional-page .operation-card
+) h5 {
+  margin: 0 0 13px !important;
+  text-align: center;
+}
+
+:is(
+  .applications-page > .detail-grid .detail-card,
+  .products-page .detail-grid .detail-card,
+  .institutional-page .operation-card
+) p {
+  margin: 0 auto !important;
+  text-align: center;
+}
+
+/* Operations grid: final card alignment without numeric spheres */
+.institutional-page .operations-grid .operation-card,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card {
+  display: flex !important;
+  min-height: 190px;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 34px 28px !important;
+  text-align: center !important;
+}
+
+.institutional-page .operations-grid .operation-card > span,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card > span {
+  display: none !important;
+}
+
+.institutional-page .operations-grid .operation-card h5,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card h5 {
+  margin: 0 0 14px !important;
+  text-align: center !important;
+}
+
+.institutional-page .operations-grid .operation-card p,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card p {
+  max-width: 260px;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+/* Operations cards: compact grid with centered readable content */
+.institutional-page .operations-grid,
+:root[data-theme="dark"] .institutional-page .operations-grid {
+  gap: 12px !important;
+  padding: 12px !important;
+}
+
+.institutional-page .operations-grid .operation-card,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card {
+  min-height: 168px !important;
+  padding: 24px 22px !important;
+}
+
+.institutional-page .operations-grid .operation-card h5,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card h5 {
+  margin-bottom: 10px !important;
+  font-size: clamp(21px, 1.55vw, 25px);
+  line-height: 1.08;
+}
+
+.institutional-page .operations-grid .operation-card p,
+:root[data-theme="dark"] .institutional-page .operations-grid .operation-card p {
+  max-width: 300px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  .institutional-page .operations-grid .operation-card,
+  :root[data-theme="dark"] .institutional-page .operations-grid .operation-card {
+    min-height: 156px !important;
+    padding: 22px 18px !important;
+  }
+}
+
+/* Application criteria cards: compact height with centered readable text */
+.applications-page > .detail-grid {
+  align-items: stretch;
+}
+
+.applications-page > .detail-grid .detail-card,
+:root[data-theme="dark"] .applications-page > .detail-grid .detail-card {
+  min-height: 210px !important;
+  padding: 30px 34px !important;
+}
+
+.applications-page > .detail-grid .detail-card h5,
+:root[data-theme="dark"] .applications-page > .detail-grid .detail-card h5 {
+  margin-bottom: 12px !important;
+  font-size: clamp(23px, 2vw, 27px);
+  line-height: 1.08;
+}
+
+.applications-page > .detail-grid .detail-card p,
+:root[data-theme="dark"] .applications-page > .detail-grid .detail-card p {
+  max-width: 500px;
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+@media (max-width: 760px) {
+  .applications-page > .detail-grid .detail-card,
+  :root[data-theme="dark"] .applications-page > .detail-grid .detail-card {
+    min-height: 185px !important;
+    padding: 26px 22px !important;
+  }
+}
+
+/* Application criteria: compact single-row layout on wide screens */
+.applications-page > .detail-grid,
+:root[data-theme="dark"] .applications-page > .detail-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 12px !important;
+}
+
+.applications-page > .detail-grid .detail-card,
+:root[data-theme="dark"] .applications-page > .detail-grid .detail-card {
+  min-height: 178px !important;
+  padding: 24px 20px !important;
+}
+
+.applications-page > .detail-grid .detail-card h5,
+:root[data-theme="dark"] .applications-page > .detail-grid .detail-card h5 {
+  margin-bottom: 10px !important;
+  font-size: clamp(19px, 1.25vw, 24px);
+}
+
+.applications-page > .detail-grid .detail-card p,
+:root[data-theme="dark"] .applications-page > .detail-grid .detail-card p {
+  max-width: 270px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+@media (max-width: 1180px) {
+  .applications-page > .detail-grid,
+  :root[data-theme="dark"] .applications-page > .detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .applications-page > .detail-grid,
+  :root[data-theme="dark"] .applications-page > .detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 10px !important;
+  }
+
+  .applications-page > .detail-grid .detail-card,
+  :root[data-theme="dark"] .applications-page > .detail-grid .detail-card {
+    min-height: 168px !important;
+    padding: 22px 18px !important;
+  }
+}
+
+/* Product carousel: smaller frame and more compact cards */
+.products-page .product-carousel {
+  margin-top: 12px;
+}
+
+.products-page .product-carousel .product-carousel-track,
+:root[data-theme="dark"] .products-page .product-carousel .product-carousel-track {
+  gap: 14px !important;
+  padding: 10px 10px 18px !important;
+}
+
+.products-page .product-carousel .product-card,
+:root[data-theme="dark"] .products-page .product-carousel .product-card {
+  min-height: 330px !important;
+  flex-basis: calc((100% - 28px) / 3) !important;
+  padding: 24px 24px 22px !important;
+}
+
+.products-page .product-carousel .product-card-top > span:first-child,
+:root[data-theme="dark"] .products-page .product-carousel .product-card-top > span:first-child {
+  width: 34px;
+  height: 34px;
+  font-size: 9px;
+}
+
+.products-page .product-carousel .product-card-top > span:last-child,
+:root[data-theme="dark"] .products-page .product-carousel .product-card-top > span:last-child {
+  padding: 6px 9px;
+  font-size: 8px;
+}
+
+.products-page .product-carousel .product-card h4,
+:root[data-theme="dark"] .products-page .product-carousel .product-card h4 {
+  margin: 28px 0 12px;
+  font-size: clamp(27px, 2vw, 34px);
+}
+
+.products-page .product-carousel .product-card > p,
+:root[data-theme="dark"] .products-page .product-carousel .product-card > p {
+  font-size: 13px;
+  line-height: 1.58;
+}
+
+.products-page .product-carousel .product-card ul,
+:root[data-theme="dark"] .products-page .product-carousel .product-card ul {
+  gap: 8px;
+  margin: 20px 0 0;
+}
+
+.products-page .product-carousel .product-card li,
+:root[data-theme="dark"] .products-page .product-carousel .product-card li {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.products-page .product-carousel-controls {
+  padding-top: 12px;
+}
+
+@media (max-width: 980px) {
+  .products-page .product-carousel .product-card,
+  :root[data-theme="dark"] .products-page .product-carousel .product-card {
+    min-height: 315px !important;
+    flex-basis: calc((100% - 14px) / 2) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .products-page .product-carousel .product-carousel-track,
+  :root[data-theme="dark"] .products-page .product-carousel .product-carousel-track {
+    gap: 12px !important;
+    padding: 8px 8px 16px !important;
+  }
+
+.products-page .product-carousel .product-card,
+:root[data-theme="dark"] .products-page .product-carousel .product-card {
+    min-height: 300px !important;
+    flex-basis: 82vw !important;
+    padding: 22px 20px !important;
+  }
+}
+
+/* Animated yellow edge for the institutional signature frame */
+.institutional-page .institutional-history-signature,
+:root[data-theme="dark"] .institutional-page .institutional-history-signature {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(250,206,45,.72) !important;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.1),
+    inset 0 18px 34px rgba(255,255,255,.025),
+    0 7px 0 #9a7c16,
+    0 16px 34px rgba(250,206,45,.16);
+  animation: institutional-signature-border-glow 3.2s ease-in-out infinite;
+}
+
+.institutional-page .institutional-history-signature::before,
+:root[data-theme="dark"] .institutional-page .institutional-history-signature::before {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(250,206,45,.28), #FACE2D, rgba(255,245,170,.9), #FACE2D, rgba(250,206,45,.28));
+  content: "";
+  pointer-events: none;
+  transform: translateX(-100%);
+  animation: institutional-signature-edge-sweep 2.6s ease-in-out infinite;
+}
+
+@keyframes institutional-signature-border-glow {
+  0%, 100% {
+    border-color: rgba(250,206,45,.55);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,.1),
+      inset 0 18px 34px rgba(255,255,255,.025),
+      0 7px 0 #806814,
+      0 14px 26px rgba(250,206,45,.1);
+  }
+  50% {
+    border-color: rgba(250,206,45,.95);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,.13),
+      inset 0 18px 34px rgba(255,255,255,.035),
+      0 7px 0 #FACE2D,
+      0 18px 42px rgba(250,206,45,.34);
+  }
+}
+
+@keyframes institutional-signature-edge-sweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  18% { opacity: 1; }
+  72% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .institutional-page .institutional-history-signature,
+  :root[data-theme="dark"] .institutional-page .institutional-history-signature,
+  .institutional-page .institutional-history-signature::before,
+  :root[data-theme="dark"] .institutional-page .institutional-history-signature::before {
+    animation: none;
+  }
+}
+
+/* Keep the same animated yellow-border language on the main framed sections */
+:is(
+  .institutional-page .brand-promise,
+  .institutional-page .operations-intro,
+  .institutional-page .identity-heading,
+  .institutional-page .company-story-heading,
+  .institutional-page .institutional-manifesto,
+  .applications-page > .panel-heading,
+  .applications-page > .subsection-heading,
+  .products-page > .panel-heading,
+  .products-page > .subsection-heading,
+  .products-page .quality-banner,
+  .manufacturers-page > .panel-heading,
+  .manufacturer-note,
+  .structure-page > .panel-heading,
+  .structure-page > .subsection-heading,
+  .structure-page .coverage-banner,
+  .service-page > .panel-heading,
+  .service-page > .subsection-heading,
+  .after-sales,
+  .contact-card,
+  .landing-intro > div,
+  .landing-section-title,
+  .landing-cta > div:last-child
+),
+:root[data-theme="dark"] :is(
+  .institutional-page .brand-promise,
+  .institutional-page .operations-intro,
+  .institutional-page .identity-heading,
+  .institutional-page .company-story-heading,
+  .institutional-page .institutional-manifesto,
+  .applications-page > .panel-heading,
+  .applications-page > .subsection-heading,
+  .products-page > .panel-heading,
+  .products-page > .subsection-heading,
+  .products-page .quality-banner,
+  .manufacturers-page > .panel-heading,
+  .manufacturer-note,
+  .structure-page > .panel-heading,
+  .structure-page > .subsection-heading,
+  .structure-page .coverage-banner,
+  .service-page > .panel-heading,
+  .service-page > .subsection-heading,
+  .after-sales,
+  .contact-card,
+  .landing-intro > div,
+  .landing-section-title,
+  .landing-cta > div:last-child
+) {
+  animation: institutional-signature-border-glow 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    .institutional-page .brand-promise,
+    .institutional-page .operations-intro,
+    .institutional-page .identity-heading,
+    .institutional-page .company-story-heading,
+    .institutional-page .institutional-manifesto,
+    .applications-page > .panel-heading,
+    .applications-page > .subsection-heading,
+    .products-page > .panel-heading,
+    .products-page > .subsection-heading,
+    .products-page .quality-banner,
+    .manufacturers-page > .panel-heading,
+    .manufacturer-note,
+    .structure-page > .panel-heading,
+    .structure-page > .subsection-heading,
+    .structure-page .coverage-banner,
+    .service-page > .panel-heading,
+    .service-page > .subsection-heading,
+    .after-sales,
+    .contact-card,
+    .landing-intro > div,
+    .landing-section-title,
+    .landing-cta > div:last-child
+  ),
+  :root[data-theme="dark"] :is(
+    .institutional-page .brand-promise,
+    .institutional-page .operations-intro,
+    .institutional-page .identity-heading,
+    .institutional-page .company-story-heading,
+    .institutional-page .institutional-manifesto,
+    .applications-page > .panel-heading,
+    .applications-page > .subsection-heading,
+    .products-page > .panel-heading,
+    .products-page > .subsection-heading,
+    .products-page .quality-banner,
+    .manufacturers-page > .panel-heading,
+    .manufacturer-note,
+    .structure-page > .panel-heading,
+    .structure-page > .subsection-heading,
+    .structure-page .coverage-banner,
+    .service-page > .panel-heading,
+    .service-page > .subsection-heading,
+    .after-sales,
+    .contact-card,
+    .landing-intro > div,
+    .landing-section-title,
+    .landing-cta > div:last-child
+  ) {
+    animation: none;
+  }
+}
+
+/* Metric cards: center each number and label inside the box */
+.institutional-page .metric-grid > div,
+.institutional-page .metric-grid > div:first-child,
+:root[data-theme="dark"] .institutional-page .metric-grid > div,
+:root[data-theme="dark"] .institutional-page .metric-grid > div:first-child {
+  display: flex !important;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 22px;
+  text-align: center;
+}
+
+.institutional-page .metric-grid > div::before,
+:root[data-theme="dark"] .institutional-page .metric-grid > div::before {
+  display: none !important;
+}
+
+.institutional-page .metric-grid strong,
+:root[data-theme="dark"] .institutional-page .metric-grid strong {
+  align-self: center !important;
+  margin: 0 !important;
+  text-align: center;
+}
+
+.institutional-page .metric-grid span,
+.institutional-page .metric-grid > div:first-child span,
+:root[data-theme="dark"] .institutional-page .metric-grid span,
+:root[data-theme="dark"] .institutional-page .metric-grid > div:first-child span {
+  align-self: center !important;
+  min-height: 0 !important;
+  max-width: 220px;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .institutional-page .metric-grid > div,
+  .institutional-page .metric-grid > div:first-child,
+  :root[data-theme="dark"] .institutional-page .metric-grid > div,
+  :root[data-theme="dark"] .institutional-page .metric-grid > div:first-child {
+    min-height: 165px;
+    gap: 16px;
+  }
+}
+
+/* Application note strip: stronger emphasis without taking more space */
+.applications-page .info-strip,
+:root[data-theme="dark"] .applications-page .info-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, .45fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 76px);
+  align-items: center;
+  overflow: hidden;
+  margin-top: 38px;
+  padding: 30px clamp(28px, 4vw, 52px);
+  border: 1px solid rgba(250,206,45,.6) !important;
+  border-radius: 18px;
+  background:
+    radial-gradient(70% 120% at 0% 50%, rgba(250,206,45,.14), transparent 62%),
+    linear-gradient(165deg, rgba(255,255,255,.07), rgba(255,255,255,.018) 48%, rgba(250,206,45,.035)),
+    url("/technical-mesh-premium-v2.webp") center/cover;
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.1),
+    0 6px 0 #8e7215,
+    0 16px 34px rgba(250,206,45,.14);
+  color: #fff;
+  animation: institutional-signature-border-glow 3.2s ease-in-out infinite;
+}
+
+.applications-page .info-strip::before,
+:root[data-theme="dark"] .applications-page .info-strip::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background: var(--yellow);
+  box-shadow: 0 0 24px rgba(250,206,45,.48);
+  content: "";
+}
+
+.applications-page .info-strip::after,
+:root[data-theme="dark"] .applications-page .info-strip::after {
+  position: absolute;
+  right: 28px;
+  bottom: 0;
+  left: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(250,206,45,.9), rgba(255,245,170,.78), transparent);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-100%);
+  animation: institutional-signature-edge-sweep 2.8s ease-in-out infinite;
+}
+
+.applications-page .info-strip > strong,
+:root[data-theme="dark"] .applications-page .info-strip > strong {
+  color: #fff;
+  font-size: clamp(22px, 2.1vw, 32px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+
+.applications-page .info-strip > span,
+:root[data-theme="dark"] .applications-page .info-strip > span {
+  max-width: 920px;
+  color: rgba(255,255,255,.82);
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+@media (max-width: 900px) {
+  .applications-page .info-strip,
+  :root[data-theme="dark"] .applications-page .info-strip {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 28px 24px;
+  }
+}

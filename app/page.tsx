@@ -571,7 +571,7 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
     <CompanyRoadmap />
 
     <section className="operations-intro"><div><Eyebrow>{t("inst.ops.eyebrow")}</Eyebrow><h4>{t("inst.ops.t1")}<br />{t("inst.ops.t2")} <em>{t("inst.ops.t3")}</em></h4></div><aside><strong>09</strong><span>{t("inst.ops.count")}</span><p>{t("inst.ops.text")}</p></aside></section>
-    <div className="operations-grid">{companyOperations.map((item, index) => <article className="operation-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <div className="operations-grid">{companyOperations.map(item => <article className="operation-card" key={item.title[lang]}><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
 
     <div className="principle-grid"><article><span>01</span><h5>{t("inst.princ1.t")}</h5><p>{t("inst.princ1.p")}</p></article><article><span>02</span><h5>{t("inst.princ2.t")}</h5><p>{t("inst.princ2.p")}</p></article><article><span>03</span><h5>{t("inst.princ3.t")}</h5><p>{t("inst.princ3.p")}</p></article><article><span>04</span><h5>{t("inst.princ4.t")}</h5><p>{t("inst.princ4.p")}</p></article></div>
     <div className="institutional-manifesto"><Eyebrow>{t("inst.manifesto.eyebrow")}</Eyebrow><p>{t("inst.manifesto.p")}</p><strong>{t("inst.manifesto.strong1")}<br /><em>{t("inst.manifesto.strong2")}</em></strong></div>
