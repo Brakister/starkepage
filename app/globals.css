@@ -90,14 +90,14 @@ a { color: inherit; text-decoration: none; }
 .masthead { position: fixed; inset: 0 0 auto; z-index: 20; display: flex; height: 86px; align-items: center; justify-content: space-between; padding: 0 max(6.2vw, 28px); background: linear-gradient(180deg, rgba(4, 4, 4, .73), transparent); color: #fff; transition: background .3s ease, backdrop-filter .3s ease; }
 .masthead--scrolled { background: rgba(4, 4, 4, .94); backdrop-filter: blur(10px); }
 .wordmark { display: inline-flex; align-items: baseline; gap: 7px; font-size: 18px; font-weight: 850; letter-spacing: .08em; }
-.wordmark b { color: var(--yellow); }
+.wordmark b { color: var(--yellow); text-shadow: 0 0 14px rgba(250,206,45,.55), 0 0 34px rgba(250,206,45,.25); }
 .wordmark img { display: block; width: 176px; height: auto; object-fit: contain; }
 .desktop-nav { display: flex; align-items: center; gap: 10px; perspective: 900px; }
 .desktop-nav button, .desktop-nav a, .header-cta, .button, .text-link { border: 0; background: none; }
 .desktop-nav button, .desktop-nav a { position: relative; min-height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0 10px; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: rgba(255,255,255,.78); font-size: 12px; font-weight: 750; transform: none; transition: color .22s ease; }
 .desktop-nav button:hover, .desktop-nav a:hover { border-color: transparent; background: transparent; box-shadow: none; color: var(--yellow); transform: none; }
 .desktop-nav button:active, .desktop-nav a:active { box-shadow: none; transform: none; }
-.header-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 15px; border: 1px solid rgba(250,206,45,.72); border-radius: 999px; background: var(--yellow); box-shadow: none; color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: 0; text-shadow: none; transition: background .2s ease,border-color .2s ease,transform .2s ease; }
+.header-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 15px; border: 1px solid rgba(250,206,45,.72); border-radius: 999px; background: var(--yellow); box-shadow: 0 0 18px rgba(250,206,45,.4), 0 0 46px rgba(250,206,45,.18); color: var(--black); font-size: 11px; font-weight: 800; letter-spacing: 0; text-shadow: none; transition: background .2s ease,border-color .2s ease,transform .2s ease, box-shadow .2s ease; }
 .header-cta span { display: inline-flex; width: 19px; height: 19px; align-items: center; justify-content: center; padding: 0; border: 1px solid rgba(8,8,8,.2); border-radius: 50%; background: transparent; font-size: 11px; font-weight: 800; box-shadow: none; }
 .header-cta:hover { border-color: #FACE2D; background: #FACE2D; box-shadow: none; transform: translateY(-1px); }
 .header-cta:active { box-shadow: none; transform: translateY(0); }
@@ -119,7 +119,7 @@ a { color: inherit; text-decoration: none; }
 .hero-backdrop__scrim { position: absolute; inset: 0; background: radial-gradient(120% 92% at 50% 42%, rgba(3,3,3,.24) 0%, rgba(3,3,3,.46) 62%, rgba(3,3,3,.72) 100%); opacity: 0; }
 .hero-card { position: absolute; top: 50%; left: 50%; z-index: 3; width: min(920px, calc(100% - 48px)); transform: translate(-50%, -50%); text-align: center; }
 .hero-card .eyebrow { justify-content: center; }
-.eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0; color: var(--yellow); font-size: 10px; font-weight: 780; letter-spacing: .16em; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0; color: var(--yellow); font-size: 10px; font-weight: 780; letter-spacing: .16em; text-shadow: 0 0 12px rgba(250,206,45,.45), 0 0 28px rgba(250,206,45,.22); }
 .eyebrow > span { width: 7px; height: 7px; background: var(--red); }
 .eyebrow--dark { color: var(--muted); }
 .hero-title { margin: 26px auto 52px; font-family: var(--font-league), var(--font-display), "Archivo Black", "Helvetica Neue", sans-serif; font-weight: 700; text-transform: uppercase; font-size: clamp(38px, 6.6vw, 100px); line-height: 1.14; letter-spacing: -.012em; padding: .06em 0; clip-path: inset(0 0 100% 0); }
@@ -252,6 +252,7 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  filter: drop-shadow(0 0 12px rgba(250,206,45,.35)) drop-shadow(0 0 36px rgba(250,206,45,.15));
 }
 .splash-title span { display: inline-block; color: transparent; opacity: 0; }
 .splash-title .is-ghost { opacity: .2; }
