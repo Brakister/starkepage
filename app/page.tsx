@@ -30,6 +30,13 @@ const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 const WHATSAPP_PT = "https://wa.me/5511952063102?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
 const WHATSAPP_EN = "https://wa.me/5511952063102?text=Hello%2C%20I%27d%20like%20to%20talk%20to%20a%20St%C3%A4rke%20Parts%20specialist.";
 
+function trackEvent(name: string, detail: Record<string, string> = {}) {
+  if (typeof window === "undefined") return;
+  const analyticsWindow = window as typeof window & { dataLayer?: Array<Record<string, string>> };
+  analyticsWindow.dataLayer?.push({ event: name, ...detail });
+  window.dispatchEvent(new CustomEvent("starke:analytics", { detail: { event: name, ...detail } }));
+}
+
 const routes: Record<TabId, string> = {
   institucional: "/empresa",
   aplicacoes: "/montadoras",
@@ -254,6 +261,46 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
   return <svg className={`whatsapp-icon ${className}`} viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" /></svg>;
 }
 
+function ProductContextIcon({ index }: { index: number }) {
+  const paths = [
+    <><path d="M12 3v3M12 18v3M3 12h3M18 12h3" /><circle cx="12" cy="12" r="4" /><path d="m5.6 5.6 2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1" /></>,
+    <><path d="m14.7 6.3 3-3a4 4 0 0 1-5.2 5.2L6 15l-2 5 5-2 6.5-6.5a4 4 0 0 1 5.2-5.2l-3 3" /></>,
+    <><path d="M12 3 4.5 6v5.3c0 4.5 3.1 7.9 7.5 9.7 4.4-1.8 7.5-5.2 7.5-9.7V6L12 3Z" /><path d="m8.5 12 2.2 2.2 4.8-5" /></>,
+    <><rect x="4" y="4" width="16" height="16" rx="3" /><path d="M9 9h6v6H9zM9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M20 9h3M1 15h3M20 15h3" /></>,
+  ];
+  return <svg className="product-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{paths[index]}</svg>;
+}
+
+function VehicleQuoteForm() {
+  const { lang, t } = useLanguage();
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const labels = lang === "en"
+      ? ["Name", "Automaker", "Model", "Year", "Engine/version", "Part"]
+      : ["Nome", "Montadora", "Modelo", "Ano", "Motor/versão", "Peça"];
+    const fields = ["name", "brand", "model", "year", "engine", "part"];
+    const details = fields.map((field, index) => `${labels[index]}: ${String(data.get(field) || "-")}`).join("\n");
+    const intro = lang === "en" ? "Hello, I'd like a quote for this vehicle:" : "Olá, gostaria de um orçamento para este veículo:";
+    trackEvent("quote_submit", { source: "vehicle_form", brand: String(data.get("brand") || "") });
+    window.open(`https://wa.me/5511952063102?text=${encodeURIComponent(`${intro}\n\n${details}`)}`, "_blank", "noopener,noreferrer");
+  };
+
+  return <section className="vehicle-quote" aria-labelledby="vehicle-quote-title">
+    <div className="vehicle-quote__intro"><Eyebrow light>{t("quote.eyebrow")}</Eyebrow><h4 id="vehicle-quote-title">{t("quote.title")}</h4><p>{t("quote.text")}</p></div>
+    <form className="vehicle-quote__form" onSubmit={submit}>
+      <label><span>{t("quote.name")}</span><input name="name" autoComplete="name" required /></label>
+      <label><span>{t("quote.brand")}</span><select name="brand" required defaultValue=""><option value="" disabled>{t("quote.select")}</option>{vehicleBrands.map(brand => <option key={brand.name}>{brand.name}</option>)}</select></label>
+      <label><span>{t("quote.model")}</span><input name="model" required /></label>
+      <label><span>{t("quote.year")}</span><input name="year" inputMode="numeric" pattern="[0-9]{4}" maxLength={4} required /></label>
+      <label><span>{t("quote.engine")}</span><input name="engine" /></label>
+      <label><span>{t("quote.part")}</span><input name="part" required /></label>
+      <button className="button button--yellow" type="submit">{t("quote.submit")} <span>↗</span></button>
+      <small>{t("quote.note")}</small>
+    </form>
+  </section>;
+}
+
 function BrazilFlag() {
   return <svg className="language-flag" viewBox="0 0 28 20" aria-hidden="true"><rect width="28" height="20" rx="2" fill="#229e45" /><path d="m14 3 10 7-10 7-10-7Z" fill="#f7d229" /><path d="M10.3 9.1c2.8-.7 5.3-.3 7.5 1.1" fill="none" stroke="#fff" strokeWidth=".65" /><circle cx="14" cy="10" r="4.2" fill="#244aa5" /></svg>;
 }
@@ -441,8 +488,9 @@ function ClosingSection() {
 const MemoClosing = memo(ClosingSection);
 
 function FooterSection() {
-  const { t } = useLanguage();
-  return <footer className="footer"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><span>{t("footer.tagline")}</span><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />@starkepremiumparts ↗</a></footer>;
+  const { lang, t } = useLanguage();
+  const whatsapp = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
+  return <footer className="footer"><div className="footer-brand"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><p>{t("footer.tagline")}</p></div><nav aria-label={t("footer.quickLinks")}><strong>{t("footer.quickLinks")}</strong>{translatedTabs.map(tab => <a key={tab.id} href={routes[tab.id]}>{tab.label[lang]}</a>)}</nav><div className="footer-contact"><strong>{t("footer.contact")}</strong><a href={whatsapp} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { source: "footer" })}>WhatsApp ↗</a><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />Instagram ↗</a></div><small>© {new Date().getFullYear()} Stärke Parts. {t("footer.rights")}</small></footer>;
 }
 const MemoFooter = memo(FooterSection);
 
@@ -480,6 +528,8 @@ function CompanyRoadmap() {
 function ProductCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const { lang, t } = useLanguage();
+  const [carouselPaused, setCarouselPaused] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   const move = useCallback((direction: 1 | -1) => {
     const track = trackRef.current;
@@ -491,16 +541,16 @@ function ProductCarousel() {
   }, []);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (carouselPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(() => move(1), 4200);
     return () => window.clearInterval(timer);
-  }, [move]);
+  }, [carouselPaused, move]);
 
   return <section className="product-carousel" aria-label={t("prod.carAria")}>
-    <div className="product-grid product-carousel-track" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }}>
-      {[...productLines, ...productLines].map((item, index) => <article className="product-card" key={`${item.number}-${index}`} aria-hidden={index >= productLines.length ? true : undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul></article>)}
+    <div className="product-grid product-carousel-track" ref={trackRef} onMouseEnter={() => setCarouselPaused(true)} onMouseLeave={() => setCarouselPaused(false)} onFocusCapture={() => setCarouselPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false); }} onPointerDown={() => setCarouselPaused(true)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".product-card"); const distance = (card?.offsetWidth ?? 390) + 14; setCarouselIndex(Math.round(track.scrollLeft / distance) % productLines.length); }}>
+      {[...productLines, ...productLines].map((item, index) => { const duplicate = index >= productLines.length; const href = `https://wa.me/5511952063102?text=${encodeURIComponent(lang === "en" ? `Hello, I'd like information about ${item.title.en}.` : `Olá, gostaria de informações sobre ${item.title.pt}.`)}`; return <article className="product-card" key={`${item.number}-${index}`} aria-hidden={duplicate || undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul><a className="product-card-link" href={href} target="_blank" rel="noreferrer" tabIndex={duplicate ? -1 : 0} onClick={() => trackEvent("product_line_click", { line: item.title.pt })}>{t("prod.details")} <span>↗</span></a></article>; })}
     </div>
-    <div className="product-carousel-controls"><span>{t("prod.carControl")}</span><div><button onClick={() => move(-1)} aria-label={t("prod.carPrev")}>←</button><button onClick={() => move(1)} aria-label={t("prod.carNext")}>→</button></div></div>
+    <div className="product-carousel-controls"><span>{t("prod.carControl")} · {String(carouselIndex + 1).padStart(2, "0")} / {String(productLines.length).padStart(2, "0")}</span><div><button onClick={() => move(-1)} aria-label={t("prod.carPrev")}>←</button><button onClick={() => move(1)} aria-label={t("prod.carNext")}>→</button></div></div>
   </section>;
 }
 
@@ -640,7 +690,8 @@ function ProductsPanel() {
     <div className="product-spotlight"><div className="product-spotlight-photo" aria-label={t("prod.spotEyebrow")} /><div className="product-spotlight-copy"><Eyebrow>{t("prod.spotEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.spotHeading") }} /><p>{t("prod.spotText")}</p></div></div>
     <ProductCarousel />
     <div className="subsection-heading"><Eyebrow>{t("prod.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.secHeading") }} /></div>
-    <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title[lang]}><span>{String(index + 1).padStart(2, "0")}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title[lang]}><span className="product-context-icon-wrap"><ProductContextIcon index={index} /></span><div className="product-context-copy"><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div></article>)}</div>
+    <nav className="product-context-actions" aria-label={t("prod.contextCtaAria")}><a className="button button--yellow" href={WHATSAPP} target="_blank" rel="noreferrer">{t("prod.contextCta")} <span>↗</span></a><a className="button button--outline" href="/fabricantes">{t("prod.contextAltCta")} <span>→</span></a></nav>
     <div className="quality-banner"><span>{t("prod.bannerEyebrow")}</span><h4 dangerouslySetInnerHTML={{ __html: t("prod.bannerHeading") }} /><p>{t("prod.bannerText")}</p></div>
     <aside className="info-strip"><strong>{t("prod.notFound")}</strong><a className="text-link" href={WHATSAPP} target="_blank" rel="noreferrer">{t("prod.cta")} <span>↗</span></a></aside>
   </div>;
@@ -693,6 +744,7 @@ function ServicePanel() {
     <div className="subsection-heading"><Eyebrow>{t("srv.faqEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.faqHeading") }} /></div>
     <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question[lang]}><summary>{item.question[lang]}<span>+</span></summary><p>{item.answer[lang]}</p></details>)}</div>
     <div className="after-sales"><span>{t("srv.afterEyebrow")}</span><h5 dangerouslySetInnerHTML={{ __html: t("srv.afterTitle") }} /><p>{t("srv.afterText")}</p></div>
+    <VehicleQuoteForm />
     <div className="contact-card"><Eyebrow light>{t("srv.contactEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.contactTitle") }} /><p>{t("srv.contactText")}</p><div className="contact-socials"><a className="contact-social contact-social--whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("srv.whatsapp")}><span className="contact-social__icon" aria-hidden="true"><WhatsAppBadge /></span><span className="contact-social__copy"><small>WHATSAPP</small><strong>{t("srv.whatsapp")}</strong></span><span className="contact-social__arrow" aria-hidden="true">↗</span></a><a className="contact-social contact-social--instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><span className="contact-social__icon" aria-hidden="true"><InstagramIcon /></span><span className="contact-social__copy"><small>INSTAGRAM</small><strong>@starkepremiumparts</strong></span><span className="contact-social__arrow" aria-hidden="true">↗</span></a></div></div>
   </div>;
 }
@@ -707,6 +759,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     return translatedTabs.some(tab => tab.id === hash) ? hash as TabId : initialSection;
   });
   const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 28);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [splashDone, setSplashDone] = useState(() => {
     if (!showSplash) return true;
     if (typeof window === "undefined") return false;
@@ -801,6 +854,9 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
       const listRect = tabListRef.current.getBoundingClientRect();
       const elRect = el.getBoundingClientRect();
       setIndicatorStyle({ left: elRect.left - listRect.left + tabListRef.current.scrollLeft, width: elRect.width });
+      if (elRect.left < listRect.left || elRect.right > listRect.right) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
     };
     updateIndicator();
     const indicatorTimer = window.setTimeout(updateIndicator, 360);
@@ -826,6 +882,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   }, [active]);
 
   const changeTab = useCallback((id: TabId, shouldScroll = true) => {
+    setMobileMenuOpen(false);
     setActive(current => {
       if (current !== id) {
         const path = routes[id];
@@ -842,6 +899,15 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
     }
   }, [scrollToExplore]);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
+
   function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
@@ -855,12 +921,27 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   return <>
     {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
     <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
-    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""}`}><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><nav className="desktop-nav" aria-label={t("nav.aria")}><button onClick={() => changeTab("institucional")}>{t("nav.company")}</button><button onClick={() => changeTab("aplicacoes")}>{t("nav.automakers")}</button><button onClick={() => changeTab("produtos")}>{t("nav.portfolio")}</button><button onClick={() => changeTab("estrutura")}>{t("nav.locations")}</button></nav><div className="header-actions"><div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div><a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">{t("nav.cta")} <span>↗</span></a></div></header>
+    <header className={`masthead ${scrolled ? "masthead--scrolled" : ""} ${mobileMenuOpen ? "masthead--menu-open" : ""}`}>
+      <a className="wordmark" href="#topo" aria-label={t("nav.home")} onClick={() => setMobileMenuOpen(false)}><img src="/starke-parts-logo.png" alt="" /></a>
+      <nav className="desktop-nav" aria-label={t("nav.aria")}>
+        {tabs.slice(0, 6).map(tab => <button key={tab.id} className={active === tab.id ? "is-active" : ""} aria-current={active === tab.id ? "page" : undefined} onClick={() => changeTab(tab.id)}>{tab.label}</button>)}
+      </nav>
+      <div className="header-actions">
+        <div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div>
+        <a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">{t("nav.cta")} <span>↗</span></a>
+        <button type="button" className="mobile-menu-toggle" aria-label={mobileMenuOpen ? t("nav.menuClose") : t("nav.menuOpen")} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen(open => !open)}><span /><span /><span /></button>
+      </div>
+      <nav id="mobile-navigation" className="mobile-navigation" aria-label={t("nav.aria")} aria-hidden={!mobileMenuOpen}>
+        {tabs.map(tab => <button key={tab.id} className={active === tab.id ? "is-active" : ""} aria-current={active === tab.id ? "page" : undefined} tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => changeTab(tab.id)}><span>{tab.number}</span>{tab.label}</button>)}
+        <a href={WHATSAPP} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>{t("nav.cta")} <span>↗</span></a>
+      </nav>
+    </header>
     <MemoHero />
     <MemoTicker />
     <MemoStoryIntro />
     <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
     <MemoClosing />
+    <a className="floating-whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("floatWhatsapp")} onClick={() => trackEvent("whatsapp_click", { source: "floating_button" })}><WhatsAppIcon /><span>{t("floatWhatsapp")}</span></a>
     <MemoFooter />
   </main>
   </>;

@@ -2703,6 +2703,11 @@
   border-radius: var(--card-radius);
 }
 
+.products-page .product-context-grid .detail-card {
+  min-height: 155px;
+  padding: 20px 26px;
+}
+
 .products-page .detail-card h5,
 .applications-page .detail-card h5 {
   margin: auto 0 12px;
@@ -2903,6 +2908,7 @@
   .service-page .service-steps { padding: 10px; border-radius: 20px; }
   .products-page .detail-card,
   .applications-page .detail-card { min-height: 235px; padding: 25px; }
+  .products-page .product-context-grid .detail-card { min-height: 145px; padding: 19px 21px; }
   .structure-page .journey-item { grid-template-columns: 44px 1fr; min-height: 0; padding: 24px 21px 28px; }
   .service-page .service-steps article { min-height: 0; padding: 24px 21px 28px; }
   .structure-page .editorial-note { min-height: 0; padding: 29px 24px; }
@@ -5431,27 +5437,27 @@ html.lenis, html.lenis body { height: auto; }
 
 .products-page .product-carousel .product-card-top > span:first-child,
 :root[data-theme="dark"] .products-page .product-carousel .product-card-top > span:first-child {
-  width: 34px;
-  height: 34px;
-  font-size: 9px;
+  width: 38px;
+  height: 38px;
+  font-size: 10px;
 }
 
 .products-page .product-carousel .product-card-top > span:last-child,
 :root[data-theme="dark"] .products-page .product-carousel .product-card-top > span:last-child {
-  padding: 6px 9px;
-  font-size: 8px;
+  padding: 7px 11px;
+  font-size: 10px;
 }
 
 .products-page .product-carousel .product-card h4,
 :root[data-theme="dark"] .products-page .product-carousel .product-card h4 {
   margin: 28px 0 12px;
-  font-size: clamp(27px, 2vw, 34px);
+  font-size: clamp(31px, 2.25vw, 38px);
 }
 
 .products-page .product-carousel .product-card > p,
 :root[data-theme="dark"] .products-page .product-carousel .product-card > p {
-  font-size: 13px;
-  line-height: 1.58;
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .products-page .product-carousel .product-card ul,
@@ -5462,8 +5468,8 @@ html.lenis, html.lenis body { height: auto; }
 
 .products-page .product-carousel .product-card li,
 :root[data-theme="dark"] .products-page .product-carousel .product-card li {
-  font-size: 12px;
-  line-height: 1.35;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
 .products-page .product-carousel-controls {
@@ -5554,6 +5560,229 @@ html.lenis, html.lenis body { height: auto; }
   :root[data-theme="dark"] .institutional-page .institutional-history-signature::before {
     animation: none;
   }
+}
+
+/* Slightly larger type scale for more comfortable reading site-wide. */
+.experience .panel-heading > p:last-child,
+.experience .section-intro > p,
+.subsection-description,
+.editorial-note p,
+.quality-banner p,
+.coverage-banner p,
+.manufacturer-note p,
+.after-sales p,
+.contact-card > p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.identity-card p,
+.detail-card p,
+.coverage-card p,
+.product-card p,
+.supplier-card p,
+.journey-item p,
+.location-card p,
+.logistics-card p,
+.service-steps article p,
+.service-audiences article p,
+.faq-item p,
+.brand-feature-summary p {
+  font-size: 14px;
+}
+
+.identity-card h5,
+.detail-card h5,
+.coverage-card h5,
+.journey-item h5,
+.service-steps article h5 {
+  font-size: clamp(26px, 2.25vw, 34px);
+}
+
+.product-card h4,
+.supplier-card h4,
+.location-card h4,
+.logistics-card h4,
+.service-audiences article h4 {
+  font-size: clamp(27px, 2.35vw, 36px);
+}
+
+.desktop-nav button,
+.desktop-nav a,
+.header-cta,
+.experience .tab,
+.button,
+.text-link {
+  font-size: 13px;
+}
+
+.eyebrow { font-size: 11px; }
+
+/* Preserve the compact hierarchy of the product context cards. */
+.products-page .product-context-grid .detail-card h5 {
+  font-size: clamp(22px, 1.9vw, 29px);
+}
+
+.products-page .product-context-grid .detail-card p {
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .experience .panel-heading > p:last-child,
+  .experience .section-intro > p,
+  .subsection-description,
+  .editorial-note p,
+  .quality-banner p,
+  .coverage-banner p,
+  .after-sales p,
+  .contact-card > p { font-size: 15px; }
+
+  .identity-card p,
+  .detail-card p,
+  .coverage-card p,
+  .product-card p,
+  .supplier-card p,
+  .journey-item p,
+  .location-card p,
+  .logistics-card p,
+  .service-steps article p,
+  .service-audiences article p,
+  .faq-item p,
+  .brand-feature-summary p { font-size: 14px; }
+
+  .products-page .product-context-grid .detail-card h5 { font-size: 22px; }
+  .products-page .product-context-grid .detail-card p { font-size: 14px; }
+}
+
+/* Compact product contexts: stronger hierarchy, clearer actions and accessible motion. */
+.products-page .product-context-grid {
+  gap: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.products-page .product-context-grid .detail-card {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 22px 26px;
+  border: 1px solid rgba(250, 206, 45, .2);
+  border-radius: 18px;
+  background: #151513;
+  box-shadow: none;
+  transform: none;
+  transition: border-color .25s ease, background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.products-page .product-context-grid .detail-card:hover {
+  border-color: rgba(250, 206, 45, .58);
+  background: #191917;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .2), 0 0 0 1px rgba(250, 206, 45, .06);
+  transform: translateY(-3px);
+}
+
+.products-page .product-context-grid .product-context-icon-wrap {
+  display: grid !important;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(250, 206, 45, .48);
+  border-radius: 14px;
+  background: rgba(250, 206, 45, .08);
+  box-shadow: none;
+  color: var(--yellow);
+}
+
+.products-page .product-context-grid .product-context-copy {
+  grid-column: 2;
+  min-width: 0;
+  width: 100%;
+}
+
+.product-context-icon {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.products-page .product-context-grid .detail-card:hover .product-context-icon-wrap {
+  border-color: var(--yellow);
+  background: var(--yellow);
+  color: #080808;
+}
+
+.products-page .product-context-grid .detail-card h5 {
+  margin: 0 0 8px;
+  font-size: clamp(22px, 1.9vw, 29px);
+  line-height: 1.12;
+  text-align: left !important;
+}
+
+.products-page .product-context-grid .detail-card p {
+  max-width: 66ch;
+  margin: 0 !important;
+  color: #c9c8c1;
+  font-size: 14px;
+  line-height: 1.62;
+  text-align: left !important;
+}
+
+.product-context-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.product-context-actions .button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 19px;
+  border: 1px solid var(--yellow);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.product-context-actions .button--yellow { background: var(--yellow); color: #080808; }
+.product-context-actions .button--outline { background: transparent; color: #fff; }
+.product-context-actions .button:hover { transform: translateY(-2px); }
+.product-context-actions .button--outline:hover { background: var(--yellow); color: #080808; }
+
+@media (max-width: 760px) {
+  .products-page .product-context-grid { grid-template-columns: 1fr; gap: 12px; }
+  .products-page .product-context-grid .detail-card {
+    min-height: 0;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 16px;
+    padding: 19px 20px;
+  }
+  .products-page .product-context-grid .product-context-icon-wrap { width: 42px; height: 42px; border-radius: 12px; }
+  .product-context-icon { width: 21px; height: 21px; }
+  .products-page .product-context-grid .detail-card h5 { font-size: 22px; }
+  .products-page .product-context-grid .detail-card p { font-size: 14px; line-height: 1.58; }
+  .product-context-actions { display: grid; grid-template-columns: 1fr; margin-top: 18px; }
+  .product-context-actions .button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .products-page .product-context-grid .detail-card,
+  .product-context-actions .button { transition: none; }
+  .products-page .product-context-grid .detail-card:hover,
+  .product-context-actions .button:hover { transform: none; }
 }
 
 /* Operational journey: five compact, clearly ordered columns. */
@@ -6081,4 +6310,244 @@ html.lenis, html.lenis body { height: auto; }
   :root[data-theme="dark"] .structure-page .locations-grid .location-card::after {
     opacity: .72;
   }
+}
+
+/* ============================================================
+   STÄRKE VISUAL SYSTEM — restrained premium engineering
+   ============================================================ */
+:root {
+  --starke-card-radius: 20px;
+  --starke-card-border: rgba(255,255,255,.11);
+  --starke-card-border-hover: rgba(250,206,45,.58);
+  --starke-card-bg: #151513;
+  --starke-copy: #c9c8c1;
+}
+
+/* 1 + 2: neutral frames, consistent geometry and measured depth. */
+:is(
+  .identity-card,
+  .detail-card,
+  .coverage-card,
+  .product-card,
+  .supplier-card,
+  .journey-item,
+  .location-card,
+  .logistics-card,
+  .service-steps article,
+  .service-audiences > article,
+  .faq-item
+) {
+  border: 1px solid var(--starke-card-border) !important;
+  border-radius: var(--starke-card-radius) !important;
+  background-color: var(--starke-card-bg);
+  box-shadow: 0 12px 28px rgba(0,0,0,.2) !important;
+}
+
+:is(
+  .identity-card,
+  .detail-card,
+  .coverage-card,
+  .product-card,
+  .supplier-card,
+  .journey-item,
+  .location-card,
+  .logistics-card,
+  .service-steps article,
+  .service-audiences > article,
+  .faq-item
+):hover {
+  border-color: var(--starke-card-border-hover) !important;
+  box-shadow: 0 18px 36px rgba(0,0,0,.26) !important;
+}
+
+/* Yellow is reserved for active states, icons and calls to action. */
+.products-page .product-context-grid .detail-card,
+.applications-page > .detail-grid .detail-card,
+.products-page .product-carousel .product-card,
+.structure-page .location-card {
+  border-color: var(--starke-card-border) !important;
+}
+
+.products-page .product-context-grid .detail-card:hover,
+.applications-page > .detail-grid .detail-card:hover,
+.products-page .product-carousel .product-card:hover,
+.structure-page .location-card:hover {
+  border-color: var(--starke-card-border-hover) !important;
+}
+
+/* 6 + 7: coherent type hierarchy and comfortable reading measure. */
+.experience .panel-heading h3 { max-width: 16ch; font-size: clamp(50px, 5.2vw, 76px); line-height: .98; }
+.experience .subsection-heading h4 { max-width: 19ch; font-size: clamp(40px, 4.35vw, 62px); line-height: 1.01; }
+
+:is(.panel-heading, .section-intro, .subsection-heading, .quality-banner, .coverage-banner, .after-sales, .contact-card) > p,
+.subsection-description { max-width: 66ch !important; color: var(--starke-copy); }
+
+:is(.identity-card, .detail-card, .coverage-card, .product-card, .supplier-card, .journey-item, .location-card, .logistics-card, .service-steps article, .service-audiences > article) p {
+  max-width: 62ch;
+  color: var(--starke-copy);
+  line-height: 1.68;
+}
+
+/* 9: one line-icon language across the interface. */
+.product-context-icon,
+.contact-social__icon svg,
+.floating-whatsapp svg,
+.footer-contact svg {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.products-page .product-context-grid .product-context-icon-wrap {
+  border-radius: 12px;
+  box-shadow: none !important;
+}
+
+/* 10: quieter glass header with precise active indication. */
+.masthead {
+  height: 78px;
+  border-bottom: 1px solid transparent;
+  background: linear-gradient(180deg, rgba(4,4,4,.72), rgba(4,4,4,.08));
+}
+
+.masthead--scrolled,
+.masthead--menu-open {
+  border-bottom-color: rgba(255,255,255,.1);
+  background: rgba(7,7,7,.88);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.desktop-nav { gap: 3px; }
+.desktop-nav button { padding-inline: 12px; color: rgba(255,255,255,.68); font-weight: 650; }
+.desktop-nav button:hover { color: #fff; }
+.desktop-nav button.is-active { color: #fff; }
+.desktop-nav button.is-active::after { right: 12px; bottom: -4px; left: 12px; height: 2px; background: var(--yellow); box-shadow: none; }
+.header-cta { box-shadow: none; }
+
+/* 11: carousel viewport deliberately reveals the next card. */
+.products-page .product-carousel { overflow: hidden; }
+.products-page .product-carousel .product-carousel-track {
+  gap: 16px !important;
+  padding: 10px 7.5vw 22px 10px !important;
+  cursor: grab;
+}
+.products-page .product-carousel .product-carousel-track:active { cursor: grabbing; }
+.products-page .product-carousel .product-card,
+:root[data-theme="dark"] .products-page .product-carousel .product-card {
+  flex-basis: calc((100% - 32px) / 2.72) !important;
+  scroll-snap-align: start;
+}
+.products-page .product-carousel-controls {
+  margin-top: 4px;
+  padding: 12px 4px 0;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.products-page .product-carousel-controls > span { color: #aaa9a2; font-size: 11px; }
+.products-page .product-carousel-controls button { border-color: rgba(255,255,255,.16); background: #151513; color: #fff; box-shadow: none; }
+.products-page .product-carousel-controls button:hover { border-color: var(--yellow); background: var(--yellow); color: #080808; box-shadow: none; }
+
+@media (max-width: 980px) {
+  .products-page .product-carousel .product-card,
+  :root[data-theme="dark"] .products-page .product-carousel .product-card { flex-basis: 72vw !important; }
+}
+
+@media (max-width: 760px) {
+  .masthead { height: 70px; }
+  .experience .panel-heading h3 { font-size: clamp(39px, 11vw, 52px); }
+  .experience .subsection-heading h4 { font-size: clamp(34px, 9.5vw, 46px); }
+  .products-page .product-carousel .product-carousel-track { padding-right: 14vw !important; }
+  .products-page .product-carousel .product-card,
+  :root[data-theme="dark"] .products-page .product-carousel .product-card { flex-basis: 82vw !important; }
+}
+
+/* Commercial tools and simplified interaction layer. */
+.product-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,.1);
+  color: var(--yellow);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.product-card-link:hover { color: #fff; }
+
+.vehicle-quote {
+  display: grid;
+  grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr);
+  gap: clamp(34px, 6vw, 90px);
+  margin-top: 46px;
+  padding: clamp(30px, 4.5vw, 62px);
+  border: 1px solid rgba(250,206,45,.36);
+  border-radius: 26px;
+  background: linear-gradient(145deg, #171715, #090909);
+  color: #fff;
+}
+
+.vehicle-quote__intro h4 { margin: 24px 0 18px; font-size: clamp(34px, 4vw, 58px); line-height: 1; letter-spacing: -.055em; }
+.vehicle-quote__intro > p { max-width: 52ch; margin: 0; color: #c8c7c0; font-size: 15px; line-height: 1.72; }
+.vehicle-quote__form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+.vehicle-quote__form label { display: grid; gap: 8px; color: #d3d2cb; font-size: 11px; font-weight: 750; }
+.vehicle-quote__form input,
+.vehicle-quote__form select { width: 100%; min-height: 48px; padding: 0 14px; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; outline: 0; background: #20201e; color: #fff; font-size: 14px; }
+.vehicle-quote__form input:focus,
+.vehicle-quote__form select:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(250,206,45,.12); }
+.vehicle-quote__form .button { min-height: 49px; align-self: end; border: 0; border-radius: 10px; background: var(--yellow); color: #080808; font-size: 13px; font-weight: 850; }
+.vehicle-quote__form small { align-self: center; color: #aaa9a2; font-size: 11px; line-height: 1.5; }
+
+.floating-whatsapp {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 18;
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 17px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 999px;
+  background: #20b85a;
+  box-shadow: 0 12px 28px rgba(0,0,0,.3);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.floating-whatsapp .whatsapp-icon { width: 23px; height: 23px; fill: currentColor; }
+.floating-whatsapp:hover { background: #17994a; transform: translateY(-2px); }
+
+.footer {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.3fr) repeat(2, minmax(150px, .55fr));
+  gap: 40px;
+  align-items: start;
+  padding: 52px max(6.2vw, 28px) 30px;
+  background: #070707;
+  color: #fff;
+}
+.footer-brand p { max-width: 300px; margin: 18px 0 0; color: #aaa9a2; font-size: 14px; }
+.footer nav, .footer-contact { display: grid; gap: 10px; }
+.footer nav strong, .footer-contact > strong { margin-bottom: 7px; color: var(--yellow); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.footer nav a, .footer-contact a { color: #c8c7c0; font-size: 13px; }
+.footer nav a:hover, .footer-contact a:hover { color: var(--yellow); }
+.footer .footer-instagram { display: flex; align-items: center; gap: 8px; }
+.footer .footer-instagram svg { width: 18px; height: 18px; }
+.footer > small { grid-column: 1 / -1; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); color: #777770; font-size: 11px; }
+
+/* Keep premium feedback while removing perpetual decorative movement. */
+:is(.panel-heading, .subsection-heading, .quality-banner, .coverage-banner, .contact-card, .manufacturer-note) { animation: none !important; }
+
+@media (max-width: 760px) {
+  .vehicle-quote { grid-template-columns: 1fr; gap: 28px; margin-top: 32px; padding: 28px 21px; border-radius: 20px; }
+  .vehicle-quote__form { grid-template-columns: 1fr; }
+  .vehicle-quote__intro h4 { font-size: 37px; }
+  .floating-whatsapp { right: 14px; bottom: 14px; width: 52px; padding: 0; justify-content: center; }
+  .floating-whatsapp > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .footer { grid-template-columns: 1fr 1fr; gap: 32px 20px; padding: 42px 24px 92px; }
+  .footer-brand { grid-column: 1 / -1; }
 }

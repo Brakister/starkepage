@@ -67,6 +67,8 @@ export const copy: Record<string, Bilingual> = {
   "nav.portfolio": { pt: "Portfólio", en: "Portfolio" },
   "nav.locations": { pt: "Unidades", en: "Locations" },
   "nav.cta": { pt: "Falar com especialista", en: "Talk to an expert" },
+  "nav.menuOpen": { pt: "Abrir menu", en: "Open menu" },
+  "nav.menuClose": { pt: "Fechar menu", en: "Close menu" },
   "lang.aria": { pt: "Selecionar idioma", en: "Select language" },
 
   /* Hero */
@@ -144,6 +146,9 @@ export const copy: Record<string, Bilingual> = {
 
   /* Footer */
   "footer.tagline": { pt: "Oferecemos peças. Entregamos confiança.", en: "We offer parts. We deliver trust." },
+  "footer.quickLinks": { pt: "Navegação", en: "Navigation" },
+  "footer.contact": { pt: "Atendimento", en: "Contact" },
+  "footer.rights": { pt: "Todos os direitos reservados.", en: "All rights reserved." },
 
   /* Roadmap carousel */
   "road.aria": {
@@ -357,6 +362,23 @@ export const copy: Record<string, Bilingual> = {
   },
   "prod.notFound": { pt: "Não encontrou o componente que procura?", en: "Didn't find the part you're looking for?" },
   "prod.cta": { pt: "Fale com um especialista", en: "Talk to an expert" },
+  "prod.contextCta": { pt: "Consultar uma peça", en: "Ask about a part" },
+  "prod.contextAltCta": { pt: "Conhecer os fabricantes", en: "Explore manufacturers" },
+  "prod.contextCtaAria": { pt: "Ações para consultar peças e fabricantes", en: "Actions to ask about parts and manufacturers" },
+  "quote.eyebrow": { pt: "CONSULTA PERSONALIZADA", en: "PERSONALIZED INQUIRY" },
+  "quote.title": { pt: "Encontre a peça para o seu veículo.", en: "Find the part for your vehicle." },
+  "quote.text": { pt: "Informe os dados disponíveis. Nossa equipe confirma aplicação, fabricante e disponibilidade pelo WhatsApp.", en: "Share the details you have. Our team confirms fitment, manufacturer and availability via WhatsApp." },
+  "quote.name": { pt: "Seu nome", en: "Your name" },
+  "quote.brand": { pt: "Montadora", en: "Automaker" },
+  "quote.model": { pt: "Modelo do veículo", en: "Vehicle model" },
+  "quote.year": { pt: "Ano", en: "Year" },
+  "quote.engine": { pt: "Motor ou versão", en: "Engine or version" },
+  "quote.part": { pt: "Peça procurada", en: "Part needed" },
+  "quote.select": { pt: "Selecione", en: "Select" },
+  "quote.submit": { pt: "Solicitar orçamento", en: "Request a quote" },
+  "quote.note": { pt: "Você será direcionado ao WhatsApp com os dados preenchidos.", en: "You will be directed to WhatsApp with the information provided." },
+  "floatWhatsapp": { pt: "Consultar pelo WhatsApp", en: "Ask via WhatsApp" },
+  "prod.details": { pt: "Consultar esta linha", en: "Ask about this line" },
 
   /* Manufacturers */
   "man.kicker": { pt: "PARCERIAS E FABRICANTES INTERNACIONAIS", en: "INTERNATIONAL PARTNERSHIPS AND MANUFACTURERS" },
