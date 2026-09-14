@@ -31,6 +31,28 @@
 .experience :is(.institutional-history-signature,.institutional-manifesto)::after { animation: none !important; }
 /* Spacing: related headings and content stay together. */
 .experience { padding-bottom: var(--section-space); }
+
+/* Slow moving light points, painted in the page background beneath its content. */
+:root[data-theme="dark"] .experience {
+  background-color: #050505 !important;
+  background-image:
+    radial-gradient(1.6px 1.6px at 22px 30px, rgba(255,255,255,.78) 98%, transparent),
+    radial-gradient(1.2px 1.2px at 136px 114px, rgba(255,255,255,.58) 98%, transparent),
+    radial-gradient(1.4px 1.4px at 258px 64px, rgba(255,255,255,.68) 98%, transparent),
+    radial-gradient(1px 1px at 78px 176px, rgba(255,255,255,.48) 98%, transparent) !important;
+  background-size: 260px 210px, 320px 260px, 380px 300px, 440px 330px !important;
+  animation: experience-light-points 24s linear infinite;
+}
+
+@keyframes experience-light-points {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 260px 210px, -320px 260px, 380px -300px, -440px 330px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme="dark"] .experience { animation: none; }
+}
+
 .experience .panel-heading { margin-bottom: 32px; }
 .experience .subsection-heading { margin-top: var(--section-space); margin-bottom: 24px; }
 .institutional-page :is(.identity-heading,.company-story-heading,.operations-heading,.operations-intro,.institutional-manifesto) { min-height: 0; margin-top: var(--section-space); padding: clamp(24px, 3.5vw, 44px); gap: 24px; }
@@ -185,8 +207,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .institutional-page .operations-carousel .operation-card p { max-width: 31ch; margin: 0 auto !important; font-size: 13px; line-height: 1.6; }
 .operations-carousel__controls { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 4px 0; border-top: 1px solid rgba(255,255,255,.12); color: #aaa9a2; font-size: 11px; font-weight: 700; letter-spacing: .08em; }
 .operations-carousel__controls > div { display: flex; gap: 8px; }
-.operations-carousel__controls button { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: transparent; color: #fff; font-size: 16px; cursor: pointer; }
-.operations-carousel__controls button:hover { border-color: var(--yellow); background: var(--yellow); color: #080808; }
+.operations-carousel__controls button,
+.product-carousel-controls button,
+.institutional-page .roadmap-controls button { display: inline-grid; width: 42px; height: 42px; place-items: center; border: 1px solid rgba(255,255,255,.42); border-radius: 50%; background: #fff; box-shadow: none; color: #080808; font-family: Arial, sans-serif; font-size: 22px; font-weight: 900; line-height: 1; cursor: pointer; transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease; }
+.operations-carousel__controls button:hover,
+.product-carousel-controls button:hover,
+.institutional-page .roadmap-controls button:hover { border-color: var(--yellow); background: var(--yellow); box-shadow: none; color: #080808; transform: translateY(-2px); }
+.operations-carousel__controls button:focus-visible,
+.product-carousel-controls button:focus-visible,
+.institutional-page .roadmap-controls button:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 @media (max-width: 980px) {
   .institutional-page .operations-carousel .operation-card { flex-basis: calc((100% - 16px) / 2); }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo, memo } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import {
@@ -778,9 +778,6 @@ function StarkePageContent({ initialSection = "institucional", showIntro = false
   const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 28);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isHome, setIsHome] = useState(showIntro);
-  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const tabListRef = useRef<HTMLDivElement>(null);
   const activeSectionMounted = useRef(false);
 
   const scrollToExplore = useCallback(() => {
@@ -811,29 +808,14 @@ function StarkePageContent({ initialSection = "institucional", showIntro = false
   }, []);
 
   useEffect(() => {
-    const updateIndicator = () => {
-      const idx = tabs.findIndex(t => t.id === active);
-      const el = tabRefs.current[idx];
-      if (!el || !tabListRef.current) return;
-      const listRect = tabListRef.current.getBoundingClientRect();
-      const elRect = el.getBoundingClientRect();
-      setIndicatorStyle({ left: elRect.left - listRect.left + tabListRef.current.scrollLeft, width: elRect.width });
-      if (elRect.left < listRect.left || elRect.right > listRect.right) {
-        el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-      }
-    };
-    updateIndicator();
-    const indicatorTimer = window.setTimeout(updateIndicator, 360);
     if (activeSectionMounted.current) {
       const scrollTimer = window.setTimeout(scrollToExplore, 80);
       return () => {
         window.clearTimeout(scrollTimer);
-        window.clearTimeout(indicatorTimer);
       };
     }
     activeSectionMounted.current = true;
-    return () => window.clearTimeout(indicatorTimer);
-  }, [active, scrollToExplore, tabs]);
+  }, [active, scrollToExplore]);
 
   useEffect(() => {
     const onPopState = () => {
@@ -874,14 +856,6 @@ function StarkePageContent({ initialSection = "institucional", showIntro = false
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [mobileMenuOpen]);
 
-  function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-    event.preventDefault();
-    const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
-    changeTab(tabs[next].id, true);
-    tabRefs.current[next]?.focus();
-  }
-
   const onContact = useCallback(() => changeTab("atendimento"), [changeTab]);
 
   return <>
@@ -902,7 +876,7 @@ function StarkePageContent({ initialSection = "institucional", showIntro = false
       </nav>
     </header>
     {isHome && <><MemoHero /><MemoTicker /><MemoStoryIntro /></>}
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel />}{active === "produtos" && <ProductsPanel />}{active === "fabricantes" && <ManufacturersPanel />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel />}{active === "produtos" && <ProductsPanel />}{active === "fabricantes" && <ManufacturersPanel />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
     <MemoClosing />
     <a className="floating-whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("floatWhatsapp")} onClick={() => trackEvent("whatsapp_click", { source: "floating_button" })}><WhatsAppIcon /><span>{t("floatWhatsapp")}</span></a>
     <MemoFooter />

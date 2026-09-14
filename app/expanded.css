@@ -4798,16 +4798,18 @@
 }
 
 /* Absolute-black site canvas. */
-:root[data-theme="dark"] body,
+:root[data-theme="dark"] body {
+  background-color: #000;
+}
+
 :root[data-theme="dark"] main,
 :root[data-theme="dark"] .experience,
 .landing,
 .landing-hero,
 .landing-specialties {
-  background-color: #000;
+  background-color: rgba(0,0,0,.66);
 }
 
-:root[data-theme="dark"] body,
 :root[data-theme="dark"] .experience {
   background-image: none;
 }

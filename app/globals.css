@@ -50,7 +50,7 @@ main {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #000;
+  opacity: 1;
 }
 .starfield__stars {
   position: absolute;
@@ -59,27 +59,30 @@ main {
   height: 100%;
 }
 .starfield__stars {
-  opacity: .45;
+  opacity: .68;
   background-image:
     radial-gradient(1px 1px at 24px 38px, #fff 98%, transparent),
     radial-gradient(1px 1px at 117px 143px, #fff 98%, transparent),
     radial-gradient(1px 1px at 203px 79px, #fff 98%, transparent);
   background-size: 251px 211px, 307px 283px, 373px 331px;
+  animation: starfield-drift 28s linear infinite alternate;
 }
 .starfield__nebula {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: .3;
-  background:
-    radial-gradient(ellipse at 30% 40%, rgba(56, 100, 180, .15) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(100, 60, 150, .1) 0%, transparent 50%);
+  display: none;
 }
-.starfield__vignette {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(5, 5, 10, .9) 100%);
+.starfield__vignette { display: none; }
+
+@keyframes starfield-drift {
+  from { transform: scale(1.03) translate3d(-2.4%, -1.5%, 0); }
+  to { transform: scale(1.1) translate3d(2.4%, 1.5%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield__stars,
+  .starfield__nebula { animation: none; }
 }
 button, input, textarea, select { font-family: inherit; }
 h1, h2, h3, h4, h5, h6 { font-family: var(--font-site), Montserrat, Arial, sans-serif; font-weight: 700 !important; }
@@ -317,4 +320,3 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
 .landing-hero__actions .button--ghost { border: 1px solid rgba(255,255,255,.35); color: #fff; background: rgba(255,255,255,.04); }
 .landing-hero__actions .button--ghost:hover { border-color: var(--yellow); color: var(--yellow); }
 .eyebrow--light { color: var(--yellow); }
-
