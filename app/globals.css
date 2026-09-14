@@ -52,11 +52,19 @@ main {
   pointer-events: none;
   background: #000;
 }
-.starfield__canvas {
+.starfield__stars {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+.starfield__stars {
+  opacity: .45;
+  background-image:
+    radial-gradient(1px 1px at 24px 38px, #fff 98%, transparent),
+    radial-gradient(1px 1px at 117px 143px, #fff 98%, transparent),
+    radial-gradient(1px 1px at 203px 79px, #fff 98%, transparent);
+  background-size: 251px 211px, 307px 283px, 373px 331px;
 }
 .starfield__nebula {
   position: absolute;

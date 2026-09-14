@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
 import gsap from "gsap";
-import Lenis from "lenis";
 import {
   LanguageProvider,
   useLanguage,
@@ -60,75 +59,6 @@ const vehicleBrandLogoFiles: Record<string, string> = {
   Lamborghini: "/vehicle-logos/lamborghini.svg",
 "VW Premium": "/vehicle-logos/volkswagen.svg",
 };
-
-function SplashScreen({ onComplete }: { onComplete: () => void }) {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const lettersRef = useRef<Array<HTMLSpanElement | null>>([]);
-  const { t } = useLanguage();
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const target = "STÄRKE PARTS";
-      const chars = target.split("");
-      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÉÇ#%*+0123456789";
-
-      const progress = { value: 0 };
-      const update = () => {
-        const solved = Math.floor(progress.value * chars.length);
-        chars.forEach((char, i) => {
-          const el = lettersRef.current[i];
-          if (!el) return;
-          if (i < solved) {
-            el.textContent = char;
-            el.classList.add("is-solid");
-            el.classList.remove("is-ghost");
-          } else {
-            el.textContent = alphabet[Math.floor(Math.random() * alphabet.length)];
-            el.classList.add("is-ghost");
-            el.classList.remove("is-solid");
-          }
-        });
-      };
-
-      gsap.set(rootRef.current, { autoAlpha: 0 });
-      update();
-      gsap.to(rootRef.current, { autoAlpha: 1, duration: 0.15, ease: "none" });
-
-      gsap.to(".splash-shimmer", {
-        backgroundPosition: "200% 0",
-        duration: 2.6,
-        ease: "none",
-        repeat: -1,
-      });
-
-      const tl = gsap.timeline();
-      tl.fromTo(".splash-title", { scale: .94, opacity: 0 }, { scale: 1, opacity: 1, duration: .35, ease: "power2.out" }, .25);
-      tl.to(progress, { value: 1, duration: 1.15, ease: "power1.inOut", onUpdate: update }, .3);
-      tl.fromTo(".splash-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: .4, ease: "power2.out" }, .35);
-      tl.fromTo(".splash-rule", { scaleX: 0 }, { scaleX: 1, duration: .5, ease: "power3.inOut" }, 1.05);
-      tl.fromTo(".splash-tagline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: "power2.out" }, 1.15);
-      tl.to(rootRef.current, { opacity: 0, duration: .55, ease: "power2.inOut" }, 2.35);
-      tl.call(onComplete, undefined, 2.9);
-    }, rootRef);
-    return () => ctx.revert();
-  }, [onComplete]);
-
-  return (
-    <div className="splash" ref={rootRef} aria-hidden="true">
-      <div className="splash-glow" aria-hidden="true" />
-      <div className="splash-center">
-        <p className="splash-kicker">{t("splash.kicker")}</p>
-        <h1 className="splash-title splash-shimmer" aria-label="STÄRKE PARTS">
-          {"STÄRKE PARTS".split("").map((ch, i) => (
-            <span key={i} ref={el => { lettersRef.current[i] = el; }} aria-hidden="true">{ch}</span>
-          ))}
-        </h1>
-        <span className="splash-rule" />
-        <p className="splash-tagline">{t("splash.tagline")}</p>
-      </div>
-    </div>
-  );
-}
 
 function HeroBackdrop() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -441,7 +371,7 @@ const MemoHero = memo(HeroSection);
 
 function TickerSection() {
   const { t } = useLanguage();
-  return <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>;
+  return <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" loading="lazy" decoding="async" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>;
 }
 const MemoTicker = memo(TickerSection);
 
@@ -548,7 +478,7 @@ function ProductCarousel() {
 
   return <section className="product-carousel" aria-label={t("prod.carAria")}>
     <div className="product-grid product-carousel-track" ref={trackRef} onMouseEnter={() => setCarouselPaused(true)} onMouseLeave={() => setCarouselPaused(false)} onFocusCapture={() => setCarouselPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false); }} onPointerDown={() => setCarouselPaused(true)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".product-card"); const distance = (card?.offsetWidth ?? 390) + 14; setCarouselIndex(Math.round(track.scrollLeft / distance) % productLines.length); }}>
-      {[...productLines, ...productLines].map((item, index) => { const duplicate = index >= productLines.length; const href = `https://wa.me/5511952063102?text=${encodeURIComponent(lang === "en" ? `Hello, I'd like information about ${item.title.en}.` : `Olá, gostaria de informações sobre ${item.title.pt}.`)}`; return <article className="product-card" key={`${item.number}-${index}`} aria-hidden={duplicate || undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul><a className="product-card-link" href={href} target="_blank" rel="noreferrer" tabIndex={duplicate ? -1 : 0} onClick={() => trackEvent("product_line_click", { line: item.title.pt })}>{t("prod.details")} <span>↗</span></a></article>; })}
+      {[...productLines, ...productLines].map((item, index) => { const duplicate = index >= productLines.length; return <article className="product-card" key={`${item.number}-${index}`} aria-hidden={duplicate || undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul></article>; })}
     </div>
     <div className="product-carousel-controls"><span>{t("prod.carControl")} · {String(carouselIndex + 1).padStart(2, "0")} / {String(productLines.length).padStart(2, "0")}</span><div><button onClick={() => move(-1)} aria-label={t("prod.carPrev")}>←</button><button onClick={() => move(1)} aria-label={t("prod.carNext")}>→</button></div></div>
   </section>;
@@ -691,7 +621,7 @@ function ProductsPanel() {
     <ProductCarousel />
     <div className="subsection-heading"><Eyebrow>{t("prod.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.secHeading") }} /></div>
     <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title[lang]}><span className="product-context-icon-wrap"><ProductContextIcon index={index} /></span><div className="product-context-copy"><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div></article>)}</div>
-    <nav className="product-context-actions" aria-label={t("prod.contextCtaAria")}><a className="button button--yellow" href={WHATSAPP} target="_blank" rel="noreferrer">{t("prod.contextCta")} <span>↗</span></a><a className="button button--outline" href="/fabricantes">{t("prod.contextAltCta")} <span>→</span></a></nav>
+    <nav className="product-context-actions" aria-label={t("prod.contextCtaAria")}><a className="button button--outline" href="/fabricantes">{t("prod.contextAltCta")} <span>→</span></a></nav>
     <div className="quality-banner"><span>{t("prod.bannerEyebrow")}</span><h4 dangerouslySetInnerHTML={{ __html: t("prod.bannerHeading") }} /><p>{t("prod.bannerText")}</p></div>
     <aside className="info-strip"><strong>{t("prod.notFound")}</strong><a className="text-link" href={WHATSAPP} target="_blank" rel="noreferrer">{t("prod.cta")} <span>↗</span></a></aside>
   </div>;
@@ -710,7 +640,7 @@ function StructurePanel({ onContact }: { onContact: () => void }) {
   const { lang, t } = useLanguage();
   return <div className="structure-page">
     <PanelHeading kicker={t("str.kicker")} title={t("str.title")} text={t("str.text")} />
-    <div className="locations-grid">{locations.map(location => <article className="location-card" key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type[lang]}</span></div><h4>{location.city}</h4><p className="location-area">{location.area[lang]}</p><a className="location-address" href={location.addressHref} target="_blank" rel="noreferrer" aria-label={`Endereço ${location.city}`}><span>{location.address}</span></a><a className="location-phone" href={location.phoneHref} aria-label={t("str.cardAria").replace("{city}", location.city)}><span>{t("str.phone")}</span><strong>{location.phone}</strong></a><p>{location.description[lang]}</p><ul>{location.capabilities.map(item => <li key={item[lang]}>{item[lang]}</li>)}</ul><button onClick={onContact}>{t("str.cardCta")}</button></article>)}</div>
+    <div className="locations-grid">{locations.map(location => <article className="location-card" data-city={location.city} key={location.code}><div className="location-top"><span>{location.code}</span><span>{location.type[lang]}</span></div><h4>{location.city}</h4><p className="location-area">{location.area[lang]}</p><a className="location-address" href={location.addressHref} target="_blank" rel="noreferrer" aria-label={`Endereço ${location.city}`}><span>{location.address}</span></a><a className="location-phone" href={location.phoneHref} aria-label={t("str.cardAria").replace("{city}", location.city)}><span>{t("str.phone")}</span><strong>{location.phone}</strong></a><p>{location.description[lang]}</p><ul>{location.capabilities.map(item => <li key={item[lang]}>{item[lang]}</li>)}</ul><button onClick={onContact}>{t("str.cardCta")}</button></article>)}</div>
     <aside className="coverage-banner"><Eyebrow light>{t("str.coverEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("str.coverHeading") }} /><p>{t("str.coverText")}</p></aside>
     <div className="subsection-heading"><Eyebrow>{t("str.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("str.secHeading") }} /><p className="subsection-description">{t("str.secDesc")}</p></div>
     <div className="journey-list">{operationalJourney.map(item => <article className="journey-item" key={item.step}><span>{item.step}</span><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
@@ -749,7 +679,7 @@ function ServicePanel() {
   </div>;
 }
 
-function StarkePageContent({ initialSection = "institucional", showSplash = false }: { initialSection?: TabId; showSplash?: boolean }) {
+function StarkePageContent({ initialSection = "institucional" }: { initialSection?: TabId }) {
   const { lang: language, setLanguage, t } = useLanguage();
   const WHATSAPP = language === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const tabs = useMemo(() => translatedTabs.map(tab => ({ ...tab, label: tab.label[language] })), [language]);
@@ -760,68 +690,14 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   });
   const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 28);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [splashDone, setSplashDone] = useState(() => {
-    if (!showSplash) return true;
-    if (typeof window === "undefined") return false;
-    return window.sessionStorage.getItem("starke-welcome-seen") === "true";
-  });
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabListRef = useRef<HTMLDivElement>(null);
   const activeSectionMounted = useRef(false);
-  const lenisRef = useRef<Lenis | null>(null);
 
   const scrollToExplore = useCallback(() => {
-    const lenis = lenisRef.current;
-    if (lenis) lenis.scrollTo("#explore", { duration: 1.2, offset: -70, easing: (t) => 1 - Math.pow(1 - t, 4) });
-    else document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
-  useEffect(() => {
-    if (splashDone) return;
-    const html = document.documentElement;
-    const body = document.body;
-    const previousHtmlOverflow = html.style.overflow;
-    const previousBodyOverflow = body.style.overflow;
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-    window.scrollTo(0, 0);
-    return () => {
-      html.style.overflow = previousHtmlOverflow;
-      body.style.overflow = previousBodyOverflow;
-    };
-  }, [splashDone]);
-
-  useEffect(() => {
-    if (!splashDone) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-    const limitedDevice = navigator.hardwareConcurrency <= 4 || (deviceMemory !== undefined && deviceMemory <= 4);
-    const smoothWheel = !reduceMotion && !coarsePointer && !limitedDevice;
-    if (!smoothWheel) {
-      lenisRef.current = null;
-      return;
-    }
-    const lenis = new Lenis({
-      autoRaf: true,
-      lerp: 0.18,
-      smoothWheel,
-      wheelMultiplier: 1,
-      touchMultiplier: 1,
-      syncTouch: false,
-      overscroll: false,
-    });
-    lenisRef.current = lenis;
-    return () => {
-      lenis.destroy();
-      lenisRef.current = null;
-    };
-  }, [splashDone]);
-
-  const handleSplashComplete = useCallback(() => {
-    sessionStorage.setItem("starke-welcome-seen", "true");
-    setSplashDone(true);
+    document.getElementById("explore")?.scrollIntoView({ behavior: reduceMotion ? "instant" : "smooth", block: "start" });
   }, []);
 
   useEffect(() => {
@@ -919,8 +795,7 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   const onContact = useCallback(() => changeTab("atendimento"), [changeTab]);
 
   return <>
-    {showSplash && !splashDone && <SplashScreen onComplete={handleSplashComplete} />}
-    <main id="topo" className={splashDone ? "main--ready" : "main--hidden"}>
+    <main id="topo" className="main--ready">
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""} ${mobileMenuOpen ? "masthead--menu-open" : ""}`}>
       <a className="wordmark" href="#topo" aria-label={t("nav.home")} onClick={() => setMobileMenuOpen(false)}><img src="/starke-parts-logo.png" alt="" /></a>
       <nav className="desktop-nav" aria-label={t("nav.aria")}>
@@ -947,11 +822,11 @@ function StarkePageContent({ initialSection = "institucional", showSplash = fals
   </>;
 }
 
-export function StarkePage(props: { initialSection?: TabId; showSplash?: boolean }) {
+export function StarkePage(props: { initialSection?: TabId }) {
   return <LanguageProvider><StarkePageContent {...props} /></LanguageProvider>;
 }
 
 export default function Home() {
-  return <StarkePage showSplash />;
+  return <StarkePage />;
 }
 

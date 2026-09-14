@@ -1370,7 +1370,7 @@
 }
 
 .location-card .location-address {
-  border-bottom: 1px dashed #d2cec1;
+  border-bottom: none;
   padding-bottom: 12px;
 }
 
@@ -4739,6 +4739,27 @@ html.lenis, html.lenis body { height: auto; }
 .structure-page .locations-grid .location-card:first-child .location-phone > span,
 .structure-page .locations-grid .location-card:nth-child(3) .location-phone > span {
   color: rgba(255, 255, 255, .68);
+}
+
+.structure-page .locations-grid .location-card[data-city="Santos"],
+.structure-page .locations-grid .location-card[data-city="Santos"]:hover {
+  background:
+    linear-gradient(135deg, rgba(5, 5, 5, .72), rgba(5, 5, 5, .82)),
+    url("/Unidade%20Santos.png") center 60% / cover no-repeat;
+  color: #fff;
+}
+
+.structure-page .locations-grid .location-card[data-city="Santos"] h4,
+.structure-page .locations-grid .location-card[data-city="Santos"] > p:not(.location-area),
+.structure-page .locations-grid .location-card[data-city="Santos"] li,
+.structure-page .locations-grid .location-card[data-city="Santos"] .location-phone > strong {
+  color: #fff;
+}
+
+.structure-page .locations-grid .location-card[data-city="Santos"] .location-phone,
+.structure-page .locations-grid .location-card[data-city="Santos"] li {
+  border-color: rgba(255, 255, 255, .18);
+  background: rgba(12, 12, 12, .58);
 }
 
 /* Keep FAQ content safely inside each accordion row. */
