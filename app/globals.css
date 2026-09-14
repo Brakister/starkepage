@@ -240,39 +240,6 @@ button:focus-visible, a:focus-visible, [role="tabpanel"]:focus-visible { outline
 }
 @keyframes droplet-ring { 0% { transform: scale(1); opacity: .18; } 100% { transform: scale(2.2); opacity: 0; } }
 
-.main--hidden { visibility: hidden; }
-.splash { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: var(--black); color: #fff; pointer-events: all; overflow: hidden; }
-
-.splash-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(250, 206, 45, .12), transparent 62%); }
-
-.splash-center { display: flex; flex-direction: column; align-items: center; gap: 26px; position: relative; text-align: center; padding: 0 24px; }
-
-.splash-kicker { margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .42em; text-transform: uppercase; color: rgba(255, 255, 255, .55); }
-
-.splash-title {
-  margin: 0;
-  font-family: var(--font-display), "Archivo Black", "Helvetica Neue", sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  font-size: clamp(46px, 11vw, 116px);
-  letter-spacing: .04em;
-  line-height: 1;
-  background-image: linear-gradient(90deg, #ffffff 0%, #ffffff 18%, #FACE2D 50%, #ffffff 82%, #ffffff 100%);
-  background-size: 200% auto;
-  background-position: 0 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 12px rgba(250,206,45,.35)) drop-shadow(0 0 36px rgba(250,206,45,.15));
-}
-.splash-title span { display: inline-block; color: transparent; opacity: 0; }
-.splash-title .is-ghost { opacity: .2; }
-.splash-title .is-solid { opacity: 1; }
-
-.splash-rule { display: block; width: 240px; height: 3px; background: linear-gradient(90deg, transparent, var(--red) 30%, var(--yellow) 70%, transparent); transform-origin: left center; }
-
-.splash-tagline { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: rgba(255, 255, 255, .85); }
-
 @media (max-width: 1020px) {
   .desktop-nav { gap: 2px; }
   .desktop-nav button, .desktop-nav a { padding-inline: 7px; font-size: 10px; }

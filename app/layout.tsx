@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "./expanded.css";
+import "./content.css";
+import "./visual-system.css";
 import { StarfieldBackground } from "./starfield";
 
 const montserrat = Montserrat({
@@ -110,7 +112,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon-starke.png?v=2" type="image/png" sizes="512x512" />
         <link rel="shortcut icon" href="/favicon-starke.png?v=2" type="image/png" />
-        <link rel="preload" href="/unidade-sao-paulo.webp" as="image" type="image/webp" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <link rel="canonical" href={siteOrigin.toString()} />

@@ -421,7 +421,7 @@ export const copy: Record<string, Bilingual> = {
   },
   "str.secEyebrow": { pt: "COMO AS ÁREAS SE CONECTAM", en: "HOW THE AREAS CONNECT" },
   "str.secHeading": {
-    pt: "Uma operação completa,<br />do fornecedor ao <em>pós-venda.</em>",
+    pt: "Uma operação completa,<br />do fornecedor ao <em class='text-nowrap'>pós-venda.</em>",
     en: "A complete operation,<br />from supplier to <em>after-sales.</em>",
   },
   "str.secDesc": {
@@ -1504,6 +1504,55 @@ export const companyChapters = [
   },
 ];
 
+export type CompanyGalleryItem = {
+  type: "photo" | "video";
+  image: string;
+  videoSrc?: string;
+  category: { pt: string; en: string };
+  date: { pt: string; en: string };
+  title: { pt: string; en: string };
+  text: { pt: string; en: string };
+  story: { pt: string[]; en: string[] };
+  alt: { pt: string; en: string };
+};
+
+/**
+ * Add new photo or video news cards here. For a video, set `type: "video"`
+ * and add `videoSrc` pointing to a file inside `public`.
+ */
+export const companyGallery: CompanyGalleryItem[] = [
+  {
+    type: "photo",
+    image: "/unidade-sao-paulo.webp",
+    category: { pt: "Institucional", en: "Company" },
+    date: { pt: "São Paulo", en: "São Paulo" },
+    title: { pt: "A matriz que conecta a nossa operação", en: "The headquarters that connects our operation" },
+    text: { pt: "Um ponto de encontro entre portfólio, atendimento comercial e suporte técnico especializado.", en: "A meeting point for our portfolio, commercial service and specialized technical support." },
+    story: { pt: ["A matriz da Starke Parts, em São Paulo, integra as principais frentes da empresa: atendimento comercial, gestão de portfólio e suporte técnico.", "É daqui que a operação acompanha as demandas dos parceiros, consulta aplicações e organiza as alternativas para cada necessidade. A estrutura também apoia as filiais e a expedição para diferentes regiões do Brasil."], en: ["Starke Parts' São Paulo headquarters brings together the company's main fronts: commercial service, portfolio management and technical support.", "From here, the operation follows partner requests, checks fitments and organizes alternatives for each need. The structure also supports branches and shipping to different regions of Brazil."] },
+    alt: { pt: "Fachada da matriz Starke Parts em São Paulo", en: "Starke Parts headquarters storefront in São Paulo" },
+  },
+  {
+    type: "photo",
+    image: "/unidade-campinas.webp",
+    category: { pt: "Unidades", en: "Locations" },
+    date: { pt: "Campinas", en: "Campinas" },
+    title: { pt: "Presença próxima de quem movimenta o setor", en: "Close to the people who move the industry" },
+    text: { pt: "A filial de Campinas amplia a cobertura regional e aproxima a Starke dos parceiros locais.", en: "Our Campinas branch expands regional coverage and brings Starke closer to local partners." },
+    story: { pt: ["A unidade de Campinas reforça a presença da Starke em uma das regiões mais importantes para o setor automotivo paulista.", "Com uma operação voltada ao atendimento regional, ela aproxima o portfólio de oficinas, centros automotivos e parceiros comerciais que buscam componentes para veículos importados e de alta performance."], en: ["The Campinas branch strengthens Starke's presence in one of São Paulo state's most important automotive regions.", "Focused on regional service, it brings our portfolio closer to workshops, auto service centers and commercial partners seeking parts for imported and high-performance vehicles."] },
+    alt: { pt: "Fachada da filial Starke Parts em Campinas", en: "Starke Parts branch storefront in Campinas" },
+  },
+  {
+    type: "photo",
+    image: "/unidade-santos.webp",
+    category: { pt: "Unidades", en: "Locations" },
+    date: { pt: "Santos", en: "Santos" },
+    title: { pt: "Atendimento dedicado ao litoral paulista", en: "Service dedicated to the São Paulo coast" },
+    text: { pt: "Nossa unidade em Santos fortalece o relacionamento com clientes e parceiros da Baixada Santista.", en: "Our Santos branch strengthens relationships with customers and partners in the Baixada Santista region." },
+    story: { pt: ["A filial de Santos está localizada na Vila Mathias e amplia a cobertura da Starke na Baixada Santista.", "A unidade foi pensada para manter o atendimento próximo dos clientes do litoral, apoiar parceiros locais e facilitar o acesso ao portfólio da empresa. Antes de visitar, confirme a disponibilidade da peça e o horário com a equipe."], en: ["The Santos branch is located in Vila Mathias and expands Starke's coverage in the Baixada Santista region.", "The branch was planned to keep service close to coastal customers, support local partners and make the company's portfolio more accessible. Before visiting, confirm part availability and opening hours with the team."] },
+    alt: { pt: "Fachada da filial Starke Parts em Santos", en: "Starke Parts branch storefront in Santos" },
+  },
+];
+
 export const companyOperations = [
   {
     title: { pt: "Importação e relacionamento", en: "Import and relationships" },
@@ -1738,6 +1787,11 @@ export const logisticsCoverage = [
 ];
 
 export const commonQuestions = [
+  {"question":{"pt":"Como confirmar se a peça serve no meu veículo?","en":"How can I confirm a part fits my vehicle?"},"answer":{"pt":"A aplicação pode variar conforme ano, motorização e versão. Envie esses dados e o código da peça ao atendimento. Se necessário, a equipe solicitará o chassi para conferir a referência antes da compra.","en":"Fitment may vary by year, engine and version. Send these details and the part number to our team. If needed, we will request the VIN to check the reference before purchase."}},
+  {"question":{"pt":"Todos os produtos apresentados estão em estoque?","en":"Are all products shown in stock?"},"answer":{"pt":"As linhas e marcas do site apresentam nosso portfólio e não representam estoque em tempo real. Consulte a disponibilidade da referência, a quantidade e as alternativas com a equipe antes de finalizar o pedido.","en":"The lines and brands on the website describe our portfolio, not live inventory. Check reference availability, quantity and alternatives with our team before placing an order."}},
+  {"question":{"pt":"Como consultar frete e prazo de entrega?","en":"How do I check shipping costs and delivery times?"},"answer":{"pt":"Informe o CEP de destino e as peças desejadas. A equipe confirma a disponibilidade, as opções de envio, o frete e o prazo para o seu pedido. Combine essas condições antes de concluir a compra.","en":"Provide the destination postal code and the parts you need. Our team confirms availability, shipping options, cost and timing for your order. Agree on these terms before completing the purchase."}},
+  {"question":{"pt":"Posso retirar uma peça em uma unidade?","en":"Can I collect a part at a branch?"},"answer":{"pt":"Fale com a unidade desejada antes de se deslocar para confirmar a disponibilidade da peça, a possibilidade de retirada e o horário de atendimento. Os endereços e telefones estão na página Unidades.","en":"Contact your preferred branch before travelling to confirm part availability, collection options and opening hours. Addresses and phone numbers are on the Locations page."}},
+  {"question":{"pt":"Não encontrei a peça no site. Como consultará","en":"I cannot find my part on the website. What should I do?"},"answer":{"pt":"Envie ao atendimento os dados do veículo e uma descrição da peça. Se tiver, inclua o código de referência e fotos para ajudar na identificação. A equipe consultará as opções disponíveis para a aplicação.","en":"Send the vehicle details and a description of the part to our team. Include a reference number and photos if available to help identification. The team will check available options for the application."}},
   {
     question: { pt: "A Stärke Parts atende somente oficinas?", en: "Does Stärke Parts only serve workshops?" },
     answer: {

@@ -24,7 +24,28 @@ test("renders every public route as an HTML document", async () => {
       },
     );
 
+    const html = await response.text();
     assert.equal(response.status, 200, route);
+    if (route === "/") {
+      assert.match(html, /class="hero"/, "Home keeps its introduction");
+    } else {
+      assert.doesNotMatch(html, /class="hero"/, route + " opens without the home introduction");
+      assert.match(html, /main--section/, route);
+    }
+    if (route === "/atendimento") {
+      assert.match(html, /id="service-faq-toggle"/);
+      assert.match(html, /aria-expanded="false"/);
+      assert.equal((html.match(/class="faq-item"/g) ?? []).length, 0);
+    }
+    if (route === "/empresa") {
+      assert.match(html, /company-overview/);
+      assert.match(html, /unidade-sao-paulo.webp/);
+    }
+    if (route === "/unidades") {
+      for (const city of ["São Paulo", "Sorocaba", "Campinas", "Santos"]) {
+        assert.ok(html.includes('data-city="' + city + '"'), city);
+      }
+    }
     assert.match(
       response.headers.get("content-type") ?? "",
       /^text\/html\b/i,

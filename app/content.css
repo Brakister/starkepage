@@ -1,0 +1,43 @@
+/* Direct section pages and institutional content. */
+.text-nowrap { white-space: nowrap; }
+.main--section .experience { padding-top: 130px; }
+.main--section .section-intro { margin-bottom: 28px; }
+.company-overview { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; margin: 40px 0 64px; }
+.company-overview h4 { margin: 0 0 20px; font-size: clamp(26px, 3vw, 40px); line-height: 1.15; }
+.company-overview h5 { margin: 24px 0 12px; font-size: 18px; }
+.company-overview p { line-height: 1.7; }
+.company-overview figure { margin: 0; }
+.company-overview img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 58%; border-radius: 18px; }
+.company-overview figcaption { margin-top: 12px; font-size: 13px; line-height: 1.5; }
+@media (max-width: 760px) {
+  .main--section .experience { padding-top: 100px; }
+  .company-overview { grid-template-columns: 1fr; margin-bottom: 40px; }
+}
+
+/* Footer: a shared visual baseline for navigation and contact. */
+.footer.footer--refined { position: relative; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 44px clamp(28px, 4vw, 72px); padding: 48px max(6.2vw, calc((100vw - 1440px) / 2)) 24px; border-top: 1px solid rgba(250,206,45,.3); background: radial-gradient(ellipse at 0 0, rgba(250,206,45,.055), transparent 55%), #0a0a09; }
+.footer--refined .footer-brand p { max-width: 25ch; margin: 22px 0 14px; color: #f0efe8; font-size: 19px; line-height: 1.5; }
+.footer-presence { display: block; max-width: 34ch; color: #96968e; font-size: 12px; line-height: 1.8; }
+.footer--refined .footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 24px; }
+.footer--refined .footer-links a { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 40px; border-bottom: 1px solid rgba(255,255,255,.07); }
+.footer-links a span { color: #77776e; }
+.footer--refined .footer-contact p { margin: 0 0 8px; max-width: 28ch; color: #d0cfc6; font-size: 15px; line-height: 1.5; }
+.footer--refined .footer-whatsapp { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 12px 16px; border: 1px solid var(--yellow); border-radius: 10px; background: var(--yellow); color: #111; font-weight: 700; }
+.footer-whatsapp svg { width: 21px; height: 21px; flex-shrink: 0; fill: currentColor; }
+.footer-whatsapp > span:last-child { margin-left: auto; }
+.footer--refined .footer-whatsapp:hover { background: #ffe477; color: #111; }
+.footer--refined .footer-instagram { min-height: 48px; gap: 11px; padding: 10px 0; font-size: 14px; font-weight: 700; }
+.footer--refined .footer-instagram svg { width: 22px; height: 22px; }
+.footer--refined .footer-instagram > span:last-child { margin-left: auto; color: var(--yellow); }
+.footer-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); color: #96968e; }
+.footer-bottom small { font-size: 11px; line-height: 1.6; }
+.footer-bottom a { display: inline-flex; align-items: center; gap: 12px; min-height: 36px; font-size: 12px; }
+.footer--refined a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 5px; }
+@media (max-width: 980px) {
+  .footer.footer--refined { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 36px 28px 88px; gap: 32px; }
+  .footer--refined .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 540px) {
+  .footer.footer--refined { grid-template-columns: minmax(0, 1fr); padding-inline: 24px; gap: 28px; }
+  .footer-bottom { align-items: flex-start; flex-direction: column; gap: 8px; }
+}

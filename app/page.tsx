@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback, useMemo, memo, type KeyboardEvent } from "react";
 import gsap from "gsap";
+import Link from "next/link";
 import {
   LanguageProvider,
   useLanguage,
@@ -16,6 +17,7 @@ import {
   companyRoadmap,
   companyChapters,
   companyOperations,
+  companyGallery,
   corporatePillars,
   applicationCriteria,
   productContexts,
@@ -420,7 +422,21 @@ const MemoClosing = memo(ClosingSection);
 function FooterSection() {
   const { lang, t } = useLanguage();
   const whatsapp = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
-  return <footer className="footer"><div className="footer-brand"><a className="wordmark" href="#topo" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" /></a><p>{t("footer.tagline")}</p></div><nav aria-label={t("footer.quickLinks")}><strong>{t("footer.quickLinks")}</strong>{translatedTabs.map(tab => <a key={tab.id} href={routes[tab.id]}>{tab.label[lang]}</a>)}</nav><div className="footer-contact"><strong>{t("footer.contact")}</strong><a href={whatsapp} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { source: "footer" })}>WhatsApp ↗</a><a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon />Instagram ↗</a></div><small>© {new Date().getFullYear()} Stärke Parts. {t("footer.rights")}</small></footer>;
+  return <footer className="footer footer--refined">
+    <div className="footer-brand">
+      <Link className="wordmark" href="/" aria-label={t("nav.home")}><img src="/starke-parts-logo.png" alt="" loading="lazy" decoding="async" /></Link>
+      <p>{t("footer.tagline")}</p>
+      <span className="footer-presence">São Paulo · Sorocaba · Campinas · Santos</span>
+    </div>
+    <nav aria-label={t("footer.quickLinks")}><strong>{t("footer.quickLinks")}</strong><div className="footer-links">{translatedTabs.map(tab => <a key={tab.id} href={routes[tab.id]}>{tab.label[lang]}<span aria-hidden="true">↗</span></a>)}</div></nav>
+    <div className="footer-contact">
+      <strong>{t("footer.contact")}</strong>
+      <p>{lang === "pt" ? "Vamos encontrar a peça certa para você." : "Let's find the right part for you."}</p>
+      <a className="footer-whatsapp" href={whatsapp} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { source: "footer" })}><WhatsAppIcon /><span>{lang === "pt" ? "Fale com nossa equipe" : "Talk to our team"}</span><span aria-hidden="true">↗</span></a>
+      <a className="footer-instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><InstagramIcon /><span>@starkepremiumparts</span><span aria-hidden="true">↗</span></a>
+    </div>
+    <div className="footer-bottom"><small>© {new Date().getFullYear()} Stärke Parts. {t("footer.rights")}</small><a href="#topo">{lang === "pt" ? "Voltar ao topo" : "Back to top"} <span aria-hidden="true">↑</span></a></div>
+  </footer>;
 }
 const MemoFooter = memo(FooterSection);
 
@@ -455,6 +471,72 @@ function CompanyRoadmap() {
   </div>;
 }
 
+function OperationsCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { lang } = useLanguage();
+  const [paused, setPaused] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const move = useCallback((direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>(".operation-card");
+    const gap = 16;
+    const distance = (card?.offsetWidth ?? 360) + gap;
+    if (direction === -1 && track.scrollLeft < distance / 2) track.scrollLeft = track.scrollWidth / 2;
+    track.scrollBy({ left: direction * distance, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => move(1), 3600);
+    return () => window.clearInterval(timer);
+  }, [move, paused]);
+
+  return <section className="operations-carousel" aria-label={lang === "pt" ? "Áreas da operação Stärke" : "Stärke operational areas"} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}>
+    <div className="operations-carousel__track" ref={trackRef} onPointerDown={() => setPaused(true)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".operation-card"); const distance = (card?.offsetWidth ?? 360) + 16; setIndex(Math.round(track.scrollLeft / distance) % companyOperations.length); }}>
+      {[...companyOperations, ...companyOperations].map((item, itemIndex) => <article className="operation-card" key={`${item.title[lang]}-${itemIndex}`} aria-hidden={itemIndex >= companyOperations.length || undefined}><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}
+    </div>
+    <div className="operations-carousel__controls"><span>{String(index + 1).padStart(2, "0")} / {String(companyOperations.length).padStart(2, "0")}</span><div><button type="button" onClick={() => move(-1)} aria-label={lang === "pt" ? "Operação anterior" : "Previous operation"}>←</button><button type="button" onClick={() => move(1)} aria-label={lang === "pt" ? "Próxima operação" : "Next operation"}>→</button></div></div>
+  </section>;
+}
+
+function CompanyGallery() {
+  const { lang } = useLanguage();
+  const [mediaType, setMediaType] = useState<"all" | "photo" | "video">("all");
+  const [album, setAlbum] = useState("all");
+  const [selectedItem, setSelectedItem] = useState<(typeof companyGallery)[number] | null>(null);
+  const albums = Array.from(new Set(companyGallery.map(item => item.category[lang])));
+  const items = companyGallery.filter(item => (mediaType === "all" || item.type === mediaType) && (album === "all" || item.category[lang] === album));
+  const labels = {
+    all: lang === "pt" ? "Tudo" : "All",
+    photo: lang === "pt" ? "Fotos" : "Photos",
+    video: lang === "pt" ? "Vídeos" : "Videos",
+  };
+
+  useEffect(() => {
+    if (!selectedItem) return;
+    const closeOnEscape = (event: globalThis.KeyboardEvent) => { if (event.key === "Escape") setSelectedItem(null); };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [selectedItem]);
+
+  return <section className="company-gallery" aria-labelledby="company-gallery-title">
+    <div className="company-gallery__heading">
+      <div><Eyebrow>{lang === "pt" ? "GALERIA STÄRKE" : "STÄRKE GALLERY"}</Eyebrow><h4 id="company-gallery-title">{lang === "pt" ? "Notícias, bastidores e momentos da nossa operação." : "News, behind the scenes and moments from our operation."}</h4></div>
+      <div className="company-gallery__filters">
+        <div className="company-gallery__type" role="group" aria-label={lang === "pt" ? "Tipo de mídia" : "Media type"}>{(["all", "photo", "video"] as const).map(type => <button type="button" key={type} className={mediaType === type ? "is-active" : ""} aria-pressed={mediaType === type} onClick={() => setMediaType(type)}>{labels[type]}</button>)}</div>
+        <label className="company-gallery__album"><span>{lang === "pt" ? "Álbum" : "Album"}</span><select value={album} onChange={event => setAlbum(event.target.value)}><option value="all">{lang === "pt" ? "Todas as categorias" : "All categories"}</option>{albums.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
+      </div>
+    </div>
+    {items.length ? <div className="company-gallery__grid">{items.map(item => <article className={`gallery-card gallery-card--${item.type}`} key={item.title[lang]}>
+      <button type="button" className="gallery-card__media" onClick={() => setSelectedItem(item)} aria-label={`${lang === "pt" ? "Ampliar" : "Expand"}: ${item.title[lang]}`}>{"videoSrc" in item && item.videoSrc ? <video muted preload="metadata" poster={item.image}><source src={item.videoSrc} /></video> : <img src={item.image} alt={item.alt[lang]} loading="lazy" decoding="async" />}<span>{item.type === "video" ? (lang === "pt" ? "Vídeo" : "Video") : (lang === "pt" ? "Foto" : "Photo")}</span><i aria-hidden="true">↗</i></button>
+      <div className="gallery-card__copy"><small>{item.category[lang]} · {item.date[lang]}</small><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div>
+    </article>)}</div> : <div className="company-gallery__empty"><strong>{lang === "pt" ? "Nenhum conteúdo encontrado." : "No content found."}</strong><p>{lang === "pt" ? "Tente outro tipo de mídia ou categoria." : "Try another media type or category."}</p></div>}
+    {selectedItem && <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={selectedItem.title[lang]} onMouseDown={event => { if (event.target === event.currentTarget) setSelectedItem(null); }}><div className="gallery-lightbox__content"><button type="button" className="gallery-lightbox__close" onClick={() => setSelectedItem(null)} aria-label={lang === "pt" ? "Fechar visualização" : "Close preview"}>×</button>{"videoSrc" in selectedItem && selectedItem.videoSrc ? <video controls autoPlay preload="metadata" poster={selectedItem.image}><source src={selectedItem.videoSrc} /></video> : <img src={selectedItem.image} alt={selectedItem.alt[lang]} />}<div className="gallery-lightbox__caption"><small>{selectedItem.category[lang]} · {selectedItem.date[lang]}</small><h5>{selectedItem.title[lang]}</h5><p className="gallery-lightbox__lead">{selectedItem.text[lang]}</p><div className="gallery-lightbox__story">{selectedItem.story[lang].map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div></div></div>}
+  </section>;
+}
+
 function ProductCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const { lang, t } = useLanguage();
@@ -477,7 +559,7 @@ function ProductCarousel() {
   }, [carouselPaused, move]);
 
   return <section className="product-carousel" aria-label={t("prod.carAria")}>
-    <div className="product-grid product-carousel-track" ref={trackRef} onMouseEnter={() => setCarouselPaused(true)} onMouseLeave={() => setCarouselPaused(false)} onFocusCapture={() => setCarouselPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false); }} onPointerDown={() => setCarouselPaused(true)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".product-card"); const distance = (card?.offsetWidth ?? 390) + 14; setCarouselIndex(Math.round(track.scrollLeft / distance) % productLines.length); }}>
+    <div className="product-grid product-carousel-track" ref={trackRef} onMouseEnter={() => setCarouselPaused(true)} onMouseLeave={() => setCarouselPaused(false)} onFocusCapture={() => setCarouselPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false); }} onPointerDown={() => setCarouselPaused(true)} onPointerUp={() => setCarouselPaused(false)} onPointerCancel={() => setCarouselPaused(false)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".product-card"); const distance = (card?.offsetWidth ?? 390) + 14; setCarouselIndex(Math.round(track.scrollLeft / distance) % productLines.length); }}>
       {[...productLines, ...productLines].map((item, index) => { const duplicate = index >= productLines.length; return <article className="product-card" key={`${item.number}-${index}`} aria-hidden={duplicate || undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul></article>; })}
     </div>
     <div className="product-carousel-controls"><span>{t("prod.carControl")} · {String(carouselIndex + 1).padStart(2, "0")} / {String(productLines.length).padStart(2, "0")}</span><div><button onClick={() => move(-1)} aria-label={t("prod.carPrev")}>←</button><button onClick={() => move(1)} aria-label={t("prod.carNext")}>→</button></div></div>
@@ -522,6 +604,19 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
       </div>
     </div>
 
+    <section className="company-overview" aria-labelledby="company-overview-title">
+      <div>
+        <h4 id="company-overview-title">{lang === "pt" ? "Conheça a Starke de perto" : "Get to know Starke"}</h4>
+        <p>{lang === "pt" ? "Desde 2016, a Starke Parts atua na distribuição de autopeças para veículos importados e de alta performance. Nossa matriz em São Paulo e as filiais de Sorocaba, Campinas e Santos aproximam o atendimento de oficinas, lojistas e proprietários." : "Since 2016, Starke Parts has distributed parts for imported and high-performance vehicles. Our São Paulo headquarters and branches in Sorocaba, Campinas and Santos bring service closer to workshops, retailers and vehicle owners."}</p>
+        <h5>{lang === "pt" ? "Como nossa equipe atende você" : "How our team helps you"}</h5>
+        <p>{lang === "pt" ? "O atendimento começa pela identificação do veículo e da peça. A equipe consulta a aplicação e a disponibilidade, apresenta as alternativas e orienta sobre as condições de entrega. Para começar, tenha em mãos modelo, ano, motorização e o código da peça, se disponível." : "Service starts by identifying the vehicle and part. Our team checks fitment and availability, presents alternatives and explains delivery options. Have the model, year, engine and part number ready, if available."}</p>
+        <a className="text-link" href="/atendimento">{lang === "pt" ? "Entenda o atendimento" : "Learn about our service"} →</a>
+      </div>
+      <figure><img src="/unidade-sao-paulo.webp" alt={lang === "pt" ? "Fachada da matriz Starke Parts em São Paulo" : "Starke Parts headquarters storefront in São Paulo"} width="1055" height="1491" loading="lazy" decoding="async" /><figcaption>{lang === "pt" ? "Nossa matriz em São Paulo · Chácara Santo Antônio" : "Our São Paulo headquarters · Chácara Santo Antônio"}</figcaption></figure>
+    </section>
+
+    <CompanyGallery />
+
     <div className="editorial-grid editorial-grid--no-photo">
       <div className="editorial-copy">
         <span className="section-number">{t("inst.edit.eyebrow")}</span>
@@ -533,7 +628,6 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
       </div>
     </div>
 
-    <div className="metric-grid"><div><strong>2016</strong><span>{t("inst.met1")}</span></div><div><strong>04</strong><span>{t("inst.met2")}</span></div><div><strong>11</strong><span>{t("inst.met3")}</span></div><div><strong>BR</strong><span>{t("inst.met4")}</span></div></div>
 
     <div className="subsection-heading identity-heading"><Eyebrow>{t("inst.id.eyebrow")}</Eyebrow><h4>{t("inst.id.t1")}<br /><em>{t("inst.id.t2")}</em></h4><p className="subsection-description">{t("inst.id.desc")}</p></div>
     <div className="institutional-pillars-layout"><aside><strong>{t("inst.pill.aside")}</strong><p>{t("inst.pill.text")}</p></aside><div>{corporatePillars.map((item, index) => <article key={item.label[lang]}><span>{String(index + 1).padStart(2, "0")}</span><div><small>{item.label[lang]}</small><h5>{item.title[lang]}</h5></div><p>{item.text[lang]}</p></article>)}</div></div>
@@ -548,13 +642,13 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
     <CompanyRoadmap />
 
     <section className="operations-intro"><div><Eyebrow>{t("inst.ops.eyebrow")}</Eyebrow><h4>{t("inst.ops.t1")}<br />{t("inst.ops.t2")} <em>{t("inst.ops.t3")}</em></h4></div><aside><strong>09</strong><span>{t("inst.ops.count")}</span><p>{t("inst.ops.text")}</p></aside></section>
-    <div className="operations-grid">{companyOperations.map(item => <article className="operation-card" key={item.title[lang]}><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}</div>
+    <OperationsCarousel />
 
     <div className="principle-grid"><article><span>01</span><h5>{t("inst.princ1.t")}</h5><p>{t("inst.princ1.p")}</p></article><article><span>02</span><h5>{t("inst.princ2.t")}</h5><p>{t("inst.princ2.p")}</p></article><article><span>03</span><h5>{t("inst.princ3.t")}</h5><p>{t("inst.princ3.p")}</p></article><article><span>04</span><h5>{t("inst.princ4.t")}</h5><p>{t("inst.princ4.p")}</p></article></div>
     <div className="institutional-manifesto"><Eyebrow>{t("inst.manifesto.eyebrow")}</Eyebrow><p>{t("inst.manifesto.p")}</p><strong>{t("inst.manifesto.strong1")}<br /><em>{t("inst.manifesto.strong2")}</em></strong></div>
   </div>;
 }
-function ApplicationsPanel({ onContact }: { onContact: () => void }) {
+function ApplicationsPanel() {
   const { lang, t } = useLanguage();
   const [selected, setSelected] = useState(0);
   const [previewed, setPreviewed] = useState<number | null>(null);
@@ -600,7 +694,6 @@ function ApplicationsPanel({ onContact }: { onContact: () => void }) {
           <div className="brand-feature-copy">
             <div className="brand-feature-summary"><span>{t("app.about")}</span><p>{vehicle.about[lang]}</p></div>
             <div className="brand-feature-summary"><span>{t("app.apply")}</span><p>{vehicle.text[lang]}</p></div>
-            <button className="text-link" onClick={onContact}>{t("app.cta")} <span>↗</span></button>
           </div>
         </div>
       </article>
@@ -621,18 +714,16 @@ function ProductsPanel() {
     <ProductCarousel />
     <div className="subsection-heading"><Eyebrow>{t("prod.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("prod.secHeading") }} /></div>
     <div className="detail-grid product-context-grid">{productContexts.map((item, index) => <article className="detail-card" key={item.title[lang]}><span className="product-context-icon-wrap"><ProductContextIcon index={index} /></span><div className="product-context-copy"><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div></article>)}</div>
-    <nav className="product-context-actions" aria-label={t("prod.contextCtaAria")}><a className="button button--outline" href="/fabricantes">{t("prod.contextAltCta")} <span>→</span></a></nav>
     <div className="quality-banner"><span>{t("prod.bannerEyebrow")}</span><h4 dangerouslySetInnerHTML={{ __html: t("prod.bannerHeading") }} /><p>{t("prod.bannerText")}</p></div>
     <aside className="info-strip"><strong>{t("prod.notFound")}</strong><a className="text-link" href={WHATSAPP} target="_blank" rel="noreferrer">{t("prod.cta")} <span>↗</span></a></aside>
   </div>;
 }
 
-function ManufacturersPanel({ onContact }: { onContact: () => void }) {
+function ManufacturersPanel() {
   const { t } = useLanguage();
   return <div className="manufacturers-page">
     <PanelHeading kicker={t("man.kicker")} title={t("man.title")} text={t("man.text")} />
     <ManufacturerLogoCarousel />
-    <aside className="manufacturer-note"><div><Eyebrow>{t("man.noteEyebrow")}</Eyebrow><h4>{t("man.noteHeading")}</h4></div><button className="button button--yellow" onClick={onContact}>{t("man.cta")} <span>→</span></button></aside>
   </div>;
 }
 
@@ -665,21 +756,17 @@ function LogisticsPanel({ onContact }: { onContact: () => void }) {
 function ServicePanel() {
   const { lang, t } = useLanguage();
   const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
-  return <div className="service-page">
+  const [showFaq, setShowFaq] = useState(false);
+  return <div className="service-page service-page--clean">
     <PanelHeading kicker={t("srv.kicker")} title={t("srv.title")} text={t("srv.text")} />
-    <div className="service-audiences"><article><span>01</span><h4>{t("srv.aud1.title")}</h4><p>{t("srv.aud1.text")}</p></article><article><span>02</span><h4>{t("srv.aud2.title")}</h4><p>{t("srv.aud2.text")}</p></article><article><span>03</span><h4>{t("srv.aud3.title")}</h4><p>{t("srv.aud3.text")}</p></article></div>
-    <div className="subsection-heading"><Eyebrow>{t("srv.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.secHeading") }} /></div>
-    <div className="service-steps">{serviceSteps.map(step => <article key={step.number}><span>{step.number}</span><div><h5>{step.title[lang]}</h5><p>{step.text[lang]}</p></div></article>)}</div>
-    <aside className="chassis-note"><strong>{t("srv.chassisStrong")}</strong><span>{t("srv.chassisSpan")}</span></aside>
-    <div className="subsection-heading"><Eyebrow>{t("srv.faqEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.faqHeading") }} /></div>
-    <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question[lang]}><summary>{item.question[lang]}<span>+</span></summary><p>{item.answer[lang]}</p></details>)}</div>
-    <div className="after-sales"><span>{t("srv.afterEyebrow")}</span><h5 dangerouslySetInnerHTML={{ __html: t("srv.afterTitle") }} /><p>{t("srv.afterText")}</p></div>
+    <section className="service-process-panel"><div className="subsection-heading service-process-heading"><Eyebrow>{t("srv.secEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.secHeading") }} /></div><div className="service-steps">{serviceSteps.map(step => <article key={step.number}><span>{step.number}</span><div><h5>{step.title[lang]}</h5><p>{step.text[lang]}</p></div></article>)}</div></section>
+    <section className="service-faq-section" aria-labelledby="service-faq-toggle"><button id="service-faq-toggle" type="button" className="service-faq-toggle" aria-expanded={showFaq} onClick={() => setShowFaq(open => !open)}><span>{lang === "pt" ? "Dúvidas frequentes" : "Frequently asked questions"}</span><i aria-hidden="true">{showFaq ? "−" : "+"}</i></button>{showFaq && <div className="faq-list">{commonQuestions.map(item => <details className="faq-item" key={item.question[lang]}><summary>{item.question[lang]}<span>+</span></summary><p>{item.answer[lang]}</p></details>)}</div>}</section>
     <VehicleQuoteForm />
     <div className="contact-card"><Eyebrow light>{t("srv.contactEyebrow")}</Eyebrow><h4 dangerouslySetInnerHTML={{ __html: t("srv.contactTitle") }} /><p>{t("srv.contactText")}</p><div className="contact-socials"><a className="contact-social contact-social--whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("srv.whatsapp")}><span className="contact-social__icon" aria-hidden="true"><WhatsAppBadge /></span><span className="contact-social__copy"><small>WHATSAPP</small><strong>{t("srv.whatsapp")}</strong></span><span className="contact-social__arrow" aria-hidden="true">↗</span></a><a className="contact-social contact-social--instagram" href={INSTAGRAM} target="_blank" rel="noreferrer"><span className="contact-social__icon" aria-hidden="true"><InstagramIcon /></span><span className="contact-social__copy"><small>INSTAGRAM</small><strong>@starkepremiumparts</strong></span><span className="contact-social__arrow" aria-hidden="true">↗</span></a></div></div>
   </div>;
 }
 
-function StarkePageContent({ initialSection = "institucional" }: { initialSection?: TabId }) {
+function StarkePageContent({ initialSection = "institucional", showIntro = false }: { initialSection?: TabId; showIntro?: boolean }) {
   const { lang: language, setLanguage, t } = useLanguage();
   const WHATSAPP = language === "en" ? WHATSAPP_EN : WHATSAPP_PT;
   const tabs = useMemo(() => translatedTabs.map(tab => ({ ...tab, label: tab.label[language] })), [language]);
@@ -690,6 +777,7 @@ function StarkePageContent({ initialSection = "institucional" }: { initialSectio
   });
   const [scrolled, setScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 28);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isHome, setIsHome] = useState(showIntro);
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabListRef = useRef<HTMLDivElement>(null);
@@ -751,16 +839,18 @@ function StarkePageContent({ initialSection = "institucional" }: { initialSectio
     const onPopState = () => {
       const path = window.location.pathname;
       const id = (Object.keys(routes) as TabId[]).find(key => routes[key] === path);
-      if (id && id !== active) setActive(id);
+      setIsHome(path === "/");
+      setActive(id ?? initialSection);
     };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
-  }, [active]);
+  }, [initialSection]);
 
   const changeTab = useCallback((id: TabId, shouldScroll = true) => {
     setMobileMenuOpen(false);
+    setIsHome(false);
     setActive(current => {
-      if (current !== id) {
+      if (current !== id || window.location.pathname !== routes[id]) {
         const path = routes[id];
         if (window.location.pathname !== path) {
           window.history.pushState({ tab: id }, "", path);
@@ -795,9 +885,9 @@ function StarkePageContent({ initialSection = "institucional" }: { initialSectio
   const onContact = useCallback(() => changeTab("atendimento"), [changeTab]);
 
   return <>
-    <main id="topo" className="main--ready">
+    <main id="topo" className={`main--ready ${isHome ? "" : "main--section"}`}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""} ${mobileMenuOpen ? "masthead--menu-open" : ""}`}>
-      <a className="wordmark" href="#topo" aria-label={t("nav.home")} onClick={() => setMobileMenuOpen(false)}><img src="/starke-parts-logo.png" alt="" /></a>
+      <Link className="wordmark" href="/" aria-label={t("nav.home")} onClick={() => setMobileMenuOpen(false)}><img src="/starke-parts-logo.png" alt="" /></Link>
       <nav className="desktop-nav" aria-label={t("nav.aria")}>
         {tabs.slice(0, 6).map(tab => <button key={tab.id} className={active === tab.id ? "is-active" : ""} aria-current={active === tab.id ? "page" : undefined} onClick={() => changeTab(tab.id)}>{tab.label}</button>)}
       </nav>
@@ -811,10 +901,8 @@ function StarkePageContent({ initialSection = "institucional" }: { initialSectio
         <a href={WHATSAPP} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>{t("nav.cta")} <span>↗</span></a>
       </nav>
     </header>
-    <MemoHero />
-    <MemoTicker />
-    <MemoStoryIntro />
-    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel onContact={onContact} />}{active === "produtos" && <ProductsPanel />}{active === "fabricantes" && <ManufacturersPanel onContact={onContact} />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
+    {isHome && <><MemoHero /><MemoTicker /><MemoStoryIntro /></>}
+    <section className="experience" id="explore" aria-labelledby="explore-heading"><div className="section-intro"><Eyebrow>{t("explore.eyebrow")}</Eyebrow><h2 id="explore-heading" dangerouslySetInnerHTML={{ __html: t("explore.heading") }} /><p>{t("explore.desc")}</p></div><div className="tab-list" ref={tabListRef} role="tablist" aria-label={t("explore.aria")}><div className="tab-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} /><span className="tab-droplet" style={{ left: indicatorStyle.left + indicatorStyle.width / 2 }} />{tabs.map((tab, index) => <button key={tab.id} ref={element => { tabRefs.current[index] = element; }} id={`tab-${tab.id}`} className={`tab ${active === tab.id ? "tab--active" : ""}`} role="tab" aria-selected={active === tab.id} aria-controls={`panel-${tab.id}`} tabIndex={active === tab.id ? 0 : -1} onClick={() => changeTab(tab.id, false)} onKeyDown={event => onTabKeyDown(event, index)}><span>{tab.number}</span>{tab.label}</button>)}</div><article key={active} className="tab-panel tab-panel--in" role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`} tabIndex={0}>{active === "institucional" && <InstitutionalPanel onContact={onContact} />}{active === "aplicacoes" && <ApplicationsPanel />}{active === "produtos" && <ProductsPanel />}{active === "fabricantes" && <ManufacturersPanel />}{active === "estrutura" && <StructurePanel onContact={onContact} />}{active === "logistica" && <LogisticsPanel onContact={onContact} />}{active === "atendimento" && <ServicePanel />}</article></section>
     <MemoClosing />
     <a className="floating-whatsapp" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label={t("floatWhatsapp")} onClick={() => trackEvent("whatsapp_click", { source: "floating_button" })}><WhatsAppIcon /><span>{t("floatWhatsapp")}</span></a>
     <MemoFooter />
@@ -822,11 +910,10 @@ function StarkePageContent({ initialSection = "institucional" }: { initialSectio
   </>;
 }
 
-export function StarkePage(props: { initialSection?: TabId }) {
-  return <LanguageProvider><StarkePageContent {...props} /></LanguageProvider>;
+export function StarkePage(props: { initialSection?: TabId; showIntro?: boolean }) {
+  return <LanguageProvider><StarkePageContent key={props.showIntro ? "home" : props.initialSection} {...props} /></LanguageProvider>;
 }
 
 export default function Home() {
-  return <StarkePage />;
+  return <StarkePage showIntro />;
 }
-
