@@ -31,6 +31,13 @@ const INSTAGRAM = "https://www.instagram.com/starkepremiumparts/";
 const WHATSAPP_PT = "https://wa.me/5511952063102?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20um%20especialista%20da%20St%C3%A4rke%20Parts.";
 const WHATSAPP_EN = "https://wa.me/5511952063102?text=Hello%2C%20I%27d%20like%20to%20talk%20to%20a%20St%C3%A4rke%20Parts%20specialist.";
 
+function CarouselArrow({ direction }: { direction: "previous" | "next" }) {
+  return <svg className={`carousel-arrow carousel-arrow--${direction}`} viewBox="0 0 28 26" aria-hidden="true">
+    <path className="carousel-arrow__depth" d="M4 14.5h18M16 8.5l6 6-6 6" />
+    <path className="carousel-arrow__face" d="M4 12.5h18M16 6.5l6 6-6 6" />
+  </svg>;
+}
+
 function trackEvent(name: string, detail: Record<string, string> = {}) {
   if (typeof window === "undefined") return;
   const analyticsWindow = window as typeof window & { dataLayer?: Array<Record<string, string>> };
@@ -467,7 +474,7 @@ function CompanyRoadmap() {
 
   return <div className="roadmap-shell">
     <div className="company-roadmap" ref={trackRef} onScroll={() => { const track = trackRef.current; if (track && track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; }} aria-label={t("road.aria")}>{[...companyRoadmap, ...companyRoadmap].map((item, index) => <article className={`roadmap-item ${item.year === "2026" ? "roadmap-item--current" : ""}`} key={`${item.year}-${index}`} aria-hidden={index >= companyRoadmap.length ? true : undefined}><div className="roadmap-marker"><span>{String((index % companyRoadmap.length) + 1).padStart(2, "0")}</span></div><div className="roadmap-year"><strong>{item.year}</strong><span>{item.stage[lang]}</span></div><div className="roadmap-copy"><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div></article>)}</div>
-    <div className="roadmap-controls"><span><i /> ROADMAP 2016 — 2026</span><div><button onClick={() => move(-1)} aria-label={t("road.prev")}>←</button><button onClick={() => move(1)} aria-label={t("road.next")}>→</button></div></div>
+    <div className="roadmap-controls"><span><i /> ROADMAP 2016 — 2026</span><div><button className="carousel-nav-button" onClick={() => move(-1)} aria-label={t("road.prev")}><CarouselArrow direction="previous" /></button><button className="carousel-nav-button" onClick={() => move(1)} aria-label={t("road.next")}><CarouselArrow direction="next" /></button></div></div>
   </div>;
 }
 
@@ -497,7 +504,7 @@ function OperationsCarousel() {
     <div className="operations-carousel__track" ref={trackRef} onPointerDown={() => setPaused(true)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".operation-card"); const distance = (card?.offsetWidth ?? 360) + 16; setIndex(Math.round(track.scrollLeft / distance) % companyOperations.length); }}>
       {[...companyOperations, ...companyOperations].map((item, itemIndex) => <article className="operation-card" key={`${item.title[lang]}-${itemIndex}`} aria-hidden={itemIndex >= companyOperations.length || undefined}><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></article>)}
     </div>
-    <div className="operations-carousel__controls"><span>{String(index + 1).padStart(2, "0")} / {String(companyOperations.length).padStart(2, "0")}</span><div><button type="button" onClick={() => move(-1)} aria-label={lang === "pt" ? "Operação anterior" : "Previous operation"}>←</button><button type="button" onClick={() => move(1)} aria-label={lang === "pt" ? "Próxima operação" : "Next operation"}>→</button></div></div>
+    <div className="operations-carousel__controls"><span>{String(index + 1).padStart(2, "0")} / {String(companyOperations.length).padStart(2, "0")}</span><div><button type="button" className="carousel-nav-button" onClick={() => move(-1)} aria-label={lang === "pt" ? "Operação anterior" : "Previous operation"}><CarouselArrow direction="previous" /></button><button type="button" className="carousel-nav-button" onClick={() => move(1)} aria-label={lang === "pt" ? "Próxima operação" : "Next operation"}><CarouselArrow direction="next" /></button></div></div>
   </section>;
 }
 
@@ -562,7 +569,7 @@ function ProductCarousel() {
     <div className="product-grid product-carousel-track" ref={trackRef} onMouseEnter={() => setCarouselPaused(true)} onMouseLeave={() => setCarouselPaused(false)} onFocusCapture={() => setCarouselPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false); }} onPointerDown={() => setCarouselPaused(true)} onPointerUp={() => setCarouselPaused(false)} onPointerCancel={() => setCarouselPaused(false)} onScroll={() => { const track = trackRef.current; if (!track) return; if (track.scrollLeft >= track.scrollWidth / 2) track.scrollLeft -= track.scrollWidth / 2; const card = track.querySelector<HTMLElement>(".product-card"); const distance = (card?.offsetWidth ?? 390) + 14; setCarouselIndex(Math.round(track.scrollLeft / distance) % productLines.length); }}>
       {[...productLines, ...productLines].map((item, index) => { const duplicate = index >= productLines.length; return <article className="product-card" key={`${item.number}-${index}`} aria-hidden={duplicate || undefined}><div className="product-card-top"><span>{item.number}</span><span>{item.family[lang]}</span></div><h4>{item.title[lang]}</h4><p>{item.text[lang]}</p><ul>{item.items.map(part => <li key={part[lang]}>{part[lang]}</li>)}</ul></article>; })}
     </div>
-    <div className="product-carousel-controls"><span>{t("prod.carControl")} · {String(carouselIndex + 1).padStart(2, "0")} / {String(productLines.length).padStart(2, "0")}</span><div><button onClick={() => move(-1)} aria-label={t("prod.carPrev")}>←</button><button onClick={() => move(1)} aria-label={t("prod.carNext")}>→</button></div></div>
+    <div className="product-carousel-controls"><span>{t("prod.carControl")} · {String(carouselIndex + 1).padStart(2, "0")} / {String(productLines.length).padStart(2, "0")}</span><div><button className="carousel-nav-button" onClick={() => move(-1)} aria-label={t("prod.carPrev")}><CarouselArrow direction="previous" /></button><button className="carousel-nav-button" onClick={() => move(1)} aria-label={t("prod.carNext")}><CarouselArrow direction="next" /></button></div></div>
   </section>;
 }
 
