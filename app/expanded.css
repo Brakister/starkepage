@@ -2054,7 +2054,6 @@
 }
 .institutional-page .institutional-manifesto { max-width: 1040px; margin-right: auto; margin-left: auto; }
 .institutional-page .institutional-manifesto { position: relative; display: grid; grid-template-columns: .72fr 1.28fr; grid-template-rows: auto auto; gap: 32px 78px; align-content: center; max-width: 100%; min-height: 620px; overflow: hidden; margin-top: 120px; padding: 82px; border: 0; border-radius: 4px; background: #080808; color: #fff; }
-.institutional-page .institutional-manifesto::before { position: absolute; top: 82px; bottom: 82px; left: 39%; width: 1px; height: auto; border-radius: 0; background: rgba(250,206,45,.45); content: ""; }
 .institutional-page .institutional-manifesto .eyebrow { align-self: start; justify-self: start; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--yellow); font-size: 11px; box-shadow: none; }
 .institutional-page .institutional-manifesto .eyebrow > span { background: var(--red); }
 .institutional-page .institutional-manifesto > p { grid-column: 1; align-self: start; max-width: 390px; margin: 0; color: rgba(255,255,255,.62); font-size: 16px; line-height: 1.9; }
@@ -2110,7 +2109,6 @@
   .institutional-page .chapter-index { flex-direction: row; align-items: center; }
   .institutional-page .operations-grid { grid-template-columns: 1fr; }
   .institutional-page .institutional-manifesto { grid-template-columns: 1fr; grid-template-rows: auto; gap: 38px; min-height: 660px; padding: 55px 30px; }
-  .institutional-page .institutional-manifesto::before { top: 105px; right: 30px; bottom: auto; left: 30px; width: auto; height: 1px; }
   .institutional-page .institutional-manifesto > p { font-size: 15px; }
   .institutional-page .institutional-manifesto > strong { grid-column: 1; grid-row: auto; padding: 0; font-size: 48px; }
   .institutional-page .operations-heading { grid-template-columns: 1fr; grid-template-rows: auto; gap: 28px; min-height: 0; padding: 42px 24px 24px; }
