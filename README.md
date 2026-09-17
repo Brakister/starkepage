@@ -2,6 +2,12 @@
 
 Versão completa construída sobre a estética da primeira proposta do projeto: visual institucional premium, fundo escuro, amarelo Stärke como destaque e componentes limpos, agora com todo o conteúdo institucional e comercial ampliado.
 
+## Formulário Trabalhe conosco
+
+O formulário da página `/trabalhe-conosco`, acessível pelo rodapé, envia currículos para `departamentopessoal@starkeparts.com` pela API da Resend. Configure `RESEND_API_KEY` e `CAREERS_FROM_EMAIL` no ambiente de produção. O remetente precisa pertencer a um domínio verificado na Resend. Para desenvolvimento local, use um arquivo `.env.local` não versionado.
+
+Sem essas duas variáveis, o formulário informa que o envio está indisponível. São aceitos PDF, DOC e DOCX de até 5 MB.
+
 ## Stack
 - React
 - Vite

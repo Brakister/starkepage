@@ -410,7 +410,7 @@ function FooterSection() {
       <p>{t("footer.tagline")}</p>
       <span className="footer-presence">São Paulo · Sorocaba · Campinas · Santos</span>
     </div>
-    <nav aria-label={t("footer.quickLinks")}><strong>{t("footer.quickLinks")}</strong><div className="footer-links">{translatedTabs.map(tab => <a key={tab.id} href={routes[tab.id]}>{tab.label[lang]}<span aria-hidden="true">↗</span></a>)}</div></nav>
+    <nav aria-label={t("footer.quickLinks")}><strong>{t("footer.quickLinks")}</strong><div className="footer-links">{translatedTabs.map(tab => <a key={tab.id} href={routes[tab.id]}>{tab.label[lang]}<span aria-hidden="true">↗</span></a>)}<a href="/trabalhe-conosco">{lang === "pt" ? "Trabalhe conosco" : "Careers"}<span aria-hidden="true">↗</span></a></div></nav>
     <div className="footer-contact">
       <strong>{t("footer.contact")}</strong>
       <p>{lang === "pt" ? "Vamos encontrar a peça certa para você." : "Let's find the right part for you."}</p>

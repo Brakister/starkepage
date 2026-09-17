@@ -32,25 +32,10 @@
 /* Spacing: related headings and content stay together. */
 .experience { padding-bottom: var(--section-space); }
 
-/* Slow moving light points, painted in the page background beneath its content. */
+/* Solid background for the main content. */
 :root[data-theme="dark"] .experience {
   background-color: #050505 !important;
-  background-image:
-    radial-gradient(1.6px 1.6px at 22px 30px, rgba(255,255,255,.78) 98%, transparent),
-    radial-gradient(1.2px 1.2px at 136px 114px, rgba(255,255,255,.58) 98%, transparent),
-    radial-gradient(1.4px 1.4px at 258px 64px, rgba(255,255,255,.68) 98%, transparent),
-    radial-gradient(1px 1px at 78px 176px, rgba(255,255,255,.48) 98%, transparent) !important;
-  background-size: 260px 210px, 320px 260px, 380px 300px, 440px 330px !important;
-  animation: experience-light-points 24s linear infinite;
-}
-
-@keyframes experience-light-points {
-  from { background-position: 0 0, 0 0, 0 0; }
-  to { background-position: 260px 210px, -320px 260px, 380px -300px, -440px 330px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root[data-theme="dark"] .experience { animation: none; }
+  background-image: none !important;
 }
 
 .experience .panel-heading { margin-bottom: 32px; }

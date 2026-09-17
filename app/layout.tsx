@@ -4,7 +4,6 @@ import "./globals.css";
 import "./expanded.css";
 import "./content.css";
 import "./visual-system.css";
-import { StarfieldBackground } from "./starfield";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -156,7 +155,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`antialiased ${montserrat.variable}`}>
-        <StarfieldBackground />
         {children}
       </body>
     </html>
