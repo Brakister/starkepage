@@ -342,6 +342,16 @@ function HeroSection() {
 }
 const MemoHero = memo(HeroSection);
 
+function SiteOpening() {
+  return <div className="site-opening" aria-hidden="true">
+    <div className="site-opening__brand">
+      <img src="/starke-parts-logo.png" alt="" />
+      <span>PREMIUM AUTOMOTIVE PARTS</span>
+      <i />
+    </div>
+  </div>;
+}
+
 function TickerSection() {
   const { t } = useLanguage();
   return <section className="ticker" aria-label={t("ticker.aria")}><div className="ticker-track">{[...vehicleBrands, ...vehicleBrands].map((brand, index) => <span key={`${brand.name}-${index}`}><img src={vehicleBrandLogoFiles[brand.name]} alt="" loading="lazy" decoding="async" />{!["Mercedes-Benz", "Jaguar", "MINI"].includes(brand.name) && <b aria-hidden={index >= vehicleBrands.length ? true : undefined}>{brand.name === "VW Premium" ? "Volkswagen" : brand.name}</b>}</span>)}</div></section>;
@@ -831,6 +841,7 @@ function StarkePageContent({ initialSection = "institucional", showIntro = false
   const onContact = useCallback(() => changeTab("atendimento"), [changeTab]);
 
   return <>
+    {isHome && <SiteOpening />}
     <main id="topo" className={`main--ready ${isHome ? "" : "main--section"}`}>
     <header className={`masthead ${scrolled ? "masthead--scrolled" : ""} ${mobileMenuOpen ? "masthead--menu-open" : ""}`}>
       <Link className="wordmark" href="/" aria-label={t("nav.home")} onClick={() => setMobileMenuOpen(false)}><img src="/starke-parts-logo.png" alt="" /></Link>
