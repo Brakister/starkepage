@@ -372,7 +372,7 @@ export const copy: Record<string, Bilingual> = {
   "quote.brand": { pt: "Montadora", en: "Automaker" },
   "quote.model": { pt: "Modelo do veículo", en: "Vehicle model" },
   "quote.year": { pt: "Ano", en: "Year" },
-  "quote.engine": { pt: "Motor ou versão", en: "Engine or version" },
+  "quote.engine": { pt: "Chassi do veículo", en: "Vehicle chassis (VIN)" },
   "quote.part": { pt: "Peça procurada", en: "Part needed" },
   "quote.select": { pt: "Selecione", en: "Select" },
   "quote.submit": { pt: "Solicitar orçamento", en: "Request a quote" },

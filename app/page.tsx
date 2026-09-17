@@ -215,14 +215,37 @@ function VehicleQuoteForm() {
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const labels = lang === "en"
-      ? ["Name", "Automaker", "Model", "Year", "Engine/version", "Part"]
-      : ["Nome", "Montadora", "Modelo", "Ano", "Motor/versão", "Peça"];
-    const fields = ["name", "brand", "model", "year", "engine", "part"];
-    const details = fields.map((field, index) => `${labels[index]}: ${String(data.get(field) || "-")}`).join("\n");
-    const intro = lang === "en" ? "Hello, I'd like a quote for this vehicle:" : "Olá, gostaria de um orçamento para este veículo:";
+    const name = String(data.get("name") || "").trim();
+    const brand = String(data.get("brand") || "").trim();
+    const model = String(data.get("model") || "").trim();
+    const year = String(data.get("year") || "").trim();
+    const chassis = String(data.get("chassis") || "").trim();
+    const part = String(data.get("part") || "").trim();
+    const message = lang === "en"
+      ? [
+          `Hello! My name is ${name} and I'd like to request a quote.`,
+          "",
+          "Vehicle details:",
+          `Automaker: ${brand}`,
+          `Model: ${model}`,
+          `Year: ${year}`,
+          ...(chassis ? [`Vehicle chassis (VIN): ${chassis}`] : []),
+          "",
+          `Part needed: ${part}`,
+        ].join("\n")
+      : [
+          `Olá! Meu nome é ${name} e gostaria de solicitar um orçamento.`,
+          "",
+          "Dados do veículo:",
+          `Montadora: ${brand}`,
+          `Modelo: ${model}`,
+          `Ano: ${year}`,
+          ...(chassis ? [`Chassi do veículo: ${chassis}`] : []),
+          "",
+          `Peça procurada: ${part}`,
+        ].join("\n");
     trackEvent("quote_submit", { source: "vehicle_form", brand: String(data.get("brand") || "") });
-    window.open(`https://wa.me/5511952063102?text=${encodeURIComponent(`${intro}\n\n${details}`)}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/5511952063102?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   return <section className="vehicle-quote" aria-labelledby="vehicle-quote-title">
@@ -232,7 +255,7 @@ function VehicleQuoteForm() {
       <label><span>{t("quote.brand")}</span><select name="brand" required defaultValue=""><option value="" disabled>{t("quote.select")}</option>{vehicleBrands.map(brand => <option key={brand.name}>{brand.name}</option>)}</select></label>
       <label><span>{t("quote.model")}</span><input name="model" required /></label>
       <label><span>{t("quote.year")}</span><input name="year" inputMode="numeric" pattern="[0-9]{4}" maxLength={4} required /></label>
-      <label><span>{t("quote.engine")}</span><input name="engine" /></label>
+      <label><span>{t("quote.engine")}</span><input name="chassis" /></label>
       <label><span>{t("quote.part")}</span><input name="part" required /></label>
       <button className="button button--yellow" type="submit">{t("quote.submit")} <span>↗</span></button>
       <small>{t("quote.note")}</small>
@@ -259,69 +282,13 @@ function PanelHeading({ kicker, title, text }: { kicker: string; title: string; 
 function StoryIntro() {
   const { lang, t } = useLanguage();
   const WHATSAPP = lang === "en" ? WHATSAPP_EN : WHATSAPP_PT;
-  const wrapRef = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const root = wrapRef.current;
-    if (!root) return;
-    const io = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) {
-        setReady(true);
-        io.disconnect();
-      }
-    }, { rootMargin: "900px 0px" });
-    io.observe(root);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const root = wrapRef.current;
-    if (!root || !ready) return;
-    const pinWindow = Math.max(1, root.offsetHeight - window.innerHeight);
-    let raf = 0;
-
-    const compute = () => {
-      raf = 0;
-      const top = root.getBoundingClientRect().top;
-      const p = Math.min(1, Math.max(0, -top / pinWindow));
-      setActive(Math.min(2, Math.floor(p * 3)));
-    };
-
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(compute);
-    };
-
-    compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [ready]);
-
-  const goToSlide = useCallback((index: number) => {
-    const root = wrapRef.current;
-    if (!root) return;
-    const pinWindow = Math.max(1, root.offsetHeight - window.innerHeight);
-    const rootTop = window.scrollY + root.getBoundingClientRect().top;
-    const progress = (index + 0.5) / 3;
-    window.scrollTo({
-      top: rootTop + pinWindow * progress,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-    });
-  }, []);
-
-  return <section className="story-intro" ref={wrapRef} aria-label={t("intro.aria")}>
-    {ready && <div className="story-intro__pin">
-      <article className={`story-slide story-slide--n1 ${active === 0 ? "is-active" : ""}`}>
+  return <section className="story-intro" aria-label={t("intro.aria")}>
+    <div className="story-intro__pin">
+      <article className="story-slide story-slide--n1">
         <InstitutionalVideoSection />
       </article>
 
-      <article className={`story-slide story-slide--n2 ${active === 1 ? "is-active" : ""}`}>
+      <article className="story-slide story-slide--n2">
         <div className="story-contact">
           <div className="story-contact__col story-appear">
             <div className="story-contact__head">
@@ -345,7 +312,7 @@ function StoryIntro() {
         </div>
       </article>
 
-      <article className={`story-slide story-slide--n3 ${active === 2 ? "is-active" : ""}`}>
+      <article className="story-slide story-slide--n3">
         <div className="story-ml">
           <img src="/mercadolivre.png" alt="Mercado Livre" className="story-ml__logo story-appear" loading="lazy" decoding="async" />
           <div className="story-ml__badge story-appear">
@@ -364,10 +331,7 @@ function StoryIntro() {
         </div>
       </article>
 
-      <nav className="story-rail" aria-label={lang === "en" ? "Intro slides" : "Telas de introdução"}>
-        {[0, 1, 2].map(i => <button type="button" key={i} className={`story-rail__item ${active === i ? "is-active" : ""}`} onClick={() => goToSlide(i)} aria-label={lang === "en" ? `Go to slide ${i + 1}` : `Ir para a tela ${i + 1}`} aria-current={active === i ? "step" : undefined}><b>{String(i + 1).padStart(2, "0")}</b><i aria-hidden="true" /></button>)}
-      </nav>
-    </div>}
+    </div>
   </section>;
 }
 
@@ -393,7 +357,6 @@ function InstitutionalVideoSection() {
         text: "Discover our structure, our team and the expertise that connects premium automotive parts to customers throughout Brazil.",
         label: "STÄRKE PARTS · SINCE 2016",
         aria: "Stärke Parts institutional video",
-        status: "Institutional video coming soon",
       }
     : {
         eyebrow: "VÍDEO INSTITUCIONAL",
@@ -401,7 +364,6 @@ function InstitutionalVideoSection() {
         text: "Nossa estrutura, nossa equipe e a experiência que conecta autopeças premium a clientes de todo o Brasil.",
         label: "STÄRKE PARTS · DESDE 2016",
         aria: "Vídeo institucional da Stärke Parts",
-        status: "Vídeo institucional em preparação",
       };
 
   return <section className="institutional-video" aria-labelledby="institutional-video-title">
@@ -411,10 +373,13 @@ function InstitutionalVideoSection() {
       <p>{copy.text}</p>
     </div>
     <div className="institutional-video__frame story-appear">
-      <div className="institutional-video__placeholder" role="img" aria-label={copy.aria}>
-        <img src="/unidade-sao-paulo.webp" alt="" loading="lazy" decoding="async" />
-        <span>{copy.status}</span>
-      </div>
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/YgeQs2Qi2R8"
+        title={copy.aria}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
       <span className="institutional-video__label">{copy.label}</span>
     </div>
   </section>;
@@ -874,12 +839,10 @@ function StarkePageContent({ initialSection = "institucional", showIntro = false
       </nav>
       <div className="header-actions">
         <div className="language-switcher" role="group" aria-label={t("lang.aria")}><button type="button" className={language === "pt" ? "is-active" : ""} onClick={() => setLanguage("pt")} aria-label="Português do Brasil" title="Português do Brasil" aria-pressed={language === "pt"}><BrazilFlag /></button><span aria-hidden="true" /><button type="button" className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")} aria-label="English (United States)" title="English (United States)" aria-pressed={language === "en"}><UnitedStatesFlag /></button></div>
-        <a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">{t("nav.cta")} <span>↗</span></a>
         <button type="button" className="mobile-menu-toggle" aria-label={mobileMenuOpen ? t("nav.menuClose") : t("nav.menuOpen")} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen(open => !open)}><span /><span /><span /></button>
       </div>
       <nav id="mobile-navigation" className="mobile-navigation" aria-label={t("nav.aria")} aria-hidden={!mobileMenuOpen}>
         {tabs.map(tab => <button key={tab.id} className={active === tab.id ? "is-active" : ""} aria-current={active === tab.id ? "page" : undefined} tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => changeTab(tab.id)}><span>{tab.number}</span>{tab.label}</button>)}
-        <a href={WHATSAPP} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>{t("nav.cta")} <span>↗</span></a>
       </nav>
     </header>
     {isHome && <><MemoHero /><MemoTicker /><MemoStoryIntro /></>}
