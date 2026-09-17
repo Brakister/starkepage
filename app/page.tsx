@@ -17,7 +17,6 @@ import {
   companyRoadmap,
   companyChapters,
   companyOperations,
-  companyGallery,
   corporatePillars,
   applicationCriteria,
   productContexts,
@@ -483,42 +482,6 @@ function OperationsCarousel() {
   </section>;
 }
 
-function CompanyGallery() {
-  const { lang } = useLanguage();
-  const [mediaType, setMediaType] = useState<"all" | "photo" | "video">("all");
-  const [album, setAlbum] = useState("all");
-  const [selectedItem, setSelectedItem] = useState<(typeof companyGallery)[number] | null>(null);
-  const albums = Array.from(new Set(companyGallery.map(item => item.category[lang])));
-  const items = companyGallery.filter(item => (mediaType === "all" || item.type === mediaType) && (album === "all" || item.category[lang] === album));
-  const labels = {
-    all: lang === "pt" ? "Tudo" : "All",
-    photo: lang === "pt" ? "Fotos" : "Photos",
-    video: lang === "pt" ? "Vídeos" : "Videos",
-  };
-
-  useEffect(() => {
-    if (!selectedItem) return;
-    const closeOnEscape = (event: globalThis.KeyboardEvent) => { if (event.key === "Escape") setSelectedItem(null); };
-    document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
-  }, [selectedItem]);
-
-  return <section className="company-gallery" aria-labelledby="company-gallery-title">
-    <div className="company-gallery__heading">
-      <div><Eyebrow>{lang === "pt" ? "GALERIA STÄRKE" : "STÄRKE GALLERY"}</Eyebrow><h4 id="company-gallery-title">{lang === "pt" ? "Notícias, bastidores e momentos da nossa operação." : "News, behind the scenes and moments from our operation."}</h4></div>
-      <div className="company-gallery__filters">
-        <div className="company-gallery__type" role="group" aria-label={lang === "pt" ? "Tipo de mídia" : "Media type"}>{(["all", "photo", "video"] as const).map(type => <button type="button" key={type} className={mediaType === type ? "is-active" : ""} aria-pressed={mediaType === type} onClick={() => setMediaType(type)}>{labels[type]}</button>)}</div>
-        <label className="company-gallery__album"><span>{lang === "pt" ? "Álbum" : "Album"}</span><select value={album} onChange={event => setAlbum(event.target.value)}><option value="all">{lang === "pt" ? "Todas as categorias" : "All categories"}</option>{albums.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
-      </div>
-    </div>
-    {items.length ? <div className="company-gallery__grid">{items.map(item => <article className={`gallery-card gallery-card--${item.type}`} key={item.title[lang]}>
-      <button type="button" className="gallery-card__media" onClick={() => setSelectedItem(item)} aria-label={`${lang === "pt" ? "Ampliar" : "Expand"}: ${item.title[lang]}`}>{"videoSrc" in item && item.videoSrc ? <video muted preload="metadata" poster={item.image}><source src={item.videoSrc} /></video> : <img src={item.image} alt={item.alt[lang]} loading="lazy" decoding="async" />}<span>{item.type === "video" ? (lang === "pt" ? "Vídeo" : "Video") : (lang === "pt" ? "Foto" : "Photo")}</span><i aria-hidden="true">↗</i></button>
-      <div className="gallery-card__copy"><small>{item.category[lang]} · {item.date[lang]}</small><h5>{item.title[lang]}</h5><p>{item.text[lang]}</p></div>
-    </article>)}</div> : <div className="company-gallery__empty"><strong>{lang === "pt" ? "Nenhum conteúdo encontrado." : "No content found."}</strong><p>{lang === "pt" ? "Tente outro tipo de mídia ou categoria." : "Try another media type or category."}</p></div>}
-    {selectedItem && <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={selectedItem.title[lang]} onMouseDown={event => { if (event.target === event.currentTarget) setSelectedItem(null); }}><div className="gallery-lightbox__content"><button type="button" className="gallery-lightbox__close" onClick={() => setSelectedItem(null)} aria-label={lang === "pt" ? "Fechar visualização" : "Close preview"}>×</button>{"videoSrc" in selectedItem && selectedItem.videoSrc ? <video controls autoPlay preload="metadata" poster={selectedItem.image}><source src={selectedItem.videoSrc} /></video> : <img src={selectedItem.image} alt={selectedItem.alt[lang]} />}<div className="gallery-lightbox__caption"><small>{selectedItem.category[lang]} · {selectedItem.date[lang]}</small><h5>{selectedItem.title[lang]}</h5><p className="gallery-lightbox__lead">{selectedItem.text[lang]}</p><div className="gallery-lightbox__story">{selectedItem.story[lang].map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></div></div></div>}
-  </section>;
-}
-
 function ProductCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const { lang, t } = useLanguage();
@@ -597,7 +560,6 @@ function InstitutionalPanel({ onContact }: { onContact: () => void }) {
       <figure><img src="/unidade-sao-paulo.webp" alt={lang === "pt" ? "Fachada da matriz Starke Parts em São Paulo" : "Starke Parts headquarters storefront in São Paulo"} width="1055" height="1491" loading="lazy" decoding="async" /><figcaption>{lang === "pt" ? "Nossa matriz em São Paulo · Chácara Santo Antônio" : "Our São Paulo headquarters · Chácara Santo Antônio"}</figcaption></figure>
     </section>
 
-    <CompanyGallery />
 
     <div className="editorial-grid editorial-grid--no-photo">
       <div className="editorial-copy">

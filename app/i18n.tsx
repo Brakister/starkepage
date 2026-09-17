@@ -1504,55 +1504,6 @@ export const companyChapters = [
   },
 ];
 
-export type CompanyGalleryItem = {
-  type: "photo" | "video";
-  image: string;
-  videoSrc?: string;
-  category: { pt: string; en: string };
-  date: { pt: string; en: string };
-  title: { pt: string; en: string };
-  text: { pt: string; en: string };
-  story: { pt: string[]; en: string[] };
-  alt: { pt: string; en: string };
-};
-
-/**
- * Add new photo or video news cards here. For a video, set `type: "video"`
- * and add `videoSrc` pointing to a file inside `public`.
- */
-export const companyGallery: CompanyGalleryItem[] = [
-  {
-    type: "photo",
-    image: "/unidade-sao-paulo.webp",
-    category: { pt: "Institucional", en: "Company" },
-    date: { pt: "São Paulo", en: "São Paulo" },
-    title: { pt: "A matriz que conecta a nossa operação", en: "The headquarters that connects our operation" },
-    text: { pt: "Um ponto de encontro entre portfólio, atendimento comercial e suporte técnico especializado.", en: "A meeting point for our portfolio, commercial service and specialized technical support." },
-    story: { pt: ["A matriz da Starke Parts, em São Paulo, integra as principais frentes da empresa: atendimento comercial, gestão de portfólio e suporte técnico.", "É daqui que a operação acompanha as demandas dos parceiros, consulta aplicações e organiza as alternativas para cada necessidade. A estrutura também apoia as filiais e a expedição para diferentes regiões do Brasil."], en: ["Starke Parts' São Paulo headquarters brings together the company's main fronts: commercial service, portfolio management and technical support.", "From here, the operation follows partner requests, checks fitments and organizes alternatives for each need. The structure also supports branches and shipping to different regions of Brazil."] },
-    alt: { pt: "Fachada da matriz Starke Parts em São Paulo", en: "Starke Parts headquarters storefront in São Paulo" },
-  },
-  {
-    type: "photo",
-    image: "/unidade-campinas.webp",
-    category: { pt: "Unidades", en: "Locations" },
-    date: { pt: "Campinas", en: "Campinas" },
-    title: { pt: "Presença próxima de quem movimenta o setor", en: "Close to the people who move the industry" },
-    text: { pt: "A filial de Campinas amplia a cobertura regional e aproxima a Starke dos parceiros locais.", en: "Our Campinas branch expands regional coverage and brings Starke closer to local partners." },
-    story: { pt: ["A unidade de Campinas reforça a presença da Starke em uma das regiões mais importantes para o setor automotivo paulista.", "Com uma operação voltada ao atendimento regional, ela aproxima o portfólio de oficinas, centros automotivos e parceiros comerciais que buscam componentes para veículos importados e de alta performance."], en: ["The Campinas branch strengthens Starke's presence in one of São Paulo state's most important automotive regions.", "Focused on regional service, it brings our portfolio closer to workshops, auto service centers and commercial partners seeking parts for imported and high-performance vehicles."] },
-    alt: { pt: "Fachada da filial Starke Parts em Campinas", en: "Starke Parts branch storefront in Campinas" },
-  },
-  {
-    type: "photo",
-    image: "/unidade-santos.webp",
-    category: { pt: "Unidades", en: "Locations" },
-    date: { pt: "Santos", en: "Santos" },
-    title: { pt: "Atendimento dedicado ao litoral paulista", en: "Service dedicated to the São Paulo coast" },
-    text: { pt: "Nossa unidade em Santos fortalece o relacionamento com clientes e parceiros da Baixada Santista.", en: "Our Santos branch strengthens relationships with customers and partners in the Baixada Santista region." },
-    story: { pt: ["A filial de Santos está localizada na Vila Mathias e amplia a cobertura da Starke na Baixada Santista.", "A unidade foi pensada para manter o atendimento próximo dos clientes do litoral, apoiar parceiros locais e facilitar o acesso ao portfólio da empresa. Antes de visitar, confirme a disponibilidade da peça e o horário com a equipe."], en: ["The Santos branch is located in Vila Mathias and expands Starke's coverage in the Baixada Santista region.", "The branch was planned to keep service close to coastal customers, support local partners and make the company's portfolio more accessible. Before visiting, confirm part availability and opening hours with the team."] },
-    alt: { pt: "Fachada da filial Starke Parts em Santos", en: "Starke Parts branch storefront in Santos" },
-  },
-];
-
 export const companyOperations = [
   {
     title: { pt: "Importação e relacionamento", en: "Import and relationships" },
