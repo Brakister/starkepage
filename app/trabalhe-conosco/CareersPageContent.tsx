@@ -19,18 +19,26 @@ function CareersContent() {
       setMessage(lang === "pt" ? "O currículo deve ter até 5 MB." : "Your résumé must be under 5 MB.");
       return;
     }
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
+    const area = String(data.get("area") ?? "").trim();
+    const subject = `Candidatura pelo site: ${name}`;
+    const body = [
+      lang === "pt" ? "Nova candidatura pelo site Stärke Parts" : "New application via the Stärke Parts website",
+      "",
+      `${lang === "pt" ? "Nome" : "Name"}: ${name}`,
+      `${lang === "pt" ? "E-mail" : "Email"}: ${email}`,
+      `${lang === "pt" ? "Telefone" : "Phone"}: ${phone || (lang === "pt" ? "Não informado" : "Not informed")}`,
+      `${lang === "pt" ? "Área de interesse" : "Area of interest"}: ${area || (lang === "pt" ? "Não informada" : "Not informed")}`,
+      "",
+      lang === "pt" ? "Anexe seu currículo a este e-mail antes de enviar." : "Please attach your résumé to this email before sending.",
+    ].join("\n");
     setStatus("sending");
-    try {
-      const response = await fetch("/api/careers", { method: "POST", body: data });
-      const result = await response.json() as { error?: string };
-      if (!response.ok) throw new Error(result.error || "Falha no envio.");
-      form.reset();
-      setStatus("sent");
-      setMessage(lang === "pt" ? "Currículo enviado com sucesso." : "Résumé sent successfully.");
-    } catch (error) {
-      setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Falha no envio.");
-    }
+    window.location.href = `mailto:departamentopessoal@starkeparts.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    form.reset();
+    setStatus("sent");
+    setMessage(lang === "pt" ? "Seu e-mail foi aberto. Confirme o envio com o currículo anexado." : "Your email app opened. Confirm the send with your résumé attached.");
   }
 
   return <main className="careers-page">
