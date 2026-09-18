@@ -113,7 +113,6 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon-starke.png?v=2" type="image/png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
-        <link rel="canonical" href={siteOrigin.toString()} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

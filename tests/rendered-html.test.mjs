@@ -6,7 +6,7 @@ test("renders every public route as an HTML document", async () => {
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
-  const routes = ["/", "/empresa", "/montadoras", "/produtos", "/fabricantes", "/unidades", "/logistica", "/atendimento"];
+  const routes = ["/", "/empresa", "/montadoras", "/produtos", "/fabricantes", "/unidades", "/logistica", "/atendimento", "/trabalhe-conosco"];
 
   for (const route of routes) {
     const response = await worker.fetch(
@@ -26,9 +26,12 @@ test("renders every public route as an HTML document", async () => {
 
     const html = await response.text();
     assert.equal(response.status, 200, route);
+    const canonical = `https://starkeparts.com${route === "/" ? "/" : route}`;
+    assert.equal((html.match(/rel="canonical"/g) ?? []).length, 1, `${route} has one canonical URL`);
+    assert.ok(html.includes(`href="${canonical}"`), `${route} has its own canonical URL`);
     if (route === "/") {
       assert.match(html, /class="hero"/, "Home keeps its introduction");
-    } else {
+    } else if (route !== "/trabalhe-conosco") {
       assert.doesNotMatch(html, /class="hero"/, route + " opens without the home introduction");
       assert.match(html, /main--section/, route);
     }

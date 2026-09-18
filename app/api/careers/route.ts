@@ -9,6 +9,13 @@ const allowedTypes: Record<string, string> = {
   docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 };
 
+function hasValidSignature(extension: string, bytes: Uint8Array): boolean {
+  if (extension === "pdf") return bytes.length >= 5 && String.fromCharCode(...bytes.slice(0, 5)) === "%PDF-";
+  if (extension === "doc") return bytes.length >= 8 && [0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1].every((byte, index) => bytes[index] === byte);
+  if (extension === "docx") return bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4b && bytes[2] === 0x03 && bytes[3] === 0x04;
+  return false;
+}
+
 export async function POST(request: Request) {
   const configured = process.env.RESEND_API_KEY && process.env.CAREERS_FROM_EMAIL;
   if (!configured) return Response.json({ error: "O envio de currículos ainda não está disponível." }, { status: 503 });
@@ -35,9 +42,14 @@ export async function POST(request: Request) {
   }
 
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 100);
-  const content = Buffer.from(await file.arrayBuffer()).toString("base64");
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!hasValidSignature(extension, bytes)) {
+    return Response.json({ error: "O conteúdo do currículo não corresponde ao formato informado." }, { status: 400 });
+  }
+  const content = Buffer.from(bytes).toString("base64");
   const result = await fetch("https://api.resend.com/emails", {
     method: "POST",
+    signal: AbortSignal.timeout(15_000),
     headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: process.env.CAREERS_FROM_EMAIL,

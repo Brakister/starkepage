@@ -19,14 +19,15 @@ const LanguageContext = createContext<{ lang: SiteLanguage; setLanguage: (next: 
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<SiteLanguage>(() => {
-    if (typeof window === "undefined") return "pt";
+  const [lang, setLang] = useState<SiteLanguage>("pt");
+
+  useEffect(() => {
     try {
-      return window.localStorage.getItem("starke-language") === "en" ? "en" : "pt";
+      if (window.localStorage.getItem("starke-language") === "en") setLang("en");
     } catch {
-      return "pt";
+      /* Storage can be unavailable. */
     }
-  });
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
