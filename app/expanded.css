@@ -3953,7 +3953,7 @@
     radial-gradient(50% 45% at 85% 82%, rgba(238, 50, 53, .10), transparent 60%);
 }
 
-.story-slide--n3 { background: #1a1a18; color: #fff; }
+.story-slide--n3 { background: #1a1a18; color: #fff; overflow: hidden; }
 .story-slide--n3::before {
   background:
     linear-gradient(135deg, rgba(0, 84, 184, .7), rgba(255, 230, 0, .45) 50%, rgba(0, 84, 184, .65)),
