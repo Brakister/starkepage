@@ -1067,10 +1067,33 @@
 
 .coverage-banner h4 em,
 .contact-card h4 em,
-.closing-statement h2 em,
 .logistics-card h4 em {
   color: var(--yellow);
   font-style: normal;
+}
+
+.closing-statement h2 em {
+  display: inline-block;
+  font-style: normal;
+  background: linear-gradient(100deg, var(--red) 0%, #ff7a1a 22%, var(--yellow) 48%, #ff5a33 74%, var(--red) 100%);
+  background-size: 240% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: closing-gradient-swift 3.2s linear infinite;
+}
+
+@keyframes closing-gradient-swift {
+  to { background-position: 240% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .closing-statement h2 em {
+    animation: none;
+    background: linear-gradient(100deg, var(--red), var(--yellow));
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
 }
 
 .coverage-banner > p,
